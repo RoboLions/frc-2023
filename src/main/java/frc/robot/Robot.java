@@ -4,12 +4,15 @@
 
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.lib.State;
 import frc.robot.lib.StateMachine;
+import frc.robot.lib.Transition;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,9 +26,29 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static XboxController manipulatorController = new XboxController(1);
+  public static XboxController manipulatorController;
 
-  StateMachine stateMachine;
+  /* Instances */
+  private State AButton;
+  private State BButton;
+  private State XButton;
+  private StateMachine stateMachine;
+
+  private static Supplier<Boolean> checkAButton;
+  private static Supplier<Boolean> checkBButton;
+  private static Supplier<Boolean> checkXButton;
+
+  private static Runnable initStatementA;
+  private static Runnable executeStatementA;
+  private static Runnable exitStatementA;
+
+  private static Runnable initStatementB;
+  private static Runnable executeStatementB;
+  private static Runnable exitStatementB;
+
+  private static Runnable initStatementX;
+  private static Runnable executeStatementX;
+  private static Runnable exitStatementX;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,6 +59,74 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    manipulatorController = new XboxController(1);
+
+    checkAButton = () -> {
+      if (manipulatorController.getAButton() == false) {
+        return false;
+      }   
+      return true;
+    };
+
+    checkBButton = () -> {
+      if (manipulatorController.getBButton() == false) {
+        return false;
+      }   
+      return true;
+    };
+
+    checkXButton = () -> {
+      if (manipulatorController.getXButton() == false) {
+        return false;
+      }   
+      return true;
+    };
+
+    initStatementA = () -> {
+      System.out.println("I am entering state A");
+    };
+
+    executeStatementA = () -> {
+      System.out.println("I am executing state A");
+    };
+
+    exitStatementA = () -> {
+      System.out.println("I am exiting state A");
+    };
+
+    initStatementB = () -> {
+      System.out.println("I am entering state B");
+    };
+
+    executeStatementB = () -> {
+      System.out.println("I am executing state B");
+    };
+
+    exitStatementB = () -> {
+      System.out.println("I am exiting state B");
+    };
+
+    initStatementX = () -> {
+      System.out.println("I am entering state X");
+    };
+
+    executeStatementX = () -> {
+      System.out.println("I am executing state X");
+    };
+
+    exitStatementX = () -> {
+      System.out.println("I am exiting state X");
+    };
+
+    AButton = new State(Robot.initStatementA, Robot.executeStatementA, Robot.exitStatementA);
+    AButton.addTransition(new Transition(checkBButton, BButton));
+
+    BButton = new State(Robot.initStatementB, Robot.executeStatementB, Robot.exitStatementB);
+    BButton.addTransition(new Transition(checkXButton, XButton));
+
+    XButton = new State(Robot.initStatementX, Robot.executeStatementX, Robot.exitStatementX);
+    XButton.addTransition(new Transition(checkAButton, AButton));
   }
 
   /**

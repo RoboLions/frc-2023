@@ -5,20 +5,29 @@
 package frc.robot.lib;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /** Add your docs here. */
 public class Transition {
 
-    Function<String, Boolean> transition_function;
-    State state;
+    //Function<String, Boolean> transition_function;
+    
+    private Supplier<Boolean> transition_function;
 
-    public Transition(Function<String, Boolean> func, State next_state) {
+    private State state;
+
+    /*public Transition(Function<String, Boolean> func, State next_state) {
+        transition_function = func;
+        state = next_state;
+    }*/
+
+    public Transition(Supplier<Boolean> func, State next_state) {
         transition_function = func;
         state = next_state;
     }
 
     public boolean check() {
-        return transition_function.apply("");
+        return transition_function != null;
     }
 
     public State getState() {

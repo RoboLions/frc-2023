@@ -13,9 +13,13 @@ public class State {
     public List<Transition> transitions = new ArrayList<Transition>();
     State state;
 
-    Function<String, Void> init_function;
+    /*Function<String, Void> init_function;
     Function<String, Void> execute_function;
-    Function<String, Void> exit_function;
+    Function<String, Void> exit_function;*/
+
+    private Runnable init_function;
+    private Runnable execute_function;
+    private Runnable exit_function;
 
     public State() {}
 
@@ -23,7 +27,13 @@ public class State {
         transitions = _transitions;
     }
 
-    public State(Function<String, Void> _init, Function<String, Void> _execute, Function<String, Void> _exit) {
+    /*public State(Function<String, Void> _init, Function<String, Void> _execute, Function<String, Void> _exit) {
+        init_function = _init;
+        execute_function = _execute;
+        exit_function = _exit;
+    }*/
+
+    public State(Runnable _init, Runnable _execute, Runnable _exit) {
         init_function = _init;
         execute_function = _execute;
         exit_function = _exit;
@@ -37,15 +47,15 @@ public class State {
         return transitions;
     }
 
-    public Void init() {
-        return init_function.apply("");
+    public void init() {
+        init_function.run();
     }
 
-    public Void execute() {
-        return execute_function.apply("");
+    public void execute() {
+        execute_function.run();
     }
 
-    public Void exit() {
-        return exit_function.apply("");
+    public void exit() {
+        exit_function.run();
     }
 }
