@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   public static XboxController manipulatorController;
 
   /* Instances */
-  private State AButton;
+  public static State AButton;
   private State BButton;
   private State XButton;
   private StateMachine stateMachine;
@@ -127,6 +127,8 @@ public class Robot extends TimedRobot {
 
     XButton = new State(Robot.initStatementX, Robot.executeStatementX, Robot.exitStatementX);
     XButton.addTransition(new Transition(checkAButton, AButton));
+
+    stateMachine.setCurrentState(AButton);
   }
 
   /**
