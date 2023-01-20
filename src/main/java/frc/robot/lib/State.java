@@ -5,39 +5,12 @@
 package frc.robot.lib;
 
 import java.util.*;
-import java.util.function.Function;
 
 /** Add your docs here. */
 public class State {
 
     public List<Transition> transitions = new ArrayList<Transition>();
-    State state;
-
-    /*Function<String, Void> init_function;
-    Function<String, Void> execute_function;
-    Function<String, Void> exit_function;*/
-
-    private Runnable init_function;
-    private Runnable execute_function;
-    private Runnable exit_function;
-
-    public State() {}
-
-    public State(List<Transition> _transitions) {
-        transitions = _transitions;
-    }
-
-    /*public State(Function<String, Void> _init, Function<String, Void> _execute, Function<String, Void> _exit) {
-        init_function = _init;
-        execute_function = _execute;
-        exit_function = _exit;
-    }*/
-
-    public State(Runnable _init, Runnable _execute, Runnable _exit) {
-        init_function = _init;
-        execute_function = _execute;
-        exit_function = _exit;
-    }
+    public String state_machine_name = "";
 
     public void addTransition(Transition transition) {
         transitions.add(transition);
@@ -47,15 +20,23 @@ public class State {
         return transitions;
     }
 
-    public void init() {
-        init_function.run();
+    public void init() {}
+
+    public void execute() {}
+
+    public void exit() {}
+
+    public void init_private() {
+        System.out.println(state_machine_name + ": entering state " + this.getClass().getName());
+        init();
     }
 
-    public void execute() {
-        execute_function.run();
+    public void execute_private() {
+        execute();
     }
 
-    public void exit() {
-        exit_function.run();
+    public void exit_private() {
+        System.out.println(state_machine_name + ": exiting state " + this.getClass().getName());
+        exit();
     }
 }

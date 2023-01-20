@@ -27,7 +27,7 @@ public class Transition {
     }
 
     public boolean check() {
-        return transition_function != null;
+        return transition_function.get();
     }
 
     public State getState() {

@@ -15,20 +15,24 @@ public class StateMachine {
         return currentState;
     }
 
-    public State getNextState() {
+    public void setNextState() {
+        currentState.execute_private();
         List<Transition> transitions = currentState.getTransitions();
 
         for (int i = 0; i < transitions.size(); i++) {
             Transition t = transitions.get(i);
             if (t.check()) {
-                return t.getState();
+                setCurrentState(t.getState());
             }
         }
-
-        return currentState;
     }
 
     public void setCurrentState(State newState) {
+        if (currentState != null) {
+            currentState.exit_private();
+        }
         currentState = newState;
+        currentState.state_machine_name = this.getClass().getName();
+        currentState.init_private();
     }
 }
