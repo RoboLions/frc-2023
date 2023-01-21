@@ -154,7 +154,9 @@ public class TeleopState extends State {
         rotationVal = MathUtil.applyDeadband(driverController.getRightX(), Constants.stickDeadband);
         robotCentric = driverController.getLeftBumperPressed();
 
-        System.out.println(translationVal);
+        /*if (translationVal != 0.0) {
+            System.out.println(translationVal);
+        }*/
 
         /* Drive */
         drive(
