@@ -8,6 +8,18 @@ import java.util.List;
 
 /** Add your docs here. */
 public class StateMachine {
+    
+    // Creating a class-based singleton
+    private static StateMachine INSTANCE;
+
+    public static StateMachine getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new StateMachine();
+        }
+        return INSTANCE;
+    }
+
+    protected StateMachine() {}
 
     State currentState;
 

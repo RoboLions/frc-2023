@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
   public static XboxController manipulatorController;
 
   /* Instances */
-  private ExampleSubsystemStateMachine exampleStateMachine;
+  private StateMachine exampleStateMachine = ExampleSubsystemStateMachine.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -43,7 +43,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     manipulatorController = new XboxController(1);
-    exampleStateMachine = new ExampleSubsystemStateMachine();
   }
 
   /**
