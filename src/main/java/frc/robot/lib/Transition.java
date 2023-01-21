@@ -4,32 +4,27 @@
 
 package frc.robot.lib;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
-/** Add your docs here. */
+/** Class for adding a transition to a state */
 public class Transition {
 
-    //Function<String, Boolean> transition_function;
-    
     private Supplier<Boolean> transition_function;
 
     private State state;
 
-    /*public Transition(Function<String, Boolean> func, State next_state) {
-        transition_function = func;
-        state = next_state;
-    }*/
-
+    // constructor to initialize a new transition object
     public Transition(Supplier<Boolean> func, State next_state) {
         transition_function = func;
         state = next_state;
     }
 
+    // check if the transition function returns true
     public boolean check() {
         return transition_function.get();
     }
 
+    // get the current state of the state machine
     public State getState() {
         return state;
     }

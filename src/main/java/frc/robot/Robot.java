@@ -4,16 +4,11 @@
 
 package frc.robot;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ExampleSubsystem.ExampleSubsystemStateMachine;
-import frc.robot.lib.State;
-import frc.robot.lib.StateMachine;
-import frc.robot.lib.Transition;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -30,10 +25,11 @@ public class Robot extends TimedRobot {
 
   public static CTREConfigs ctreConfigs;
 
+  /* xbox controllers */
   public static XboxController manipulatorController;
   public static XboxController driverController;
 
-  /* Instances */
+  /* state machine instances */
   private ExampleSubsystemStateMachine exampleStateMachine;
   private DrivetrainStateMachine drivetrainStateMachine;
 
@@ -65,15 +61,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+    /* state machines always execute current state and check for next state */
     exampleStateMachine.setNextState();
     drivetrainStateMachine.setNextState();
-
-    /*State nextState = stateMachine.getNextState();
-    if (nextState != currentState) {
-      currentState.exit();
-      nextState.init();
-      stateMachine.setCurrentState(nextState);
-    }*/
   }
 
   /**

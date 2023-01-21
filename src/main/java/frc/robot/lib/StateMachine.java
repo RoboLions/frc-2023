@@ -6,15 +6,18 @@ package frc.robot.lib;
 
 import java.util.List;
 
-/** Add your docs here. */
+/** Class for creating a subsystem's state machine */
 public class StateMachine {
 
     State currentState;
 
+    // returns the current state of the state machine
     public State getCurrentState() {
         return currentState;
     }
 
+    /* executes the current state, 
+       then checks if any transitions are true to transition to the next state */
     public void setNextState() {
         currentState.execute_private();
         List<Transition> transitions = currentState.getTransitions();
@@ -27,6 +30,8 @@ public class StateMachine {
         }
     }
 
+    /* checks the current state isn't null before exiting the state and 
+    setting the new state as the current state */
     public void setCurrentState(State newState) {
         if (currentState != null) {
             currentState.exit_private();

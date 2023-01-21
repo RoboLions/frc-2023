@@ -1,8 +1,5 @@
 package frc.robot.subsystems.drive;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.MathUtil;
@@ -20,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.SwerveModule;
-import frc.robot.Constants.Swerve;
 import frc.robot.lib.State;
 
 public class TeleopState extends State {
@@ -109,16 +105,10 @@ public class TeleopState extends State {
     @Override
     public void init() {
 
-        System.out.println("Set gyro ID");
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
-        
-        System.out.println("Config factory default gyro");
         gyro.configFactoryDefault();
-
-        System.out.println("Zero gyro");
         zeroGyro();
 
-        System.out.println("Instantiate swerve modules");
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),
@@ -132,7 +122,6 @@ public class TeleopState extends State {
         Timer.delay(1.0);
         resetModulesToAbsolute();
 
-        System.out.println("Instantiate swerve odometry");
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
 
     }
@@ -148,17 +137,11 @@ public class TeleopState extends State {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
 
-        /* Get Values, Deadband*/
         translationVal = MathUtil.applyDeadband(driverController.getLeftY(), Constants.stickDeadband);
         strafeVal = MathUtil.applyDeadband(driverController.getLeftX(), Constants.stickDeadband);
         rotationVal = MathUtil.applyDeadband(driverController.getRightX(), Constants.stickDeadband);
         robotCentric = driverController.getLeftBumperPressed();
 
-        /*if (translationVal != 0.0) {
-            System.out.println(translationVal);
-        }*/
-
-        /* Drive */
         drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
             rotationVal * Constants.Swerve.maxAngularVelocity, 
