@@ -1,16 +1,8 @@
 package frc.robot.ExampleSubsystem;
 
-import frc.robot.OI;
 import frc.robot.lib.State;
 
-public final class StateB extends State {
-
-    private StateB() {
-        super();
-        addTransition(() -> {
-            return OI.manipulatorController.getXButton();
-        }, StateX.getInstance());
-    }
+public class StateB extends State {
 
     @Override
     public void init() {
