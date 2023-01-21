@@ -14,6 +14,7 @@ import frc.robot.ExampleSubsystem.ExampleSubsystemStateMachine;
 import frc.robot.lib.State;
 import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
+import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,10 +28,14 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  public static CTREConfigs ctreConfigs;
+
   public static XboxController manipulatorController;
+  public static XboxController driverController;
 
   /* Instances */
   private ExampleSubsystemStateMachine exampleStateMachine;
+  private DrivetrainStateMachine drivetrainStateMachine;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -42,8 +47,13 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
+    ctreConfigs = new CTREConfigs();
+
     manipulatorController = new XboxController(1);
+    driverController = new XboxController(0);
+    
     exampleStateMachine = new ExampleSubsystemStateMachine();
+    drivetrainStateMachine = new DrivetrainStateMachine();
   }
 
   /**
@@ -56,6 +66,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     exampleStateMachine.setNextState();
+    drivetrainStateMachine.setNextState();
 
     /*State nextState = stateMachine.getNextState();
     if (nextState != currentState) {

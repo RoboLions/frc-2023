@@ -3,7 +3,7 @@ package frc.robot.ExampleSubsystem;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.OI;
+import frc.robot.Robot;
 import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
 
@@ -13,7 +13,7 @@ public class ExampleSubsystemStateMachine extends StateMachine {
     public StateB BButton = new StateB();
     public StateX XButton = new StateX();
 
-    private static XboxController manipulatorController = OI.manipulatorController;
+    private static XboxController manipulatorController = Robot.manipulatorController;
     
     public ExampleSubsystemStateMachine() {
 
@@ -29,7 +29,6 @@ public class ExampleSubsystemStateMachine extends StateMachine {
             return manipulatorController.getXButton();
         };
 
-        
         AButton.addTransition(new Transition(checkBButton, BButton));
         BButton.addTransition(new Transition(checkXButton, XButton));
         BButton.addTransition(new Transition(checkAButton, AButton));
