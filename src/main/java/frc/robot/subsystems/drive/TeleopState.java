@@ -139,8 +139,12 @@ public class TeleopState extends State {
 
         translationVal = MathUtil.applyDeadband(driverController.getLeftY(), Constants.stickDeadband);
         strafeVal = MathUtil.applyDeadband(driverController.getLeftX(), Constants.stickDeadband);
-        rotationVal = MathUtil.applyDeadband(driverController.getRightX(), Constants.stickDeadband);
+        rotationVal = MathUtil.applyDeadband(-driverController.getRightX(), Constants.stickDeadband);
         robotCentric = driverController.getLeftBumperPressed();
+
+        if (driverController.getYButton()) {
+            zeroGyro();
+        }
 
         drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
