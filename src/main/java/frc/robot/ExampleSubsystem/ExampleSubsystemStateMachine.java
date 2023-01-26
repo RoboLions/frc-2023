@@ -13,11 +13,11 @@ public class ExampleSubsystemStateMachine extends StateMachine {
     public StateB BButton = new StateB();
     public StateX XButton = new StateX();
 
-    private static XboxController manipulatorController = Robot.manipulatorController;
+    //private static XboxController manipulatorController = Robot.manipulatorController;
     
     public ExampleSubsystemStateMachine() {
 
-        Supplier<Boolean> checkAButton = () -> {
+        /*Supplier<Boolean> checkAButton = () -> {
             return manipulatorController.getAButton();
         };
 
@@ -32,7 +32,7 @@ public class ExampleSubsystemStateMachine extends StateMachine {
         AButton.addTransition(new Transition(checkBButton, BButton));
         BButton.addTransition(new Transition(checkXButton, XButton));
         BButton.addTransition(new Transition(checkAButton, AButton));
-        XButton.addTransition(new Transition(checkAButton, AButton));
+        XButton.addTransition(new Transition(checkAButton, AButton));*/
 
         setCurrentState(AButton);
     }

@@ -16,17 +16,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
 import frc.robot.lib.State;
+import frc.robot.lib.Swerve;
 
 public class TeleopState extends State {
     
-    public SwerveDriveOdometry swerveOdometry;
-    public SwerveModule[] mSwerveMods;
-    public Pigeon2 gyro;
-
-    private static XboxController driverController = Robot.driverController;
-
     double translationVal;
     double strafeVal;
     double rotationVal;
@@ -34,119 +30,45 @@ public class TeleopState extends State {
 
     public TeleopState() {}
 
-    public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-        SwerveModuleState[] swerveModuleStates =
-            Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-                fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation, 
-                                    getYaw()
-                                )
-                                : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation)
-                                );
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
-
-        for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
-        }
-    }    
-
-    /* Used by SwerveControllerCommand in Auto */
-    public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
-        
-        for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(desiredStates[mod.moduleNumber], false);
-        }
-    }    
-
-    public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
-    }
-
-    public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
-    }
-
-    public SwerveModuleState[] getModuleStates(){
-        SwerveModuleState[] states = new SwerveModuleState[4];
-        for(SwerveModule mod : mSwerveMods){
-            states[mod.moduleNumber] = mod.getState();
-        }
-        return states;
-    }
-
-    public SwerveModulePosition[] getModulePositions(){
-        SwerveModulePosition[] positions = new SwerveModulePosition[4];
-        for(SwerveModule mod : mSwerveMods){
-            positions[mod.moduleNumber] = mod.getPosition();
-        }
-        return positions;
-    }
-
-    public void zeroGyro(){
-        gyro.setYaw(0);
-    }
-
-    public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
-    }
-
-    public void resetModulesToAbsolute(){
-        for(SwerveModule mod : mSwerveMods){
-            mod.resetToAbsolute();
-        }
-    }
-
     @Override
     public void init() {
 
-        gyro = new Pigeon2(Constants.Swerve.pigeonID);
-        gyro.configFactoryDefault();
-        zeroGyro();
-
-        mSwerveMods = new SwerveModule[] {
-            new SwerveModule(0, Constants.Swerve.Mod0.constants),
-            new SwerveModule(1, Constants.Swerve.Mod1.constants),
-            new SwerveModule(2, Constants.Swerve.Mod2.constants),
-            new SwerveModule(3, Constants.Swerve.Mod3.constants)
-        };
+        Swerve.gyro.configFactoryDefault();
+        RobotMap.swerve.zeroGyro();
 
         /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
          * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
          */
         Timer.delay(1.0);
-        resetModulesToAbsolute();
+        RobotMap.swerve.resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
+        Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
 
     }
 
     @Override
     public void execute() {
 
-        swerveOdometry.update(getYaw(), getModulePositions());  
+        Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
 
-        for(SwerveModule mod : mSwerveMods){
+        for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
 
-        translationVal = MathUtil.applyDeadband(driverController.getLeftY(), Constants.stickDeadband);
-        strafeVal = MathUtil.applyDeadband(driverController.getLeftX(), Constants.stickDeadband);
-        rotationVal = MathUtil.applyDeadband(-driverController.getRightX(), Constants.stickDeadband);
-        robotCentric = driverController.getLeftBumperPressed();
+        // invert because Xbox controllers return negative values when we push forward
+        translationVal = MathUtil.applyDeadband(-Swerve.driverController.getLeftY(), Constants.stickDeadband);
+        strafeVal = MathUtil.applyDeadband(Swerve.driverController.getLeftX(), Constants.stickDeadband);
+        // invert because Xbox controllers return positive values when you pull to the right
+        rotationVal = MathUtil.applyDeadband(-Swerve.driverController.getRightX(), Constants.stickDeadband);
+        robotCentric = Swerve.driverController.getLeftBumperPressed();
 
-        if (driverController.getYButton()) {
-            zeroGyro();
+        if (Swerve.driverController.getYButton()) {
+            RobotMap.swerve.zeroGyro();
         }
 
-        drive(
+        RobotMap.swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
             rotationVal * Constants.Swerve.maxAngularVelocity, 
             !robotCentric, 
@@ -157,7 +79,7 @@ public class TeleopState extends State {
 
     @Override
     public void exit() {
-        drive(
+        RobotMap.swerve.drive(
             new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
             0 * Constants.Swerve.maxAngularVelocity, 
             !robotCentric, 
