@@ -27,7 +27,22 @@ public class Swerve {
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
     public static Pigeon2 gyro = RobotMap.gyro;
 
+    public static RoboLionsPID aprilTagRotationPID = new RoboLionsPID();
+
     public static XboxController driverController = Robot.driverController;
+
+    public Swerve() {
+        aprilTagRotationPID.initialize2(
+            0.01,
+            0.0,
+            0.0,
+            2, // Cage Limit degrees/sec 2=without weights, with weights
+            2, // Deadband
+            0.4, // MaxOutput Degrees/sec 
+            true, //enableCage
+            false //enableDeadband
+            );
+    }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =
