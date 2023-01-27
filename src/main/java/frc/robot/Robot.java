@@ -24,12 +24,6 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static CTREConfigs ctreConfigs;
-
-  /* xbox controllers */
-  public static XboxController manipulatorController;
-  public static XboxController driverController;
-
   /* state machine instances */
   private ExampleSubsystemStateMachine exampleStateMachine;
   private DrivetrainStateMachine drivetrainStateMachine;
@@ -40,15 +34,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    RobotMap.init();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    ctreConfigs = new CTREConfigs();
-
-    manipulatorController = new XboxController(1);
-    driverController = new XboxController(0);
-    
     exampleStateMachine = new ExampleSubsystemStateMachine();
     drivetrainStateMachine = new DrivetrainStateMachine();
   }

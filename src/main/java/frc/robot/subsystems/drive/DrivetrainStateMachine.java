@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
 
@@ -12,7 +13,7 @@ public class DrivetrainStateMachine extends StateMachine {
     public TeleopState teleopSwerve = new TeleopState();
     public FollowTag aprilTagState = new FollowTag();
 
-    private static XboxController driverController = Robot.driverController;
+    private static XboxController driverController = RobotMap.driverController;
 
     public DrivetrainStateMachine() {
 

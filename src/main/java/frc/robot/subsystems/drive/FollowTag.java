@@ -44,9 +44,6 @@ public class FollowTag extends State {
     // How far from the target we want to be
     final double GOAL_RANGE_METERS = Units.feetToMeters(3);
 
-    // The camera’s nickname (from the PhotonVision UI)
-    PhotonCamera camera = new PhotonCamera("Arducam_0V9281_USB_Camera");
-
     // PID constants should be tuned per robot
     /*final double LINEAR_P = 0.1;
     final double LINEAR_D = 0.0;
@@ -75,12 +72,13 @@ public class FollowTag extends State {
     @Override
     public void execute() {
 
-        var result = camera.getLatestResult();
+        var result = RobotMap.camera.getLatestResult();
 
         if (result.hasTargets()) {
             // Calculate angular turn power
             // -1.0 required to ensure positive PID controller effort _increases_ yaw
-            rotationVal = -1.0 * 0.25 * Swerve.aprilTagRotationPID.execute(0.0, result.getBestTarget().getYaw());
+            rotationVal = 1.0 * Swerve.aprilTagRotationPID.execute(0.0, result.getBestTarget().getYaw());
+            //System.out.println(rotationVal);
         } else {
             // If we have no targets, stay still.
             rotationVal = 0;

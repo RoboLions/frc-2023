@@ -27,11 +27,12 @@ public class Swerve {
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
     public static Pigeon2 gyro = RobotMap.gyro;
 
-    public static RoboLionsPID aprilTagRotationPID = new RoboLionsPID();
+    public static RoboLionsPID aprilTagRotationPID = RobotMap.rotationPID;
 
-    public static XboxController driverController = Robot.driverController;
+    public static XboxController driverController = RobotMap.driverController;
 
     public Swerve() {
+        System.out.println(aprilTagRotationPID);
         aprilTagRotationPID.initialize2(
             0.01,
             0.0,

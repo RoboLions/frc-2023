@@ -84,12 +84,12 @@ public class SwerveModule {
 
     private void configAngleEncoder(){        
         angleEncoder.configFactoryDefault();
-        angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
+        angleEncoder.configAllSettings(RobotMap.ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configAngleMotor(){
         mAngleMotor.configFactoryDefault();
-        mAngleMotor.configAllSettings(Robot.ctreConfigs.swerveAngleFXConfig);
+        mAngleMotor.configAllSettings(RobotMap.ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
         mAngleMotor.setNeutralMode(Constants.Swerve.angleNeutralMode);
         resetToAbsolute();
@@ -97,7 +97,7 @@ public class SwerveModule {
 
     private void configDriveMotor(){        
         mDriveMotor.configFactoryDefault();
-        mDriveMotor.configAllSettings(Robot.ctreConfigs.swerveDriveFXConfig);
+        mDriveMotor.configAllSettings(RobotMap.ctreConfigs.swerveDriveFXConfig);
         mDriveMotor.setInverted(Constants.Swerve.driveMotorInvert);
         mDriveMotor.setNeutralMode(Constants.Swerve.driveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);
