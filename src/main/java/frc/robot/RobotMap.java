@@ -3,23 +3,26 @@ package frc.robot;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 
-import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.PhotonConstants;
+import frc.robot.lib.PhotonCameraWrapper;
 import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.Swerve;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 public class RobotMap {
     
-    /* Motor IDs */
+    /* Motor + sensor IDs */
     public static final int pigeonID = 5;
     
-    /* Motor instances */
-    public static Pigeon2 gyro;
+    /* Motor + sensor instances */
+    public static WPI_Pigeon2 gyro;
 
     /* Class instances */
     public static Swerve swerve; 
@@ -29,6 +32,8 @@ public class RobotMap {
     public static PhotonCamera camera;
     public static AprilTagFieldLayout aprilTagFieldLayout;
     public static PhotonPoseEstimator photonPoseEstimator;
+    public static PhotonCameraWrapper pcw;
+    public static SwerveDrivePoseEstimator swerveDrivePoseEstimator;
 
     /* Xbox controllers */
     public static XboxController manipulatorController;
@@ -39,7 +44,7 @@ public class RobotMap {
         ctreConfigs = new CTREConfigs();
         manipulatorController = new XboxController(1);
         driverController = new XboxController(0);
-        gyro = new Pigeon2(pigeonID);
+        gyro = new WPI_Pigeon2(pigeonID);
         swerveModules = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),
@@ -54,6 +59,9 @@ public class RobotMap {
         } catch (Exception e) {
             System.out.println("exception handled");
         }
+        pcw = new PhotonCameraWrapper();
+        swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
+            Constants.Swerve.swerveKinematics, gyro.getRotation2d(), swerve.getModulePositions(), new Pose2d());
         photonPoseEstimator = new PhotonPoseEstimator(
             aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, PhotonConstants.robotToCam);
     }

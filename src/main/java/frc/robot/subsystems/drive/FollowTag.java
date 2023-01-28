@@ -10,6 +10,7 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -26,15 +27,20 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
+import frc.robot.lib.PhotonCameraWrapper;
 import frc.robot.lib.State;
 import frc.robot.lib.Swerve;
+import java.util.Optional;
+import org.photonvision.EstimatedRobotPose;
 
 /** Add your docs here. */
 public class FollowTag extends State {
 
     double translationVal = 0;
     double strafeVal = 0;
-    double rotationVal;
+    double rotationVal = 0;
+
+    Optional<EstimatedRobotPose> result;
 
     //final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28.0);
     //final double TARGET_HEIGHT_METERS = Units.feetToMeters(5.9);
@@ -72,8 +78,9 @@ public class FollowTag extends State {
     @Override
     public void execute() {
 
-        var result = RobotMap.camera.getLatestResult();
+        //var result = RobotMap.camera.getLatestResult();
 
+        /*
         if (result.hasTargets()) {
             // Calculate angular turn power
             // -1.0 required to ensure positive PID controller effort _increases_ yaw
@@ -82,15 +89,25 @@ public class FollowTag extends State {
         } else {
             // If we have no targets, stay still.
             rotationVal = 0;
-        }
-            
-        Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
+        }*/
+
+        //result = RobotMap.pcw.getEstimatedGlobalPose(RobotMap.swerveDrivePoseEstimator.getEstimatedPosition());
+
+        /*Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
+        RobotMap.swerve.updateSwervePoseEstimator();*/
 
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
+
+        /*if (result.isPresent()) {
+            EstimatedRobotPose camPose = result.get();
+            RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(
+                    camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+            //m_fieldSim.getObject("Cam Est Pos").setPose(camPose.estimatedPose.toPose2d());
+        }*/
 
         RobotMap.swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 

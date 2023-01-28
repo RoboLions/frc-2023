@@ -126,4 +126,11 @@ public class Swerve {
             mod.resetToAbsolute();
         }
     }
+
+    /** Updates the field relative position of the robot. */
+    public void updateSwervePoseEstimator() {
+        RobotMap.swerveDrivePoseEstimator.update(
+            RobotMap.gyro.getRotation2d(),
+            getModulePositions());
+    }
 }
