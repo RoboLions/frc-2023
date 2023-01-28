@@ -5,6 +5,7 @@
 package frc.robot.lib;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,7 +25,7 @@ public class Swerve {
 
     public static SwerveDriveOdometry swerveOdometry;
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
-    public static Pigeon2 gyro = RobotMap.gyro;
+    public static WPI_Pigeon2 gyro = RobotMap.gyro;
 
     //public static RoboLionsPID aprilTagRotationPID = RobotMap.rotationPID;
     public static RoboLionsPID rotationPID = RobotMap.rotationPID;
@@ -156,7 +157,7 @@ public class Swerve {
     /** Updates the field relative position of the robot. */
     public void updateSwervePoseEstimator() {
         RobotMap.swerveDrivePoseEstimator.update(
-            RobotMap.gyro.getRotation2d(),
+            gyro.getRotation2d(),
             getModulePositions());
     }
 }
