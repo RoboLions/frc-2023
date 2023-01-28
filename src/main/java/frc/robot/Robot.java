@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     drivetrainStateMachine.setNextState();
 
     RobotMap.pcw.updatePoses();
-    System.out.println(RobotMap.swerve.getPose());
+    RobotMap.Field2d.setRobotPose(RobotMap.swerve.getPose());
   }
 
   /**

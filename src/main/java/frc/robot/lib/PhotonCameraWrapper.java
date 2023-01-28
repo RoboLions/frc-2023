@@ -26,8 +26,6 @@ public class PhotonCameraWrapper {
 
     private double previousPipelineTimestamp = 0;
 
-    private final Field2d field2d = RobotMap.Field2d;
-
     public PhotonCameraWrapper() {}
 
     /**
@@ -63,7 +61,5 @@ public class PhotonCameraWrapper {
         RobotMap.swerveDrivePoseEstimator.update(
             RobotMap.gyro.getRotation2d(),
             RobotMap.swerve.getModulePositions());
-
-        field2d.setRobotPose(RobotMap.swerve.getPose());
     }
 }
