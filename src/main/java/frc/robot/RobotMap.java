@@ -58,7 +58,7 @@ public class RobotMap {
         };
         rotationPID = new RoboLionsPID();
         swerve = new Swerve();
-        camera = new PhotonCamera("Arducam_0V9281_USB_Camera");
+        camera = new PhotonCamera("HD_USB_Camera"); //Arducam_0V9281_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
             var alliance = DriverStation.getAlliance();
