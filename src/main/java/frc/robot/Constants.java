@@ -149,14 +149,15 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    public static final class VisionConstants {
+    public static final class PhotonConstants {
+        // TODO: change constants
         static final Transform3d robotToCam =
                 new Transform3d(
                         new Translation3d(0.5, 0.0, 0.5),
                         new Rotation3d(
                                 0, 0,
-                                0)); // Cam mounted facing forward, half a meter forward of center, half a meter up
+                                0)); 
+        // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
-        static final String cameraName = "YOUR CAMERA NAME";
     }
 }

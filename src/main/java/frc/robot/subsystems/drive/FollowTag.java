@@ -36,13 +36,13 @@ public class FollowTag extends State {
     double strafeVal = 0;
     double rotationVal;
 
-    final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28.0);
-    final double TARGET_HEIGHT_METERS = Units.feetToMeters(5.9);
+    //final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28.0);
+    //final double TARGET_HEIGHT_METERS = Units.feetToMeters(5.9);
     // Angle between horizontal and the camera.
-    final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(90);
+    //final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(90);
 
     // How far from the target we want to be
-    final double GOAL_RANGE_METERS = Units.feetToMeters(3);
+    //final double GOAL_RANGE_METERS = Units.feetToMeters(3);
 
     // PID constants should be tuned per robot
     /*final double LINEAR_P = 0.1;

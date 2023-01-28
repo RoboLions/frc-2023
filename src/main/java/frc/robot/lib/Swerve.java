@@ -32,7 +32,6 @@ public class Swerve {
     public static XboxController driverController = RobotMap.driverController;
 
     public Swerve() {
-        System.out.println(aprilTagRotationPID);
         aprilTagRotationPID.initialize2(
             0.01,
             0.0,

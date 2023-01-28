@@ -10,8 +10,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotMap;
-import frc.robot.Constants.FieldConstants;
-import frc.robot.Constants.VisionConstants;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
@@ -20,25 +18,10 @@ import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 public class PhotonCameraWrapper {
-    public PhotonCamera photonCamera;
-    public PhotonPoseEstimator photonPoseEstimator;
+    public PhotonCamera photonCamera = RobotMap.camera;
+    public PhotonPoseEstimator photonPoseEstimator = RobotMap.photonPoseEstimator;
 
-    public PhotonCameraWrapper() {
-        
-        AprilTagFieldLayout atfl = RobotMap.aprilTagFieldLayout;
-
-        // Forward Camera
-        photonCamera =
-                new PhotonCamera(
-                        VisionConstants
-                                .cameraName); // Change the name of your camera here to whatever it is in the
-        // PhotonVision UI.
-
-        // Create pose estimator
-        photonPoseEstimator =
-                new PhotonPoseEstimator(
-                        atfl, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, photonCamera, VisionConstants.robotToCam);
-    }
+    public PhotonCameraWrapper() {}
 
     /**
      * @param estimatedRobotPose The current best guess at robot pose

@@ -1,14 +1,17 @@
 package frc.robot;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.PhotonConstants;
 import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.Swerve;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 public class RobotMap {
     
@@ -25,6 +28,7 @@ public class RobotMap {
     public static SwerveModule[] swerveModules;
     public static PhotonCamera camera;
     public static AprilTagFieldLayout aprilTagFieldLayout;
+    public static PhotonPoseEstimator photonPoseEstimator;
 
     /* Xbox controllers */
     public static XboxController manipulatorController;
@@ -50,5 +54,7 @@ public class RobotMap {
         } catch (Exception e) {
             System.out.println("exception handled");
         }
+        photonPoseEstimator = new PhotonPoseEstimator(
+            aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, PhotonConstants.robotToCam);
     }
 }
