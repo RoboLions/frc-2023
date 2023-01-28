@@ -102,13 +102,6 @@ public class FollowTag extends State {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
 
-        /*if (result.isPresent()) {
-            EstimatedRobotPose camPose = result.get();
-            RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(
-                    camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
-            //m_fieldSim.getObject("Cam Est Pos").setPose(camPose.estimatedPose.toPose2d());
-        }*/
-
         RobotMap.swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
             rotationVal * Constants.Swerve.maxAngularVelocity
