@@ -16,7 +16,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
 
@@ -27,12 +26,15 @@ public class Swerve {
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
     public static Pigeon2 gyro = RobotMap.gyro;
 
-    public static RoboLionsPID aprilTagRotationPID = RobotMap.rotationPID;
+    //public static RoboLionsPID aprilTagRotationPID = RobotMap.rotationPID;
+    public static RoboLionsPID rotationPID = RobotMap.rotationPID;
+    public static RoboLionsPID translationPID = RobotMap.translationPID;
+    public static RoboLionsPID strafePID = RobotMap.strafePID;
 
     public static XboxController driverController = RobotMap.driverController;
 
     public Swerve() {
-        aprilTagRotationPID.initialize2(
+        rotationPID.initialize2(
             0.01,
             0.0,
             0.0,
@@ -42,6 +44,30 @@ public class Swerve {
             true, //enableCage
             false //enableDeadband
             );
+        
+        translationPID.initialize2(
+        
+        0.01, // Proportional Gain 
+        0.0, // Integral Gain
+        0.0, // Derivative Gain
+        0.0, // Cage Limit
+        0.0, // Deadband 
+        12,// MaxOutput Volts
+        false, //enableCage
+        false //enableDeadband
+        );
+
+        // Rate Drive PID
+        strafePID.initialize2(
+        0.01, // Proportional Gain 
+        0.0, // Integral Gain
+        0.0, // Derivative Gain 
+        0.0, // Cage Limit 
+        0.0, // Deadband
+        12,// MaxOutput Volts 
+        false, //enableCage
+        false //enableDeadband
+        );
     }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {

@@ -31,6 +31,8 @@ public class RobotMap {
     /* Class instances */
     public static Swerve swerve; 
     public static RoboLionsPID rotationPID;
+    public static RoboLionsPID translationPID;
+    public static RoboLionsPID strafePID;
     public static CTREConfigs ctreConfigs;
     public static SwerveModule[] swerveModules;
     public static PhotonCamera camera;
@@ -57,13 +59,15 @@ public class RobotMap {
             new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
         rotationPID = new RoboLionsPID();
+        translationPID = new RoboLionsPID();
+        strafePID = new RoboLionsPID();
         swerve = new Swerve();
-        camera = new PhotonCamera("HD_USB_Camera"); //Arducam_0V9281_USB_Camera
+        camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //Arducam_OV9281_USB_Camera HD_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-            var alliance = DriverStation.getAlliance();
+            /*var alliance = DriverStation.getAlliance();
             aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
-                OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
+                OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);*/
         } catch (Exception e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             aprilTagFieldLayout = null;

@@ -150,10 +150,9 @@ public final class Constants {
     }
 
     public static final class PhotonConstants {
-        // TODO: change constants
         public static final Transform3d robotToCam =
                 new Transform3d(
-                        new Translation3d(0.5, 0.0, 0.5),
+                        new Translation3d(-1.0, 0.0, 0.0),
                         new Rotation3d(
                                 0, 0,
                                 0)); 

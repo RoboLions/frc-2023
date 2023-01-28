@@ -38,28 +38,52 @@ public class PhotonCameraWrapper {
         return photonPoseEstimator.update();
     }
 
-    public void updatePoses() {
+    private void updateSwervePoseAprilTags() {
         // Update pose estimator with the best visible target
         var pipelineResult = photonCamera.getLatestResult();
         var resultTimestamp = pipelineResult.getTimestampSeconds();
-        if (resultTimestamp != previousPipelineTimestamp && pipelineResult.hasTargets()) {
+
+        if (resultTimestamp == previousPipelineTimestamp) {
+            return;
+        }
+        if (!pipelineResult.hasTargets()) {
+            return;
+        }
+
         previousPipelineTimestamp = resultTimestamp;
         var target = pipelineResult.getBestTarget();
         var fiducialId = target.getFiducialId();
-        // Get the tag pose from field layout - consider that the layout will be null if it failed to load
-        Optional<Pose3d> tagPose = RobotMap.aprilTagFieldLayout == null ? Optional.empty() : RobotMap.aprilTagFieldLayout.getTagPose(fiducialId);
-        if (target.getPoseAmbiguity() <= .2 && fiducialId >= 0 && tagPose.isPresent()) {
-            var targetPose = tagPose.get();
-            Transform3d camToTarget = target.getBestCameraToTarget();
-            Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
+        
+        if (fiducialId <= 0 || fiducialId > 8) {
+            return;
+        }
 
-            var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.robotToCam);
-            RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+        // Get the tag pose from field layout - consider that the layout will be null if it failed to load
+        Optional<Pose3d> tagPose = RobotMap.aprilTagFieldLayout.getTagPose(fiducialId);
+
+        if (target.getPoseAmbiguity() > 0.2) {
+            return;
         }
+        if (!tagPose.isPresent()) {
+            return;
         }
+
+        var targetPose = tagPose.get();
+        Transform3d camToTarget = target.getBestCameraToTarget();
+        Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
+        var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.robotToCam);
+        RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+    }
+
+    private void updateSwervePoseKinematics() {
         // Update pose estimator with drivetrain sensors
         RobotMap.swerveDrivePoseEstimator.update(
             RobotMap.gyro.getRotation2d(),
             RobotMap.swerve.getModulePositions());
+    }
+
+    public void updatePoses() {
+        updateSwervePoseAprilTags();
+        updateSwervePoseKinematics();
     }
 }

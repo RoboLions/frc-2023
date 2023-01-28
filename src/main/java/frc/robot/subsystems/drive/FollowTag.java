@@ -11,15 +11,21 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -42,6 +48,16 @@ public class FollowTag extends State {
     double translationVal = 0;
     double strafeVal = 0;
     double rotationVal = 0;
+
+    double translationCommand = 0;
+    double rotationCommand = 0;
+    double strafeCommand = 0;
+
+    private static final int TAG_TO_CHASE = 1;
+    private static final Transform3d TAG_TO_GOAL = 
+      new Transform3d(
+          new Translation3d(1.5, 0.0, 0.0),
+          new Rotation3d(0.0, 0.0, Math.PI));
 
     Optional<EstimatedRobotPose> result;
     
@@ -79,7 +95,6 @@ public class FollowTag extends State {
         Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
 
         lastTarget = null;
-        var robotPose = poseProvider.get();
         
     }
 
@@ -104,78 +119,66 @@ public class FollowTag extends State {
         /*Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
         RobotMap.swerve.updateSwervePoseEstimator();*/
 
-        var robotPose2d = poseProvider.get();
-    var robotPose = 
-        new Pose3d(
-            robotPose2d.getX(),
-            robotPose2d.getY(),
-            0.0, 
-            new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
-    
-    var photonRes = photonCamera.getLatestResult();
-    if (photonRes.hasTargets()) {
-      // Find the tag we want to chase
-      var targetOpt = photonRes.getTargets().stream()
-          .filter(t -> t.getFiducialId() == TAG_TO_CHASE)
-          .filter(t -> !t.equals(lastTarget) && t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
-          .findFirst();
-      if (targetOpt.isPresent()) {
-        var target = targetOpt.get();
-        // This is new target data, so recalculate the goal
-        lastTarget = target;
+        var robotPose2d = RobotMap.swerve.getPose();
+        var robotPose = 
+            new Pose3d(
+                robotPose2d.getX(),
+                robotPose2d.getY(),
+                0.0, 
+                new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
         
-        // Transform the robot's pose to find the camera's pose
-        var cameraPose = robotPose.transformBy(ROBOT_TO_CAMERA);
+        var photonRes = RobotMap.camera.getLatestResult();
+        if (photonRes.hasTargets()) {
+            // Find the tag we want to chase
+            var targetOpt = photonRes.getTargets().stream()
+            .filter(t -> t.getFiducialId() == TAG_TO_CHASE)
+            .filter(t -> !t.equals(lastTarget) && t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
+            .findFirst();
+        if (targetOpt.isPresent()) {
+            var target = targetOpt.get();
+            // This is new target data, so recalculate the goal
+            lastTarget = target;
+            
+            // Transform the robot's pose to find the camera's pose
+            var cameraPose = robotPose.transformBy(Constants.PhotonConstants.robotToCam);
 
-        // Trasnform the camera's pose to the target's pose
-        var camToTarget = target.getBestCameraToTarget();
-        var targetPose = cameraPose.transformBy(camToTarget);
-        
-        // Transform the tag's pose to set our goal
-        var goalPose = targetPose.transformBy(TAG_TO_GOAL).toPose2d();
+            // Trasnform the camera's pose to the target's pose
+            var camToTarget = target.getBestCameraToTarget();
+            var targetPose = cameraPose.transformBy(camToTarget);
+            
+            // Transform the tag's pose to set our goal
+            var goalPose = targetPose.transformBy(TAG_TO_GOAL).toPose2d();
 
-        // Drive
-        xController.setGoal(goalPose.getX());
-        yController.setGoal(goalPose.getY());
-        omegaController.setGoal(goalPose.getRotation().getRadians());
-      }
-    }
+            // Drive
+            translationCommand = Swerve.translationPID.execute(goalPose.getX(), 0.0);
+            rotationCommand = Swerve.rotationPID.execute(goalPose.getY(), 0.0);
+            strafeCommand = Swerve.strafePID.execute(goalPose.getRotation().getRadians(), 0.0);
+
+            //System.out.println(translationCommand + ", " + rotationCommand + ", " + strafeCommand);
+            //System.out.println(rotationCommand);
+            //System.out.println(strafeCommand);
+        }
+        }
     
-    if (lastTarget == null) {
-      // No target has been visible
-      drivetrainSubsystem.stop();
-    } else {
-      // Drive to the target
-      var xSpeed = xController.calculate(robotPose.getX());
-      if (xController.atGoal()) {
-        xSpeed = 0;
-      }
-
-      var ySpeed = yController.calculate(robotPose.getY());
-      if (yController.atGoal()) {
-        ySpeed = 0;
-      }
-
-      var omegaSpeed = omegaController.calculate(robotPose2d.getRotation().getRadians());
-      if (omegaController.atGoal()) {
-        omegaSpeed = 0;
-      }
-
-      drivetrainSubsystem.drive(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
-    }
-
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
 
-        RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity
-        );
-
+        /*if (lastTarget == null) {
+            // No target has been visible
+            RobotMap.swerve.drive(
+                new Translation2d(0.0, 0.0).times(Constants.Swerve.maxSpeed), 
+                0.0
+            );
+        } else {
+            // Drive to the target
+            RobotMap.swerve.drive(
+                new Translation2d(translationCommand, rotationCommand).times(Constants.Swerve.maxSpeed), 
+                rotationCommand
+            );
+        }*/
     }
 
     @Override
