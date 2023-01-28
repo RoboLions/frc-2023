@@ -5,6 +5,7 @@
 package frc.robot.subsystems.drive;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
@@ -31,6 +32,8 @@ import frc.robot.lib.PhotonCameraWrapper;
 import frc.robot.lib.State;
 import frc.robot.lib.Swerve;
 import java.util.Optional;
+import java.util.function.Supplier;
+
 import org.photonvision.EstimatedRobotPose;
 
 /** Add your docs here. */
@@ -41,6 +44,8 @@ public class FollowTag extends State {
     double rotationVal = 0;
 
     Optional<EstimatedRobotPose> result;
+    
+    PhotonTrackedTarget lastTarget;
 
     //final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28.0);
     //final double TARGET_HEIGHT_METERS = Units.feetToMeters(5.9);
@@ -72,6 +77,9 @@ public class FollowTag extends State {
         RobotMap.swerve.resetModulesToAbsolute();
 
         Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
+
+        lastTarget = null;
+        var robotPose = poseProvider.get();
         
     }
 
@@ -95,6 +103,67 @@ public class FollowTag extends State {
 
         /*Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
         RobotMap.swerve.updateSwervePoseEstimator();*/
+
+        var robotPose2d = poseProvider.get();
+    var robotPose = 
+        new Pose3d(
+            robotPose2d.getX(),
+            robotPose2d.getY(),
+            0.0, 
+            new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
+    
+    var photonRes = photonCamera.getLatestResult();
+    if (photonRes.hasTargets()) {
+      // Find the tag we want to chase
+      var targetOpt = photonRes.getTargets().stream()
+          .filter(t -> t.getFiducialId() == TAG_TO_CHASE)
+          .filter(t -> !t.equals(lastTarget) && t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
+          .findFirst();
+      if (targetOpt.isPresent()) {
+        var target = targetOpt.get();
+        // This is new target data, so recalculate the goal
+        lastTarget = target;
+        
+        // Transform the robot's pose to find the camera's pose
+        var cameraPose = robotPose.transformBy(ROBOT_TO_CAMERA);
+
+        // Trasnform the camera's pose to the target's pose
+        var camToTarget = target.getBestCameraToTarget();
+        var targetPose = cameraPose.transformBy(camToTarget);
+        
+        // Transform the tag's pose to set our goal
+        var goalPose = targetPose.transformBy(TAG_TO_GOAL).toPose2d();
+
+        // Drive
+        xController.setGoal(goalPose.getX());
+        yController.setGoal(goalPose.getY());
+        omegaController.setGoal(goalPose.getRotation().getRadians());
+      }
+    }
+    
+    if (lastTarget == null) {
+      // No target has been visible
+      drivetrainSubsystem.stop();
+    } else {
+      // Drive to the target
+      var xSpeed = xController.calculate(robotPose.getX());
+      if (xController.atGoal()) {
+        xSpeed = 0;
+      }
+
+      var ySpeed = yController.calculate(robotPose.getY());
+      if (yController.atGoal()) {
+        ySpeed = 0;
+      }
+
+      var omegaSpeed = omegaController.calculate(robotPose2d.getRotation().getRadians());
+      if (omegaController.atGoal()) {
+        omegaSpeed = 0;
+      }
+
+      drivetrainSubsystem.drive(
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
+    }
 
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
