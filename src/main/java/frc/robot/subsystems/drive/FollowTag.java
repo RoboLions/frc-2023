@@ -42,6 +42,10 @@ import java.util.function.Supplier;
 
 import org.photonvision.EstimatedRobotPose;
 
+// 1. know current pose
+// 2. know target pose
+// 3. pass in PID loop
+
 /** Add your docs here. */
 public class FollowTag extends State {
 
@@ -53,32 +57,8 @@ public class FollowTag extends State {
     double rotationCommand = 0;
     double strafeCommand = 0;
 
-    private static final int TAG_TO_CHASE = 1;
-    private static final Transform3d TAG_TO_GOAL = 
-      new Transform3d(
-          new Translation3d(1.5, 0.0, 0.0),
-          new Rotation3d(0.0, 0.0, Math.PI));
-
-    Optional<EstimatedRobotPose> result;
-    
-    PhotonTrackedTarget lastTarget;
-
-    //final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28.0);
-    //final double TARGET_HEIGHT_METERS = Units.feetToMeters(5.9);
-    // Angle between horizontal and the camera.
-    //final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(90);
-
-    // How far from the target we want to be
-    //final double GOAL_RANGE_METERS = Units.feetToMeters(3);
-
-    // PID constants should be tuned per robot
-    /*final double LINEAR_P = 0.1;
-    final double LINEAR_D = 0.0;
-    PIDController forwardController = new PIDController(LINEAR_P, 0, LINEAR_D);
-
-    final double ANGULAR_P = 0.1;
-    final double ANGULAR_D = 0.0;
-    PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);*/
+    Pose2d currentPose;
+    Pose2d targetPose;
 
     @Override
     public void init() {
@@ -94,77 +74,31 @@ public class FollowTag extends State {
 
         Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
 
-        lastTarget = null;
-        
     }
 
     @Override
     public void execute() {
 
-        //var result = RobotMap.camera.getLatestResult();
+        currentPose = RobotMap.swerveDrivePoseEstimator.getEstimatedPosition();
+        targetPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0, 0.0));
 
-        /*
-        if (result.hasTargets()) {
-            // Calculate angular turn power
-            // -1.0 required to ensure positive PID controller effort _increases_ yaw
-            rotationVal = 1.0 * Swerve.aprilTagRotationPID.execute(0.0, result.getBestTarget().getYaw());
-            //System.out.println(rotationVal);
-        } else {
-            // If we have no targets, stay still.
-            rotationVal = 0;
-        }*/
-
-        //result = RobotMap.pcw.getEstimatedGlobalPose(RobotMap.swerveDrivePoseEstimator.getEstimatedPosition());
-
-        /*Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
-        RobotMap.swerve.updateSwervePoseEstimator();*/
-
-        /*var robotPose2d = RobotMap.swerve.getPose();
-        var robotPose = 
-            new Pose3d(
-                robotPose2d.getX(),
-                robotPose2d.getY(),
-                0.0, 
-                new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
-        
-        var photonRes = RobotMap.camera.getLatestResult();
-        if (photonRes.hasTargets()) {
-            // Find the tag we want to chase
-            var targetOpt = photonRes.getTargets().stream()
-            .filter(t -> t.getFiducialId() == TAG_TO_CHASE)
-            .filter(t -> !t.equals(lastTarget) && t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
-            .findFirst();
-        if (targetOpt.isPresent()) {
-            var target = targetOpt.get();
-            // This is new target data, so recalculate the goal
-            lastTarget = target;
-            
-            // Transform the robot's pose to find the camera's pose
-            var cameraPose = robotPose.transformBy(Constants.PhotonConstants.robotToCam);
-
-            // Trasnform the camera's pose to the target's pose
-            var camToTarget = target.getBestCameraToTarget();
-            var targetPose = cameraPose.transformBy(camToTarget);
-            
-            // Transform the tag's pose to set our goal
-            var goalPose = targetPose.transformBy(TAG_TO_GOAL).toPose2d();
-
-            // Drive
-            translationCommand = Swerve.translationPID.execute(goalPose.getX(), 0.0);
-            rotationCommand = Swerve.rotationPID.execute(goalPose.getY(), 0.0);
-            strafeCommand = Swerve.strafePID.execute(goalPose.getRotation().getRadians(), 0.0);
-
-            //System.out.println(translationCommand + ", " + rotationCommand + ", " + strafeCommand);
-            //System.out.println(rotationCommand);
-            //System.out.println(strafeCommand);
-        }
-        }*/
+        translationCommand = Swerve.translationPID.execute(targetPose.getX(), currentPose.getY());
+        strafeCommand = Swerve.strafePID.execute(targetPose.getX(), currentPose.getY());
+        rotationCommand = Swerve.rotationPID.execute(targetPose.getX(), currentPose.getY());
     
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
+
+        System.out.println(translationCommand + strafeCommand + rotationCommand);
+
+        /*RobotMap.swerve.drive(
+            new Translation2d(translationCommand, strafeCommand).times(Constants.Swerve.maxSpeed), 
+            rotationCommand
+        );*/
+
     }
 
     @Override
