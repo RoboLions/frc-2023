@@ -119,7 +119,7 @@ public class FollowTag extends State {
         /*Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
         RobotMap.swerve.updateSwervePoseEstimator();*/
 
-        var robotPose2d = RobotMap.swerve.getPose();
+        /*var robotPose2d = RobotMap.swerve.getPose();
         var robotPose = 
             new Pose3d(
                 robotPose2d.getX(),
@@ -158,27 +158,13 @@ public class FollowTag extends State {
             //System.out.println(rotationCommand);
             //System.out.println(strafeCommand);
         }
-        }
+        }*/
     
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-
-        /*if (lastTarget == null) {
-            // No target has been visible
-            RobotMap.swerve.drive(
-                new Translation2d(0.0, 0.0).times(Constants.Swerve.maxSpeed), 
-                0.0
-            );
-        } else {
-            // Drive to the target
-            RobotMap.swerve.drive(
-                new Translation2d(translationCommand, rotationCommand).times(Constants.Swerve.maxSpeed), 
-                rotationCommand
-            );
-        }*/
     }
 
     @Override

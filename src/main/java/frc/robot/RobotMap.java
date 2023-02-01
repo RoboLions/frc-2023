@@ -65,9 +65,6 @@ public class RobotMap {
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //Arducam_OV9281_USB_Camera HD_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-            /*var alliance = DriverStation.getAlliance();
-            aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
-                OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);*/
         } catch (Exception e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             aprilTagFieldLayout = null;
