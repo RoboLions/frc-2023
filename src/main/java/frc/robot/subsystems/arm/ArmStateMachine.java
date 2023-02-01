@@ -26,7 +26,7 @@ public class ArmStateMachine extends StateMachine {
             return manipulatorController.getAButton();
         };
 
-        Supplier<Boolean> checkIntakeButton = () -> {
+        /*Supplier<Boolean> checkIntakeButton = () -> {
             // TODO: what button should be intake button
             return manipulatorController.getBButton() && getClawSensor();
         };
@@ -38,7 +38,7 @@ public class ArmStateMachine extends StateMachine {
 
         intakeState.addTransition(new Transition(checkIdleButton, idleState));
         intakeState.addTransition(new Transition(checkClawSensor, idleState));
-        idleState.addTransition(new Transition(checkIntakeButton, intakeState));
+        idleState.addTransition(new Transition(checkIntakeButton, intakeState));*/
 
         setCurrentState(idleState);
     }
