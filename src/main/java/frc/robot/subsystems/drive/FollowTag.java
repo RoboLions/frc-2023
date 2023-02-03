@@ -60,11 +60,13 @@ public class FollowTag extends State {
     Pose2d currentPose;
     Pose2d targetPose;
 
+    double currentYaw;
+
     @Override
     public void init() {
         
-        Swerve.gyro.configFactoryDefault();
-        RobotMap.swerve.zeroGyro();
+        //Swerve.gyro.configFactoryDefault();
+        //RobotMap.swerve.zeroGyro();
 
         /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
          * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
@@ -80,24 +82,35 @@ public class FollowTag extends State {
     public void execute() {
 
         currentPose = RobotMap.swerveDrivePoseEstimator.getEstimatedPosition();
-        targetPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0, 0.0));
-
-        translationCommand = Swerve.translationPID.execute(targetPose.getX(), currentPose.getY());
-        strafeCommand = Swerve.strafePID.execute(targetPose.getX(), currentPose.getY());
-        rotationCommand = Swerve.rotationPID.execute(targetPose.getX(), currentPose.getY());
-    
-        for(SwerveModule mod : Swerve.mSwerveMods){
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+        targetPose = new Pose2d(3.5, 3.0, new Rotation2d(0.0));
+        currentYaw = RobotMap.swerve.getYaw().getDegrees();
+        if (currentYaw < 0.0) {
+            currentYaw = currentYaw * -1.0;
+        }
+        if (currentYaw >= 360.0) {
+            currentYaw = currentYaw % 360;
         }
 
-        System.out.println(translationCommand + strafeCommand + rotationCommand);
+        translationCommand = Swerve.translationPID.execute(targetPose.getX(), currentPose.getX());
+        strafeCommand = Swerve.strafePID.execute(targetPose.getY(), currentPose.getY());
+        //rotationCommand = Swerve.rotationPID.execute(targetPose.getRotation().getDegrees(), currentYaw);
 
-        /*RobotMap.swerve.drive(
-            new Translation2d(translationCommand, strafeCommand).times(Constants.Swerve.maxSpeed), 
-            rotationCommand
-        );*/
+        if (translationCommand < 0.01 && translationCommand > -0.01) {
+            translationCommand = 0.0;
+        }
+        if (strafeCommand < 0.01 && strafeCommand > -0.01) {
+            strafeCommand = 0.0;
+        }
+        /*if (rotationCommand < 0.01 && rotationCommand > -0.01) {
+            rotationCommand = 0.0;
+        }*/
+
+        //System.out.println("R: " + rotationCommand);
+
+        RobotMap.swerve.drive(
+            new Translation2d(-translationCommand, -strafeCommand).times(8.0), 
+            0.0
+        );
 
     }
 
