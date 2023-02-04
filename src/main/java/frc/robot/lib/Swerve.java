@@ -41,14 +41,14 @@ public class Swerve {
             0.0,
             2, // Cage Limit degrees/sec 2=without weights, with weights
             2, // Deadband
-            0.4, // MaxOutput Degrees/sec 
+            0.3, // MaxOutput Degrees/sec 
             true, //enableCage
             false //enableDeadband
             );
         
         translationPID.initialize2(
         
-        0.01, // Proportional Gain 
+        0.15, // Proportional Gain 
         0.0, // Integral Gain
         0.0, // Derivative Gain
         0.0, // Cage Limit
@@ -58,9 +58,8 @@ public class Swerve {
         false //enableDeadband
         );
 
-        // Rate Drive PID
         strafePID.initialize2(
-        0.01, // Proportional Gain 
+        0.15, // Proportional Gain 
         0.0, // Integral Gain
         0.0, // Derivative Gain 
         0.0, // Cage Limit 
