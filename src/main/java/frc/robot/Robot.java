@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.ExampleSubsystem.ExampleSubsystemStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -23,7 +22,6 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* state machine instances */
-  private ExampleSubsystemStateMachine exampleStateMachine;
   private DrivetrainStateMachine drivetrainStateMachine;
 
   /**
@@ -39,7 +37,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Field", RobotMap.Field2d);
 
-    exampleStateMachine = new ExampleSubsystemStateMachine();
     drivetrainStateMachine = new DrivetrainStateMachine();
   }
 
@@ -54,7 +51,6 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
 
     /* state machines always execute current state and check for next state */
-    exampleStateMachine.setNextState();
     drivetrainStateMachine.setNextState();
 
     RobotMap.pcw.updatePoses();

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.PhotonConstants;
+import frc.robot.lib.Arm;
 import frc.robot.lib.PhotonCameraWrapper;
 import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.Swerve;
@@ -41,6 +42,7 @@ public class RobotMap {
     public static PhotonCameraWrapper pcw;
     public static SwerveDrivePoseEstimator swerveDrivePoseEstimator;
     public static Field2d Field2d;
+    public static Arm arm;
 
     /* Xbox controllers */
     public static XboxController manipulatorController;
@@ -62,6 +64,7 @@ public class RobotMap {
         translationPID = new RoboLionsPID();
         strafePID = new RoboLionsPID();
         swerve = new Swerve();
+        arm = new Arm();
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //Arducam_OV9281_USB_Camera HD_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);

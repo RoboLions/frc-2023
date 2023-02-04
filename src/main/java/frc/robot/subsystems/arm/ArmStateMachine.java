@@ -14,31 +14,83 @@ import frc.robot.lib.Transition;
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
 
-    public IdleState idleState = new IdleState();
-    public IntakeState intakeState = new IntakeState();
-
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
+    public static IdleState idleState = new IdleState();
+    public static IntakeState intakeState = new IntakeState();
+    public static OuttakeState outtakeState = new OuttakeState();
+    public static DropState dropState = new DropState();
 
     public ArmStateMachine() {
 
-        Supplier<Boolean> checkIdleButton = () -> {
-            // TODO: what button should be idle button
+        /*Supplier<Boolean> checkIdleButton = () -> {
+            // TODO button, method
             return manipulatorController.getAButton();
         };
 
-        Supplier<Boolean> checkIntakeButton = () -> {
-            // TODO: what button should be intake button
-            return manipulatorController.getBButton() && getClawSensor();
+        Supplier<Boolean> checkPickupTransitions = () -> {
+            // TODO button, methods
+            // claw sensor must be false to pickup
+            return RobotMap.arm.getBaseSensor() && !RobotMap.arm.getClawSensor();
         };
 
-        Supplier<Boolean> checkClawSensor = () -> {
-            // TODO: make method
-            return getClawSensor();
+        Supplier<Boolean> checkOuttakeTransitions = () -> {
+            // TODO button
+            // base sensor must be true to outtake
+            return manipulatorController.getXButton() && RobotMap.arm.getBaseSensor();
         };
 
-        intakeState.addTransition(new Transition(checkIdleButton, idleState));
-        intakeState.addTransition(new Transition(checkClawSensor, idleState));
+        Supplier<Boolean> checkIntakeSubstationTransitions = () -> {
+            // TODO button
+            // claw sensor must be false to intake
+            return manipulatorController.getYButton() && !RobotMap.arm.getClawSensor();
+        };
+
+        Supplier<Boolean> checkIntakeToIdleTransitions = () -> {
+            // TODO button
+            // claw sensor must be true to idle
+            return manipulatorController.getAButton() || RobotMap.arm.getClawSensor();
+        };
+
+        Supplier<Boolean> checkHighPurpleFront = () -> {
+            // TODO button, methods
+            return manipulatorController.getRightTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getBButton();
+        };
+
+        Supplier<Boolean> checkIdleTransitions = () -> {
+            // TODO button
+            // claw sensor must be false to idle
+            return manipulatorController.getAButton() || !RobotMap.arm.getClawSensor();
+        };
+
+        Supplier<Boolean> checkHighPurpleBack = () -> {
+            // TODO button, methods
+            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getBButton();
+        };
+
+        Supplier<Boolean> checkMidPurpleBack = () -> {
+            // TODO button, methods
+            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getLeftBumper();
+        };
+
+        Supplier<Boolean> checkMidYellowBack = () -> {
+            // TODO button, methods
+            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "yellow") && manipulatorController.getLeftBumper();
+        };
+
+        Supplier<Boolean> checkHighYellowBack = () -> {
+            // TODO button, methods
+            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "yellow") && manipulatorController.getLeftBumper();
+        };
+
+        Supplier<Boolean> checkArrivedTrue = () -> {
+            // TODO method
+            return RobotMap.arm.checkArrived();
+        };
+
+        /*intakeState.addTransition(new Transition(checkIdleButton, idleState));
+        intakeState.addTransition(new Transition(checkClawSensorFalse, idleState));
         idleState.addTransition(new Transition(checkIntakeButton, intakeState));
+        outtakeState.addTransition(new Transition(checkArrivedTrue, idleState));
+        dropState.addTransition(new Transition(checkClawSensorFalse, idleState));*/
 
         setCurrentState(idleState);
     }
