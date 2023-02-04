@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
 
   /* state machine instances */
   private DrivetrainStateMachine drivetrainStateMachine;
+  private ArmStateMachine armStateMachine;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Field", RobotMap.Field2d);
 
     drivetrainStateMachine = new DrivetrainStateMachine();
+    armStateMachine = new ArmStateMachine();
   }
 
   /**
@@ -53,6 +56,7 @@ public class Robot extends TimedRobot {
 
     /* state machines always execute current state and check for next state */
     drivetrainStateMachine.setNextState();
+    armStateMachine.setNextState();
 
     RobotMap.pcw.updatePoses();
     RobotMap.Field2d.setRobotPose(RobotMap.swerveDrivePoseEstimator.getEstimatedPosition());

@@ -9,6 +9,8 @@ import java.util.*;
 /** Class for creating states in each subsystem's state machine */
 public class State {
 
+    public void build() {}
+
     // list to hold all the transitions between states
     public List<Transition> transitions = new ArrayList<Transition>();
 

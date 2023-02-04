@@ -14,7 +14,21 @@ import frc.robot.lib.Transition;
 /** Add your docs here. */
 public class IdleState extends State {
 
+    /* Error at frc.robot.lib.StateMachine.setCurrentState(StateMachine.java:40):
+     Unhandled exception: java.lang.NullPointerException: Cannot assign field "state_machine_name"
+      because "this.currentState" is null */
+
     private static XboxController manipulatorController = RobotMap.manipulatorController;
+
+    @Override
+    public void build() {
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
+        }, ArmStateMachine.intakeState));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getBButton();
+        }, ArmStateMachine.dropState));
+    }
     
     @Override
     public void init() {
@@ -30,14 +44,4 @@ public class IdleState extends State {
     public void exit() {
         
     }
-
-    public List<Transition> transitions = new ArrayList<Transition>(
-        Arrays.asList(
-            new Transition(() -> {
-                return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
-            }, ArmStateMachine.intakeState),
-            new Transition(() -> {
-                return manipulatorController.getBButton();
-            }, ArmStateMachine.dropState))
-    );
 }

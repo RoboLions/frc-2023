@@ -21,6 +21,11 @@ public class ArmStateMachine extends StateMachine {
 
     public ArmStateMachine() {
 
+        idleState.build();
+        intakeState.build();
+        outtakeState.build();
+        dropState.build();
+
         /*Supplier<Boolean> checkIdleButton = () -> {
             // TODO button, method
             return manipulatorController.getAButton();
