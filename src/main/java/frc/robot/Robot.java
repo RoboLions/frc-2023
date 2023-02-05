@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.lib.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
@@ -33,7 +35,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
+    Swerve.gyro.configFactoryDefault();
     RobotMap.swerve.zeroGyro();
+
+    /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
+      * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
+      */
+    Timer.delay(1.0);
+    RobotMap.swerve.resetModulesToAbsolute();
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
