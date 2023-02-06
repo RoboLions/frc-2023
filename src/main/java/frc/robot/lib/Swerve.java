@@ -4,6 +4,7 @@
 
 package frc.robot.lib;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -12,7 +13,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.XboxController;
@@ -23,8 +23,7 @@ import frc.robot.SwerveModule;
 /** Add your docs here. */
 public class Swerve {
 
-    //public static SwerveDriveOdometry swerveOdometry;
-    public static SwerveDrivePoseEstimator swerveOdometry;
+    public static SwerveDriveOdometry swerveOdometry;
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
     public static WPI_Pigeon2 gyro = RobotMap.gyro;
 
@@ -36,37 +35,38 @@ public class Swerve {
     public static XboxController driverController = RobotMap.driverController;
 
     public Swerve() {
-        rotationPID.initialize(
+        rotationPID.initialize2(
             0.01,
             0.0,
             0.0,
-            2, // Cage Limit
+            2, // Cage Limit degrees/sec 2=without weights, with weights
             2, // Deadband
-            0.3, // MaxOutput
+            0.3, // MaxOutput Degrees/sec 
             true, //enableCage
             false //enableDeadband
-        );
+            );
         
-        translationPID.initialize(
-            0.15, // Proportional Gain 
-            0.0, // Integral Gain
-            0.0, // Derivative Gain
-            0.0, // Cage Limit
-            0.0, // Deadband 
-            12,// MaxOutput Volts
-            false, //enableCage
-            false //enableDeadband
+        translationPID.initialize2(
+        
+        0.15, // Proportional Gain 
+        0.0, // Integral Gain
+        0.0, // Derivative Gain
+        0.0, // Cage Limit
+        0.0, // Deadband 
+        12,// MaxOutput Volts
+        false, //enableCage
+        false //enableDeadband
         );
 
-        strafePID.initialize(
-            0.15, // Proportional Gain 
-            0.0, // Integral Gain
-            0.0, // Derivative Gain 
-            0.0, // Cage Limit 
-            0.0, // Deadband
-            12,// MaxOutput Volts 
-            false, //enableCage
-            false //enableDeadband
+        strafePID.initialize2(
+        0.15, // Proportional Gain 
+        0.0, // Integral Gain
+        0.0, // Derivative Gain 
+        0.0, // Cage Limit 
+        0.0, // Deadband
+        12,// MaxOutput Volts 
+        false, //enableCage
+        false //enableDeadband
         );
     }
     
@@ -116,7 +116,7 @@ public class Swerve {
     }    
 
     public Pose2d getPose() {
-        return swerveOdometry.getEstimatedPosition();
+        return swerveOdometry.getPoseMeters();
     }
 
     public void resetOdometry(Pose2d pose) {
