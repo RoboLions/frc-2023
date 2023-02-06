@@ -100,7 +100,7 @@ public class RoboLionsPID {
     // 4. If in deadband, PID output = 0
     if (enableDeadBand == true) {
       if ((error <= upperDeadbandLimit) && (error >= lowerDeadbandLimit)) {
-        return output;
+        return 0.0;
       }
     }
     
