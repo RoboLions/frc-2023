@@ -74,7 +74,7 @@ public class FollowTag extends State {
         Timer.delay(1.0);
         RobotMap.swerve.resetModulesToAbsolute();
 
-        Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
+        Swerve.swerveOdometry = RobotMap.swerveDrivePoseEstimator; //new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
 
     }
 

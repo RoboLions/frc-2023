@@ -7,6 +7,7 @@ package frc.robot.lib;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -23,7 +24,7 @@ import frc.robot.SwerveModule;
 /** Add your docs here. */
 public class Swerve {
 
-    public static SwerveDriveOdometry swerveOdometry;
+    public static SwerveDrivePoseEstimator swerveOdometry;
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
     public static WPI_Pigeon2 gyro = RobotMap.gyro;
 
@@ -116,7 +117,7 @@ public class Swerve {
     }    
 
     public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
+        return swerveOdometry.getEstimatedPosition();
     }
 
     public void resetOdometry(Pose2d pose) {
