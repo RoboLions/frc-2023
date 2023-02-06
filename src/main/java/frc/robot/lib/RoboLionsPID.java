@@ -32,27 +32,27 @@ public class RoboLionsPID {
   public double cmd = 0.0;
   public double feed = 0.0;
 
-  public boolean deadband_active = false;
-
   // These are used to turn off the limiter cage and the deadband 2/15/20
   public boolean enableCage = true;
   public boolean enableDeadBand = true;
 
   // Called just before this Command runs the first time to set your values
   public void initialize(double _P,double _I, double _D,
-                         double Cage_Limit, double Deadband, double MaxOutput) {
+                         double Cage_Limit, double Deadband, double MaxOutput, 
+                         boolean enable_Cage, boolean enable_DeadBand) { 
+    // We are implementing this function to turn off the cage function and the dead band                
     proportionalGain = _P;
     integralGain = _I;
     derivativeGain = _D;
     
-    upperCageLimit = +Cage_Limit;
-    lowerCageLimit = -Cage_Limit;
+    upperCageLimit =+ Cage_Limit;
+    lowerCageLimit =- Cage_Limit;
   
-    upperDeadbandLimit = +Deadband;
-    lowerDeadbandLimit = -Deadband;
+    upperDeadbandLimit =+ Deadband;
+    lowerDeadbandLimit =- Deadband;
   
-    maxOutput = +MaxOutput;
-    minOutput = -MaxOutput;
+    maxOutput =+ MaxOutput;
+    minOutput =- MaxOutput;
   
     output = 0.0;
     error = 0.0;
@@ -62,19 +62,6 @@ public class RoboLionsPID {
     previousError = 0.0;
   
     deltaTime = 0.02;
-
-    deadband_active = false;
-
-    enableCage = true;
-    enableDeadBand = true;
-    
-  }
-
-  public void initialize(double _P,double _I, double _D,
-                         double Cage_Limit, double Deadband, double MaxOutput, 
-                         boolean enable_Cage, boolean enable_DeadBand) { 
-    // We are implementing this function to turn off the cage function and the dead band                
-    initialize(_P, _I, _D, Cage_Limit, Deadband, MaxOutput);
 
     enableCage = enable_Cage;
     enableDeadBand = enable_DeadBand;
@@ -98,7 +85,7 @@ public class RoboLionsPID {
     previousError = error; 
 
     // 4. If in deadband, PID output = 0
-    if (enableDeadBand == true) {
+    if (enableDeadBand) {
       if ((error <= upperDeadbandLimit) && (error >= lowerDeadbandLimit)) {
         return 0.0;
       }
@@ -106,7 +93,7 @@ public class RoboLionsPID {
     
     // 5. If in cage limit, prevent integral from increasing further
     integral_charge += error*deltaTime;
-    if (enableCage == true) {
+    if (enableCage) {
       Math.min(integral_charge, upperCageLimit);
       Math.max(integral_charge, lowerCageLimit);
     }
@@ -127,7 +114,5 @@ public class RoboLionsPID {
     derivativeCalculation = 0.0;
     integral_charge = 0.0;
     previousError = 0.0;
-
-    deadband_active = false;
   }
 }
