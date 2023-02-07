@@ -39,9 +39,9 @@ public class RoboLionsPID {
   // Called just before this Command runs the first time to set your values
   public void initialize(double _P,double _I, double _D, double MaxOutput) { 
     // We are implementing this function to turn off the cage function and the dead band                
-    proportionalGain = _P;
-    integralGain = _I;
-    derivativeGain = _D;
+    proportionalGain = Math.abs(_P);
+    integralGain = Math.abs(_I);
+    derivativeGain = Math.abs(_D);
     
     upperCageLimit = 0.0;
     lowerCageLimit = 0.0;
@@ -68,9 +68,9 @@ public class RoboLionsPID {
   public void initialize(double _P,double _I, double _D,
                          double Cage_Limit, double Deadband, double MaxOutput) { 
     // We are implementing this function to turn off the cage function and the dead band                
-    proportionalGain = _P;
-    integralGain = _I;
-    derivativeGain = _D;
+    proportionalGain = Math.abs(_P);
+    integralGain = Math.abs(_I);
+    derivativeGain = Math.abs(_D);
     
     upperCageLimit = Math.abs(Cage_Limit);
     lowerCageLimit = -Math.abs(Cage_Limit);
