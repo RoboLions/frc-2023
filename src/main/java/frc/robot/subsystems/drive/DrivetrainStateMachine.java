@@ -5,8 +5,8 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.lib.StateMachine;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.StateMachine;
+import frc.robot.lib.statemachine.Transition;
 
 public class DrivetrainStateMachine extends StateMachine {
 

@@ -8,8 +8,8 @@ import java.util.*;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
 public class IdleState extends State {

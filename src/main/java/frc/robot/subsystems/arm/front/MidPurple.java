@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.arm.front;
 
-import frc.robot.lib.State;
+import frc.robot.lib.statemachine.State;
 
 /** Add your docs here. */
 public class MidPurple extends State {

@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.arm.back;
 
-import frc.robot.lib.State;
+import frc.robot.lib.statemachine.State;
 
 /** Add your docs here. */
 public class HighPurple extends State {
