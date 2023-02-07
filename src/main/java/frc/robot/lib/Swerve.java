@@ -92,16 +92,6 @@ public class Swerve {
             false //enableDeadband
         );
     }
-
-    /**
-     * @param estimatedRobotPose The current best guess at robot pose
-     * @return A pair of the fused camera observations to a single Pose2d on the field, and the time
-     *     of the observation. Assumes a planar field and the robot is always firmly on the ground
-     */
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-        RobotMap.photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
-        return RobotMap.photonPoseEstimator.update();
-    }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =

@@ -30,7 +30,6 @@ public class RobotMap {
     public static Swerve swerve; 
     public static CTREConfigs ctreConfigs;
     public static AprilTagFieldLayout aprilTagFieldLayout;
-    public static PhotonPoseEstimator photonPoseEstimator;
     public static Field2d Field2d;
     public static Arm arm;
 
@@ -52,8 +51,6 @@ public class RobotMap {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             aprilTagFieldLayout = null;
         }
-        photonPoseEstimator = new PhotonPoseEstimator(
-            aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, swerve.getCamera(), PhotonConstants.robotToCam);
         Field2d = new Field2d();
     }
 }
