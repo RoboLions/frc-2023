@@ -33,26 +33,24 @@ public class RoboLionsPID {
   public double feed = 0.0;
 
   // These are used to turn off the limiter cage and the deadband 2/15/20
-  public boolean enableCage = true;
-  public boolean enableDeadBand = true;
+  public boolean enableCage;
+  public boolean enableDeadBand;
 
   // Called just before this Command runs the first time to set your values
-  public void initialize(double _P,double _I, double _D,
-                         double Cage_Limit, double Deadband, double MaxOutput, 
-                         boolean enable_Cage, boolean enable_DeadBand) { 
+  public void initialize(double _P,double _I, double _D, double MaxOutput) { 
     // We are implementing this function to turn off the cage function and the dead band                
     proportionalGain = _P;
     integralGain = _I;
     derivativeGain = _D;
     
-    upperCageLimit =+ Cage_Limit;
-    lowerCageLimit =- Cage_Limit;
+    upperCageLimit = 0.0;
+    lowerCageLimit = 0.0;
   
-    upperDeadbandLimit =+ Deadband;
-    lowerDeadbandLimit =- Deadband;
+    upperDeadbandLimit = 0.0;
+    lowerDeadbandLimit = 0.0;
   
-    maxOutput =+ MaxOutput;
-    minOutput =- MaxOutput;
+    maxOutput = Math.abs(MaxOutput);
+    minOutput = -Math.abs(MaxOutput);
   
     output = 0.0;
     error = 0.0;
@@ -63,9 +61,37 @@ public class RoboLionsPID {
   
     deltaTime = 0.02;
 
-    enableCage = enable_Cage;
-    enableDeadBand = enable_DeadBand;
+    enableCage = false;
+    enableDeadBand = false;
+  }
 
+  public void initialize(double _P,double _I, double _D,
+                         double Cage_Limit, double Deadband, double MaxOutput) { 
+    // We are implementing this function to turn off the cage function and the dead band                
+    proportionalGain = _P;
+    integralGain = _I;
+    derivativeGain = _D;
+    
+    upperCageLimit = Math.abs(Cage_Limit);
+    lowerCageLimit = -Math.abs(Cage_Limit);
+  
+    upperDeadbandLimit = Math.abs(Deadband);
+    lowerDeadbandLimit = -Math.abs(Deadband);
+  
+    maxOutput = Math.abs(MaxOutput);
+    minOutput = -Math.abs(MaxOutput);
+  
+    output = 0.0;
+    error = 0.0;
+  
+    derivativeCalculation = 0.0;
+    integral_charge = 0.0;
+    previousError = 0.0;
+  
+    deltaTime = 0.02;
+
+    enableCage = true;
+    enableDeadBand = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
