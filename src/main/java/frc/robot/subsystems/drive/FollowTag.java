@@ -34,7 +34,6 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
-import frc.robot.lib.PhotonCameraWrapper;
 import frc.robot.lib.State;
 import frc.robot.lib.Swerve;
 import java.util.Optional;
@@ -63,25 +62,12 @@ public class FollowTag extends State {
     double currentYaw;
 
     @Override
-    public void init() {
-        
-        //Swerve.gyro.configFactoryDefault();
-        //RobotMap.swerve.zeroGyro();
-
-        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
-         * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
-         */
-        Timer.delay(1.0);
-        RobotMap.swerve.resetModulesToAbsolute();
-
-        Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
-
-    }
+    public void init() {}
 
     @Override
     public void execute() {
 
-        currentPose = RobotMap.swerveDrivePoseEstimator.getEstimatedPosition();
+        currentPose = Swerve.swerveOdometry.getEstimatedPosition();
         targetPose = new Pose2d(3.5, 3.0, new Rotation2d(0.0));
         currentYaw = RobotMap.swerve.getYaw().getDegrees();
         if (currentYaw < 0.0) {
