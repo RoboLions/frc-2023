@@ -4,12 +4,18 @@
 
 package frc.robot.lib;
 
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -20,23 +26,21 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 /** Add your docs here. */
 public class Swerve {
 
     public static SwerveDrivePoseEstimator swerveOdometry;
     public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
-    public static WPI_Pigeon2 gyro = RobotMap.gyro;
 
-    //public static RoboLionsPID aprilTagRotationPID = RobotMap.rotationPID;
-    public static RoboLionsPID rotationPID = RobotMap.rotationPID;
-    public static RoboLionsPID translationPID = RobotMap.translationPID;
-    public static RoboLionsPID strafePID = RobotMap.strafePID;
-
-    public static XboxController driverController = RobotMap.driverController;
+    private double previousPipelineTimestamp = 0;
 
     public Swerve() {
-        rotationPID.initialize2(
+        RobotMap.rotationPID.initialize2(
             0.01,
             0.0,
             0.0,
@@ -47,7 +51,7 @@ public class Swerve {
             false //enableDeadband
             );
         
-        translationPID.initialize2(
+        RobotMap.translationPID.initialize2(
         
         0.15, // Proportional Gain 
         0.0, // Integral Gain
@@ -59,7 +63,7 @@ public class Swerve {
         false //enableDeadband
         );
 
-        strafePID.initialize2(
+        RobotMap.strafePID.initialize2(
         0.15, // Proportional Gain 
         0.0, // Integral Gain
         0.0, // Derivative Gain 
@@ -69,6 +73,16 @@ public class Swerve {
         false, //enableCage
         false //enableDeadband
         );
+    }
+
+    /**
+     * @param estimatedRobotPose The current best guess at robot pose
+     * @return A pair of the fused camera observations to a single Pose2d on the field, and the time
+     *     of the observation. Assumes a planar field and the robot is always firmly on the ground
+     */
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+        RobotMap.photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+        return RobotMap.photonPoseEstimator.update();
     }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
@@ -114,7 +128,44 @@ public class Swerve {
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
-    }    
+    }  
+    
+    private void updateSwervePoseAprilTags() {
+        // Update pose estimator with the best visible target
+        var pipelineResult = RobotMap.camera.getLatestResult();
+        var resultTimestamp = pipelineResult.getTimestampSeconds();
+
+        if (resultTimestamp == previousPipelineTimestamp) {
+            return;
+        }
+        if (!pipelineResult.hasTargets()) {
+            return;
+        }
+
+        previousPipelineTimestamp = resultTimestamp;
+        var target = pipelineResult.getBestTarget();
+        var fiducialId = target.getFiducialId();
+        
+        if (fiducialId <= 0 || fiducialId > 8) {
+            return;
+        }
+
+        // Get the tag pose from field layout - consider that the layout will be null if it failed to load
+        Optional<Pose3d> tagPose = RobotMap.aprilTagFieldLayout.getTagPose(fiducialId);
+
+        if (target.getPoseAmbiguity() > 0.2) {
+            return;
+        }
+        if (!tagPose.isPresent()) {
+            return;
+        }
+
+        var targetPose = tagPose.get();
+        Transform3d camToTarget = target.getBestCameraToTarget();
+        Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
+        var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.robotToCam);
+        RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+    }
 
     public Pose2d getPose() {
         return swerveOdometry.getEstimatedPosition();
@@ -141,11 +192,11 @@ public class Swerve {
     }
 
     public void zeroGyro(){
-        gyro.setYaw(0);
+        RobotMap.gyro.setYaw(0);
     }
 
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - RobotMap.gyro.getYaw()) : Rotation2d.fromDegrees(RobotMap.gyro.getYaw());
     }
 
     public void resetModulesToAbsolute(){
@@ -153,11 +204,23 @@ public class Swerve {
             mod.resetToAbsolute();
         }
     }
+    
+    private void updateSwervePoseKinematics() {
+        // Update pose estimator with drivetrain sensors
+        RobotMap.swerveDrivePoseEstimator.update(
+            RobotMap.gyro.getRotation2d(),
+            RobotMap.swerve.getModulePositions());
+    }
+
+    public void updatePoses() {
+        updateSwervePoseAprilTags();
+        updateSwervePoseKinematics();
+    }
 
     /** Updates the field relative position of the robot. */
     public void updateSwervePoseEstimator() {
         RobotMap.swerveDrivePoseEstimator.update(
-            gyro.getRotation2d(),
+            RobotMap.gyro.getRotation2d(),
             getModulePositions());
     }
 }

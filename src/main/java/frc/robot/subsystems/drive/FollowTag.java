@@ -91,8 +91,8 @@ public class FollowTag extends State {
             currentYaw = currentYaw % 360;
         }
 
-        translationCommand = Swerve.translationPID.execute(targetPose.getX(), currentPose.getX());
-        strafeCommand = Swerve.strafePID.execute(targetPose.getY(), currentPose.getY());
+        translationCommand = RobotMap.translationPID.execute(targetPose.getX(), currentPose.getX());
+        strafeCommand = RobotMap.strafePID.execute(targetPose.getY(), currentPose.getY());
         //rotationCommand = Swerve.rotationPID.execute(targetPose.getRotation().getDegrees(), currentYaw);
 
         if (translationCommand < 0.01 && translationCommand > -0.01) {

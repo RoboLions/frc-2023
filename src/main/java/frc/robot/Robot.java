@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     drivetrainStateMachine.setNextState();
     armStateMachine.setNextState();
 
-    RobotMap.pcw.updatePoses();
+    RobotMap.swerve.updatePoses();
     RobotMap.Field2d.setRobotPose(RobotMap.swerveDrivePoseEstimator.getEstimatedPosition());
   }
 
