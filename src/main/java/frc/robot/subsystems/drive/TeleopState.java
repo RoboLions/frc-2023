@@ -31,25 +31,10 @@ public class TeleopState extends State {
     public TeleopState() {}
 
     @Override
-    public void init() {
-
-        Swerve.gyro.configFactoryDefault();
-        RobotMap.swerve.zeroGyro();
-
-        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
-         * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
-         */
-        Timer.delay(1.0);
-        RobotMap.swerve.resetModulesToAbsolute();
-
-        Swerve.swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
-
-    }
+    public void init() {}
 
     @Override
     public void execute() {
-
-        Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
 
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
@@ -58,13 +43,13 @@ public class TeleopState extends State {
         }
 
         // invert because Xbox controllers return negative values when we push forward
-        translationVal = MathUtil.applyDeadband(-Swerve.driverController.getLeftY(), Constants.stickDeadband);
-        strafeVal = MathUtil.applyDeadband(-Swerve.driverController.getLeftX(), Constants.stickDeadband);
+        translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftY(), Constants.stickDeadband);
+        strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftX(), Constants.stickDeadband);
         // invert because Xbox controllers return positive values when you pull to the right
-        rotationVal = MathUtil.applyDeadband(Swerve.driverController.getRightX(), Constants.stickDeadband);
-        robotCentric = Swerve.driverController.getLeftBumperPressed();
+        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRightX(), Constants.stickDeadband);
+        robotCentric = RobotMap.driverController.getLeftBumperPressed();
 
-        if (Swerve.driverController.getYButton()) {
+        if (RobotMap.driverController.getYButton()) {
             RobotMap.swerve.zeroGyro();
         }
 

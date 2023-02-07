@@ -1,6 +1,5 @@
 package frc.robot;
 
-import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
@@ -15,8 +14,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.PhotonConstants;
 import frc.robot.lib.Arm;
-import frc.robot.lib.PhotonCameraWrapper;
-import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.Swerve;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -31,16 +28,8 @@ public class RobotMap {
 
     /* Class instances */
     public static Swerve swerve; 
-    public static RoboLionsPID rotationPID;
-    public static RoboLionsPID translationPID;
-    public static RoboLionsPID strafePID;
     public static CTREConfigs ctreConfigs;
-    public static SwerveModule[] swerveModules;
-    public static PhotonCamera camera;
     public static AprilTagFieldLayout aprilTagFieldLayout;
-    public static PhotonPoseEstimator photonPoseEstimator;
-    public static PhotonCameraWrapper pcw;
-    public static SwerveDrivePoseEstimator swerveDrivePoseEstimator;
     public static Field2d Field2d;
     public static Arm arm;
 
@@ -54,29 +43,14 @@ public class RobotMap {
         manipulatorController = new XboxController(1);
         driverController = new XboxController(0);
         gyro = new WPI_Pigeon2(pigeonID);
-        swerveModules = new SwerveModule[] {
-            new SwerveModule(0, Constants.Swerve.Mod0.constants),
-            new SwerveModule(1, Constants.Swerve.Mod1.constants),
-            new SwerveModule(2, Constants.Swerve.Mod2.constants),
-            new SwerveModule(3, Constants.Swerve.Mod3.constants)
-        };
-        rotationPID = new RoboLionsPID();
-        translationPID = new RoboLionsPID();
-        strafePID = new RoboLionsPID();
         swerve = new Swerve();
         arm = new Arm();
-        camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //Arducam_OV9281_USB_Camera HD_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
         } catch (Exception e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             aprilTagFieldLayout = null;
         }
-        pcw = new PhotonCameraWrapper();
-        swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
-            Constants.Swerve.swerveKinematics, gyro.getRotation2d(), swerve.getModulePositions(), new Pose2d());
-        photonPoseEstimator = new PhotonPoseEstimator(
-            aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, PhotonConstants.robotToCam);
         Field2d = new Field2d();
     }
 }
