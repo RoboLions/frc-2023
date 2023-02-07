@@ -7,7 +7,7 @@ package frc.robot.subsystems.arm.front;
 import frc.robot.lib.State;
 
 /** Add your docs here. */
-public class MidYellow extends State {
+public class FMidYellow extends State {
     
     @Override
     public void init() {

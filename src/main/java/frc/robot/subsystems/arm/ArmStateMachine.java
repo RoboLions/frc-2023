@@ -10,7 +10,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
-
+import frc.robot.subsystems.arm.back.BHighPurple;
+import frc.robot.subsystems.arm.back.BMidPurple;
+import frc.robot.subsystems.arm.back.BHybrid;
+import frc.robot.subsystems.arm.back.BHighYellow;
+import frc.robot.subsystems.arm.back.BMidYellow;
+import frc.robot.subsystems.arm.front.FHighPurple;
+import frc.robot.subsystems.arm.front.FMidPurple;
+import frc.robot.subsystems.arm.front.FHybrid;
+import frc.robot.subsystems.arm.front.FHighYellow;
+import frc.robot.subsystems.arm.front.FMidYellow;
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
 
@@ -18,6 +27,17 @@ public class ArmStateMachine extends StateMachine {
     public static IntakeState intakeState = new IntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
     public static DropState dropState = new DropState();
+    public static IntakeBaseState baseState = new IntakeBaseState();
+    public static BHighPurple bHighPurple = new BHighPurple();
+    public static BMidPurple bMidPurple = new BMidPurple();
+    public static BHybrid bHybrid = new BHybrid();
+    public static BHighYellow bHighYellow = new BHighYellow();
+    public static BMidYellow bMidYellow = new BMidYellow();
+    public static FHighPurple fHighPurple = new FHighPurple();
+    public static FMidPurple fMidPurple = new FMidPurple();
+    public static FHybrid fHybrid = new FHybrid();
+    public static FHighYellow fHighYellow = new FHighYellow();
+    public static FMidYellow fMidYellow = new FMidYellow();
 
     public ArmStateMachine() {
 
