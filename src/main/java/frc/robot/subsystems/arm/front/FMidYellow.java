@@ -5,9 +5,27 @@
 package frc.robot.subsystems.arm.front;
 
 import frc.robot.lib.State;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.RobotMap;
+import frc.robot.lib.Transition;
+import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
-public class MidYellow extends State {
+public class FMidYellow extends State {
+
+    private static XboxController manipulatorController = RobotMap.manipulatorController;
+
+    @Override
+    public void build() {
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton() &&
+            manipulatorController.getRightTriggerAxis() > .25 &&
+            RobotMap.arm.getColorSensor() == "yellow"; 
+        }, ArmStateMachine.openState));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getBButton();
+        }, ArmStateMachine.idleState));
+    }
     
     @Override
     public void init() {
