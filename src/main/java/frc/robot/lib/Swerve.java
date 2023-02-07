@@ -35,12 +35,31 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 public class Swerve {
 
     public static SwerveDrivePoseEstimator swerveOdometry;
-    public static SwerveModule[] mSwerveMods = RobotMap.swerveModules;
+    public static SwerveModule[] mSwerveMods;
+
+    public static RoboLionsPID rotationPID = new RoboLionsPID();
+    public static RoboLionsPID translationPID = new RoboLionsPID();
+    public static RoboLionsPID strafePID = new RoboLionsPID();
+    
+    public static PhotonCamera camera;
 
     private double previousPipelineTimestamp = 0;
 
     public Swerve() {
-        RobotMap.rotationPID.initialize2(
+
+        mSwerveMods = new SwerveModule[] {
+            new SwerveModule(0, Constants.Swerve.Mod0.constants),
+            new SwerveModule(1, Constants.Swerve.Mod1.constants),
+            new SwerveModule(2, Constants.Swerve.Mod2.constants),
+            new SwerveModule(3, Constants.Swerve.Mod3.constants)
+        };
+
+        swerveOdometry = new SwerveDrivePoseEstimator(
+            Constants.Swerve.swerveKinematics, RobotMap.gyro.getRotation2d(), getModulePositions(), new Pose2d());
+            
+        camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
+
+        rotationPID.initialize2(
             0.01,
             0.0,
             0.0,
@@ -49,29 +68,28 @@ public class Swerve {
             0.3, // MaxOutput Degrees/sec 
             true, //enableCage
             false //enableDeadband
-            );
+        );
         
-        RobotMap.translationPID.initialize2(
-        
-        0.15, // Proportional Gain 
-        0.0, // Integral Gain
-        0.0, // Derivative Gain
-        0.0, // Cage Limit
-        0.0, // Deadband 
-        12,// MaxOutput Volts
-        false, //enableCage
-        false //enableDeadband
+        translationPID.initialize2(
+            0.15, // Proportional Gain 
+            0.0, // Integral Gain
+            0.0, // Derivative Gain
+            0.0, // Cage Limit
+            0.0, // Deadband 
+            12,// MaxOutput Volts
+            false, //enableCage
+            false //enableDeadband
         );
 
-        RobotMap.strafePID.initialize2(
-        0.15, // Proportional Gain 
-        0.0, // Integral Gain
-        0.0, // Derivative Gain 
-        0.0, // Cage Limit 
-        0.0, // Deadband
-        12,// MaxOutput Volts 
-        false, //enableCage
-        false //enableDeadband
+        strafePID.initialize2(
+            0.15, // Proportional Gain 
+            0.0, // Integral Gain
+            0.0, // Derivative Gain 
+            0.0, // Cage Limit 
+            0.0, // Deadband
+            12,// MaxOutput Volts 
+            false, //enableCage
+            false //enableDeadband
         );
     }
 
@@ -129,10 +147,14 @@ public class Swerve {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
     }  
+
+    public PhotonCamera getCamera() {
+        return camera;
+    }
     
     private void updateSwervePoseAprilTags() {
         // Update pose estimator with the best visible target
-        var pipelineResult = RobotMap.camera.getLatestResult();
+        var pipelineResult = camera.getLatestResult();
         var resultTimestamp = pipelineResult.getTimestampSeconds();
 
         if (resultTimestamp == previousPipelineTimestamp) {
@@ -164,7 +186,7 @@ public class Swerve {
         Transform3d camToTarget = target.getBestCameraToTarget();
         Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
         var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.robotToCam);
-        RobotMap.swerveDrivePoseEstimator.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+        swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
     }
 
     public Pose2d getPose() {
@@ -207,7 +229,7 @@ public class Swerve {
     
     private void updateSwervePoseKinematics() {
         // Update pose estimator with drivetrain sensors
-        RobotMap.swerveDrivePoseEstimator.update(
+        swerveOdometry.update(
             RobotMap.gyro.getRotation2d(),
             RobotMap.swerve.getModulePositions());
     }
@@ -219,7 +241,7 @@ public class Swerve {
 
     /** Updates the field relative position of the robot. */
     public void updateSwervePoseEstimator() {
-        RobotMap.swerveDrivePoseEstimator.update(
+        swerveOdometry.update(
             RobotMap.gyro.getRotation2d(),
             getModulePositions());
     }

@@ -31,25 +31,10 @@ public class TeleopState extends State {
     public TeleopState() {}
 
     @Override
-    public void init() {
-
-        RobotMap.gyro.configFactoryDefault();
-        RobotMap.swerve.zeroGyro();
-
-        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
-         * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
-         */
-        Timer.delay(1.0);
-        RobotMap.swerve.resetModulesToAbsolute();
-
-        Swerve.swerveOdometry = RobotMap.swerveDrivePoseEstimator; // new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());
-
-    }
+    public void init() {}
 
     @Override
     public void execute() {
-
-        Swerve.swerveOdometry.update(RobotMap.swerve.getYaw(), RobotMap.swerve.getModulePositions());  
 
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
