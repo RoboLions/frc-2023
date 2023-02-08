@@ -14,7 +14,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.Constants.PhotonConstants;
 import frc.robot.lib.states.Arm;
 import frc.robot.lib.states.Swerve;
 
@@ -54,15 +53,15 @@ public class RobotMap {
 
     public static void init() {
         
-        ctreConfigs = new CTREConfigs();
-        manipulatorController = new XboxController(1);
-        driverController = new XboxController(0);
         gyro = new WPI_Pigeon2(pigeonID);
         armFirstStage = new WPI_TalonFX(armFirstStageID);
         armSecondStage = new WPI_TalonFX(armSecondStageID);
         wrist = new WPI_TalonFX(wristID);
         intakeRoller = new VictorSPX(intakeRollerID);
         claw = new VictorSPX(clawID);
+        ctreConfigs = new CTREConfigs();
+        manipulatorController = new XboxController(1);
+        driverController = new XboxController(0);
         swerve = new Swerve();
         arm = new Arm();
         try {

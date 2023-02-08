@@ -7,6 +7,10 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
+import frc.robot.Constants.ArmFirstStageConstants;
+import frc.robot.Constants.ArmSecondStageConstants;
+import frc.robot.Constants.Wrist;
+
 public final class CTREConfigs {
     public TalonFXConfiguration swerveAngleFXConfig;
     public TalonFXConfiguration swerveDriveFXConfig;
@@ -50,5 +54,20 @@ public final class CTREConfigs {
         swerveCanCoderConfig.sensorDirection = Constants.Swerve.canCoderInvert;
         swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+
+        RobotMap.armFirstStage.config_kF(0, ArmFirstStageConstants.F, 10);
+        RobotMap.armFirstStage.config_kP(0, ArmFirstStageConstants.P, 10);
+        RobotMap.armFirstStage.config_kI(0, ArmFirstStageConstants.I, 10);
+        RobotMap.armFirstStage.config_kD(0, ArmFirstStageConstants.D, 10);
+
+        RobotMap.armSecondStage.config_kF(0, ArmSecondStageConstants.F, 10);
+        RobotMap.armSecondStage.config_kP(0, ArmSecondStageConstants.P, 10);
+        RobotMap.armSecondStage.config_kI(0, ArmSecondStageConstants.I, 10);
+        RobotMap.armSecondStage.config_kD(0, ArmSecondStageConstants.D, 10);
+
+        RobotMap.wrist.config_kF(0, Wrist.F, 10);
+        RobotMap.wrist.config_kP(0, Wrist.P, 10);
+        RobotMap.wrist.config_kI(0, Wrist.I, 10);
+        RobotMap.wrist.config_kD(0, Wrist.D, 10);
     }
 }
