@@ -14,6 +14,10 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 public class FHighPurple extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
+    
+    double firstStagePosition = 0.0;
+    double secondStagePosition = 0.0;
+    double wristPosition = 0.0;
 
     @Override
     public void build() {
@@ -34,7 +38,7 @@ public class FHighPurple extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override
