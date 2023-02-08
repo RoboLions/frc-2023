@@ -4,10 +4,10 @@
 
 package frc.robot.subsystems.arm.front;
 
-import frc.robot.lib.State;
+import frc.robot.lib.statemachine.State;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */

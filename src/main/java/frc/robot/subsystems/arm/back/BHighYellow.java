@@ -6,8 +6,8 @@ package frc.robot.subsystems.arm.back;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
