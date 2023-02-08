@@ -4,10 +4,15 @@
 
 package frc.robot.subsystems.arm;
 
+import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 
 /** Add your docs here. */
 public class IntakeState extends State {
+    
+    double firstStagePosition = 0.0;
+    double secondStagePosition = 0.0;
+    double wristPosition = 0.0;
     
     @Override
     public void init() {
@@ -16,7 +21,7 @@ public class IntakeState extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override
