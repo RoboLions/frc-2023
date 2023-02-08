@@ -4,11 +4,20 @@
 
 package frc.robot.subsystems.arm;
 
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.RobotMap;
 import frc.robot.lib.State;
+import frc.robot.lib.Transition;
 
 /** Add your docs here. */
 public class IntakeBaseState extends State {
-    
+    private static XboxController manipulatorController = RobotMap.manipulatorController;
+
+    public void build(){
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getLeftBumper() || (RobotMap.arm.getClawSensor());
+        }, ArmStateMachine.idleState));
+    }
     @Override
     public void init() {
 
