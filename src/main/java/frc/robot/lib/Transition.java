@@ -6,6 +6,8 @@ package frc.robot.lib;
 
 import java.util.function.Supplier;
 
+import frc.robot.subsystems.arm.IntakeState;
+
 /** Class for adding a transition to a state */
 public class Transition {
 
@@ -17,6 +19,9 @@ public class Transition {
     public Transition(Supplier<Boolean> func, State next_state) {
         transition_function = func;
         state = next_state;
+    }
+
+    public Transition(Supplier<Boolean> func, IntakeState intakeState) {
     }
 
     // check if the transition function returns true

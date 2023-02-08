@@ -4,11 +4,15 @@
 
 package frc.robot.subsystems.arm.front;
 
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.RobotMap;
 import frc.robot.lib.State;
+import frc.robot.lib.Transition;
+import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
 public class HighYellow extends State {
-    
+    private static XboxController manipulatorController = RobotMap.manipulatorController;
     @Override
     public void init() {
 
@@ -23,5 +27,10 @@ public class HighYellow extends State {
     public void exit() {
         
     }
-
+    
+    public void build() {
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getLeftBumper() || manipulatorController.getRightTriggerAxis() == 0;
+        }, ArmStateMachine.idleState));
+    }
 }

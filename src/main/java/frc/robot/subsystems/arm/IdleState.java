@@ -28,8 +28,13 @@ public class IdleState extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.dropState));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getYButton() && RobotMap.arm.getColorSensor() == "Purple" && manipulatorController.getRightTriggerAxis() > 0.25;
+        }, ArmStateMachine.highPurple));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getYButton() && RobotMap.arm.getColorSensor() == "Yellow" && manipulatorController.getRightTriggerAxis() > 0.25;
+        }, ArmStateMachine.highYellow));
     }
-    
     @Override
     public void init() {
 
