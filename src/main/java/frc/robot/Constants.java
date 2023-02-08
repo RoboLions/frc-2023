@@ -148,7 +148,7 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
-
+    
     public static final class PhotonConstants {
         public static final Transform3d robotToCam =
                 new Transform3d(
@@ -158,5 +158,26 @@ public final class Constants {
                                 0)); 
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
+    }
+
+    public static final class ArmFirstStageConstants {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+    }
+
+    public static final class ArmSecondStageConstants {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+    }
+
+    public static final class Wrist {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
     }
 }

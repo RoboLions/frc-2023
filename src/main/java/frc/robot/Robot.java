@@ -36,6 +36,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     RobotMap.init();
     RobotMap.gyro.configFactoryDefault();
+    RobotMap.armFirstStage.configFactoryDefault();
+    RobotMap.armSecondStage.configFactoryDefault();
+    RobotMap.wrist.configFactoryDefault();
+    RobotMap.intakeRoller.configFactoryDefault();
+    RobotMap.claw.configFactoryDefault();
     RobotMap.swerve.zeroGyro();
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
