@@ -7,6 +7,8 @@ package frc.robot.lib.states;
 /** Add your docs here. */
 public class Arm {
 
+    public Arm() {}
+
     // TODO: get sensor
     public boolean getClawSensor() {
         return false;
