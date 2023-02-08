@@ -12,6 +12,8 @@ import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
 import frc.robot.subsystems.arm.back.LowPurple;
 import frc.robot.subsystems.arm.back.LowYellow;
+import frc.robot.subsystems.arm.back.HighPurple;
+import frc.robot.subsystems.arm.back.HighYellow;
 
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
@@ -23,6 +25,8 @@ public class ArmStateMachine extends StateMachine {
     public static LowPurple lowPurple = new LowPurple();    
     public static LowYellow lowYellow = new LowYellow();
 
+    public static HighPurple highPurple = new HighPurple();
+    public static HighYellow highYellow = new HighYellow();
 
     public ArmStateMachine() {
 
@@ -32,6 +36,9 @@ public class ArmStateMachine extends StateMachine {
         dropState.build();
         lowPurple.build();
         lowYellow.build();
+        highPurple.build();
+        highYellow.build();
+
 
         /*Supplier<Boolean> checkIdleButton = () -> {
             // TODO button, method
