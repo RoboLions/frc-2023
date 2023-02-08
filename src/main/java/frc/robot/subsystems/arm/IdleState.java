@@ -21,6 +21,7 @@ public class IdleState extends State {
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
     @Override
+    
     public void build() {
         transitions.add(new Transition(() -> {
             return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
@@ -28,6 +29,12 @@ public class IdleState extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.dropState));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton() && RobotMap.arm.getColorSensor() == "Purple" && manipulatorController.getRightTriggerAxis() > 0.25;
+        }, ArmStateMachine.lowPurple));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton() && RobotMap.arm.getColorSensor() == "Yellow" && manipulatorController.getRightTriggerAxis() > 0.25;
+        }, ArmStateMachine.lowYellow));
     }
     
     @Override

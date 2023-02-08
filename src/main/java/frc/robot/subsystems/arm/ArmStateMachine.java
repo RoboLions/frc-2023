@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.StateMachine;
 import frc.robot.lib.Transition;
+import frc.robot.subsystems.arm.back.LowPurple;
+import frc.robot.subsystems.arm.back.LowYellow;
 
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
@@ -18,6 +20,9 @@ public class ArmStateMachine extends StateMachine {
     public static IntakeState intakeState = new IntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
     public static DropState dropState = new DropState();
+    public static LowPurple lowPurple = new LowPurple();    
+    public static LowYellow lowYellow = new LowYellow();
+
 
     public ArmStateMachine() {
 
@@ -25,6 +30,8 @@ public class ArmStateMachine extends StateMachine {
         intakeState.build();
         outtakeState.build();
         dropState.build();
+        lowPurple.build();
+        lowYellow.build();
 
         /*Supplier<Boolean> checkIdleButton = () -> {
             // TODO button, method
@@ -91,7 +98,7 @@ public class ArmStateMachine extends StateMachine {
             return RobotMap.arm.checkArrived();
         };
 
-        /*intakeState.addTransition(new Transition(checkIdleButton, idleState));
+        intakeState.addTransition(new Transition(checkIdleButton, idleState));
         intakeState.addTransition(new Transition(checkClawSensorFalse, idleState));
         idleState.addTransition(new Transition(checkIntakeButton, intakeState));
         outtakeState.addTransition(new Transition(checkArrivedTrue, idleState));
