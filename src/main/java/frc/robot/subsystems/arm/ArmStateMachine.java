@@ -18,6 +18,7 @@ public class ArmStateMachine extends StateMachine {
     public static IntakeState intakeState = new IntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
     public static DropState dropState = new DropState();
+    public static OpenState openState = new OpenState();
 
     public ArmStateMachine() {
 
