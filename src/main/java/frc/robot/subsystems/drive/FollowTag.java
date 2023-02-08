@@ -34,8 +34,9 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
-import frc.robot.lib.State;
-import frc.robot.lib.Swerve;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.states.Swerve;
+
 import java.util.Optional;
 import java.util.function.Supplier;
 

@@ -13,8 +13,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.PhotonConstants;
-import frc.robot.lib.Arm;
-import frc.robot.lib.Swerve;
+import frc.robot.lib.states.Arm;
+import frc.robot.lib.states.Swerve;
+
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
