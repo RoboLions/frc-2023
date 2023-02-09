@@ -9,6 +9,10 @@ import frc.robot.lib.statemachine.State;
 /** Add your docs here. */
 public class OpenState extends State {
     
+    double firstStage = 0.0;
+    double secondStage = 0.0;
+    double wrist = 0.0;
+    
     @Override
     public void init() {
 

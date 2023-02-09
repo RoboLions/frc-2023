@@ -15,6 +15,10 @@ public class FHybrid extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
+    double firstStage = 0.0;
+    double secondStage = 0.0;
+    double wrist = 0.0;
+
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
@@ -33,7 +37,7 @@ public class FHybrid extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStage, secondStage, wrist);
     }
 
     @Override

@@ -13,6 +13,7 @@ import frc.robot.lib.statemachine.Transition;
 public class IdleState extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
+
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
@@ -77,12 +78,12 @@ public class IdleState extends State {
     
     @Override
     public void init() {
-
+        RobotMap.arm.resetEncoders();
     }
 
     @Override
     public void execute() {
-        // RobotMap.arm.setIdle();
+        RobotMap.arm.setIdle();
     }
 
     @Override
