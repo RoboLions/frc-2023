@@ -10,6 +10,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.arm.back.BHighPurple;
+import frc.robot.subsystems.arm.back.BHighYellow;
+import frc.robot.subsystems.arm.back.BHybrid;
+import frc.robot.subsystems.arm.back.BMidPurple;
+import frc.robot.subsystems.arm.back.BMidYellow;
+import frc.robot.subsystems.arm.front.FHighPurple;
+import frc.robot.subsystems.arm.front.FHighYellow;
+import frc.robot.subsystems.arm.front.FHybrid;
+import frc.robot.subsystems.arm.front.FMidPurple;
+import frc.robot.subsystems.arm.front.FMidYellow;
 
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
@@ -19,6 +29,17 @@ public class ArmStateMachine extends StateMachine {
     public static OuttakeState outtakeState = new OuttakeState();
     public static DropState dropState = new DropState();
     public static OpenState openState = new OpenState();
+    public static PickupState pickupState = new PickupState();
+    public static FMidYellow frontMidYellow = new FMidYellow();
+    public static FMidPurple frontMidPurple = new FMidPurple();
+    public static FHybrid frontHybrid = new FHybrid();
+    public static FHighPurple frontHighPurple = new FHighPurple();
+    public static FHighYellow frontHighYellow = new FHighYellow();
+    public static BHybrid backHybrid = new BHybrid();
+    public static BHighPurple backHighPurple = new BHighPurple();
+    public static BMidPurple backMidPurple = new BMidPurple();
+    public static BMidYellow backMidYellow = new BMidYellow();
+    public static BHighYellow backHighYellow = new BHighYellow();
 
     public ArmStateMachine() {
 
@@ -26,77 +47,18 @@ public class ArmStateMachine extends StateMachine {
         intakeState.build();
         outtakeState.build();
         dropState.build();
-
-        /*Supplier<Boolean> checkIdleButton = () -> {
-            // TODO button, method
-            return manipulatorController.getAButton();
-        };
-
-        Supplier<Boolean> checkPickupTransitions = () -> {
-            // TODO button, methods
-            // claw sensor must be false to pickup
-            return RobotMap.arm.getBaseSensor() && !RobotMap.arm.getClawSensor();
-        };
-
-        Supplier<Boolean> checkOuttakeTransitions = () -> {
-            // TODO button
-            // base sensor must be true to outtake
-            return manipulatorController.getXButton() && RobotMap.arm.getBaseSensor();
-        };
-
-        Supplier<Boolean> checkIntakeSubstationTransitions = () -> {
-            // TODO button
-            // claw sensor must be false to intake
-            return manipulatorController.getYButton() && !RobotMap.arm.getClawSensor();
-        };
-
-        Supplier<Boolean> checkIntakeToIdleTransitions = () -> {
-            // TODO button
-            // claw sensor must be true to idle
-            return manipulatorController.getAButton() || RobotMap.arm.getClawSensor();
-        };
-
-        Supplier<Boolean> checkHighPurpleFront = () -> {
-            // TODO button, methods
-            return manipulatorController.getRightTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getBButton();
-        };
-
-        Supplier<Boolean> checkIdleTransitions = () -> {
-            // TODO button
-            // claw sensor must be false to idle
-            return manipulatorController.getAButton() || !RobotMap.arm.getClawSensor();
-        };
-
-        Supplier<Boolean> checkHighPurpleBack = () -> {
-            // TODO button, methods
-            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getBButton();
-        };
-
-        Supplier<Boolean> checkMidPurpleBack = () -> {
-            // TODO button, methods
-            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "purple") && manipulatorController.getLeftBumper();
-        };
-
-        Supplier<Boolean> checkMidYellowBack = () -> {
-            // TODO button, methods
-            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "yellow") && manipulatorController.getLeftBumper();
-        };
-
-        Supplier<Boolean> checkHighYellowBack = () -> {
-            // TODO button, methods
-            return manipulatorController.getLeftTriggerAxis() > 0.25 && (RobotMap.arm.getColorSensor() == "yellow") && manipulatorController.getLeftBumper();
-        };
-
-        Supplier<Boolean> checkArrivedTrue = () -> {
-            // TODO method
-            return RobotMap.arm.checkArrived();
-        };
-
-        /*intakeState.addTransition(new Transition(checkIdleButton, idleState));
-        intakeState.addTransition(new Transition(checkClawSensorFalse, idleState));
-        idleState.addTransition(new Transition(checkIntakeButton, intakeState));
-        outtakeState.addTransition(new Transition(checkArrivedTrue, idleState));
-        dropState.addTransition(new Transition(checkClawSensorFalse, idleState));*/
+        openState.build();
+        pickupState.build();
+        frontMidYellow.build();
+        frontMidPurple.build();
+        frontHybrid.build();
+        frontHighPurple.build();
+        frontHighYellow.build();
+        backMidYellow.build();
+        backMidPurple.build();
+        backHybrid.build();
+        backHighPurple.build();
+        backHighYellow.build();
 
         setCurrentState(idleState);
     }

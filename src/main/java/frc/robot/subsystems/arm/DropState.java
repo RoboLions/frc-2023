@@ -30,15 +30,5 @@ public class DropState extends State {
     public void exit() {
         
     }
-
-    public List<Transition> transitions = new ArrayList<Transition>(
-        Arrays.asList(
-            new Transition(() -> {
-                return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
-            }, ArmStateMachine.intakeState),
-            new Transition(() -> {
-                return manipulatorController.getXButton();
-            }, ArmStateMachine.idleState))
-    );
     
 }
