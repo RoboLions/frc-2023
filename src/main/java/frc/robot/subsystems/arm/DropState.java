@@ -19,9 +19,6 @@ public class DropState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getClawSensor();
-        }, ArmStateMachine.dropState));
-        transitions.add(new Transition(() -> {
             return !RobotMap.arm.getClawSensor();
         }, ArmStateMachine.idleState));        
     }

@@ -73,10 +73,7 @@ public class IdleState extends State {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) && 
                     manipulatorController.getRightBumper();
         }, ArmStateMachine.bHybrid));
-        transitions.add(new Transition(() -> {
-                return (manipulatorController.getLeftTriggerAxis() > 10 ); // TODO: add "arrived" 
-            }, ArmStateMachine.dropState));
-        }
+    }
   
     
     @Override
