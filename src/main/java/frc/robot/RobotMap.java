@@ -1,8 +1,9 @@
 package frc.robot;
 
-import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -13,34 +14,36 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.Constants.PhotonConstants;
-import frc.robot.lib.Arm;
-import frc.robot.lib.PhotonCameraWrapper;
-import frc.robot.lib.RoboLionsPID;
-import frc.robot.lib.Swerve;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import frc.robot.lib.states.Arm;
+import frc.robot.lib.states.Swerve;
+
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public class RobotMap {
     
     /* Motor + sensor IDs */
     public static final int pigeonID = 5;
+    public static final int leftBaseIntakeID = 6;
+    public static final int rightBaseIntakeID = 7;
+    public static final int intakeRollerID = 8;
+    public static final int armFirstStageID = 9;
+    public static final int armSecondStageID = 10;
+    public static final int wristID = 11;
+    public static final int clawID = 12;
     
     /* Motor + sensor instances */
     public static WPI_Pigeon2 gyro;
+    public static WPI_TalonFX armFirstStage;
+    public static WPI_TalonFX armSecondStage;
+    public static WPI_TalonFX wrist;
+    public static VictorSPX intakeRoller;
+    public static VictorSPX claw;
+    // TODO: tbd left and right base intake motors
 
     /* Class instances */
     public static Swerve swerve; 
-    public static RoboLionsPID rotationPID;
-    public static RoboLionsPID translationPID;
-    public static RoboLionsPID strafePID;
     public static CTREConfigs ctreConfigs;
-    public static SwerveModule[] swerveModules;
-    public static PhotonCamera camera;
     public static AprilTagFieldLayout aprilTagFieldLayout;
-    public static PhotonPoseEstimator photonPoseEstimator;
-    public static PhotonCameraWrapper pcw;
-    public static SwerveDrivePoseEstimator swerveDrivePoseEstimator;
     public static Field2d Field2d;
     public static Arm arm;
 
@@ -50,33 +53,23 @@ public class RobotMap {
 
     public static void init() {
         
+        gyro = new WPI_Pigeon2(pigeonID);
+        armFirstStage = new WPI_TalonFX(armFirstStageID);
+        armSecondStage = new WPI_TalonFX(armSecondStageID);
+        wrist = new WPI_TalonFX(wristID);
+        intakeRoller = new VictorSPX(intakeRollerID);
+        claw = new VictorSPX(clawID);
         ctreConfigs = new CTREConfigs();
         manipulatorController = new XboxController(1);
         driverController = new XboxController(0);
-        gyro = new WPI_Pigeon2(pigeonID);
-        swerveModules = new SwerveModule[] {
-            new SwerveModule(0, Constants.Swerve.Mod0.constants),
-            new SwerveModule(1, Constants.Swerve.Mod1.constants),
-            new SwerveModule(2, Constants.Swerve.Mod2.constants),
-            new SwerveModule(3, Constants.Swerve.Mod3.constants)
-        };
-        rotationPID = new RoboLionsPID();
-        translationPID = new RoboLionsPID();
-        strafePID = new RoboLionsPID();
         swerve = new Swerve();
         arm = new Arm();
-        camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //Arducam_OV9281_USB_Camera HD_USB_Camera
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
         } catch (Exception e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             aprilTagFieldLayout = null;
         }
-        pcw = new PhotonCameraWrapper();
-        swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
-            Constants.Swerve.swerveKinematics, gyro.getRotation2d(), swerve.getModulePositions(), new Pose2d());
-        photonPoseEstimator = new PhotonPoseEstimator(
-            aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, PhotonConstants.robotToCam);
         Field2d = new Field2d();
     }
 }

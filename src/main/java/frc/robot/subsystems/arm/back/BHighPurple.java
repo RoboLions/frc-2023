@@ -6,18 +6,24 @@ package frc.robot.subsystems.arm.back;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
 public class BHighPurple extends State {
+
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    public void build(){
+    @Override
+    public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper() || 
-            (!RobotMap.arm.getClawSensor() && manipulatorController.getLeftTriggerAxis() < 0.25);
+            return manipulatorController.getYButton() &&
+            manipulatorController.getLeftTriggerAxis() > .25 &&
+            RobotMap.arm.getColorSensor() == "purple"; 
+        }, ArmStateMachine.openState));
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
     }
     

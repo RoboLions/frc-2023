@@ -4,19 +4,13 @@
 
 package frc.robot.subsystems.arm;
 
-import java.util.*;
-
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
 public class IdleState extends State {
-
-    /* Error at frc.robot.lib.StateMachine.setCurrentState(StateMachine.java:40):
-     Unhandled exception: java.lang.NullPointerException: Cannot assign field "state_machine_name"
-      because "this.currentState" is null */
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
     @Override
@@ -91,7 +85,7 @@ public class IdleState extends State {
 
     @Override
     public void execute() {
-
+        // RobotMap.arm.setIdle();
     }
 
     @Override

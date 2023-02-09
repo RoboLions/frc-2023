@@ -6,8 +6,8 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
 import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
 
 /** Add your docs here. */
 public class IntakeState extends State {

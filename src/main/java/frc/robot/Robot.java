@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.lib.states.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
@@ -33,7 +35,19 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
+    RobotMap.gyro.configFactoryDefault();
+    RobotMap.armFirstStage.configFactoryDefault();
+    RobotMap.armSecondStage.configFactoryDefault();
+    RobotMap.wrist.configFactoryDefault();
+    RobotMap.intakeRoller.configFactoryDefault();
+    RobotMap.claw.configFactoryDefault();
     RobotMap.swerve.zeroGyro();
+
+    /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
+    * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */
+    Timer.delay(1.0);
+    RobotMap.swerve.resetModulesToAbsolute();
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -58,8 +72,8 @@ public class Robot extends TimedRobot {
     drivetrainStateMachine.setNextState();
     armStateMachine.setNextState();
 
-    RobotMap.pcw.updatePoses();
-    RobotMap.Field2d.setRobotPose(RobotMap.swerveDrivePoseEstimator.getEstimatedPosition());
+    RobotMap.swerve.updatePoses();
+    RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
   }
 
   /**

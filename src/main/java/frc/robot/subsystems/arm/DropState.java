@@ -8,8 +8,8 @@ import java.util.*;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.State;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
 public class DropState extends State {
@@ -30,15 +30,5 @@ public class DropState extends State {
     public void exit() {
         
     }
-
-    public List<Transition> transitions = new ArrayList<Transition>(
-        Arrays.asList(
-            new Transition(() -> {
-                return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
-            }, ArmStateMachine.intakeState),
-            new Transition(() -> {
-                return manipulatorController.getXButton();
-            }, ArmStateMachine.idleState))
-    );
     
 }
