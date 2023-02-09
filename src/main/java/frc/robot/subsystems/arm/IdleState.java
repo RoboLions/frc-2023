@@ -24,8 +24,7 @@ public class IdleState extends State {
         }, ArmStateMachine.outtakeState));
         transitions.add(new Transition(() -> {
             return RobotMap.arm.getBaseSensor() && !RobotMap.arm.getClawSensor();
-        }, ArmStateMachine.baseState));
-       
+        }, ArmStateMachine.intakeState));
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
                     RobotMap.arm.getColorSensor() == "purple" && 
@@ -46,7 +45,6 @@ public class IdleState extends State {
                     RobotMap.arm.getColorSensor() == "yellow" && 
                     manipulatorController.getXButton();
         }, ArmStateMachine.bHighPurple));
-
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
                     RobotMap.arm.getColorSensor() == "purple" && 
@@ -67,7 +65,6 @@ public class IdleState extends State {
                     RobotMap.arm.getColorSensor() == "yellow" && 
                     manipulatorController.getYButton();
         }, ArmStateMachine.bMidPurple));
-
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) && 
                     manipulatorController.getRightBumper();

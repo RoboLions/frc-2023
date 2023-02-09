@@ -8,8 +8,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
-import frc.robot.lib.StateMachine;
-import frc.robot.lib.Transition;
+import frc.robot.lib.statemachine.StateMachine;
 import frc.robot.subsystems.arm.back.BHighPurple;
 import frc.robot.subsystems.arm.back.BMidPurple;
 import frc.robot.subsystems.arm.back.BHybrid;
@@ -49,16 +48,16 @@ public class ArmStateMachine extends StateMachine {
         dropState.build();
         openState.build();
         pickupState.build();
-        frontMidYellow.build();
-        frontMidPurple.build();
-        frontHybrid.build();
-        frontHighPurple.build();
-        frontHighYellow.build();
-        backMidYellow.build();
-        backMidPurple.build();
-        backHybrid.build();
-        backHighPurple.build();
-        backHighYellow.build();
+        fMidYellow.build();
+        fMidPurple.build();
+        fHybrid.build();
+        fHighPurple.build();
+        fHighYellow.build();
+        bMidYellow.build();
+        bMidPurple.build();
+        bHybrid.build();
+        bHighPurple.build();
+        bHighYellow.build();
 
         setCurrentState(idleState);
     }
