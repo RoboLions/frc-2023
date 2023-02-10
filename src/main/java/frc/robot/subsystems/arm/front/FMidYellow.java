@@ -22,10 +22,8 @@ public class FMidYellow extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton() &&
-            manipulatorController.getRightTriggerAxis() > .25 &&
-            RobotMap.arm.getColorSensor() == "yellow"; 
-        }, ArmStateMachine.openState));
+            return manipulatorController.getYButton(); 
+        }, ClawStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));

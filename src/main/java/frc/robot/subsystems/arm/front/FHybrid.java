@@ -22,9 +22,8 @@ public class FHybrid extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton() &&
-            manipulatorController.getRightTriggerAxis() > .25 ; 
-        }, ArmStateMachine.openState));
+            return manipulatorController.getYButton(); 
+        }, ClawStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));

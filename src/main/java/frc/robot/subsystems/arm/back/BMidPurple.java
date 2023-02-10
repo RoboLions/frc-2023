@@ -22,10 +22,8 @@ public class BMidPurple extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton() &&
-            manipulatorController.getLeftTriggerAxis() > .25 &&
-            RobotMap.arm.getColorSensor() == "purple"; 
-        }, ArmStateMachine.openState));
+            return manipulatorController.getYButton(); 
+        }, ClawStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
