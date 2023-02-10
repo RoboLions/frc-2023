@@ -17,6 +17,14 @@ public class DropState extends State {
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
     @Override
+    public void build() {
+        transitions.add(new Transition(() -> {
+            return !RobotMap.arm.getClawSensor();
+        }, ArmStateMachine.idleState));        
+    }
+    
+
+    @Override
     public void init() {
 
     }

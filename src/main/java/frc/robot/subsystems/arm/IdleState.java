@@ -73,7 +73,8 @@ public class IdleState extends State {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) && 
                     manipulatorController.getRightBumper();
         }, ArmStateMachine.bHybrid));
-    }   
+    }
+  
     
     @Override
     public void init() {
@@ -90,3 +91,4 @@ public class IdleState extends State {
         
     }
 }
+    
