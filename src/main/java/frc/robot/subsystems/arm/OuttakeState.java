@@ -22,8 +22,8 @@ public class OuttakeState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getArrived(allowance);
-        }, ClawStateMachine.openState));
+            return RobotMap.arm.getArrived(allowance) && RobotMap.arm.getClawOpen();
+        }, ArmStateMachine.idleState));
     }
     
     @Override

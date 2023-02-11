@@ -16,6 +16,7 @@ public class Arm {
     public static double counter = 0.0;
     public static double counter2 = 0.0;
     public static double counter3 = 0.0;
+    public static double counter4 = 0.0;
 
     public Arm() {
         RobotMap.armFirstStage.setNeutralMode(NeutralMode.Brake);
@@ -97,6 +98,7 @@ public class Arm {
 
     public boolean getClawClosed() {
         // TODO: change counts
+        // assume claw is closed after some # of counts
         if (getColorSensor() == "purple") {
             counter2++;
             if (counter2 > 10.0) {
@@ -115,6 +117,19 @@ public class Arm {
             counter3 = 0.0;
         }
 
+        return false;
+    }
+
+    // assume claw is open after some # of counts
+    public boolean getClawOpen() {
+        if (getColorSensor() != "purple" || getColorSensor() != "yellow") {
+            counter4++;
+            if (counter4 > 5.0) {
+                return true;
+            }
+        } else {
+            counter4 = 0.0;
+        }
         return false;
     }
 }

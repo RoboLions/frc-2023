@@ -22,11 +22,10 @@ public class BHighYellow extends State {
 
     @Override
     public void build() {
-        // open the claw when Y button pressed and arm has arrived at positions
+        // return to idle automatically after scored
         transitions.add(new Transition(() -> {
-            return manipulatorController.getYButton() && 
-            RobotMap.arm.getArrived(allowance);
-        }, ClawStateMachine.openState));
+            return RobotMap.arm.getClawOpen();
+        }, ArmStateMachine.idleState));
 
         // return to idle manually
         transitions.add(new Transition(() -> {
