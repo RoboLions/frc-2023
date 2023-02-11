@@ -15,14 +15,13 @@ public class OpenState extends State {
     @Override
     public void build() {
         // close on a cube if "close request" and color sensor == purple
-        // TODO: make close request method
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getCloseRequest() && RobotMap.arm.getColorSensor() == "purple";
+            return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "purple";
         }, ClawStateMachine.closedCube));
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getCloseRequest() && RobotMap.arm.getColorSensor() == "yellow";
+            return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "yellow";
         }, ClawStateMachine.closedCone));
     }
 
@@ -38,6 +37,7 @@ public class OpenState extends State {
 
     @Override
     public void exit() {
-        
+        // set closeRequest to false
+        RobotMap.closeRequest = false;
     }
 }

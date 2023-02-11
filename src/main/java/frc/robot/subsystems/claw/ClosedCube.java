@@ -13,10 +13,9 @@ public class ClosedCube extends State {
     
     @Override
     public void build() {
-        // TODO: make open request method
         // open claw if open request
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getOpenRequest();
+            return RobotMap.openRequest;
         }, ClawStateMachine.openState));
     }
 
@@ -32,6 +31,7 @@ public class ClosedCube extends State {
 
     @Override
     public void exit() {
-        
+        // set openRequest to false
+        RobotMap.openRequest = false;
     }
 }
