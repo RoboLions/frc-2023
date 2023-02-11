@@ -34,6 +34,11 @@ public class OuttakeState extends State {
     @Override
     public void execute() {
         RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+
+        // if arm has arrived at position, send open request to claw
+        if (RobotMap.arm.getArrived(allowance)) {
+            RobotMap.openRequest = true;
+        }
     }
 
     @Override
