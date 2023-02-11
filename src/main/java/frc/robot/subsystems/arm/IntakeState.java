@@ -14,10 +14,15 @@ public class IntakeState extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
+    double firstStagePosition = 0.0;
+    double secondStagePosition = 0.0;
+    double wristPosition = 0.0;
+
     @Override
     public void build() {
+        // idle button == T or claw is closed
         transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper(); // || clawClosed == True;
+            return manipulatorController.getBButton() || RobotMap.arm.getClawClosed();
         }, ArmStateMachine.idleState));
     }
 
@@ -28,7 +33,7 @@ public class IntakeState extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override

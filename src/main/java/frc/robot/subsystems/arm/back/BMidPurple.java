@@ -15,13 +15,20 @@ public class BMidPurple extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
+    double firstStagePosition = 0.0;
+    double secondStagePosition = 0.0;
+    double wristPosition = 0.0;
+    double allowance = 1000.0;
+
     @Override
     public void build() {
+        // open the claw when Y button pressed and arm has arrived at positions
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton() &&
-            manipulatorController.getLeftTriggerAxis() > .25 &&
-            RobotMap.arm.getColorSensor() == "purple"; 
-        }, ArmStateMachine.openState));
+            return manipulatorController.getYButton() && 
+            RobotMap.arm.getArrived(allowance);
+        }, ClawStateMachine.openState));
+
+        // return to idle manually
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
@@ -34,7 +41,7 @@ public class BMidPurple extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override

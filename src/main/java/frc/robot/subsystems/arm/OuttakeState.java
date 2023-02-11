@@ -14,11 +14,16 @@ public class OuttakeState extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
+    double firstStagePosition = 0.0;
+    double secondStagePosition = 0.0;
+    double wristPosition = 0.0;
+    double allowance = 1000.0;
+
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 10); //TODO CREATE "ARRIVED"
-        }, ArmStateMachine.dropState));
+            return RobotMap.arm.getArrived(allowance);
+        }, ClawStateMachine.openState));
     }
     
     @Override
@@ -28,7 +33,7 @@ public class OuttakeState extends State {
 
     @Override
     public void execute() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override

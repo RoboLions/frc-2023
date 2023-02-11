@@ -26,7 +26,7 @@ public class ArmStateMachine extends StateMachine {
     public static IdleState idleState = new IdleState();
     public static IntakeState intakeState = new IntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
-    public static DropState dropState = new DropState();
+    public static PickupState pickupState = new PickupState();
     public static BHighPurple bHighPurple = new BHighPurple();
     public static BMidPurple bMidPurple = new BMidPurple();
     public static BHybrid bHybrid = new BHybrid();
@@ -37,16 +37,12 @@ public class ArmStateMachine extends StateMachine {
     public static FHybrid fHybrid = new FHybrid();
     public static FHighYellow fHighYellow = new FHighYellow();
     public static FMidYellow fMidYellow = new FMidYellow();
-    public static OpenState openState = new OpenState();
-    public static PickupState pickupState = new PickupState();
 
     public ArmStateMachine() {
 
         idleState.build();
         intakeState.build();
         outtakeState.build();
-        dropState.build();
-        openState.build();
         pickupState.build();
         fMidYellow.build();
         fMidPurple.build();
