@@ -4,7 +4,9 @@
 
 package frc.robot.lib.states;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
 import frc.robot.RobotMap;
 
@@ -15,7 +17,37 @@ public class Arm {
     public static double counter2 = 0.0;
     public static double counter3 = 0.0;
 
-    public Arm() {}
+    public Arm() {
+        RobotMap.armFirstStage.setNeutralMode(NeutralMode.Brake);
+        RobotMap.armSecondStage.setNeutralMode(NeutralMode.Brake);
+        RobotMap.wrist.setNeutralMode(NeutralMode.Brake);
+
+        RobotMap.armFirstStage.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.armSecondStage.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.wrist.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+
+        RobotMap.armFirstStage.configNominalOutputForward(0, 10);
+        RobotMap.armFirstStage.configNominalOutputReverse(0, 10);
+        RobotMap.armFirstStage.configPeakOutputForward(1, 10);
+        RobotMap.armFirstStage.configPeakOutputReverse(-1, 10);
+        RobotMap.armFirstStage.configNeutralDeadband(0.001, 10);
+
+        RobotMap.armSecondStage.configNominalOutputForward(0, 10);
+        RobotMap.armSecondStage.configNominalOutputReverse(0, 10);
+        RobotMap.armSecondStage.configPeakOutputForward(1, 10);
+        RobotMap.armSecondStage.configPeakOutputReverse(-1, 10);
+        RobotMap.armSecondStage.configNeutralDeadband(0.001, 10);
+
+        RobotMap.wrist.configNominalOutputForward(0, 10);
+        RobotMap.wrist.configNominalOutputReverse(0, 10);
+        RobotMap.wrist.configPeakOutputForward(1, 10);
+        RobotMap.wrist.configPeakOutputReverse(-1, 10);
+        RobotMap.wrist.configNeutralDeadband(0.001, 10);
+
+        RobotMap.armFirstStage.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.armSecondStage.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.wrist.configAllowableClosedloopError(0, 0, 10);
+    }
 
     // TODO: get sensor
     public boolean getClawSensor() {
