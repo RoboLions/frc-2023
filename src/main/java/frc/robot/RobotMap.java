@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.lib.states.Arm;
+import frc.robot.lib.states.Claw;
 import frc.robot.lib.states.Swerve;
 
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -46,6 +47,7 @@ public class RobotMap {
     public static AprilTagFieldLayout aprilTagFieldLayout;
     public static Field2d Field2d;
     public static Arm arm;
+    public static Claw clawLib;
 
     /* Xbox controllers */
     public static XboxController manipulatorController;
@@ -64,6 +66,7 @@ public class RobotMap {
         driverController = new XboxController(0);
         swerve = new Swerve();
         arm = new Arm();
+        clawLib = new Claw();
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
         } catch (Exception e) {
