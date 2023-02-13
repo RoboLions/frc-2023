@@ -19,16 +19,24 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
 import frc.robot.lib.statemachine.State;
+import frc.robot.lib.statemachine.Transition;
 import frc.robot.lib.states.Swerve;
 
 public class TeleopState extends State {
     
+    private static XboxController driverController = RobotMap.driverController;
+
     double translationVal;
     double strafeVal;
     double rotationVal;
     boolean robotCentric;
 
-    public TeleopState() {}
+    @Override
+    public void build() {
+        transitions.add(new Transition(() -> {
+            return driverController.getBButton(); 
+        }, DrivetrainStateMachine.teleopState));
+    }
 
     @Override
     public void init() {}

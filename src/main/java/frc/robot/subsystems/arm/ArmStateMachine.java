@@ -9,16 +9,9 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
-import frc.robot.subsystems.arm.back.BHighPurple;
-import frc.robot.subsystems.arm.back.BMidPurple;
-import frc.robot.subsystems.arm.back.BHybrid;
-import frc.robot.subsystems.arm.back.BHighYellow;
-import frc.robot.subsystems.arm.back.BMidYellow;
-import frc.robot.subsystems.arm.front.FHighPurple;
-import frc.robot.subsystems.arm.front.FMidPurple;
-import frc.robot.subsystems.arm.front.FHybrid;
-import frc.robot.subsystems.arm.front.FHighYellow;
-import frc.robot.subsystems.arm.front.FMidYellow;
+import frc.robot.subsystems.arm.back.*;
+import frc.robot.subsystems.arm.front.*;
+
 
 /** Add your docs here. */
 public class ArmStateMachine extends StateMachine {

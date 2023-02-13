@@ -10,32 +10,35 @@ import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class BalanceState extends State {
+public class ScoreState extends State {
 
-        private static XboxController driverController = RobotMap.driverController;
+    private static XboxController driverController = RobotMap.driverController;
+
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
             return driverController.getBButton(); // transition to regular swerve
         }, DrivetrainStateMachine.teleopState));
     }
-    
 
     @Override
-    public void init() {
-
-    }
+    public void init() {}
 
     @Override
     public void execute() {
-
+    /* 
+    dpad right:
+        if(driverController.getPOV() = 90){
+        get rising edge (how many times individually pressed)
+        move pos (# of rising edges) to right grids until reached right end
+    }
+    dpad left:
+        if(driverController.getPOV() = 270){
+        get rising edge (how many times individually pressed)
+        move pos (# of rising edges) to left grids until reached left end
     }
 
-    @Override
-    public void exit() {
-        
+    */
     }
-
-
-    }
-
+    
+}
