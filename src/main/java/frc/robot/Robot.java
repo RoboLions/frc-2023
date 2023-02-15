@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.lib.states.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -28,6 +29,8 @@ public class Robot extends TimedRobot {
   private DrivetrainStateMachine drivetrainStateMachine;
   private ArmStateMachine armStateMachine;
 
+  public static Color detectedColor;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,7 +43,7 @@ public class Robot extends TimedRobot {
     RobotMap.armSecondStage.configFactoryDefault();
     RobotMap.wrist.configFactoryDefault();
     RobotMap.intakeRoller.configFactoryDefault();
-    RobotMap.claw.configFactoryDefault();
+    RobotMap.clawMotor.configFactoryDefault();
     RobotMap.swerve.zeroGyro();
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
@@ -74,6 +77,8 @@ public class Robot extends TimedRobot {
 
     RobotMap.swerve.updatePoses();
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
+
+    RobotMap.claw.updateDetectedColor();
   }
 
   /**

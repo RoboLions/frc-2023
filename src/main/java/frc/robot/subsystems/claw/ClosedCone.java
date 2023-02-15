@@ -17,16 +17,21 @@ public class ClosedCone extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.openRequest;
         }, ClawStateMachine.openState));
+
+        // if we don't detect a cone, open the claw
+        transitions.add(new Transition(() -> {
+            return RobotMap.claw.getColor() != RobotMap.coneColor;
+        }, ClawStateMachine.openState));
     }
 
     @Override
     public void init() {
-
+        
     }
 
     @Override
     public void execute() {
-        RobotMap.clawLib.setClawClosedCone();
+
     }
 
     @Override

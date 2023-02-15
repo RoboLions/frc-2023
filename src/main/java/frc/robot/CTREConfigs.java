@@ -71,9 +71,9 @@ public final class CTREConfigs {
         RobotMap.wrist.config_kI(0, Wrist.I, 10);
         RobotMap.wrist.config_kD(0, Wrist.D, 10);
 
-        RobotMap.claw.config_kF(0, Claw.F, 10);
-        RobotMap.claw.config_kP(0, Claw.P, 10);
-        RobotMap.claw.config_kI(0, Claw.I, 10);
-        RobotMap.claw.config_kD(0, Claw.D, 10);
+        RobotMap.clawMotor.config_kF(0, Claw.F, 10);
+        RobotMap.clawMotor.config_kP(0, Claw.P, 10);
+        RobotMap.clawMotor.config_kI(0, Claw.I, 10);
+        RobotMap.clawMotor.config_kD(0, Claw.D, 10);
     }
 }

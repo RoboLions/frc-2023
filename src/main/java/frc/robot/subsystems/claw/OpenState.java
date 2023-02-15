@@ -17,22 +17,22 @@ public class OpenState extends State {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
             return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "purple";
-        }, ClawStateMachine.closedCube));
+        }, ClawStateMachine.closingCube));
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
             return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "yellow";
-        }, ClawStateMachine.closedCone));
+        }, ClawStateMachine.closingCone));
     }
 
     @Override
     public void init() {
-
+        RobotMap.claw.setClawOpen();
     }
 
     @Override
     public void execute() {
-        RobotMap.clawLib.setClawOpen();
+        
     }
 
     @Override
