@@ -180,4 +180,10 @@ public final class Constants {
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
+
+    public static final class Claw {
+        // TODO: change time
+        public static final double clawClosedCubeTime = 0.25;
+        public static final double clawClosedConeTime = 0.5;
+    }
 }

@@ -8,15 +8,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /** Add your docs here. */
 public class Arm {
 
-    public static double counter = 0.0;
-    public static double counter2 = 0.0;
-    public static double counter3 = 0.0;
-    public static double counter4 = 0.0;
+    private Timer timer = new Timer();
 
     public Arm() {
         RobotMap.armFirstStage.setNeutralMode(NeutralMode.Brake);
@@ -50,18 +49,9 @@ public class Arm {
         RobotMap.wrist.configAllowableClosedloopError(0, 0, 10);
     }
 
-    // TODO: get sensor
-    public boolean getClawSensor() {
+    /*public boolean getBaseSensor() {
         return false;
-    }
-
-    public boolean getBaseSensor() {
-        return false;
-    }
-
-    public String getColorSensor() {
-        return "purple";
-    }
+    }*/
 
     public void setIdle() {
         RobotMap.armFirstStage.set(TalonFXControlMode.Position, 0.0);
@@ -75,46 +65,42 @@ public class Arm {
         RobotMap.wrist.set(TalonFXControlMode.Position, wrist);
     }
 
-    /* getClosedLoopError(): Gets the closed-loop error. The units depend on which control mode is in use. 
-    If closed-loop is seeking a target sensor position, closed-loop error is the difference 
-    between target and current sensor value (in sensor units. 
-    Example 4096 units per rotation for CTRE Mag Encoder). */
-
-    public boolean getArrived(double allowance) {
+    // method to check if arm has arrived at its position
+    public boolean getArrived(double allowance, double time) {
 
         // TODO: test and change error allowance
         if (Math.abs(RobotMap.armFirstStage.getClosedLoopError()) <= Math.abs(allowance) && 
             Math.abs(RobotMap.armSecondStage.getClosedLoopError()) <= Math.abs(allowance) &&
             Math.abs(RobotMap.wrist.getClosedLoopError()) <= Math.abs(allowance)) { 
-            counter++;
-            if (counter > 15.0) {
+            timer.start();
+            if (timer.hasElapsed(time)) {
+                timer.stop();
+                timer.reset();
                 return true;
             }
-        } else {
-            counter = 0.0;
         }
         return false;
     }
 
     public boolean getClawClosed() {
-        // TODO: change counts
+
         // assume claw is closed after some # of counts
-        if (getColorSensor() == "purple") {
-            counter2++;
-            if (counter2 > 10.0) {
+        if (RobotMap.claw.getColor() == RobotMap.cubeColor) {
+            timer.start();
+            if (timer.hasElapsed(Constants.Claw.clawClosedCubeTime)) {
+                timer.stop();
+                timer.reset();
                 return true;
             }
-        } else {
-            counter2 = 0.0;
         }
 
-        if (getColorSensor() == "yellow") {
-            counter3++;
-            if (counter3 > 15.0) {
+        if (RobotMap.claw.getColor() == RobotMap.coneColor) {
+            timer.start();
+            if (timer.hasElapsed(Constants.Claw.clawClosedConeTime)) {
+                timer.stop();
+                timer.reset();
                 return true;
             }
-        } else {
-            counter3 = 0.0;
         }
 
         return false;
@@ -122,13 +108,14 @@ public class Arm {
 
     // assume claw is open after some # of counts
     public boolean getClawOpen() {
-        if (getColorSensor() != "purple" || getColorSensor() != "yellow") {
-            counter4++;
-            if (counter4 > 5.0) {
+        if (!RobotMap.claw.getColor() == RobotMap.coneColor || 
+            !RobotMap.claw.getColor() == RobotMap.cubeColor) {
+            timer.start();
+            if (timer.hasElapsed(Constants.Claw.clawClosedConeTime)) {
+                timer.stop();
+                timer.reset();
                 return true;
             }
-        } else {
-            counter4 = 0.0;
         }
         return false;
     }
