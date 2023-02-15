@@ -25,6 +25,9 @@ public class AutoModeExecutor {
 
     public void setAutoMode(AutoModeBase new_auto_mode) {
         mAutoMode = new_auto_mode;
+        if (mAutoMode != null) {
+            mAutoMode.run();
+        }
     }
 
     public void start() {

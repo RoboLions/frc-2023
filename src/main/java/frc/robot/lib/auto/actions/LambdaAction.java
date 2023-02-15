@@ -4,7 +4,6 @@
 
 package frc.robot.lib.auto.actions;
 
-/** Add your docs here. */
 public class LambdaAction implements Action {
 
     public interface VoidInterace {

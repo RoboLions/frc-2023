@@ -8,8 +8,8 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.drive.auto.BotSimpleScore;
-import frc.robot.subsystems.drive.auto.DoNothing;
+import frc.robot.subsystems.drive.autos.BotSimpleScore;
+import frc.robot.subsystems.drive.autos.DoNothing;
 
 public class AutoModeSelector {
     enum DesiredMode {

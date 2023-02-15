@@ -5,6 +5,7 @@
 package frc.robot.lib.auto;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.lib.auto.actions.Action;
 import frc.robot.lib.auto.actions.EmptyAction;
 
@@ -17,12 +18,17 @@ public abstract class AutoModeBase {
     protected boolean mActive = false;
     protected boolean mIsInterrupted = false;
 
-    protected abstract void routine();
+    protected abstract void routine() throws AutoModeEndedException;
 
     public void run() {
         mActive = true;
 
-        routine();
+        try {
+            routine();
+        } catch (AutoModeEndedException e) {
+            DriverStation.reportError("AUTO MODE DONE!!!! ENDED EARLY!!!!", false);
+            return;
+        }
 
         done();
     }
@@ -39,11 +45,15 @@ public abstract class AutoModeBase {
         return mActive;
     }
 
-    public boolean isActiveWithThrow() {
+    public boolean isActiveWithThrow() throws AutoModeEndedException {
+        if (!isActive()) {
+            throw new AutoModeEndedException();
+        }
+
         return isActive();
     }
 
-    public void waitForDriverConfirm() {
+    public void waitForDriverConfirm() throws AutoModeEndedException {
         if (!mIsInterrupted) {
             interrupt();
         }
@@ -60,7 +70,7 @@ public abstract class AutoModeBase {
         mIsInterrupted = false;
     }
 
-    public void runAction(Action action) {
+    public void runAction(Action action) throws AutoModeEndedException {
         isActiveWithThrow();
         long waitTime = (long) (mUpdateRate * 1000.0);
 

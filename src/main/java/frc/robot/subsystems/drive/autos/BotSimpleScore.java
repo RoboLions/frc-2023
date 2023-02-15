@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.drive.auto;
+package frc.robot.subsystems.drive.autos;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
+import frc.robot.lib.auto.AutoModeEndedException;
 import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 
@@ -23,12 +24,15 @@ import frc.robot.lib.auto.actions.TrajectoryAction;
 public class BotSimpleScore extends AutoModeBase {
 
     // This will load the file "Bot Simple Score.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
+    // TODO: check if file path is right
     static PathPlannerTrajectory botSimpleScorePath = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(4, 3));
 
     // trajectory action
     TrajectoryAction botSimpleScore;
 
     public BotSimpleScore() {
+
+        SmartDashboard.putBoolean("Auto Finished", false);
 
         // define theta controller for robot heading
         var thetaController =
@@ -48,11 +52,15 @@ public class BotSimpleScore extends AutoModeBase {
     }
 
     @Override
-    protected void routine() {
+    protected void routine() throws AutoModeEndedException {
+
+        System.out.println("Running bot simple score auto!");
+        SmartDashboard.putBoolean("Auto Finished", false);
+
         // reset odometry at the start of the trajectory
         runAction(new LambdaAction(() -> RobotMap.swerve.resetOdometry(new Pose2d(botSimpleScore.getInitialPose().getX(),
-                                                                          botSimpleScore.getInitialPose().getY(),
-                                                                          Rotation2d.fromDegrees(110)))));
+                                                                        botSimpleScore.getInitialPose().getY(),
+                                                                        Rotation2d.fromDegrees(0.0)))));
 
         // drive
         runAction(botSimpleScore);
