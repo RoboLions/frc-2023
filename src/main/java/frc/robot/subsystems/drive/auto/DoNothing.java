@@ -10,6 +10,11 @@ import frc.robot.lib.auto.AutoModeBase;
 public class DoNothing extends AutoModeBase {
 
     @Override
+    protected void routine() {
+        System.out.println("doing nothing");
+    }
+
+    @Override
     public Pose2d getStartingPose() {
         return new Pose2d();
     }

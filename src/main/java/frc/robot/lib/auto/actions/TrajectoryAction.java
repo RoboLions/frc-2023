@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.lib.auto;
+package frc.robot.lib.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.lib.statemachine.State;
@@ -30,7 +30,7 @@ import java.util.function.Supplier;
  * <p>The robot angle controller does not follow the angle given by the trajectory but rather goes
  * to the angle given in the final state of the trajectory.
  */
-public class TrajectoryAction {
+public class TrajectoryAction implements Action {
     private final Timer m_timer = new Timer();
     private final Trajectory m_trajectory;
     private final Supplier<Pose2d> m_pose;
@@ -70,16 +70,19 @@ public class TrajectoryAction {
             m_outputModuleStates = outputModuleStates;
     }
 
+    @Override
     public boolean isFinished() {
         return m_timer.hasElapsed(m_trajectory.getTotalTimeSeconds());
     }
 
-    public void init() {
+    @Override
+    public void start() {
         m_timer.reset();
         m_timer.start();
     }
 
-    public void execute() {
+    @Override
+    public void update() {
         double curTime = m_timer.get();
         var desiredState = m_trajectory.sample(curTime);
 
@@ -90,7 +93,8 @@ public class TrajectoryAction {
         m_outputModuleStates.accept(targetModuleStates);
     }
 
-    public void exit() {
+    @Override
+    public void done() {
         m_timer.stop();
         m_outputModuleStates.accept(m_kinematics.toSwerveModuleStates((ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, Rotation2d.fromDegrees(0)))));
     }

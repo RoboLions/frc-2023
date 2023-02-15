@@ -11,10 +11,13 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
-import frc.robot.lib.auto.TrajectoryAction;
+import frc.robot.lib.auto.actions.LambdaAction;
+import frc.robot.lib.auto.actions.TrajectoryAction;
 
 /** Add your docs here. */
 public class BotSimpleScore extends AutoModeBase {
@@ -42,6 +45,20 @@ public class BotSimpleScore extends AutoModeBase {
             thetaController,
             RobotMap.swerve::setModuleStates
         );
+    }
+
+    @Override
+    protected void routine() {
+        // reset odometry at the start of the trajectory
+        runAction(new LambdaAction(() -> RobotMap.swerve.resetOdometry(new Pose2d(botSimpleScore.getInitialPose().getX(),
+                                                                          botSimpleScore.getInitialPose().getY(),
+                                                                          Rotation2d.fromDegrees(110)))));
+
+        // drive
+        runAction(botSimpleScore);
+
+        System.out.println("Finished auto!");
+        SmartDashboard.putBoolean("Auto Finished", true);
     }
 
     @Override

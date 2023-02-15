@@ -5,6 +5,8 @@
 package frc.robot.lib.auto;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.lib.auto.actions.Action;
+import frc.robot.lib.auto.actions.EmptyAction;
 
 /**
  * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto modes (which are
@@ -15,8 +17,12 @@ public abstract class AutoModeBase {
     protected boolean mActive = false;
     protected boolean mIsInterrupted = false;
 
+    protected abstract void routine();
+
     public void run() {
         mActive = true;
+
+        routine();
 
         done();
     }
@@ -33,6 +39,17 @@ public abstract class AutoModeBase {
         return mActive;
     }
 
+    public boolean isActiveWithThrow() {
+        return isActive();
+    }
+
+    public void waitForDriverConfirm() {
+        if (!mIsInterrupted) {
+            interrupt();
+        }
+        runAction(new EmptyAction());
+    }
+
     public void interrupt() {
         System.out.println("** Auto mode interrrupted!");
         mIsInterrupted = true;
@@ -41,6 +58,36 @@ public abstract class AutoModeBase {
     public void resume() {
         System.out.println("** Auto mode resumed!");
         mIsInterrupted = false;
+    }
+
+    public void runAction(Action action) {
+        isActiveWithThrow();
+        long waitTime = (long) (mUpdateRate * 1000.0);
+
+        // Wait for interrupt state to clear
+        while (isActiveWithThrow() && mIsInterrupted) {
+            try {
+                Thread.sleep(waitTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        action.start();
+
+        // Run action, stop action on interrupt, non active mode, or done
+        while (isActiveWithThrow() && !action.isFinished() && !mIsInterrupted) {
+            action.update();
+
+            try {
+                Thread.sleep(waitTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        action.done();
+
     }
 
     public boolean getIsInterrupted() {
