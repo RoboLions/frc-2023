@@ -35,7 +35,10 @@ public class Claw {
 
     public Color getColor() {
         ColorMatchResult match = RobotMap.colorMatcher.matchClosestColor(Robot.detectedColor);
-        return match.color;
+        if (match.confidence > 0.9) {
+            return match.color;
+        }
+        return null;
     }
 
     public void setClawOpen() {
