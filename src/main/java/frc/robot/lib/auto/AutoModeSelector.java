@@ -27,6 +27,8 @@ public class AutoModeSelector {
         mModeChooser = new SendableChooser<>();
         mModeChooser.setDefaultOption("Do Nothing", DesiredMode.DO_NOTHING);
         mModeChooser.addOption("Bot Simple Score Mode", DesiredMode.BOT_SIMPLE_SCORE);
+
+        SmartDashboard.putData("Auto Mode", mModeChooser);
     }
 
     public void updateModeCreator() {
