@@ -22,18 +22,20 @@ public class PickupState extends State {
     public void build() {
         // idle if idle button or claw sensor == T
         transitions.add(new Transition(() -> {
-            return manipulatorController.getBButton() || RobotMap.arm.getClawSensor();
+            return manipulatorController.getBButton() || 
+            (RobotMap.claw.getColor() != RobotMap.coneColor || 
+            RobotMap.claw.getColor() != RobotMap.cubeColor);
         }, ArmStateMachine.idleState));
     }
 
     @Override
     public void init() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override
     public void execute() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        
     }
 
     @Override

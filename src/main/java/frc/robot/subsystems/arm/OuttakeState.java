@@ -18,11 +18,12 @@ public class OuttakeState extends State {
     double secondStagePosition = 0.0;
     double wristPosition = 0.0;
     double allowance = 1000.0;
+    double time = 0.5;
 
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getArrived(allowance) && RobotMap.arm.getClawOpen();
+            return RobotMap.arm.getArrived(allowance, time) && RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
     }
     
@@ -33,8 +34,9 @@ public class OuttakeState extends State {
 
     @Override
     public void execute() {
-        // if arm has arrived at position, send open request to claw
-        if (RobotMap.arm.getArrived(allowance)) {
+        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
+        send open request to claw */
+        if (RobotMap.arm.getArrived(allowance, time)) {
             RobotMap.openRequest = true;
         }
     }

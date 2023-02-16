@@ -28,12 +28,12 @@ public class IntakeState extends State {
 
     @Override
     public void init() {
-
+        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
     }
 
     @Override
     public void execute() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        
     }
 
     @Override

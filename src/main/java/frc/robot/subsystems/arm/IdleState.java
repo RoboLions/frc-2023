@@ -104,12 +104,12 @@ public class IdleState extends State {
     
     @Override
     public void init() {
-
+        RobotMap.arm.setIdle();
     }
 
     @Override
     public void execute() {
-        RobotMap.arm.setIdle();
+        
     }
 
     @Override
