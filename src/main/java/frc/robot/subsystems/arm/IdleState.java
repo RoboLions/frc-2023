@@ -18,72 +18,74 @@ public class IdleState extends State {
     public void build() {
         // intake from substation if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton() && !RobotMap.arm.getClawSensor();
+            return manipulatorController.getAButton() && 
+            (RobotMap.claw.getColor() != RobotMap.coneColor || 
+            RobotMap.claw.getColor() != RobotMap.cubeColor);
         }, ArmStateMachine.intakeState));
 
         // outtake if claw sensor == T and base sensor == T
-        transitions.add(new Transition(() -> {
+        /*transitions.add(new Transition(() -> {
             return RobotMap.arm.getBaseSensor() && RobotMap.arm.getClawSensor();
         }, ArmStateMachine.outtakeState));
 
         // pickup if claw sensor == F and base sensor == T
         transitions.add(new Transition(() -> {
             return RobotMap.arm.getBaseSensor() && !RobotMap.arm.getClawSensor();
-        }, ArmStateMachine.pickupState));
+        }, ArmStateMachine.pickupState));*/
 
         // FHighPurple if RT == T (front), color sensor == purple, button (level to score: high)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
+                    RobotMap.claw.getColor() == RobotMap.cubeColor && 
                     manipulatorController.getXButton();
         }, ArmStateMachine.fHighPurple));
 
         // BHighPurple if LT == T (back), color sensor == purple, button (level to score: high)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
+                    RobotMap.claw.getColor() == RobotMap.cubeColor && 
                     manipulatorController.getXButton();
         }, ArmStateMachine.bHighPurple));
 
         // FHighYellow if RT == T (front), color sensor == yellow, button (level to score: high)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
+                    RobotMap.claw.getColor() == RobotMap.coneColor && 
                     manipulatorController.getXButton();
         }, ArmStateMachine.fHighYellow));
 
         // BHighYellow if LT == T (back), color sensor == yellow, button (level to score: high)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
+                    RobotMap.claw.getColor() == RobotMap.coneColor && 
                     manipulatorController.getXButton();
         }, ArmStateMachine.bHighYellow));
 
         // FMidPurple if RT == T (front), color sensor == purple, button (level to score: mid)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
+                    RobotMap.claw.getColor() == RobotMap.cubeColor && 
                     manipulatorController.getYButton();
         }, ArmStateMachine.fMidPurple));
 
         // BMidPurple if LT == T (back), color sensor == purple, button (level to score: mid)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
+                    RobotMap.claw.getColor() == RobotMap.cubeColor && 
                     manipulatorController.getYButton();
         }, ArmStateMachine.bMidPurple));
 
         // FMidYellow if RT == T (front), color sensor == yellow, button (level to score: mid)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
+                    RobotMap.claw.getColor() == RobotMap.coneColor && 
                     manipulatorController.getYButton();
         }, ArmStateMachine.fMidYellow));
 
         // BMidPurple if LT == T (back), color sensor == yellow, button (level to score: mid)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
+                    RobotMap.claw.getColor() == RobotMap.coneColor && 
                     manipulatorController.getYButton();
         }, ArmStateMachine.bMidYellow));
 
