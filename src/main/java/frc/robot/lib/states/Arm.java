@@ -119,4 +119,10 @@ public class Arm {
         }
         return false;
     }
+
+    public void resetEncoders() {
+        RobotMap.armFirstStage.setSelectedSensorPosition(0.0);
+        RobotMap.armSecondStage.setSelectedSensorPosition(0.0);
+        RobotMap.wrist.setSelectedSensorPosition(0.0);
+    }
 }

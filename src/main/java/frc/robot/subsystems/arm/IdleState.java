@@ -105,6 +105,7 @@ public class IdleState extends State {
     @Override
     public void init() {
         RobotMap.arm.setIdle();
+        RobotMap.arm.resetEncoders();
     }
 
     @Override
