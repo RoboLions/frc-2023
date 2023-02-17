@@ -18,35 +18,35 @@ public class Arm {
     private Timer timer = new Timer();
 
     public Arm() {
-        RobotMap.armFirstStage.setNeutralMode(NeutralMode.Brake);
-        RobotMap.armSecondStage.setNeutralMode(NeutralMode.Brake);
-        RobotMap.wrist.setNeutralMode(NeutralMode.Brake);
+        RobotMap.armFirstStageMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.armSecondStageMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.wristMotor.setNeutralMode(NeutralMode.Brake);
 
-        RobotMap.armFirstStage.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
-        RobotMap.armSecondStage.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
-        RobotMap.wrist.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.armFirstStageMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.armSecondStageMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.wristMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
 
-        RobotMap.armFirstStage.configNominalOutputForward(0, 10);
-        RobotMap.armFirstStage.configNominalOutputReverse(0, 10);
-        RobotMap.armFirstStage.configPeakOutputForward(1, 10);
-        RobotMap.armFirstStage.configPeakOutputReverse(-1, 10);
-        RobotMap.armFirstStage.configNeutralDeadband(0.001, 10);
+        RobotMap.armFirstStageMotor.configNominalOutputForward(0, 10);
+        RobotMap.armFirstStageMotor.configNominalOutputReverse(0, 10);
+        RobotMap.armFirstStageMotor.configPeakOutputForward(1, 10);
+        RobotMap.armFirstStageMotor.configPeakOutputReverse(-1, 10);
+        RobotMap.armFirstStageMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.armSecondStage.configNominalOutputForward(0, 10);
-        RobotMap.armSecondStage.configNominalOutputReverse(0, 10);
-        RobotMap.armSecondStage.configPeakOutputForward(1, 10);
-        RobotMap.armSecondStage.configPeakOutputReverse(-1, 10);
-        RobotMap.armSecondStage.configNeutralDeadband(0.001, 10);
+        RobotMap.armSecondStageMotor.configNominalOutputForward(0, 10);
+        RobotMap.armSecondStageMotor.configNominalOutputReverse(0, 10);
+        RobotMap.armSecondStageMotor.configPeakOutputForward(1, 10);
+        RobotMap.armSecondStageMotor.configPeakOutputReverse(-1, 10);
+        RobotMap.armSecondStageMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.wrist.configNominalOutputForward(0, 10);
-        RobotMap.wrist.configNominalOutputReverse(0, 10);
-        RobotMap.wrist.configPeakOutputForward(1, 10);
-        RobotMap.wrist.configPeakOutputReverse(-1, 10);
-        RobotMap.wrist.configNeutralDeadband(0.001, 10);
+        RobotMap.wristMotor.configNominalOutputForward(0, 10);
+        RobotMap.wristMotor.configNominalOutputReverse(0, 10);
+        RobotMap.wristMotor.configPeakOutputForward(1, 10);
+        RobotMap.wristMotor.configPeakOutputReverse(-1, 10);
+        RobotMap.wristMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.armFirstStage.configAllowableClosedloopError(0, 0, 10);
-        RobotMap.armSecondStage.configAllowableClosedloopError(0, 0, 10);
-        RobotMap.wrist.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.armFirstStageMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.armSecondStageMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.wristMotor.configAllowableClosedloopError(0, 0, 10);
     }
 
     /*public boolean getBaseSensor() {
@@ -54,24 +54,24 @@ public class Arm {
     }*/
 
     public void setIdle() {
-        RobotMap.armFirstStage.set(TalonFXControlMode.Position, 0.0);
-        RobotMap.armSecondStage.set(TalonFXControlMode.Position, 0.0);
-        RobotMap.wrist.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.armFirstStageMotor.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.armSecondStageMotor.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.wristMotor.set(TalonFXControlMode.Position, 0.0);
     }
 
-    public void moveArmPosition(double firstStage, double secondStage, double wrist) {
-        RobotMap.armFirstStage.set(TalonFXControlMode.Position, firstStage);
-        RobotMap.armSecondStage.set(TalonFXControlMode.Position, secondStage);
-        RobotMap.wrist.set(TalonFXControlMode.Position, wrist);
+    public void moveArmPosition(double firstStage, double secondStage, double wristMotor) {
+        RobotMap.armFirstStageMotor.set(TalonFXControlMode.Position, firstStage);
+        RobotMap.armSecondStageMotor.set(TalonFXControlMode.Position, secondStage);
+        RobotMap.wristMotor.set(TalonFXControlMode.Position, wristMotor);
     }
 
     // method to check if arm has arrived at its position
     public boolean getArrived(double allowance, double time) {
 
         // TODO: test and change error allowance
-        if (Math.abs(RobotMap.armFirstStage.getClosedLoopError()) <= Math.abs(allowance) && 
-            Math.abs(RobotMap.armSecondStage.getClosedLoopError()) <= Math.abs(allowance) &&
-            Math.abs(RobotMap.wrist.getClosedLoopError()) <= Math.abs(allowance)) { 
+        if (Math.abs(RobotMap.armFirstStageMotor.getClosedLoopError()) <= Math.abs(allowance) && 
+            Math.abs(RobotMap.armSecondStageMotor.getClosedLoopError()) <= Math.abs(allowance) &&
+            Math.abs(RobotMap.wristMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
             timer.start();
             if (timer.hasElapsed(time)) {
                 timer.stop();
@@ -121,8 +121,8 @@ public class Arm {
     }
 
     public void resetEncoders() {
-        RobotMap.armFirstStage.setSelectedSensorPosition(0.0);
-        RobotMap.armSecondStage.setSelectedSensorPosition(0.0);
-        RobotMap.wrist.setSelectedSensorPosition(0.0);
+        RobotMap.armFirstStageMotor.setSelectedSensorPosition(0.0);
+        RobotMap.armSecondStageMotor.setSelectedSensorPosition(0.0);
+        RobotMap.wristMotor.setSelectedSensorPosition(0.0);
     }
 }

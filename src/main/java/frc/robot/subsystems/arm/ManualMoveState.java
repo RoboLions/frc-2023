@@ -27,14 +27,14 @@ public class ManualMoveState extends State {
 
     @Override
     public void init() {
-        RobotMap.armFirstStage.set(ControlMode.Position, Constants.ManualMove.firstStagePosition);
-        RobotMap.armSecondStage.set(ControlMode.Position, Constants.ManualMove.secondStagePosition);
+        RobotMap.armFirstStageMotor.set(ControlMode.Position, Constants.ManualMove.firstStagePosition);
+        RobotMap.armSecondStageMotor.set(ControlMode.Position, Constants.ManualMove.secondStagePosition);
     }
 
     @Override
     public void execute() {
         double wristInput = manipulatorController.getLeftY();
-        RobotMap.wrist.set(ControlMode.PercentOutput, wristInput);
+        RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
     }
 
     @Override

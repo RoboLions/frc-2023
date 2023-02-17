@@ -55,19 +55,19 @@ public final class CTREConfigs {
         swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
-        RobotMap.armFirstStage.config_kF(0, ArmFirstStageConstants.F, 10);
-        RobotMap.armFirstStage.config_kP(0, ArmFirstStageConstants.P, 10);
-        RobotMap.armFirstStage.config_kI(0, ArmFirstStageConstants.I, 10);
-        RobotMap.armFirstStage.config_kD(0, ArmFirstStageConstants.D, 10);
+        RobotMap.armFirstStageMotor.config_kF(0, ArmFirstStageConstants.F, 10);
+        RobotMap.armFirstStageMotor.config_kP(0, ArmFirstStageConstants.P, 10);
+        RobotMap.armFirstStageMotor.config_kI(0, ArmFirstStageConstants.I, 10);
+        RobotMap.armFirstStageMotor.config_kD(0, ArmFirstStageConstants.D, 10);
 
-        RobotMap.armSecondStage.config_kF(0, ArmSecondStageConstants.F, 10);
-        RobotMap.armSecondStage.config_kP(0, ArmSecondStageConstants.P, 10);
-        RobotMap.armSecondStage.config_kI(0, ArmSecondStageConstants.I, 10);
-        RobotMap.armSecondStage.config_kD(0, ArmSecondStageConstants.D, 10);
+        RobotMap.armSecondStageMotor.config_kF(0, ArmSecondStageConstants.F, 10);
+        RobotMap.armSecondStageMotor.config_kP(0, ArmSecondStageConstants.P, 10);
+        RobotMap.armSecondStageMotor.config_kI(0, ArmSecondStageConstants.I, 10);
+        RobotMap.armSecondStageMotor.config_kD(0, ArmSecondStageConstants.D, 10);
 
-        RobotMap.wrist.config_kF(0, Wrist.F, 10);
-        RobotMap.wrist.config_kP(0, Wrist.P, 10);
-        RobotMap.wrist.config_kI(0, Wrist.I, 10);
-        RobotMap.wrist.config_kD(0, Wrist.D, 10);
+        RobotMap.wristMotor.config_kF(0, Wrist.F, 10);
+        RobotMap.wristMotor.config_kP(0, Wrist.P, 10);
+        RobotMap.wristMotor.config_kI(0, Wrist.I, 10);
+        RobotMap.wristMotor.config_kD(0, Wrist.D, 10);
     }
 }

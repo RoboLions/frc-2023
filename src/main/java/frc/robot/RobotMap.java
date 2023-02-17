@@ -33,10 +33,10 @@ public class RobotMap {
     
     /* Motor + sensor instances */
     public static WPI_Pigeon2 gyro;
-    public static WPI_TalonFX armFirstStage;
-    public static WPI_TalonFX armSecondStage;
-    public static WPI_TalonFX wrist;
-    public static VictorSPX intakeRoller;
+    public static WPI_TalonFX armFirstStageMotor;
+    public static WPI_TalonFX armSecondStageMotor;
+    public static WPI_TalonFX wristMotor;
+    public static VictorSPX intakeRollerMotor;
     public static VictorSPX claw;
     // TODO: tbd left and right base intake motors
 
@@ -54,10 +54,10 @@ public class RobotMap {
     public static void init() {
         
         gyro = new WPI_Pigeon2(pigeonID);
-        armFirstStage = new WPI_TalonFX(armFirstStageID);
-        armSecondStage = new WPI_TalonFX(armSecondStageID);
-        wrist = new WPI_TalonFX(wristID);
-        intakeRoller = new VictorSPX(intakeRollerID);
+        armFirstStageMotor = new WPI_TalonFX(armFirstStageID);
+        armSecondStageMotor = new WPI_TalonFX(armSecondStageID);
+        wristMotor = new WPI_TalonFX(wristID);
+        intakeRollerMotor = new VictorSPX(intakeRollerID);
         claw = new VictorSPX(clawID);
         ctreConfigs = new CTREConfigs();
         manipulatorController = new XboxController(1);
