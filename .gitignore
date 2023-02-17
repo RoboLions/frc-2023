@@ -160,3 +160,6 @@ bin/
 
 # Simulation GUI and other tools window save file
 *-window.json
+
+# advantagekit ignore !DO NOT TOUCH UNLESS REMOVING ADVANTAGE KIT
+src/main/java/frc/robot/BuildConstants.java
