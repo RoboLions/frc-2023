@@ -39,7 +39,8 @@ public class TeleopState extends State {
         for(SwerveModule mod : Swerve.mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle", mod.getAngle().getDegrees());
         }
 
         // invert because Xbox controllers return negative values when we push forward

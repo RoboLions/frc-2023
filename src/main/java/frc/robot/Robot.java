@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Optional;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */
     Timer.delay(1.0);
     RobotMap.swerve.resetModulesToAbsolute();
+    RobotMap.swerve.resetOdometry(new Pose2d());
 
     /*m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -142,6 +144,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
+
     if (autoModeExecutor != null) {
 			autoModeExecutor.stop();
 		}
@@ -155,6 +158,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
+
     autoModeSelector.updateModeCreator();
     Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
     if (autoMode.isPresent() && autoMode.get() != autoModeExecutor.getAutoMode()) {
