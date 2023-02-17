@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm.back;
 
 import frc.robot.lib.statemachine.State;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -14,12 +15,6 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 public class BMidPurple extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
-
-    double firstStagePosition = 0.0;
-    double secondStagePosition = 0.0;
-    double wristPosition = 0.0;
-    double allowance = 1000.0;
-    double time = 0.5;
 
     @Override
     public void build() {
@@ -36,15 +31,19 @@ public class BMidPurple extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(
+            Constants.BMidPurple.firstStagePosition, 
+            Constants.BMidPurple.secondStagePosition, 
+            Constants.BMidPurple.wristPosition
+        );
     }
 
     @Override
     public void execute() {
 
-        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
+        /* if arm has arrived at position and stayed at position for x seconds, 
         send open request to claw */
-        if (RobotMap.arm.getArrived(allowance, time)) {
+        if (RobotMap.arm.getArrived(Constants.BMidPurple.allowance, Constants.BMidPurple.time)) {
             RobotMap.openRequest = true;
         }
     }

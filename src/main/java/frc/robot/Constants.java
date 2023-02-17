@@ -186,39 +186,104 @@ public final class Constants {
         public static final double clawClosedCubeTime = 0.25;
         public static final double clawClosedConeTime = 0.5;
     }
+
     public static final class FHighPurple {
-        public static double firstStagePosition;
-        public static double secondStagePosition;
-        public static double wristPosition;
-        public static double allowance;
-        public static double time;
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
     }
+
+    public static final class BHighPurple {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
     public static final class FHighYellow {
-        public static double firstStagePosition;
-        public static double secondStagePosition;
-        public static double wristPosition;
-        public static double allowance;
-        public static double time;
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
     }
-    public static final class FHybrid {
-        public static double firstStagePosition;
-        public static double secondStagePosition;
-        public static double wristPosition;
-        public static double allowance;
-        public static double time;
+
+    public static final class BHighYellow {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
     }
+
     public static final class FMidPurple {
-        public static double firstStagePosition;
-        public static double secondStagePosition;
-        public static double wristPosition;
-        public static double allowance;
-        public static double time;
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
     }
-    public static final class FMidyellow {
-        public static double firstStagePosition;
-        public static double secondStagePosition;
-        public static double wristPosition;
-        public static double allowance;
-        public static double time;
+
+    public static final class BMidPurple {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class FMidYellow {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class BMidYellow {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class BHybrid {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class FHybrid {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class Intake {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+    }
+
+    public static final class Outtake {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
+        public static final double allowance = 0.0;
+        public static final double time = 0.0;
+    }
+
+    public static final class Pickup {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+        public static final double wristPosition = 0.0;
     }
 }

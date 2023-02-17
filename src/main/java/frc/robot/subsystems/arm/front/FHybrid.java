@@ -16,11 +16,6 @@ public class FHybrid extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = Constants.FHighPurple.firstStagePosition;
-    double secondStagePosition = Constants.FHighPurple.secondStagePosition;
-    double wristPosition = Constants.FHighPurple.wristPosition;
-    double allowance = Constants.FHighPurple.allowance;
-    double time = Constants.FHighPurple.time;
     @Override
     public void build() {
         // return to idle automatically after scored
@@ -36,15 +31,18 @@ public class FHybrid extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(
+            Constants.FHybrid.firstStagePosition, 
+            Constants.FHybrid.secondStagePosition, 
+            Constants.FHybrid.wristPosition
+        );
     }
 
     @Override
     public void execute() {
-        
-        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
+        /* if arm has arrived at position and stayed at position for x seconds, 
         send open request to claw */
-        if (RobotMap.arm.getArrived(allowance, time)) {
+        if (RobotMap.arm.getArrived(Constants.FHybrid.allowance, Constants.FHybrid.time)) {
             RobotMap.openRequest = true;
         }
     }
