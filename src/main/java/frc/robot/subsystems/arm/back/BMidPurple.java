@@ -23,6 +23,16 @@ public class BMidPurple extends State {
             return RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
 
+        // transition to high level
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getYButton();
+        }, ArmStateMachine.bHighPurple));
+
+        // transition to hybrid level
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getAButton();
+        }, ArmStateMachine.bHybrid));
+
         // return to idle manually
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();

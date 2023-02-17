@@ -23,6 +23,16 @@ public class BHighYellow extends State {
             return RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
 
+        // transition to mid level
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getAButton();
+        }, ArmStateMachine.bMidYellow));
+
+        // transition to hybrid level
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton();
+        }, ArmStateMachine.bHybrid));
+
         // return to idle manually
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();

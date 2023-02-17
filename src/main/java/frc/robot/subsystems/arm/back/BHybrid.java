@@ -23,6 +23,30 @@ public class BHybrid extends State {
             return RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
 
+        // transition to mid level purple
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getAButton() &&
+            (RobotMap.claw.getColor() == RobotMap.cubeColor);
+        }, ArmStateMachine.bMidPurple));
+
+        // transition to high level purple
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton() && 
+            (RobotMap.claw.getColor() == RobotMap.cubeColor);
+        }, ArmStateMachine.bHighPurple));
+
+        // transition to mid level yellow
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getAButton() &&
+            (RobotMap.claw.getColor() == RobotMap.coneColor);
+        }, ArmStateMachine.bMidYellow));
+
+        // transition to high level yellow
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getXButton() && 
+            (RobotMap.claw.getColor() == RobotMap.coneColor);
+        }, ArmStateMachine.bHighYellow));
+
         // return to idle manually
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
