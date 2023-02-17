@@ -13,8 +13,8 @@ import frc.robot.subsystems.drive.autos.DoNothing;
 
 public class AutoModeSelector {
     enum DesiredMode {
-        DO_NOTHING,
-        BOT_SIMPLE_SCORE
+        DO_NOTHING, 
+        BOT_SIMPLE_SCORE,
     }
 
     private DesiredMode mCachedDesiredMode = DesiredMode.DO_NOTHING;
@@ -26,8 +26,8 @@ public class AutoModeSelector {
     public AutoModeSelector() {
         mModeChooser = new SendableChooser<>();
         mModeChooser.setDefaultOption("Do Nothing", DesiredMode.DO_NOTHING);
-        mModeChooser.addOption("Bot Simple Score Mode", DesiredMode.BOT_SIMPLE_SCORE);
-
+        mModeChooser.addOption("Bot Simple Score", DesiredMode.BOT_SIMPLE_SCORE);
+        
         SmartDashboard.putData("Auto Mode", mModeChooser);
     }
 
@@ -50,7 +50,7 @@ public class AutoModeSelector {
 
         case BOT_SIMPLE_SCORE:
             return Optional.of(new BotSimpleScore());
-
+            
         default:
             System.out.println("ERROR: unexpected auto mode: " + mode);
             break;
