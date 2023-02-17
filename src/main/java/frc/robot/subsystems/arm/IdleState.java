@@ -100,6 +100,11 @@ public class IdleState extends State {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) && 
                     manipulatorController.getBButton();
         }, ArmStateMachine.bHybrid));
+
+        // Manual control of arm
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getLeftBumper();
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override

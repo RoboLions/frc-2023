@@ -286,4 +286,9 @@ public final class Constants {
         public static final double secondStagePosition = 0.0;
         public static final double wristPosition = 0.0;
     }
+
+    public static final class ManualMove {
+        public static final double firstStagePosition = 0.0;
+        public static final double secondStagePosition = 0.0;
+    }
 }
