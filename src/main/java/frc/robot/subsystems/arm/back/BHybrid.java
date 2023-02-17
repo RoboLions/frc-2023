@@ -18,8 +18,7 @@ public class BHybrid extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton() &&
-            manipulatorController.getLeftTriggerAxis() > .25 ;
+            return manipulatorController.getPOV() == 0;
         }, ArmStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();

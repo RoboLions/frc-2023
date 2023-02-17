@@ -23,22 +23,7 @@ public class DrivetrainStateMachine extends StateMachine {
         balanceState.build();
         scoreState.build();
         teleopState.build();
-        
-
-
-
-       /*  Supplier<Boolean> checkAButton = () -> {
-            return driverController.getAButton();
-        };
-
-        Supplier<Boolean> checkBButton = () -> {
-            return driverController.getBButton();
-        };
-
-        teleopSwerve.addTransition(new Transition(checkAButton, aprilTagState));
-        aprilTagState.addTransition(new Transition(checkBButton, teleopSwerve));
-
-        setCurrentState(teleopSwerve); */
+    
     } 
     
 }

@@ -17,7 +17,7 @@ public class IntakeState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper(); // || clawClosed == True;
+            return manipulatorController.getBButton(); // || clawClosed == True;
         }, ArmStateMachine.idleState));
     }
 

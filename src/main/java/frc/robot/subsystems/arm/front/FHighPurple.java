@@ -18,9 +18,7 @@ public class FHighPurple extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return manipulatorController.getYButton() &&
-            manipulatorController.getRightTriggerAxis() > .25 &&
-            RobotMap.arm.getColorSensor() == "purple"; 
+            return manipulatorController.getPOV() == 0;
         }, ArmStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();

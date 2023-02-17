@@ -17,7 +17,7 @@ public class OuttakeState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 10); //TODO CREATE "ARRIVED"
+            return (manipulatorController.getPOV() == 180); //TODO CREATE "ARRIVED"
         }, ArmStateMachine.dropState));
     }
     

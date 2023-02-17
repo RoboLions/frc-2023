@@ -34,8 +34,8 @@ public class TeleopState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return driverController.getBButton(); 
-        }, DrivetrainStateMachine.teleopState));
+            return driverController.getAButton(); 
+        }, DrivetrainStateMachine.aprilTag));
     }
 
     @Override
