@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm.front;
 
 import frc.robot.lib.statemachine.State;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -15,11 +16,11 @@ public class FMidPurple extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = 0.0;
-    double secondStagePosition = 0.0;
-    double wristPosition = 0.0;
-    double allowance = 1000.0;
-    double time = 0.5;
+    double firstStagePosition = Constants.FHighPurple.firstStagePosition;
+    double secondStagePosition = Constants.FHighPurple.secondStagePosition;
+    double wristPosition = Constants.FHighPurple.wristPosition;
+    double allowance = Constants.FHighPurple.allowance;
+    double time = Constants.FHighPurple.time;
 
     @Override
     public void build() {

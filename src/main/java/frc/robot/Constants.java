@@ -186,4 +186,39 @@ public final class Constants {
         public static final double clawClosedCubeTime = 0.25;
         public static final double clawClosedConeTime = 0.5;
     }
+    public static final class FHighPurple {
+        public static double firstStagePosition;
+        public static double secondStagePosition;
+        public static double wristPosition;
+        public static double allowance;
+        public static double time;
+    }
+    public static final class FHighYellow {
+        public static double firstStagePosition;
+        public static double secondStagePosition;
+        public static double wristPosition;
+        public static double allowance;
+        public static double time;
+    }
+    public static final class FHybrid {
+        public static double firstStagePosition;
+        public static double secondStagePosition;
+        public static double wristPosition;
+        public static double allowance;
+        public static double time;
+    }
+    public static final class FMidPurple {
+        public static double firstStagePosition;
+        public static double secondStagePosition;
+        public static double wristPosition;
+        public static double allowance;
+        public static double time;
+    }
+    public static final class FMidyellow {
+        public static double firstStagePosition;
+        public static double secondStagePosition;
+        public static double wristPosition;
+        public static double allowance;
+        public static double time;
+    }
 }
