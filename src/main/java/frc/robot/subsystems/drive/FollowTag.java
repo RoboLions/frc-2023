@@ -35,7 +35,6 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
 import frc.robot.lib.statemachine.State;
-import frc.robot.lib.statemachine.Transition;
 import frc.robot.lib.states.Swerve;
 
 import java.util.Optional;
@@ -49,7 +48,6 @@ import org.photonvision.EstimatedRobotPose;
 
 /** Add your docs here. */
 public class FollowTag extends State {
-    public static XboxController driverController = RobotMap.driverController;
 
     double translationVal = 0;
     double strafeVal = 0;
@@ -104,13 +102,13 @@ public class FollowTag extends State {
     }
 
     @Override
-    public void build(){
-        transitions.add(new Transition(() ->{
-        return driverController.getLeftX() > 0.25  || 
-            driverController.getLeftX() < -0.25 || 
-            driverController.getRightX() > 0.25 ||
-            driverController.getRightY() <-0.25;
-        }, DrivetrainStateMachine.teleopSwerve));
+    public void exit() {
+        
+        RobotMap.swerve.drive(
+            new Translation2d(0.0, 0.0).times(Constants.Swerve.maxSpeed), 
+            0.0
+        );
+
     }
 
 }

@@ -180,16 +180,4 @@ public final class Constants {
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
-    public static final class balancePitchPID{
-        public static final double P =0.0;
-        public static final double I= 0.0;
-        public static final double D =0.0;
-        public static final double F =0.0;
-    }
-    public static final class balancerRollPID{
-        public static final double P =0.0;
-        public static final double I= 0.0;
-        public static final double D =0.0;
-        public static final double F =0.0;
-    }
 }

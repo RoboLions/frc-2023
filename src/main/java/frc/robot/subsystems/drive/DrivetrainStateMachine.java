@@ -10,14 +10,24 @@ import frc.robot.lib.statemachine.Transition;
 
 public class DrivetrainStateMachine extends StateMachine {
 
-    public static TeleopState teleopSwerve = new TeleopState();
-    public static FollowTag aprilTagState = new FollowTag();
-    public static BalanceState balanceState = new BalanceState();
+    public TeleopState teleopSwerve = new TeleopState();
+    public FollowTag aprilTagState = new FollowTag();
+
+    private static XboxController driverController = RobotMap.driverController;
 
     public DrivetrainStateMachine() {
-        aprilTagState.build();
-        balanceState.build();
-        teleopSwerve.build();
+
+        Supplier<Boolean> checkAButton = () -> {
+            return driverController.getAButton();
+        };
+
+        Supplier<Boolean> checkBButton = () -> {
+            return driverController.getBButton();
+        };
+
+        teleopSwerve.addTransition(new Transition(checkAButton, aprilTagState));
+        aprilTagState.addTransition(new Transition(checkBButton, teleopSwerve));
+
         setCurrentState(teleopSwerve);
     }
     
