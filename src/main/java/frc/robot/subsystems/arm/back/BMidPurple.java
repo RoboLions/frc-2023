@@ -20,8 +20,7 @@ public class BMidPurple extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getXButton() &&
             manipulatorController.getLeftTriggerAxis() > .25 &&
-            RobotMap.arm.getColorSensor()
-             == "purple"; 
+            RobotMap.arm.getColorSensor() == "purple"; 
         }, ArmStateMachine.openState));
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();

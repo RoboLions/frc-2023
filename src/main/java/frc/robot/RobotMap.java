@@ -22,9 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 public class RobotMap {
     
     /* Motor + sensor IDs */
-    //sensor id for 2nd pigeon but idk
-    public static final int pigeonID2 = 4;
-
     public static final int pigeonID = 5;
     public static final int leftBaseIntakeID = 6;
     public static final int rightBaseIntakeID = 7;
@@ -36,9 +33,6 @@ public class RobotMap {
     
     /* Motor + sensor instances */
     public static WPI_Pigeon2 gyro;
-    //2nd imu
-    public static WPI_Pigeon2 gyro2;
-
     public static WPI_TalonFX armFirstStage;
     public static WPI_TalonFX armSecondStage;
     public static WPI_TalonFX wrist;
