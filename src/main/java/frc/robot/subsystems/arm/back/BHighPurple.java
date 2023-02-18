@@ -55,11 +55,6 @@ public class BHighPurple extends State {
 
     @Override
     public void execute() {
-        /* if arm has arrived at position and stayed at position for x seconds, 
-        send open request to claw */
-        if (RobotMap.arm.getArrived(Constants.BHighPurple.allowance, Constants.BHighPurple.time)) {
-            RobotMap.openRequest = true;
-        }
     }
 
     @Override

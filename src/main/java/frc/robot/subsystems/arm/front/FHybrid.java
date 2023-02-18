@@ -69,11 +69,6 @@ public class FHybrid extends State {
 
     @Override
     public void execute() {
-        /* if arm has arrived at position and stayed at position for x seconds, 
-        send open request to claw */
-        if (RobotMap.arm.getArrived(Constants.FHybrid.allowance, Constants.FHybrid.time)) {
-            RobotMap.openRequest = true;
-        }
     }
     
     @Override

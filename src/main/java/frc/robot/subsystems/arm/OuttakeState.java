@@ -32,11 +32,6 @@ public class OuttakeState extends State {
 
     @Override
     public void execute() {
-        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
-        send open request to claw */
-        if (RobotMap.arm.getArrived(Constants.Outtake.allowance, Constants.Outtake.time)) {
-            RobotMap.openRequest = true;
-        }
     }
 
     @Override

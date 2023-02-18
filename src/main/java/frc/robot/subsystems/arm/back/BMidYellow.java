@@ -55,11 +55,6 @@ public class BMidYellow extends State {
 
     @Override
     public void execute() {
-        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
-        send open request to claw */
-        if (RobotMap.arm.getArrived(Constants.BMidYellow.allowance, Constants.BMidYellow.time)) {
-            RobotMap.openRequest = true;
-        }
     }
 
     @Override

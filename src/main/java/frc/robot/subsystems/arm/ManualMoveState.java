@@ -27,16 +27,30 @@ public class ManualMoveState extends State {
 
     @Override
     public void init() {
-        RobotMap.elbowMotor.set(ControlMode.Position, Constants.ManualMove.elbowPosition);
     }
 
     @Override
     public void execute() {
-        // TODO: TBD, decide if wrist and shoulder are the two motors we want to be able to manually control
-        double wristInput = manipulatorController.getLeftY();
+        // TODO: figure out left or right being open or close
+        double wristInput = manipulatorController.getLeftTriggerAxis() - manipulatorController.getRightTriggerAxis();
+        // deadband
+        if ((wristInput > 0 && wristInput < 0.25) || (wristInput < 0 && wristInput > -0.25)) {
+            wristInput = 0.0;
+        }
         RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
 
+        double elbowInput = manipulatorController.getLeftY();
+        // deadband
+        if ((elbowInput > 0 && elbowInput < 0.25) || (elbowInput < 0 && elbowInput > -0.25)) {
+            elbowInput = 0.0;
+        }
+        RobotMap.elbowMotor.set(ControlMode.PercentOutput, elbowInput);
+
         double shoulderInput = manipulatorController.getRightY();
+        // deadband
+        if ((shoulderInput > 0 && shoulderInput < 0.25) || (shoulderInput < 0 && shoulderInput > -0.25)) {
+            shoulderInput = 0.0;
+        }
         RobotMap.shoulderMotor.set(ControlMode.PercentOutput, shoulderInput);
     }
 
