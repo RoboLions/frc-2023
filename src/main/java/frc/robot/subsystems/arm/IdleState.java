@@ -101,7 +101,7 @@ public class IdleState extends State {
                     manipulatorController.getBButton();
         }, ArmStateMachine.bHybrid));
 
-        // Manual control of arm
+        // transition to control arm manually
         transitions.add(new Transition(() -> {
             return manipulatorController.getLeftBumper();
         }, ArmStateMachine.manualMoveState));

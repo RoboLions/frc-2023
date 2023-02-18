@@ -37,6 +37,11 @@ public class FMidPurple extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
+
+        // transition to control arm manually
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getLeftBumper();
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override
