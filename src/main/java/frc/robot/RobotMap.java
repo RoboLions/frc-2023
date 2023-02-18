@@ -26,15 +26,15 @@ public class RobotMap {
     public static final int leftBaseIntakeID = 6;
     public static final int rightBaseIntakeID = 7;
     public static final int intakeRollerID = 8;
-    public static final int armFirstStageID = 9;
-    public static final int armSecondStageID = 10;
+    public static final int armShoulderID = 9;
+    public static final int armElbowID = 10;
     public static final int wristID = 11;
     public static final int clawID = 12;
     
     /* Motor + sensor instances */
     public static WPI_Pigeon2 gyro;
-    public static WPI_TalonFX armFirstStageMotor;
-    public static WPI_TalonFX armSecondStageMotor;
+    public static WPI_TalonFX armShoulderMotor;
+    public static WPI_TalonFX armElbowMotor;
     public static WPI_TalonFX wristMotor;
     public static VictorSPX intakeRollerMotor;
     public static VictorSPX claw;
@@ -54,8 +54,8 @@ public class RobotMap {
     public static void init() {
         
         gyro = new WPI_Pigeon2(pigeonID);
-        armFirstStageMotor = new WPI_TalonFX(armFirstStageID);
-        armSecondStageMotor = new WPI_TalonFX(armSecondStageID);
+        armShoulderMotor = new WPI_TalonFX(armShoulderID);
+        armElbowMotor = new WPI_TalonFX(armElbowID);
         wristMotor = new WPI_TalonFX(wristID);
         intakeRollerMotor = new VictorSPX(intakeRollerID);
         claw = new VictorSPX(clawID);

@@ -25,8 +25,8 @@ public class OuttakeState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.Outtake.firstStagePosition, 
-            Constants.Outtake.secondStagePosition, 
+            Constants.Outtake.shoulderPosition, 
+            Constants.Outtake.elbowPosition, 
             Constants.Outtake.wristPosition);
     }
 

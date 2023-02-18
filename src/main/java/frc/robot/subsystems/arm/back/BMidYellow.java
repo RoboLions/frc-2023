@@ -42,8 +42,8 @@ public class BMidYellow extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.BMidYellow.firstStagePosition, 
-            Constants.BMidYellow.secondStagePosition, 
+            Constants.BMidYellow.shoulderPosition, 
+            Constants.BMidYellow.elbowPosition, 
             Constants.BMidYellow.wristPosition
         );
     }

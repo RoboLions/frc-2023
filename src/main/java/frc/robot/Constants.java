@@ -160,14 +160,14 @@ public final class Constants {
         // from center.
     }
 
-    public static final class ArmFirstStageConstants {
+    public static final class ArmShoulderConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
 
-    public static final class ArmSecondStageConstants {
+    public static final class ArmElbowConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
@@ -188,107 +188,107 @@ public final class Constants {
     }
 
     public static final class FHighPurple {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class BHighPurple {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class FHighYellow {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class BHighYellow {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class FMidPurple {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class BMidPurple {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class FMidYellow {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class BMidYellow {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class BHybrid {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class FHybrid {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class Intake {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
     }
 
     public static final class Outtake {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
         public static final double allowance = 0.0;
         public static final double time = 0.0;
     }
 
     public static final class Pickup {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
         public static final double wristPosition = 0.0;
     }
 
     public static final class ManualMove {
-        public static final double firstStagePosition = 0.0;
-        public static final double secondStagePosition = 0.0;
+        public static final double shoulderPosition = 0.0;
+        public static final double elbowPosition = 0.0;
     }
 }

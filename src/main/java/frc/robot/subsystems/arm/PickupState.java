@@ -28,8 +28,8 @@ public class PickupState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.Pickup.firstStagePosition, 
-            Constants.Pickup.secondStagePosition, 
+            Constants.Pickup.shoulderPosition, 
+            Constants.Pickup.elbowPosition, 
             Constants.Pickup.wristPosition
         );
     }

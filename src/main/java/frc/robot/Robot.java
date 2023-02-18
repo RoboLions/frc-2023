@@ -36,8 +36,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     RobotMap.init();
     RobotMap.gyro.configFactoryDefault();
-    RobotMap.armFirstStageMotor.configFactoryDefault();
-    RobotMap.armSecondStageMotor.configFactoryDefault();
+    RobotMap.armShoulderMotor.configFactoryDefault();
+    RobotMap.armElbowMotor.configFactoryDefault();
     RobotMap.wristMotor.configFactoryDefault();
     RobotMap.intakeRollerMotor.configFactoryDefault();
     RobotMap.claw.configFactoryDefault();

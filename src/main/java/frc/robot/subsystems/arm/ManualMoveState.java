@@ -27,8 +27,8 @@ public class ManualMoveState extends State {
 
     @Override
     public void init() {
-        RobotMap.armFirstStageMotor.set(ControlMode.Position, Constants.ManualMove.firstStagePosition);
-        RobotMap.armSecondStageMotor.set(ControlMode.Position, Constants.ManualMove.secondStagePosition);
+        RobotMap.armShoulderMotor.set(ControlMode.Position, Constants.ManualMove.shoulderPosition);
+        RobotMap.armElbowMotor.set(ControlMode.Position, Constants.ManualMove.elbowPosition);
     }
 
     @Override

@@ -26,8 +26,8 @@ public class IntakeState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.Intake.firstStagePosition, 
-            Constants.Intake.secondStagePosition, 
+            Constants.Intake.shoulderPosition, 
+            Constants.Intake.elbowPosition, 
             Constants.Intake.wristPosition);
     }
 
