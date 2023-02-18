@@ -16,11 +16,11 @@ public class BHighYellow extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = Constants.BHighYellow.firstStagePosition;
-    double secondStagePosition = Constants.BHighYellow.secondStagePosition;
-    double wristPosition = Constants.BHighYellow.wristPosition;
-    double allowance = Constants.BHighYellow.allowance;
-    double time = Constants.BHighYellow.time;
+    static final double FIRST_STAGE_POSITION = Constants.BHighYellow.FIRST_STAGE_POSITION;
+    static final double SECOND_STAGE_POSITION = Constants.BHighYellow.SECOND_STAGE_POSITION;
+    static final double WRIST_POSITION = Constants.BHighYellow.WRIST_POSITION;
+    static final double ALLOWANCE = Constants.BHighYellow.ALLOWANCE;
+    static final double TIME = Constants.BHighYellow.TIME;
 
     @Override
     public void build() {
@@ -37,7 +37,7 @@ public class BHighYellow extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
     }
 
     @Override

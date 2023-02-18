@@ -15,11 +15,11 @@ public class FHighYellow extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = 0.0;
-    double secondStagePosition = 0.0;
-    double wristPosition = 0.0;
-    double allowance = 1000.0;
-    double time = 0.5;
+    static final double FIRST_STAGE_POSITION = Constants.FHighYellow.FIRST_STAGE_POSITION;
+    static final double SECOND_STAGE_POSITION = Constants.FHighYellow.SECOND_STAGE_POSITION;
+    static final double WRIST_POSITION = Constants.FHighYellow.WRIST_POSITION;
+    static final double ALLOWANCE = Constants.FHighYellow.ALLOWANCE;
+    static final double TIME = Constants.FHighYellow.TIME;
     
     @Override
     public void build() {
@@ -36,7 +36,7 @@ public class FHighYellow extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
     }
 
     @Override

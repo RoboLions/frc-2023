@@ -14,11 +14,11 @@ public class PickupState extends State {
     
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = 0.0;
-    double secondStagePosition = 0.0;
-    double wristPosition = 0.0;
+    static final double FIRST_STAGE_POSITION = Constants.PickupState.FIRST_STAGE_POSITION;
+    static final double SECOND_STAGE_POSITION = Constants.PickupState.SECOND_STAGE_POSITION;
+    static final double WRIST_POSITION = Constants.PickupState.WRIST_POSITION;
 
-    @Override
+    @Override 
     public void build() {
         // idle if idle button or claw sensor == T
         transitions.add(new Transition(() -> {
@@ -30,7 +30,7 @@ public class PickupState extends State {
 
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
     }
 
     @Override

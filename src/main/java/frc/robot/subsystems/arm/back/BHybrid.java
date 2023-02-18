@@ -16,11 +16,11 @@ public class BHybrid extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = Constants.BHybrid.firstStagePosition;
-    double secondStagePosition = Constants.BHybrid.secondStagePosition;
-    double wristPosition = Constants.BHybrid.wristPosition;
-    double allowance = Constants.BHybrid.allowance;
-    double time = Constants.BHybrid.time;
+    static final double FIRST_STAGE_POSITION = Constants.BHybrid.FIRST_STAGE_POSITION;
+    static final double SECOND_STAGE_POSITION = Constants.BHybrid.SECOND_STAGE_POSITION;
+    static final double WRIST_POSITION = Constants.BHybrid.WRIST_POSITION;
+    static final double ALLOWANCE = Constants.BHybrid.ALLOWANCE;
+    static final double TIME = Constants.BHybrid.TIME;
 
     @Override
     public void build() {
@@ -37,7 +37,7 @@ public class BHybrid extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
     }
 
     @Override

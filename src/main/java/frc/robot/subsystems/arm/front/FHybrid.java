@@ -15,11 +15,11 @@ public class FHybrid extends State {
 
     private static XboxController manipulatorController = RobotMap.manipulatorController;
 
-    double firstStagePosition = 0.0;
-    double secondStagePosition = 0.0;
-    double wristPosition = 0.0;
-    double allowance = 1000.0;
-    double time = 0.5;
+    static final double FIRST_STAGE_POSITION = Constants.FHybrid.FIRST_STAGE_POSITION;
+    static final double SECOND_STAGE_POSITION = Constants.FHybrid.SECOND_STAGE_POSITION;
+    static final double WRIST_POSITION = Constants.FHybrid.WRIST_POSITION;
+    static final double ALLOWANCE = Constants.FHybrid.ALLOWANCE;
+    static final double TIME = Constants.FHybrid.TIME;
 
     @Override
     public void build() {
@@ -36,7 +36,7 @@ public class FHybrid extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(firstStagePosition, secondStagePosition, wristPosition);
+        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
     }
 
     @Override
