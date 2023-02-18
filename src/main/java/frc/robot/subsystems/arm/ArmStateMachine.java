@@ -22,7 +22,7 @@ import frc.robot.subsystems.arm.front.FMidYellow;
 
 public class ArmStateMachine extends StateMachine {
     /**
-     * BUTTON CONFIGURATIONS:
+     * ARM CONTROLLER MAPPING:
      *  in all states - 
      *      B = idle state
      *  in all scoring states - 
@@ -38,6 +38,10 @@ public class ArmStateMachine extends StateMachine {
      *      Y = mid node
      *      B = hybrid node
      *      LEFT BUMPER = manual move
+     *  in manual move state - 
+     *      B = idle state
+     *      left stick Y = wrist movement
+     *      right stick Y = shoulder movement
      */
 
     public static IdleState idleState = new IdleState();
