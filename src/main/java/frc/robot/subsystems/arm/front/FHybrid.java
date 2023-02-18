@@ -31,7 +31,7 @@ public class FHybrid extends State {
 
         // transition to high level purple
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton() && 
+            return manipulatorController.getYButton() && 
             (RobotMap.claw.getColor() == RobotMap.cubeColor);
         }, ArmStateMachine.fHighPurple));
 
@@ -43,7 +43,7 @@ public class FHybrid extends State {
 
         // transition to high level yellow
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton() && 
+            return manipulatorController.getYButton() && 
             (RobotMap.claw.getColor() == RobotMap.coneColor);
         }, ArmStateMachine.fHighYellow));
 

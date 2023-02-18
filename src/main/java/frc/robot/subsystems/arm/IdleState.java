@@ -82,7 +82,7 @@ public class IdleState extends State {
                     manipulatorController.getYButton();
         }, ArmStateMachine.fMidYellow));
 
-        // BMidPurple if LT == T (back), color sensor == yellow, button (level to score: mid)
+        // BMidYellow if LT == T (back), color sensor == yellow, button (level to score: mid)
         transitions.add(new Transition(() -> {
             return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
                     RobotMap.claw.getColor() == RobotMap.coneColor && 

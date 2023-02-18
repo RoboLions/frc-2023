@@ -25,12 +25,12 @@ public class BHighYellow extends State {
 
         // transition to mid level
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton();
+            return manipulatorController.getYButton();
         }, ArmStateMachine.bMidYellow));
 
         // transition to hybrid level
         transitions.add(new Transition(() -> {
-            return manipulatorController.getXButton();
+            return manipulatorController.getAButton();
         }, ArmStateMachine.bHybrid));
 
         // return to idle manually
