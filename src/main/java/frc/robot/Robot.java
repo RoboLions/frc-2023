@@ -50,7 +50,7 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
-    /*advantagekit init code */
+    /*advantagekit init code pog*/
     Logger.getInstance().recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 
 if (isReal()) {
