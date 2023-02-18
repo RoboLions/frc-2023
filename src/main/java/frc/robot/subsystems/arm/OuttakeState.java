@@ -18,16 +18,16 @@ public class OuttakeState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getArrived(Constants.Outtake.allowance, Constants.Outtake.time) && RobotMap.arm.getClawOpen();
+            return RobotMap.arm.getArrived(Constants.Outtake.ALLOWANCE, Constants.Outtake.time) && RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
     }
     
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.Outtake.shoulderPosition, 
-            Constants.Outtake.elbowPosition, 
-            Constants.Outtake.wristPosition);
+            Constants.Outtake.SHOULDER_POSITION, 
+            Constants.Outtake.ELBOW_POSITION, 
+            Constants.Outtake.WRIST_POSITION);
     }
 
     @Override

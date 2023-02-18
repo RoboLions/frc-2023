@@ -28,9 +28,9 @@ public class PickupState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.Pickup.shoulderPosition, 
-            Constants.Pickup.elbowPosition, 
-            Constants.Pickup.wristPosition
+            Constants.Pickup.SHOULDER_POSITION, 
+            Constants.Pickup.ELBOW_POSITION, 
+            Constants.Pickup.WRIST_POSITION
         );
     }
 

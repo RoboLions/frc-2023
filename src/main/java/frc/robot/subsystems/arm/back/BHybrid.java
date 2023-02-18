@@ -61,9 +61,9 @@ public class BHybrid extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.BHybrid.shoulderPosition, 
-            Constants.BHybrid.elbowPosition, 
-            Constants.BHybrid.wristPosition
+            Constants.BHybrid.SHOULDER_POSITION, 
+            Constants.BHybrid.ELBOW_POSITION, 
+            Constants.BHybrid.WRIST_POSITION
         );
     }
 

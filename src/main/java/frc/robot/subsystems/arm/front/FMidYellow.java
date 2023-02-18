@@ -47,9 +47,9 @@ public class FMidYellow extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.FMidYellow.shoulderPosition, 
-            Constants.FMidYellow.elbowPosition, 
-            Constants.FMidYellow.wristPosition);
+            Constants.FMidYellow.SHOULDER_POSITION, 
+            Constants.FMidYellow.ELBOW_POSITION, 
+            Constants.FMidYellow.WRIST_POSITION);
     }
 
     @Override

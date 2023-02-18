@@ -61,9 +61,9 @@ public class FHybrid extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.FHybrid.shoulderPosition, 
-            Constants.FHybrid.elbowPosition, 
-            Constants.FHybrid.wristPosition
+            Constants.FHybrid.SHOULDER_POSITION, 
+            Constants.FHybrid.ELBOW_POSITION, 
+            Constants.FHybrid.WRIST_POSITION
         );
     }
 

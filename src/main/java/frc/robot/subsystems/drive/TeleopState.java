@@ -43,10 +43,10 @@ public class TeleopState extends State {
         }
 
         // invert because Xbox controllers return negative values when we push forward
-        translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftY(), Constants.stickDeadband);
-        strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftX(), Constants.stickDeadband);
+        translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftY(), Constants.STICK_DEADBAND);
+        strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getLeftX(), Constants.STICK_DEADBAND);
         // invert because Xbox controllers return positive values when you pull to the right
-        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRightX(), Constants.stickDeadband);
+        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRightX(), Constants.STICK_DEADBAND);
         robotCentric = RobotMap.driverController.getLeftBumperPressed();
 
         if (RobotMap.driverController.getYButton()) {

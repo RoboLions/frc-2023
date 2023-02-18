@@ -167,7 +167,7 @@ public class Swerve {
         var targetPose = tagPose.get();
         Transform3d camToTarget = target.getBestCameraToTarget();
         Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
-        var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.robotToCam);
+        var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.ROBOT_TO_CAM);
         swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
     }
 

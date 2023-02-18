@@ -87,7 +87,7 @@ public class Arm {
         // assume claw is closed after some # of counts
         if (RobotMap.claw.getColor() == RobotMap.cubeColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.clawClosedCubeTime)) {
+            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CUBE_TIME)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -96,7 +96,7 @@ public class Arm {
 
         if (RobotMap.claw.getColor() == RobotMap.coneColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.clawClosedConeTime)) {
+            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CONE_TIME)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -111,7 +111,7 @@ public class Arm {
         if (!RobotMap.claw.getColor() == RobotMap.coneColor || 
             !RobotMap.claw.getColor() == RobotMap.cubeColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.clawClosedConeTime)) {
+            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CONE_TIME)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -127,7 +127,7 @@ public class Arm {
     }
 
     public double applyDeadband(double armManualInput) {
-        if ((armManualInput > 0 && armManualInput < 0.25) || (armManualInput < 0 && armManualInput > -0.25)) {
+        if ((armManualInput > 0 && armManualInput < Constants.STICK_DEADBAND) || (armManualInput < 0 && armManualInput > -Constants.STICK_DEADBAND)) {
             armManualInput = 0.0;
         }
         return armManualInput;
