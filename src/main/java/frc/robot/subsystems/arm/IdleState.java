@@ -103,7 +103,7 @@ public class IdleState extends State {
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper();
+            return manipulatorController.getRightBumper();
         }, ArmStateMachine.manualMoveState));
     }
     

@@ -23,6 +23,12 @@ public class ManualMoveState extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
+
+        // release claw if left bumper 
+        // TODO: uncommont once claw and arm are combined
+        // transitions.add(new Transition(() -> {
+        //     return manipulatorController.getLeftBumper();
+        // }, ClawStateMachine.openState));
     }
 
     @Override
@@ -31,9 +37,10 @@ public class ManualMoveState extends State {
 
     @Override
     public void execute() {
+        // left is , right is 
         // TODO: figure out left or right being open or close
-        double wristInput = manipulatorController.getLeftTriggerAxis() - manipulatorController.getRightTriggerAxis();
-        RobotMap.wristMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(wristInput));
+        double wristInput = RobotMap.arm.applyDeadband(manipulatorController.getLeftTriggerAxis()) - RobotMap.arm.applyDeadband(manipulatorController.getRightTriggerAxis());
+        RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
 
         double elbowInput = manipulatorController.getLeftY();
         RobotMap.elbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));

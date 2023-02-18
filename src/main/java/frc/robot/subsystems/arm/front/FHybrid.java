@@ -54,7 +54,7 @@ public class FHybrid extends State {
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper();
+            return manipulatorController.getRightBumper();
         }, ArmStateMachine.manualMoveState));
     }
     
