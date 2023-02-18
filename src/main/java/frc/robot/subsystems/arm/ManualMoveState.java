@@ -27,12 +27,12 @@ public class ManualMoveState extends State {
 
     @Override
     public void init() {
-        RobotMap.shoulderMotor.set(ControlMode.Position, Constants.ManualMove.shoulderPosition);
         RobotMap.elbowMotor.set(ControlMode.Position, Constants.ManualMove.elbowPosition);
     }
 
     @Override
     public void execute() {
+        // TODO: TBD, decide if wrist and shoulder are the two motors we want to be able to manually control
         double wristInput = manipulatorController.getLeftY();
         RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
 
