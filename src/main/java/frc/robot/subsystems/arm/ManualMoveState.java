@@ -33,25 +33,13 @@ public class ManualMoveState extends State {
     public void execute() {
         // TODO: figure out left or right being open or close
         double wristInput = manipulatorController.getLeftTriggerAxis() - manipulatorController.getRightTriggerAxis();
-        // deadband
-        if ((wristInput > 0 && wristInput < 0.25) || (wristInput < 0 && wristInput > -0.25)) {
-            wristInput = 0.0;
-        }
-        RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
+        RobotMap.wristMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(wristInput));
 
         double elbowInput = manipulatorController.getLeftY();
-        // deadband
-        if ((elbowInput > 0 && elbowInput < 0.25) || (elbowInput < 0 && elbowInput > -0.25)) {
-            elbowInput = 0.0;
-        }
-        RobotMap.elbowMotor.set(ControlMode.PercentOutput, elbowInput);
+        RobotMap.elbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 
         double shoulderInput = manipulatorController.getRightY();
-        // deadband
-        if ((shoulderInput > 0 && shoulderInput < 0.25) || (shoulderInput < 0 && shoulderInput > -0.25)) {
-            shoulderInput = 0.0;
-        }
-        RobotMap.shoulderMotor.set(ControlMode.PercentOutput, shoulderInput);
+        RobotMap.shoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
     }
 
     @Override

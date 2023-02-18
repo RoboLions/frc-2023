@@ -125,4 +125,11 @@ public class Arm {
         RobotMap.elbowMotor.setSelectedSensorPosition(0.0);
         RobotMap.wristMotor.setSelectedSensorPosition(0.0);
     }
+
+    public double applyDeadband(double armManualInput) {
+        if ((armManualInput > 0 && armManualInput < 0.25) || (armManualInput < 0 && armManualInput > -0.25)) {
+            armManualInput = 0.0;
+        }
+        return armManualInput;
+    }
 }
