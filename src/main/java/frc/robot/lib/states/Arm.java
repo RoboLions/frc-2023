@@ -30,6 +30,9 @@ public class Arm {
         RobotMap.armFirstStage.set(TalonFXControlMode.Position, 0.0);
         RobotMap.armSecondStage.set(TalonFXControlMode.Position, 0.0);
         RobotMap.wrist.set(TalonFXControlMode.Position, 0.0);
+
+        RobotMap.armFirstStage.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.armSecondStage.set(TalonFXControlMode.Position, 0.0);
     }
 
     public void moveArmPosition(double firstStage, double secondStage, double wrist) {

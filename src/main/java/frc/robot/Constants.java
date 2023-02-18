@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -10,11 +11,14 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.lib.util.SwerveModuleConstants;
 import frc.robot.lib.util.COTSFalconSwerveConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.25;
+    public static WPI_Pigeon2 gyro = RobotMap.gyro;
+    public static WPI_Pigeon2 gyro2 = RobotMap.gyro;
 
     public static final class Swerve {
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -160,11 +164,31 @@ public final class Constants {
         // from center.
     }
 
+
+
+    public static final double roll = gyro.getRoll();
+    public static final double pitch = gyro.getRoll();
+    public static final double yaw = gyro.getRoll();
+
+    public static final double roll2 = gyro2.getRoll();
+    public static final double pitch2 = gyro2.getRoll();
+    public static final double yaw2 = gyro2.getRoll();
+
+
     public static final class ArmFirstStageConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+
+        public static final double roll = 0.0; 
+        public static final double pitch = 0.0; 
+        public static final double yaw = 0.0; 
+
+        
+        public static final double roll2 = 0.0; 
+        public static final double pitch2 = 0.0; 
+        public static final double yaw2 = 0.0; 
     }
 
     public static final class ArmSecondStageConstants {
@@ -172,6 +196,16 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+
+        public static final double roll = 0.0; 
+        public static final double pitch = 0.0; 
+        public static final double yaw = 0.0; 
+
+        
+        public static final double roll2 = 0.0; 
+        public static final double pitch2 = 0.0; 
+        public static final double yaw2 = 0.0; 
+
     }
 
     public static final class Wrist {
