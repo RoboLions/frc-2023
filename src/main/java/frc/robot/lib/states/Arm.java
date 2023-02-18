@@ -18,25 +18,25 @@ public class Arm {
     private Timer timer = new Timer();
 
     public Arm() {
-        RobotMap.armShoulderMotor.setNeutralMode(NeutralMode.Brake);
-        RobotMap.armElbowMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.shoulderMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.elbowMotor.setNeutralMode(NeutralMode.Brake);
         RobotMap.wristMotor.setNeutralMode(NeutralMode.Brake);
 
-        RobotMap.armShoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
-        RobotMap.armElbowMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.shoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.elbowMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
         RobotMap.wristMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
 
-        RobotMap.armShoulderMotor.configNominalOutputForward(0, 10);
-        RobotMap.armShoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.armShoulderMotor.configPeakOutputForward(1, 10);
-        RobotMap.armShoulderMotor.configPeakOutputReverse(-1, 10);
-        RobotMap.armShoulderMotor.configNeutralDeadband(0.001, 10);
+        RobotMap.shoulderMotor.configNominalOutputForward(0, 10);
+        RobotMap.shoulderMotor.configNominalOutputReverse(0, 10);
+        RobotMap.shoulderMotor.configPeakOutputForward(1, 10);
+        RobotMap.shoulderMotor.configPeakOutputReverse(-1, 10);
+        RobotMap.shoulderMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.armElbowMotor.configNominalOutputForward(0, 10);
-        RobotMap.armElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.armElbowMotor.configPeakOutputForward(1, 10);
-        RobotMap.armElbowMotor.configPeakOutputReverse(-1, 10);
-        RobotMap.armElbowMotor.configNeutralDeadband(0.001, 10);
+        RobotMap.elbowMotor.configNominalOutputForward(0, 10);
+        RobotMap.elbowMotor.configNominalOutputReverse(0, 10);
+        RobotMap.elbowMotor.configPeakOutputForward(1, 10);
+        RobotMap.elbowMotor.configPeakOutputReverse(-1, 10);
+        RobotMap.elbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.wristMotor.configNominalOutputForward(0, 10);
         RobotMap.wristMotor.configNominalOutputReverse(0, 10);
@@ -44,8 +44,8 @@ public class Arm {
         RobotMap.wristMotor.configPeakOutputReverse(-1, 10);
         RobotMap.wristMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.armShoulderMotor.configAllowableClosedloopError(0, 0, 10);
-        RobotMap.armElbowMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.shoulderMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.elbowMotor.configAllowableClosedloopError(0, 0, 10);
         RobotMap.wristMotor.configAllowableClosedloopError(0, 0, 10);
     }
 
@@ -54,14 +54,14 @@ public class Arm {
     }*/
 
     public void setIdle() {
-        RobotMap.armShoulderMotor.set(TalonFXControlMode.Position, 0.0);
-        RobotMap.armElbowMotor.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.shoulderMotor.set(TalonFXControlMode.Position, 0.0);
+        RobotMap.elbowMotor.set(TalonFXControlMode.Position, 0.0);
         RobotMap.wristMotor.set(TalonFXControlMode.Position, 0.0);
     }
 
     public void moveArmPosition(double shoulder, double elbow, double wristMotor) {
-        RobotMap.armShoulderMotor.set(TalonFXControlMode.Position, shoulder);
-        RobotMap.armElbowMotor.set(TalonFXControlMode.Position, elbow);
+        RobotMap.shoulderMotor.set(TalonFXControlMode.Position, shoulder);
+        RobotMap.elbowMotor.set(TalonFXControlMode.Position, elbow);
         RobotMap.wristMotor.set(TalonFXControlMode.Position, wristMotor);
     }
 
@@ -69,8 +69,8 @@ public class Arm {
     public boolean getArrived(double allowance, double time) {
 
         // TODO: test and change error allowance
-        if (Math.abs(RobotMap.armShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
-            Math.abs(RobotMap.armElbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
+        if (Math.abs(RobotMap.shoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
+            Math.abs(RobotMap.elbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
             Math.abs(RobotMap.wristMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
             timer.start();
             if (timer.hasElapsed(time)) {
@@ -121,8 +121,8 @@ public class Arm {
     }
 
     public void resetEncoders() {
-        RobotMap.armShoulderMotor.setSelectedSensorPosition(0.0);
-        RobotMap.armElbowMotor.setSelectedSensorPosition(0.0);
+        RobotMap.shoulderMotor.setSelectedSensorPosition(0.0);
+        RobotMap.elbowMotor.setSelectedSensorPosition(0.0);
         RobotMap.wristMotor.setSelectedSensorPosition(0.0);
     }
 }

@@ -7,8 +7,8 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
-import frc.robot.Constants.ArmShoulderConstants;
-import frc.robot.Constants.ArmElbowConstants;
+import frc.robot.Constants.Shoulder;
+import frc.robot.Constants.Elbow;
 import frc.robot.Constants.Wrist;
 
 public final class CTREConfigs {
@@ -55,15 +55,15 @@ public final class CTREConfigs {
         swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
-        RobotMap.armShoulderMotor.config_kF(0, ArmShoulderConstants.F, 10);
-        RobotMap.armShoulderMotor.config_kP(0, ArmShoulderConstants.P, 10);
-        RobotMap.armShoulderMotor.config_kI(0, ArmShoulderConstants.I, 10);
-        RobotMap.armShoulderMotor.config_kD(0, ArmShoulderConstants.D, 10);
+        RobotMap.shoulderMotor.config_kF(0, Shoulder.F, 10);
+        RobotMap.shoulderMotor.config_kP(0, Shoulder.P, 10);
+        RobotMap.shoulderMotor.config_kI(0, Shoulder.I, 10);
+        RobotMap.shoulderMotor.config_kD(0, Shoulder.D, 10);
 
-        RobotMap.armElbowMotor.config_kF(0, ArmElbowConstants.F, 10);
-        RobotMap.armElbowMotor.config_kP(0, ArmElbowConstants.P, 10);
-        RobotMap.armElbowMotor.config_kI(0, ArmElbowConstants.I, 10);
-        RobotMap.armElbowMotor.config_kD(0, ArmElbowConstants.D, 10);
+        RobotMap.elbowMotor.config_kF(0, Elbow.F, 10);
+        RobotMap.elbowMotor.config_kP(0, Elbow.P, 10);
+        RobotMap.elbowMotor.config_kI(0, Elbow.I, 10);
+        RobotMap.elbowMotor.config_kD(0, Elbow.D, 10);
 
         RobotMap.wristMotor.config_kF(0, Wrist.F, 10);
         RobotMap.wristMotor.config_kP(0, Wrist.P, 10);

@@ -160,14 +160,14 @@ public final class Constants {
         // from center.
     }
 
-    public static final class ArmShoulderConstants {
+    public static final class Shoulder {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
 
-    public static final class ArmElbowConstants {
+    public static final class Elbow {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
