@@ -244,87 +244,6 @@ public final class Constants {
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
     }
 
-    public static final class BHighPurple {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-    
-    public static final class BHighYellow {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class BHybrid {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class BMidPurple {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class BMidYellow {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    
-    public static final class FHighPurple {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-    
-    public static final class FHighYellow {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class FHybrid {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class FMidPurple {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
-    public static final class FMidYellow {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
-    }
-
     public static final class FIntakeState {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
@@ -388,6 +307,12 @@ public final class Constants {
     }
 
     public static final class LOW_SCORE_CUBE {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class SUBSTATION_INTAKE {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;

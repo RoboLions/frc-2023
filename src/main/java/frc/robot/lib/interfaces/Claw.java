@@ -13,6 +13,7 @@ import com.revrobotics.ColorMatchResult;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Class with methods related to the claw or color sensor */
 public class Claw {
@@ -48,5 +49,14 @@ public class Claw {
 
     public void setClawClosedCone() {
         RobotMap.clawMotor.set(ControlMode.Position, Constants.Claw.CLOSED_CONE_POSITION);
+    }
+
+    public boolean isClosed() {
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || 
+            RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
+    }
+
+    public boolean isOpen() {
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openState;
     }
 }
