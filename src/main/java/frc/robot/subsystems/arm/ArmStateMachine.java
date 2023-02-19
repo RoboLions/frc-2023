@@ -11,9 +11,8 @@ import frc.robot.subsystems.arm.front.*;
 public class ArmStateMachine extends StateMachine {
 
     public static IdleState idleState = new IdleState();
-    public static FIntakeState fIntakeState = new FIntakeState();
-    public static BIntakeState bIntakeState = new BIntakeState();
     public static ManualMoveState manualMoveState = new ManualMoveState();
+    public static SubstationIntakeState substationIntakeState = new SubstationIntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
     public static FPickupState fPickupState = new FPickupState();
     public static BPickupState bPickupState = new BPickupState();
@@ -25,9 +24,8 @@ public class ArmStateMachine extends StateMachine {
     public ArmStateMachine() {
 
         idleState.build();
-        fIntakeState.build();
-        bIntakeState.build();
         manualMoveState.build();
+        substationIntakeState.build();
         outtakeState.build();
         fPickupState.build();
         bPickupState.build();

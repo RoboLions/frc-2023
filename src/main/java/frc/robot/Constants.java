@@ -244,18 +244,6 @@ public final class Constants {
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
     }
 
-    public static final class FIntakeState {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-    }
-
-    public static final class BIntakeState {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-    }
-
     public static final class OuttakeState {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
