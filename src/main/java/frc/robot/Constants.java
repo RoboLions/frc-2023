@@ -372,38 +372,98 @@ public final class Constants {
     }
 
     public static final class DriverButtons {
+        /*
+         * SHIFT_LEFT_BUTTON:
+         * in auto align state:
+         *  if in a node scoring position, shifts the robot one node to the left
+         */
         public static final int SHIFT_LEFT_BUTTON = XboxController.Button.kLeftBumper.value;
+        /*
+         * SHIFT_RIGHT_BUTTON:
+         * same as above, but opposite direction
+         */
         public static final int SHIFT_RIGHT_BUTTON = XboxController.Button.kRightBumper.value;
+        /*
+         * AUTO_ALIGN_BUTTON:
+         * in teleop state:
+         *  puts you in the auto align state
+         */
         public static final int AUTO_ALIGN_BUTTON = XboxController.Button.kB.value;
         
+        /*
+         * Axes to control drive base in teleop mode
+         */
         public static final int TRANSLATION_VAL = XboxController.Axis.kLeftY.value;
         public static final int STRAFE_VAL = XboxController.Axis.kLeftX.value;
         public static final int ROTATION_VAL = XboxController.Axis.kRightX.value;
 
+        /*
+         * in teleop state:
+         *  puts robot into auto balace state
+         */
         public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kX.value;
 
-        public static final int CLAW_OPEN_BUTTON = XboxController.Axis.kRightTrigger.value;
+        /*
+         * in a score state:
+         *  Kicks off the score biece sequence of events
+         */
+        public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
 
+        /*
+         * in teleop state:
+         *  Zeros the gyro of the robot and changes it's field alignment
+         */
         public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
     }
 
     public static final class ManipulatorButtons {
+        /*
+         * in any teleop state:
+         *  puts the arm back into idle position
+         */
         public static final int IDLE_BUTTON = XboxController.Button.kB.value;
 
+        /*
+         * in idle state:
+         *  moves the arm into a scoring position, field orientation and color sensor determine diection
+         *  and the exact position
+         */
         public static final int HIGH_SCORE_BUTTON = XboxController.Button.kY.value;
         public static final int MID_SCORE_BUTTON = XboxController.Button.kX.value;
         public static final int LOW_SCORE_BUTTON = XboxController.Button.kA.value;
         
+        /*
+         * in idle state:
+         *  moves arm into the ground intake position, front and back respectivley
+         */
         public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
 
+        /*
+         * in idle state:
+         *  sets the arm into the substation intake position, direction determined by field orientation
+         */
+        public static final int SUBSTATION_INTAKE_BUTTON = XboxController.Button.kRightBumper.value;
+
+        /*
+         * in manual control state:
+         *  commands all the joints of the robot arm directly
+         */
         public static final int WRIST_FORWARD_BUTTON = XboxController.Axis.kLeftTrigger.value;
         public static final int WRIST_BACKWARD_BUTTON = XboxController.Axis.kRightTrigger.value;
         public static final int BICEP_BUTTON = XboxController.Axis.kLeftY.value;
         public static final int FOREARM_BUTTON = XboxController.Axis.kRightY.value;
 
-        public static final int MANUAL_MODE_BUTTON = 0; // TODO: xbox button
+        /*
+         * in idle state:
+         *  command arm state machine into manual mode
+         */
+        public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
 
+        /*
+         * in idle mode:
+         *  sets the arm position into the endgame position
+         */
         public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
 
         // outtake button is in OuttakeState.java because it is a POV

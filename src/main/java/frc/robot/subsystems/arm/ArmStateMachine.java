@@ -9,28 +9,6 @@ import frc.robot.subsystems.arm.back.*;
 import frc.robot.subsystems.arm.front.*;
 
 public class ArmStateMachine extends StateMachine {
-    /**
-     * ARM CONTROLLER MAPPING:
-     *  in all states - 
-     *      B = idle state
-     *  in all scoring states - 
-     *      LEFT BUMPER = open claw button (this is currently in the final-claw branch of this repo)
-     *      Y = higher level
-     *      A = lower level 
-     *      (in high state, press Y for mid and A for hybrid)
-     *      (in mid state, press Y for high and A for hybrid)
-     *      (in hybrid state, press Y for high and A for mid)
-     *  in idle arm state -
-     *      A = intake at substation
-     *      X = high node
-     *      Y = mid node
-     *      B = hybrid node
-     *      LEFT BUMPER = manual move
-     *  in manual move state - 
-     *      B = idle state
-     *      left stick Y = wrist movement
-     *      right stick Y = shoulder movement
-     */
 
     public static IdleState idleState = new IdleState();
     public static FIntakeState fIntakeState = new FIntakeState();
