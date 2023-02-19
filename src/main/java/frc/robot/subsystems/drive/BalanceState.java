@@ -10,13 +10,13 @@ import frc.robot.lib.statemachine.Transition;
 /** State for balancing on the charging station autonomously */
 public class BalanceState extends State {
 
-    public double pitchP = Constants.balancePitchPID.P;
-    public double pitchI = Constants.balancePitchPID.D;
-    public double pitchD = Constants.balancePitchPID.I;
+    public double pitchP = Constants.BalancePitchPID.P;
+    public double pitchI = Constants.BalancePitchPID.D;
+    public double pitchD = Constants.BalancePitchPID.I;
 
-    public double rollP = Constants.balancerRollPID.P;
-    public double rollI = Constants.balancerRollPID.I;
-    public double rollD = Constants.balancerRollPID.D;
+    public double rollP = Constants.BalanceRollPID.P;
+    public double rollI = Constants.BalanceRollPID.I;
+    public double rollD = Constants.BalanceRollPID.D;
 
     public static RoboLionsPID rollPID = new RoboLionsPID();
     public static RoboLionsPID pitchPID = new RoboLionsPID();

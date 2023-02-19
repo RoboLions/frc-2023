@@ -7,15 +7,12 @@ package frc.robot.lib.states;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.util.Color;
-import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorSensorV3;
-
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-/** Add your docs here. */
+/** Class with methods related to the claw or color sensor */
 public class Claw {
 
     public Claw() {

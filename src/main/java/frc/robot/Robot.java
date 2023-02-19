@@ -4,13 +4,18 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.lib.auto.AutoModeBase;
+import frc.robot.lib.auto.AutoModeExecutor;
+import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.states.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -20,14 +25,15 @@ import frc.robot.subsystems.drive.DrivetrainStateMachine;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* state machine instances */
   private DrivetrainStateMachine drivetrainStateMachine;
   private ArmStateMachine armStateMachine;
+  private ClawStateMachine clawStateMachine;
+
+  // auto instances
+	private AutoModeExecutor autoModeExecutor;
+	private AutoModeSelector autoModeSelector = new AutoModeSelector();
 
   public static Color detectedColor;
 
@@ -51,14 +57,13 @@ public class Robot extends TimedRobot {
     Timer.delay(1.0);
     RobotMap.swerve.resetModulesToAbsolute();
 
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    RobotMap.swerve.zeroGyro();
 
     SmartDashboard.putData("Field", RobotMap.Field2d);
 
     drivetrainStateMachine = new DrivetrainStateMachine();
     armStateMachine = new ArmStateMachine();
+    clawStateMachine = new ClawStateMachine();
   }
 
   /**
@@ -74,10 +79,15 @@ public class Robot extends TimedRobot {
     /* state machines always execute current state and check for next state */
     drivetrainStateMachine.setNextState();
     armStateMachine.setNextState();
+    clawStateMachine.setNextState();
 
+    // update swerve pose estimator
     RobotMap.swerve.updatePoses();
+
+    // see robot pose on Glass
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
 
+    // update color sensor on claw
     RobotMap.claw.updateDetectedColor();
   }
 
@@ -93,42 +103,59 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
+    if (autoMode.isPresent()) {
+      RobotMap.swerve.resetOdometry(autoMode.get().getStartingPose());
+    }
+
+		autoModeExecutor.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+    
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    if (autoModeExecutor != null) {
+      autoModeExecutor.stop();
+    }
+  }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if (autoModeExecutor != null) {
+      autoModeExecutor.stop();
+    }
+  }
 
-  /** This function is called once when the robot is disabled. */
+  /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    if (autoModeExecutor != null) {
+      autoModeExecutor.stop();
+    }
 
-  /** This function is called periodically when disabled. */
+    // Reset all auto mode state.
+    autoModeSelector.reset();
+    autoModeSelector.updateModeCreator();
+    autoModeExecutor = new AutoModeExecutor();
+  }
+
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    autoModeSelector.updateModeCreator();
+    Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
+    if (autoMode.isPresent() && autoMode.get() != autoModeExecutor.getAutoMode()) {
+      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+      autoModeExecutor.setAutoMode(autoMode.get());
+    }
+  }
 
-  /** This function is called once when test mode is enabled. */
   @Override
   public void testInit() {}
 

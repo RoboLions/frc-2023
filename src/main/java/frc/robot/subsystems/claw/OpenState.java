@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems.claw;
 
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -16,12 +15,12 @@ public class OpenState extends State {
     public void build() {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "purple";
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == RobotMap.cubeColor);
         }, ClawStateMachine.closingCube));
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && RobotMap.arm.getColorSensor() == "yellow";
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == RobotMap.coneColor);
         }, ClawStateMachine.closingCone));
     }
 

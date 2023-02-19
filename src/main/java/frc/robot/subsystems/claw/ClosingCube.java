@@ -5,6 +5,7 @@
 package frc.robot.subsystems.claw;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -17,9 +18,9 @@ public class ClosingCube extends State {
     @Override
     public void build() {
         // TODO: change time
-        // claw is now closed on a cube after 0.25 seconds
+        // claw is now closed on a cube after x seconds
         transitions.add(new Transition(() -> {
-            return timer.hasElapsed(0.25);
+            return timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CUBE);
         }, ClawStateMachine.closedCube));
     }
 

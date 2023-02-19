@@ -235,6 +235,9 @@ public final class Constants {
 
         public static final double CLOSED_CUBE_POSITION = 0.0;
         public static final double CLOSED_CONE_POSITION = 0.0;
+
+        public static final double TIME_CLOSE_ON_CONE = 0.5;
+        public static final double TIME_CLOSE_ON_CUBE = 0.1;
     }
 
     public static final class BalancePitchPID {
@@ -243,7 +246,7 @@ public final class Constants {
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
-    
+
     public static final class BalanceRollPID {
         public static final double P = 0.0;
         public static final double I = 0.0;
