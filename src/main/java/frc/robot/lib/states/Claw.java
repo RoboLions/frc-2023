@@ -11,17 +11,12 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /** Add your docs here. */
 public class Claw {
-
-    // TODO: positions
-    double CLOSED_CUBE_POSITION = 0.0;
-    double CLOSED_CONE_POSITION = 0.0;
-
-    String colorString;
 
     public Claw() {
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
@@ -46,10 +41,10 @@ public class Claw {
     }
 
     public void setClawClosedCube() {
-        RobotMap.clawMotor.set(ControlMode.Position, CLOSED_CUBE_POSITION);
+        RobotMap.clawMotor.set(ControlMode.Position, Constants.Claw.CLOSED_CUBE_POSITION);
     }
 
     public void setClawClosedCone() {
-        RobotMap.clawMotor.set(ControlMode.Position, CLOSED_CONE_POSITION);
+        RobotMap.clawMotor.set(ControlMode.Position, Constants.Claw.CLOSED_CONE_POSITION);
     }
 }

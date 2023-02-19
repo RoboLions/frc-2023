@@ -186,5 +186,8 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+
+        public static final double CLOSED_CUBE_POSITION = 0.0;
+        public static final double CLOSED_CONE_POSITION = 0.0;
     }
 }
