@@ -148,22 +148,6 @@ public final class Constants {
         }
     }
 
-    public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5; //3;
-        public static final double kMaxAngularSpeedRadiansPerSecond = 1.5; //Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = 1.5; //Math.PI;
-    
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
-    
-        /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-            new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-    }
-
     public static final class PhotonConstants {
         public static final Transform3d ROBOT_TO_CAM =
                 new Transform3d(
@@ -242,40 +226,40 @@ public final class Constants {
     }
 
     public static final class BHighPurple {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
     
     public static final class BHighYellow {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class BHybrid {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class BMidPurple {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class BMidYellow {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
@@ -283,62 +267,74 @@ public final class Constants {
 
     
     public static final class FHighPurple {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
     
     public static final class FHighYellow {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class FHybrid {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class FMidPurple {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class FMidYellow {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
-    public static final class IntakeState {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+    public static final class FIntakeState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class BIntakeState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
     }
 
     public static final class OuttakeState {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
-    public static final class PickupState {
-        public static final double FIRST_STAGE_POSITION = 0.0;
-        public static final double SECOND_STAGE_POSITION = 0.0;
+    public static final class BPickupState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class FPickupState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;
     }
 

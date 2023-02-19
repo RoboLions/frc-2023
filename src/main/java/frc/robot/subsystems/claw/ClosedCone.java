@@ -21,7 +21,7 @@ public class ClosedCone extends State {
 
         // open the claw if driver presses right trigger
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLAW_OPEN_BUTTON) > Constants.stickDeadband;
+            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLAW_OPEN_BUTTON) > Constants.STICK_DEADBAND;
         }, ClawStateMachine.openState));
     }
 
@@ -39,5 +39,8 @@ public class ClosedCone extends State {
     public void exit() {
         // set openRequest to false
         RobotMap.openRequest = false;
+
+        
+        // TODO: where to set openRequest = true?
     }
 }

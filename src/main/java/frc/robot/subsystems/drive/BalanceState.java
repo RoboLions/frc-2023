@@ -25,10 +25,10 @@ public class BalanceState extends State {
     public void build(){
         // if driver joysticks are engaged, transition to teleop state
         addTransition(new Transition(() -> {
-            return Math.abs(RobotMap.driverController.getLeftX()) > Constants.stickDeadband || 
-                Math.abs(RobotMap.driverController.getLeftY()) > Constants.stickDeadband || 
-                Math.abs(RobotMap.driverController.getRightX()) > Constants.stickDeadband ||
-                Math.abs(RobotMap.driverController.getRightY()) > Constants.stickDeadband;
+            return Math.abs(RobotMap.driverController.getLeftX()) > Constants.STICK_DEADBAND || 
+                Math.abs(RobotMap.driverController.getLeftY()) > Constants.STICK_DEADBAND || 
+                Math.abs(RobotMap.driverController.getRightX()) > Constants.STICK_DEADBAND ||
+                Math.abs(RobotMap.driverController.getRightY()) > Constants.STICK_DEADBAND;
         }, DrivetrainStateMachine.teleopSwerve));
     }
 

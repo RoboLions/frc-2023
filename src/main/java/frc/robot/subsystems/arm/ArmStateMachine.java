@@ -4,21 +4,21 @@
 
 package frc.robot.subsystems.arm;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
 import frc.robot.subsystems.arm.back.BHighPurple;
 import frc.robot.subsystems.arm.back.BMidPurple;
 import frc.robot.subsystems.arm.back.BHybrid;
+import frc.robot.subsystems.arm.back.BIntakeState;
 import frc.robot.subsystems.arm.back.BHighYellow;
 import frc.robot.subsystems.arm.back.BMidYellow;
+import frc.robot.subsystems.arm.back.BPickupState;
 import frc.robot.subsystems.arm.front.FHighPurple;
 import frc.robot.subsystems.arm.front.FMidPurple;
 import frc.robot.subsystems.arm.front.FHybrid;
+import frc.robot.subsystems.arm.front.FIntakeState;
 import frc.robot.subsystems.arm.front.FHighYellow;
 import frc.robot.subsystems.arm.front.FMidYellow;
+import frc.robot.subsystems.arm.front.FPickupState;
 
 public class ArmStateMachine extends StateMachine {
     /**
@@ -45,10 +45,12 @@ public class ArmStateMachine extends StateMachine {
      */
 
     public static IdleState idleState = new IdleState();
-    public static IntakeState intakeState = new IntakeState();
+    public static FIntakeState fIntakeState = new FIntakeState();
+    public static BIntakeState bIntakeState = new BIntakeState();
     public static ManualMoveState manualMoveState = new ManualMoveState();
     public static OuttakeState outtakeState = new OuttakeState();
-    public static PickupState pickupState = new PickupState();
+    public static FPickupState fPickupState = new FPickupState();
+    public static BPickupState bPickupState = new BPickupState();
     public static BHighPurple bHighPurple = new BHighPurple();
     public static BMidPurple bMidPurple = new BMidPurple();
     public static BHybrid bHybrid = new BHybrid();
@@ -63,10 +65,12 @@ public class ArmStateMachine extends StateMachine {
     public ArmStateMachine() {
 
         idleState.build();
-        intakeState.build();
+        fIntakeState.build();
+        bIntakeState.build();
         manualMoveState.build();
         outtakeState.build();
-        pickupState.build();
+        fPickupState.build();
+        bPickupState.build();
         fMidYellow.build();
         fMidPurple.build();
         fHybrid.build();
