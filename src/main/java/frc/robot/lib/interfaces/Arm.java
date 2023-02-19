@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -127,5 +128,20 @@ public class Arm {
             armManualInput = 0.0;
         }
         return armManualInput;
+    }
+
+    public double getScoringDirectionModifier() {
+        double current_rotation = RobotMap.swerve.getPose().getRotation().getDegrees();
+        boolean heading_left = current_rotation > 90 && current_rotation < 270;
+        double modifier = (!heading_left &&
+                DriverStation.getAlliance() == DriverStation.Alliance.Red) ||
+            (heading_left &&
+                DriverStation.getAlliance() == DriverStation.Alliance.Blue) ?
+                1.0 : -1.0;
+        return modifier;
+    }
+
+    public double getSubstationDirectionModifier() {
+        return -1.0 * getScoringDirectionModifier();
     }
 }

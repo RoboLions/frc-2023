@@ -27,6 +27,8 @@ public class ArmStateMachine extends StateMachine {
     public static FHybrid fHybrid = new FHybrid();
     public static FHighYellow fHighYellow = new FHighYellow();
     public static FMidYellow fMidYellow = new FMidYellow();
+    public static ScoreHighState scoreHighState = new ScoreHighState();
+    public static ScoringState scoringState = new ScoringState();
 
     public ArmStateMachine() {
 
@@ -47,6 +49,8 @@ public class ArmStateMachine extends StateMachine {
         bHybrid.build();
         bHighPurple.build();
         bHighYellow.build();
+        scoreHighState.build();
+        scoringState.build();
 
         setCurrentState(idleState);
     }

@@ -357,6 +357,18 @@ public final class Constants {
         public static final double WRIST_POSITION = 0.0;
     }
 
+    public static final class HIGH_SCORE_CONE {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class HIGH_SCORE_CUBE {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
     public static final class BalancePitchPID {
         public static final double P = 0.0;
         public static final double I = 0.0;
