@@ -9,14 +9,10 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.states.Swerve;
-import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
-import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,11 +21,6 @@ import frc.robot.subsystems.drive.DrivetrainStateMachine;
  * project.
  */
 public class Robot extends TimedRobot {
-
-  /* state machine instances */
-  private DrivetrainStateMachine drivetrainStateMachine;
-  private ArmStateMachine armStateMachine;
-  private ClawStateMachine clawStateMachine;
 
   // auto instances
 	private AutoModeExecutor autoModeExecutor;
@@ -44,24 +35,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
-    RobotMap.gyro.configFactoryDefault();
-    RobotMap.shoulderMotor.configFactoryDefault();
-    RobotMap.elbowMotor.configFactoryDefault();
-    RobotMap.wristMotor.configFactoryDefault();
-    RobotMap.clawMotor.configFactoryDefault();
-
-    /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
-    * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */
-    Timer.delay(1.0);
-    RobotMap.swerve.resetModulesToAbsolute();
-
-    RobotMap.swerve.zeroGyro();
-
     SmartDashboard.putData("Field", RobotMap.Field2d);
-
-    drivetrainStateMachine = new DrivetrainStateMachine();
-    armStateMachine = new ArmStateMachine();
-    clawStateMachine = new ClawStateMachine();
   }
 
   /**
@@ -73,20 +47,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
     /* state machines always execute current state and check for next state */
-    drivetrainStateMachine.setNextState();
-    armStateMachine.setNextState();
-    clawStateMachine.setNextState();
+    RobotMap.drivetrainStateMachine.setNextState();
+    RobotMap.armStateMachine.setNextState();
+    RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
 
     // see robot pose on Glass
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
-
-    // update color sensor on claw
-    RobotMap.claw.updateDetectedColor();
   }
 
   /**

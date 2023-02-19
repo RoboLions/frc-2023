@@ -7,6 +7,8 @@ package frc.robot.lib.states;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.util.Color;
+
+import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -14,11 +16,14 @@ import frc.robot.RobotMap;
 
 /** Class with methods related to the claw or color sensor */
 public class Claw {
+    
+    private static ColorMatch colorMatcher;
 
     public Claw() {
+        colorMatcher = new ColorMatch();
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
-        RobotMap.colorMatcher.addColorMatch(RobotMap.cubeColor);
-        RobotMap.colorMatcher.addColorMatch(RobotMap.coneColor);
+        colorMatcher.addColorMatch(Constants.Claw.CUBE_COLOR);
+        colorMatcher.addColorMatch(Constants.Claw.CONE_COLOR);
     }
 
     public Color updateDetectedColor() {
@@ -26,7 +31,7 @@ public class Claw {
     }
 
     public Color getColor() {
-        ColorMatchResult match = RobotMap.colorMatcher.matchClosestColor(Robot.detectedColor);
+        ColorMatchResult match = colorMatcher.matchClosestColor(Robot.detectedColor);
         if (match.confidence > 0.9) {
             return match.color;
         }

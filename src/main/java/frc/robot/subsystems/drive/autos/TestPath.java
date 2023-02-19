@@ -30,14 +30,14 @@ public class TestPath extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // define theta controller for robot heading
-        var thetaController = Constants.Swerve.Profile.THETA_CONTROLLER;
+        var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
     
         testDrive = new TrajectoryAction(
             testPath, 
             RobotMap.swerve::getPose, 
-            Constants.Swerve.swerveKinematics, 
-            Constants.Swerve.Profile.X_CONTROLLER,
-            Constants.Swerve.Profile.Y_CONTROLLER,
+            Constants.SWERVE.SWERVE_KINEMATICS, 
+            Constants.SWERVE.Profile.X_CONTROLLER,
+            Constants.SWERVE.Profile.Y_CONTROLLER,
             thetaController,
             RobotMap.swerve::setModuleStates
         );

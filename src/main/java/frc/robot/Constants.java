@@ -13,43 +13,59 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.util.SwerveModuleConstants;
 import frc.robot.lib.util.COTSFalconSwerveConstants;
 
 public final class Constants {
     public static final double STICK_DEADBAND = 0.25;
 
-    public static final class Swerve {
-        public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
+    public static final class CAN_IDS {
+        /* Motor + sensor IDs */
+        public static final int PIDGEON = 5;
+        public static final int SHOULDER_MOTOR = 9;
+        public static final int ELBOW_MOTOR = 10;
+        public static final int WRIST_MOTOR = 11;
+        public static final int CLAW_MOTOR = 12;
+    }
 
-        public static final COTSFalconSwerveConstants chosenModule = 
+    public static final class PORTS {
+        // TODO: change port
+        public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
+    }
+
+    public static final class SWERVE {
+        public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
+
+        public static final COTSFalconSwerveConstants CHOSEN_MODULE = 
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(23.5);
-        public static final double wheelBase = Units.inchesToMeters(23.5); 
-        public static final double wheelDiameter = Units.inchesToMeters(3.875);
-        public static final double wheelCircumference = wheelDiameter * Math.PI;
+        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
+        public static final double WHEEL_BASE = Units.inchesToMeters(23.5); 
+        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875);
+        public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
-         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+         public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
+            new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+            new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+            new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+            new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
         /* Module Gear Ratios */
-        public static final double driveGearRatio = chosenModule.driveGearRatio;
-        public static final double angleGearRatio = chosenModule.angleGearRatio;
+        public static final double DRIVE_GEAR_RATIO = CHOSEN_MODULE.driveGearRatio;
+        public static final double ANGLE_GEAR_RATIO = CHOSEN_MODULE.angleGearRatio;
 
         /* Motor Inverts */
-        public static final boolean angleMotorInvert = chosenModule.angleMotorInvert;
-        public static final boolean driveMotorInvert = chosenModule.driveMotorInvert;
+        public static final boolean angleMotorInvert = CHOSEN_MODULE.angleMotorInvert;
+        public static final boolean driveMotorInvert = CHOSEN_MODULE.driveMotorInvert;
 
         /* Angle Encoder Invert */
-        public static final boolean canCoderInvert = chosenModule.canCoderInvert;
+        public static final boolean canCoderInvert = CHOSEN_MODULE.canCoderInvert;
 
         /* Swerve Current Limiting */
         public static final int angleContinuousCurrentLimit = 25;
@@ -68,10 +84,10 @@ public final class Constants {
         public static final double closedLoopRamp = 0.0;
 
         /* Angle Motor PID Values */
-        public static final double angleKP = chosenModule.angleKP;
-        public static final double angleKI = chosenModule.angleKI;
-        public static final double angleKD = chosenModule.angleKD;
-        public static final double angleKF = chosenModule.angleKF;
+        public static final double angleKP = CHOSEN_MODULE.angleKP;
+        public static final double angleKI = CHOSEN_MODULE.angleKI;
+        public static final double angleKD = CHOSEN_MODULE.angleKD;
+        public static final double angleKF = CHOSEN_MODULE.angleKF;
 
         /* Drive Motor PID Values */
         public static final double driveKP = 0.15;
@@ -223,6 +239,9 @@ public final class Constants {
         public static final double TIME_CLOSE_ON_CONE = 0.5;
         public static final double TIME_CLOSE_ON_CUBE = 0.1;
         public static final double TIME_OPEN_CLAW = 0.1;
+
+        public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
+        public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
     }
 
     public static final class BHighPurple {
@@ -376,9 +395,7 @@ public final class Constants {
         public static final int LOW_SCORE_BUTTON = XboxController.Button.kA.value;
         
         public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
-        public static final int SUB_INTAKE_BACK = XboxController.Button.kLeftBumper.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
-        public static final int SUB_INTAKE_FRONT = XboxController.Button.kRightBumper.value;
 
         public static final int WRIST_FORWARD_BUTTON = XboxController.Axis.kLeftTrigger.value;
         public static final int WRIST_BACKWARD_BUTTON = XboxController.Axis.kRightTrigger.value;
@@ -387,7 +404,7 @@ public final class Constants {
 
         public static final int MANUAL_MODE_BUTTON = 0; // TODO: xbox button
 
-        public static final int ENDGAME_BUTTON = 0; // TODO: back button maybe?
+        public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
 
         // outtake button is in OuttakeState.java because it is a POV
     }

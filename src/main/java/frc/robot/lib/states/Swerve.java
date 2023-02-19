@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -37,17 +39,26 @@ public class Swerve {
     private static Pose2d loadingStation;
     private Pose2d closestPose;
     public static int poseNumber;
+    public static AprilTagFieldLayout aprilTagFieldLayout;
 
     public Swerve() {
+        
+        try {
+            aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+        } catch (Exception e) {
+            DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+            aprilTagFieldLayout = null;
+        }
+
         mSwerveMods = new SwerveModule[] {
-            new SwerveModule(0, Constants.Swerve.Mod0.constants),
-            new SwerveModule(1, Constants.Swerve.Mod1.constants),
-            new SwerveModule(2, Constants.Swerve.Mod2.constants),
-            new SwerveModule(3, Constants.Swerve.Mod3.constants)
+            new SwerveModule(0, Constants.SWERVE.Mod0.constants),
+            new SwerveModule(1, Constants.SWERVE.Mod1.constants),
+            new SwerveModule(2, Constants.SWERVE.Mod2.constants),
+            new SwerveModule(3, Constants.SWERVE.Mod3.constants)
         };
 
         swerveOdometry = new SwerveDrivePoseEstimator(
-            Constants.Swerve.swerveKinematics, 
+            Constants.SWERVE.SWERVE_KINEMATICS, 
             RobotMap.gyro.getRotation2d(), 
             getModulePositions(), 
             new Pose2d() // TODO: should this be our initial pose instead of new Pose2d()?
@@ -66,7 +77,7 @@ public class Swerve {
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =
-            Constants.Swerve.swerveKinematics.toSwerveModuleStates(
+            Constants.SWERVE.SWERVE_KINEMATICS.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX(), 
                                     translation.getY(), 
@@ -78,7 +89,7 @@ public class Swerve {
                                     translation.getY(), 
                                     rotation)
                                 );
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SWERVE.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
@@ -87,7 +98,7 @@ public class Swerve {
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.SWERVE.maxSpeed);
         
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
@@ -115,7 +126,7 @@ public class Swerve {
         }
 
         // Get the tag pose from field layout - consider that the layout will be null if it failed to load
-        Optional<Pose3d> tagPose = RobotMap.aprilTagFieldLayout.getTagPose(fiducialId);
+        Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
 
         if (target.getPoseAmbiguity() > 0.2) {
             return;
@@ -160,7 +171,7 @@ public class Swerve {
     }
 
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - RobotMap.gyro.getYaw()) : Rotation2d.fromDegrees(RobotMap.gyro.getYaw());
+        return (Constants.SWERVE.INVERT_GYRO) ? Rotation2d.fromDegrees(360 - RobotMap.gyro.getYaw()) : Rotation2d.fromDegrees(RobotMap.gyro.getYaw());
     }
 
     public void resetModulesToAbsolute(){

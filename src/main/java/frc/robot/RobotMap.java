@@ -3,51 +3,40 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.states.Arm;
 import frc.robot.lib.states.Claw;
 import frc.robot.lib.states.Swerve;
-
+import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
+import frc.robot.subsystems.drive.DrivetrainStateMachine;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.util.Color;
 
 public class RobotMap {
-    
-    /* Motor + sensor IDs */
-    public static final int pigeonID = 5;
-    public static final int shoulderMotorID = 9;
-    public static final int elbowMotorID = 10;
-    public static final int wristMotorID = 11;
-    public static final int clawMotorID = 12;
-    // TODO: change port
-    public static final I2C.Port colorSensorPort = I2C.Port.kOnboard;
 
-    /* Color instances */
-    public static Color cubeColor;
-    public static Color coneColor;
-    public static ColorMatch colorMatcher;
+    /* state machine instances */
+    public static DrivetrainStateMachine drivetrainStateMachine;
+    public static ArmStateMachine armStateMachine;
+    public static ClawStateMachine clawStateMachine;
 
-    /* Motor + sensor instances */
+    /* Motor instances */
     public static WPI_Pigeon2 gyro;
     public static WPI_TalonFX elbowMotor;
     public static WPI_TalonFX shoulderMotor;
     public static WPI_TalonFX wristMotor;
     public static VictorSPX clawMotor;
     // TODO: tbd intake motors
+    /* Sensor instances */
     public static ColorSensorV3 clawColorSensor;
 
-    /* Class instances */
-    public static Swerve swerve; 
-    public static CTREConfigs ctreConfigs;
-    public static AprilTagFieldLayout aprilTagFieldLayout;
+    /* Smart Dashboard Instances */
     public static Field2d Field2d;
+
+    /* Interface instances */
+    public static Swerve swerve; 
     public static Arm arm;
     public static Claw claw;
 
@@ -61,27 +50,34 @@ public class RobotMap {
 
     public static void init() {
         
-        gyro = new WPI_Pigeon2(pigeonID);
-        shoulderMotor = new WPI_TalonFX(shoulderMotorID);
-        elbowMotor = new WPI_TalonFX(elbowMotorID);
-        wristMotor = new WPI_TalonFX(wristMotorID);
-        clawMotor = new VictorSPX(clawMotorID);
-        ctreConfigs = new CTREConfigs();
-        clawColorSensor = new ColorSensorV3(colorSensorPort);
-        cubeColor = new Color(0.21, 0.33, 0.46);
-        coneColor = new Color(0.37, 0.57, 0.00);
-        colorMatcher = new ColorMatch();
+        gyro = new WPI_Pigeon2(Constants.CAN_IDS.PIDGEON);
+        shoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.SHOULDER_MOTOR);
+        elbowMotor = new WPI_TalonFX(Constants.CAN_IDS.ELBOW_MOTOR);
+        wristMotor = new WPI_TalonFX(Constants.CAN_IDS.WRIST_MOTOR);
+        clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
+        clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
+
+        
+        gyro.configFactoryDefault();
+        shoulderMotor.configFactoryDefault();
+        elbowMotor.configFactoryDefault();
+        wristMotor.configFactoryDefault();
+        clawMotor.configFactoryDefault();
+        
+        swerve = new Swerve();
+        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
+        * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */
+        Timer.delay(1.0);
+        swerve.resetModulesToAbsolute();
+        swerve.zeroGyro();
         manipulatorController = new XboxController(1);
         driverController = new XboxController(0);
-        swerve = new Swerve();
         arm = new Arm();
         claw = new Claw();
-        try {
-            aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-        } catch (Exception e) {
-            DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
-            aprilTagFieldLayout = null;
-        }
         Field2d = new Field2d();
+
+        drivetrainStateMachine = new DrivetrainStateMachine();
+        armStateMachine = new ArmStateMachine();
+        clawStateMachine = new ClawStateMachine();
     }
 }

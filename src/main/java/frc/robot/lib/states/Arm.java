@@ -81,7 +81,7 @@ public class Arm {
     public boolean getClawClosed() {
 
         // assume claw is closed after some # of seconds
-        if (RobotMap.claw.getColor() == RobotMap.cubeColor) {
+        if (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR) {
             timer.start();
             if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CUBE)) {
                 timer.stop();
@@ -90,7 +90,7 @@ public class Arm {
             }
         }
 
-        if (RobotMap.claw.getColor() == RobotMap.coneColor) {
+        if (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR) {
             timer.start();
             if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CONE)) {
                 timer.stop();
@@ -104,8 +104,8 @@ public class Arm {
 
     // assume claw is open after some # of seconds
     public boolean getClawOpen() {
-        if (RobotMap.claw.getColor() != RobotMap.coneColor || 
-            RobotMap.claw.getColor() != RobotMap.cubeColor) {
+        if (RobotMap.claw.getColor() != Constants.Claw.CONE_COLOR || 
+            RobotMap.claw.getColor() != Constants.Claw.CUBE_COLOR) {
             timer.start();
             if (timer.hasElapsed(Constants.Claw.TIME_OPEN_CLAW)) {
                 timer.stop();

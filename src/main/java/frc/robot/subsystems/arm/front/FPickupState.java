@@ -18,8 +18,8 @@ public class FPickupState extends State {
         // idle if idle button or claw sensor == T
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON) || 
-            (RobotMap.claw.getColor() == RobotMap.coneColor || 
-            RobotMap.claw.getColor() == RobotMap.cubeColor);
+            (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR || 
+            RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR);
         }, ArmStateMachine.idleState));
     }
 

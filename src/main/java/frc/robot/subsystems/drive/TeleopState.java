@@ -48,8 +48,8 @@ public class TeleopState extends State {
         }
 
         RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(translationVal, strafeVal).times(Constants.SWERVE.maxSpeed), 
+            rotationVal * Constants.SWERVE.maxAngularVelocity, 
             true, 
             true
         );
@@ -59,8 +59,8 @@ public class TeleopState extends State {
     @Override
     public void exit() {
         RobotMap.swerve.drive(
-            new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
-            0 * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(0, 0).times(Constants.SWERVE.maxSpeed), 
+            0 * Constants.SWERVE.maxAngularVelocity, 
             true, 
             true
         );

@@ -7,6 +7,7 @@ package frc.robot.subsystems.claw;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.Constants;
 
 /** Add your docs here. */
 public class OpenState extends State {
@@ -15,12 +16,12 @@ public class OpenState extends State {
     public void build() {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && (RobotMap.claw.getColor() == RobotMap.cubeColor);
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR);
         }, ClawStateMachine.closingCube));
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && (RobotMap.claw.getColor() == RobotMap.coneColor);
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR);
         }, ClawStateMachine.closingCone));
     }
 

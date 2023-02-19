@@ -23,25 +23,25 @@ public class FHybrid extends State {
         // transition to mid level purple
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON) &&
-            (RobotMap.claw.getColor() == RobotMap.cubeColor);
+            (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR);
         }, ArmStateMachine.fMidPurple));
 
         // transition to high level purple
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON) && 
-            (RobotMap.claw.getColor() == RobotMap.cubeColor);
+            (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR);
         }, ArmStateMachine.fHighPurple));
 
         // transition to mid level yellow
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON) &&
-            (RobotMap.claw.getColor() == RobotMap.coneColor);
+            (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR);
         }, ArmStateMachine.fMidYellow));
 
         // transition to high level yellow
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON) && 
-            (RobotMap.claw.getColor() == RobotMap.coneColor);
+            (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR);
         }, ArmStateMachine.fHighYellow));
 
         // return to idle manually

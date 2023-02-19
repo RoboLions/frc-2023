@@ -37,9 +37,9 @@ public class FollowTag extends State {
         RobotMap.swerve.setClosestPose(currentPose);
         
         m_controller = new HolonomicDriveController(
-            Constants.Swerve.Profile.X_CONTROLLER,
-            Constants.Swerve.Profile.Y_CONTROLLER,
-            Constants.Swerve.Profile.THETA_CONTROLLER
+            Constants.SWERVE.Profile.X_CONTROLLER,
+            Constants.SWERVE.Profile.Y_CONTROLLER,
+            Constants.SWERVE.Profile.THETA_CONTROLLER
         );
     }
 
@@ -53,7 +53,7 @@ public class FollowTag extends State {
         Pose2d targetPose = RobotMap.swerve.getClosestPose();
         Pose2d currentPose = Swerve.swerveOdometry.getEstimatedPosition();
         ChassisSpeeds targetChassisSpeeds = m_controller.calculate(currentPose, targetPose, 0.25, targetPose.getRotation());
-        SwerveModuleState[] outputModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(targetChassisSpeeds);
+        SwerveModuleState[] outputModuleStates = Constants.SWERVE.SWERVE_KINEMATICS.toSwerveModuleStates(targetChassisSpeeds);
 
         RobotMap.swerve.setModuleStates(outputModuleStates);
     }
@@ -61,8 +61,8 @@ public class FollowTag extends State {
     @Override
     public void exit() {
         RobotMap.swerve.drive(
-            new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
-            0 * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(0, 0).times(Constants.SWERVE.maxSpeed), 
+            0 * Constants.SWERVE.maxAngularVelocity, 
             true, 
             true
         );
