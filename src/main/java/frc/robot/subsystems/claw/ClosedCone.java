@@ -39,8 +39,5 @@ public class ClosedCone extends State {
     public void exit() {
         // set openRequest to false
         RobotMap.openRequest = false;
-
-        
-        // TODO: where to set openRequest = true?
     }
 }

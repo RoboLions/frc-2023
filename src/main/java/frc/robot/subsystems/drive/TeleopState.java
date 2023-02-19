@@ -12,18 +12,11 @@ import frc.robot.lib.states.Swerve;
 
 public class TeleopState extends State {
     
-    private static XboxController driverController = RobotMap.driverController;
-
     double translationVal;
     double strafeVal;
     double rotationVal;
 
-    @Override
-    public void build() {
-        transitions.add(new Transition(() -> {
-            return driverController.getAButton(); 
-        }, DrivetrainStateMachine.aprilTag));
-    }
+    public TeleopState() {}
 
     @Override
     public void build() {
