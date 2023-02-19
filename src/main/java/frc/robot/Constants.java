@@ -252,13 +252,7 @@ public final class Constants {
         public static final double TIME = 0.0;
     }
 
-    public static final class BPickupState {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
-    }
-
-    public static final class FPickupState {
+    public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
         public static final double WRIST_POSITION = 0.0;

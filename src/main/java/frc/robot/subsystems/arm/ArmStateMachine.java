@@ -5,8 +5,6 @@
 package frc.robot.subsystems.arm;
 
 import frc.robot.lib.statemachine.StateMachine;
-import frc.robot.subsystems.arm.back.*;
-import frc.robot.subsystems.arm.front.*;
 
 public class ArmStateMachine extends StateMachine {
 
