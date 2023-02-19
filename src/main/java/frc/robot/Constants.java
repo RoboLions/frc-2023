@@ -188,103 +188,103 @@ public final class Constants {
     }
 
     public static final class BHighPurple {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
     
     public static final class BHighYellow {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class BHybrid {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class BMidPurple {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class BMidYellow {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     
     public static final class FHighPurple {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
     
     public static final class FHighYellow {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class FHybrid {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class FMidPurple {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class FMidYellow {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class IntakeState {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
     }
 
     public static final class OuttakeState {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
-        public static final double ALLOWANCE;
-        public static final double TIME;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class PickupState {
-        public static final double FIRST_STAGE_POSITION;
-        public static final double SECOND_STAGE_POSITION;
-        public static final double WRIST_POSITION;
+        public static final double FIRST_STAGE_POSITION = 0.0;
+        public static final double SECOND_STAGE_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
     }
 }
