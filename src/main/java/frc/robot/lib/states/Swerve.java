@@ -6,10 +6,7 @@ package frc.robot.lib.states;
 
 import java.util.Optional;
 
-import org.photonvision.EstimatedRobotPose;
-
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -19,36 +16,29 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.SwerveModule;
-import frc.robot.lib.RoboLionsPID;
 
-import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-
-/** Add your docs here. */
+/** Class with methods that get used in states of DrivetrainStateMachine */
 public class Swerve {
 
     public static SwerveDrivePoseEstimator swerveOdometry;
     public static SwerveModule[] mSwerveMods;
 
-    public static RoboLionsPID rotationPID = new RoboLionsPID();
-    public static RoboLionsPID translationPID = new RoboLionsPID();
-    public static RoboLionsPID strafePID = new RoboLionsPID();
-    
     public static PhotonCamera camera;
 
     private double previousPipelineTimestamp = 0;
+    
+    private static Pose2d[] scoringPoses;
+    private static Pose2d loadingStation;
+    private Pose2d closestPose;
+    public static int poseNumber;
 
     public Swerve() {
-    
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),
@@ -57,32 +47,21 @@ public class Swerve {
         };
 
         swerveOdometry = new SwerveDrivePoseEstimator(
-            Constants.Swerve.swerveKinematics, RobotMap.gyro.getRotation2d(), getModulePositions(), new Pose2d());
+            Constants.Swerve.swerveKinematics, 
+            RobotMap.gyro.getRotation2d(), 
+            getModulePositions(), 
+            new Pose2d() // TODO: should this be our initial pose instead of new Pose2d()?
+        );
             
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
 
-        rotationPID.initialize(
-            0.01,
-            0.0,
-            0.0,
-            2.0, // Cage Limit degrees/sec
-            2.0, // Deadband
-            0.3 // MaxOutput Degrees/sec
-        );
-        
-        translationPID.initialize(
-            0.15, // Proportional Gain 
-            0.0, // Integral Gain
-            0.0, // Derivative Gain
-            12 // MaxOutput Volts
-        );
-
-        strafePID.initialize(
-            0.15, // Proportional Gain 
-            0.0, // Integral Gain
-            0.0, // Derivative Gain 
-            12 // MaxOutput Volts
-        );
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+            scoringPoses = Constants.TargetPoses.RED_SCORING_POSES;
+            loadingStation = Constants.TargetPoses.RED_LOADING_STATION;
+        } else if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+            scoringPoses = Constants.TargetPoses.BLUE_SCORING_POSES;
+            loadingStation = Constants.TargetPoses.BLUE_LOADING_STATION;
+        }
     }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
@@ -104,22 +83,7 @@ public class Swerve {
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
-    }
-
-    public void drive(Translation2d translation, double rotation) {
-        SwerveModuleState[] swerveModuleStates =
-            Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-                                new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation)
-                                );
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
-
-        for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], false);
-        }
-    }
+    }    
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -128,10 +92,6 @@ public class Swerve {
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
-    }  
-
-    public PhotonCamera getCamera() {
-        return camera;
     }
     
     private void updateSwervePoseAprilTags() {
@@ -226,5 +186,53 @@ public class Swerve {
         swerveOdometry.update(
             RobotMap.gyro.getRotation2d(),
             getModulePositions());
+    }
+
+    public double getPoseDistance(Pose2d currentPose, Pose2d targetPose) {
+        return currentPose.getTranslation().getDistance(targetPose.getTranslation());
+    }
+
+    public double setClosestPose(Pose2d currentPose) {
+
+        // get the closest pose
+        // get distance between current pose and target pose of every target pose 
+        // for the pose with shortest distance, make that the closest pose
+        poseNumber = -1;
+        closestPose = loadingStation;
+        double shortestDistance = currentPose.getTranslation().getDistance(loadingStation.getTranslation());
+
+        for (int i = 0; i < scoringPoses.length; i++) {
+            double temp_distance = currentPose.getTranslation().getDistance(scoringPoses[i].getTranslation());
+            if (temp_distance < shortestDistance) {
+                shortestDistance = temp_distance;
+                closestPose = scoringPoses[i];
+                poseNumber = i;
+            }
+        }
+
+        return shortestDistance;
+    }
+
+    public void shiftPose(boolean go_right) {
+        if (poseNumber == -1) {
+            return;
+        }
+        poseNumber = go_right ? 
+            poseNumber + 1 :
+            poseNumber - 1;
+        poseNumber = Math.max(Math.min(poseNumber, 9), 0);
+        closestPose = scoringPoses[poseNumber];
+    }
+
+    public void shiftPoseRight() {
+        shiftPose(true);
+    }
+
+    public void shiftPoseLeft() {
+        shiftPose(false);
+    }
+
+    public Pose2d getClosestPose() {
+        return closestPose;
     }
 }

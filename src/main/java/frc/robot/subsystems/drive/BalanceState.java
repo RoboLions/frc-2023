@@ -1,12 +1,8 @@
 package frc.robot.subsystems.drive;
 
-import com.ctre.phoenix.sensors.WPI_Pigeon2;
-
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.Constants.Swerve;
 import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -78,7 +74,9 @@ public class BalanceState extends State {
     public void exit() {
         RobotMap.swerve.drive(
             new Translation2d(0.0, 0.0).times(Constants.Swerve.maxSpeed), 
-            0.0
+            0.0,
+            true,
+            true
         );
     }
 }
