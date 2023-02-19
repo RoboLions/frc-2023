@@ -7,9 +7,9 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.lib.states.Arm;
-import frc.robot.lib.states.Claw;
-import frc.robot.lib.states.Swerve;
+import frc.robot.lib.interfaces.Arm;
+import frc.robot.lib.interfaces.Claw;
+import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;

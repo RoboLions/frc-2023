@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.lib.interfaces;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -9,6 +9,9 @@ import com.ctre.phoenix.sensors.SensorTimeBase;
 
 import frc.robot.Constants.ShoulderMotorConstants;
 import frc.robot.Constants.ElbowMotorConstants;
+import frc.robot.Constants.SWERVE;
+import frc.robot.Constants;
+import frc.robot.RobotMap;
 import frc.robot.Constants.Claw;
 import frc.robot.Constants.WristMotorConstants;
 

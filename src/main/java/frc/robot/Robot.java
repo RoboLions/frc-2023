@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
-import frc.robot.lib.states.Swerve;
+import frc.robot.lib.interfaces.Swerve;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
