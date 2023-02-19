@@ -32,11 +32,13 @@ public class Claw {
     }
 
     public Color getColor() {
-        ColorMatchResult match = colorMatcher.matchClosestColor(Robot.detectedColor);
-        if (match.confidence > 0.9) {
-            return match.color;
-        }
-        return null;
+        return Constants.Claw.CONE_COLOR;
+        
+        // ColorMatchResult match = colorMatcher.matchClosestColor(Robot.detectedColor);
+        // if (match.confidence > 0.9) {
+        //     return match.color;
+        // }
+        // return null;
     }
 
     public void setClawOpen() {

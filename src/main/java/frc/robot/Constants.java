@@ -25,9 +25,9 @@ public final class Constants {
     public static final class CAN_IDS {
         /* Motor + sensor IDs */
         public static final int PIDGEON = 5;
-        public static final int SHOULDER_MOTOR = 9;
-        public static final int ELBOW_MOTOR = 10;
-        public static final int WRIST_MOTOR = 11;
+        public static final int SHOULDER_MOTOR = 51;
+        public static final int ELBOW_MOTOR = 52;
+        public static final int WRIST_MOTOR = 50;
         public static final int CLAW_MOTOR = 12;
     }
 
@@ -207,24 +207,27 @@ public final class Constants {
     }
 
     public static final class ShoulderMotorConstants {
-        public static final double P = 0.0;
-        public static final double I = 0.0;
+        public static final double P = 1.0;
+        public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double TRAVEL_LIMIT = 22413.0;
     }
 
     public static final class ElbowMotorConstants {
-        public static final double P = 0.0;
-        public static final double I = 0.0;
+        public static final double P = 1.0;
+        public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double TRAVEL_LIMIT = 46590.0;
     }
 
     public static final class WristMotorConstants {
-        public static final double P = 0.0;
-        public static final double I = 0.0;
+        public static final double P = 1.0;
+        public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double TRAVEL_LIMIT = 11134.0;
     }
 
     public static final class Claw {
@@ -259,9 +262,9 @@ public final class Constants {
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT - 1000.0;
+        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT - 1000.0;
+        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT - 1000.0;
     }
 
     public static final class HIGH_SCORE_CUBE {
@@ -271,9 +274,9 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT / 2.0;
+        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT / 2.0;
+        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT / 2.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -283,9 +286,9 @@ public final class Constants {
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT  / 3.0;
+        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT  / 3.0;
+        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT  / 3.0;
     }
 
     public static final class LOW_SCORE_CUBE {

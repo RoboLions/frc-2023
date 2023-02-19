@@ -12,10 +12,16 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class OuttakeState extends State {
 
+    boolean openRequested = false;
+
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getArrived(Constants.OuttakeState.ALLOWANCE, Constants.OuttakeState.TIME) && RobotMap.arm.getClawOpen();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
+        }, ArmStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
     }
     
@@ -29,6 +35,9 @@ public class OuttakeState extends State {
 
     @Override
     public void execute() {
+        if (RobotMap.arm.getArrived(Constants.OuttakeState.ALLOWANCE, Constants.OuttakeState.TIME) && !openRequested) {
+
+        }
     }
 
     @Override
