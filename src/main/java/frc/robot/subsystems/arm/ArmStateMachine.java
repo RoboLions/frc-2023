@@ -28,6 +28,8 @@ public class ArmStateMachine extends StateMachine {
     public static FHighYellow fHighYellow = new FHighYellow();
     public static FMidYellow fMidYellow = new FMidYellow();
     public static ScoreHighState scoreHighState = new ScoreHighState();
+    public static ScoreMidState scoreMidState = new ScoreMidState();
+    public static ScoreLowState scoreLowState = new ScoreLowState();
     public static ScoringState scoringState = new ScoringState();
 
     public ArmStateMachine() {
@@ -50,6 +52,8 @@ public class ArmStateMachine extends StateMachine {
         bHighPurple.build();
         bHighYellow.build();
         scoreHighState.build();
+        scoreMidState.build();
+        scoreLowState.build();
         scoringState.build();
 
         setCurrentState(idleState);

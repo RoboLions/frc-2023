@@ -11,7 +11,7 @@ import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class ScoreHighState extends State {
+public class ScoreLowState extends State {
 
     @Override
     public void build() {
@@ -22,13 +22,13 @@ public class ScoreHighState extends State {
 
         // transition to mid level
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
-        }, ArmStateMachine.scoreMidState));
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON);
+        }, ArmStateMachine.scoreHighState));
 
         // transition to hybrid level
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.LOW_SCORE_BUTTON);
-        }, ArmStateMachine.scoreLowState));
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
+        }, ArmStateMachine.scoreMidState));
 
         // Go to scoring Transitions
         transitions.add(new Transition(() -> {
@@ -48,18 +48,18 @@ public class ScoreHighState extends State {
 
         if (current_color == Constants.Claw.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.HIGH_SCORE_CUBE.SHOULDER_POSITION, 
-                modifier * Constants.HIGH_SCORE_CUBE.ELBOW_POSITION, 
-                modifier * Constants.HIGH_SCORE_CUBE.WRIST_POSITION
+                modifier * Constants.LOW_SCORE_CUBE.SHOULDER_POSITION, 
+                modifier * Constants.LOW_SCORE_CUBE.ELBOW_POSITION, 
+                modifier * Constants.LOW_SCORE_CUBE.WRIST_POSITION
             );
             return;
         }
 
         if (current_color == Constants.Claw.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-                modifier * Constants.HIGH_SCORE_CONE.ELBOW_POSITION, 
-                modifier * Constants.HIGH_SCORE_CONE.WRIST_POSITION
+                modifier * Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
+                modifier * Constants.LOW_SCORE_CONE.ELBOW_POSITION, 
+                modifier * Constants.LOW_SCORE_CONE.WRIST_POSITION
             );
             return;
         }
