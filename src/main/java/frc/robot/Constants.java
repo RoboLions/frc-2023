@@ -238,6 +238,7 @@ public final class Constants {
 
         public static final double TIME_CLOSE_ON_CONE = 0.5;
         public static final double TIME_CLOSE_ON_CUBE = 0.1;
+        public static final double TIME_OPEN_CLAW = 0.1;
     }
 
     public static final class BHighPurple {
@@ -369,5 +370,29 @@ public final class Constants {
         public static final int CLAW_OPEN_BUTTON = XboxController.Axis.kRightTrigger.value;
 
         public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
+    }
+
+    public static final class ManipulatorButtons {
+        public static final int IDLE_BUTTON = XboxController.Button.kB.value;
+
+        public static final int HIGH_SCORE_BUTTON = XboxController.Button.kY.value;
+        public static final int MID_SCORE_BUTTON = XboxController.Button.kX.value;
+        public static final int LOW_SCORE_BUTTON = XboxController.Button.kA.value;
+        
+        public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
+        public static final int SUB_INTAKE_BACK = XboxController.Button.kLeftBumper.value;
+        public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
+        public static final int SUB_INTAKE_FRONT = XboxController.Button.kRightBumper.value;
+
+        public static final int WRIST_FORWARD_BUTTON = XboxController.Axis.kLeftTrigger.value;
+        public static final int WRIST_BACKWARD_BUTTON = XboxController.Axis.kRightTrigger.value;
+        public static final int BICEP_BUTTON = XboxController.Axis.kLeftY.value;
+        public static final int FOREARM_BUTTON = XboxController.Axis.kRightY.value;
+
+        public static final int MANUAL_MODE_BUTTON = 0; // TODO: xbox button
+
+        public static final int ENDGAME_BUTTON = 0; // TODO: back button maybe?
+
+        // outtake button is in OuttakeState.java because it is a POV
     }
 }

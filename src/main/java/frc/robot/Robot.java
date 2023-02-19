@@ -45,12 +45,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     RobotMap.init();
     RobotMap.gyro.configFactoryDefault();
-    RobotMap.armFirstStage.configFactoryDefault();
-    RobotMap.armSecondStage.configFactoryDefault();
-    RobotMap.wrist.configFactoryDefault();
-    RobotMap.intakeRoller.configFactoryDefault();
+    RobotMap.shoulderMotor.configFactoryDefault();
+    RobotMap.elbowMotor.configFactoryDefault();
+    RobotMap.wristMotor.configFactoryDefault();
     RobotMap.clawMotor.configFactoryDefault();
-    RobotMap.swerve.zeroGyro();
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
     * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */

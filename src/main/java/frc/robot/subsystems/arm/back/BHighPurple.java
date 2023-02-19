@@ -15,14 +15,6 @@ import frc.robot.subsystems.claw.ClawStateMachine;
 /** Add your docs here. */
 public class BHighPurple extends State {
 
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
-
-    static final double FIRST_STAGE_POSITION = Constants.BHighPurple.FIRST_STAGE_POSITION;
-    static final double SECOND_STAGE_POSITION = Constants.BHighPurple.SECOND_STAGE_POSITION;
-    static final double WRIST_POSITION = Constants.BHighPurple.WRIST_POSITION;
-    static final double ALLOWANCE = Constants.BHighPurple.ALLOWANCE;
-    static final double TIME = Constants.BHighPurple.TIME;
-
     @Override
     public void build() {
         // return to idle automatically after scored
@@ -32,25 +24,24 @@ public class BHighPurple extends State {
 
         // return to idle manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getBButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
-
-        // open claw manually
-        transitions.add(new Transition(() -> {
-            return manipulatorController.getLeftBumper();
-        }, ClawStateMachine.openState));
     }
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(FIRST_STAGE_POSITION, SECOND_STAGE_POSITION, WRIST_POSITION);
+        RobotMap.arm.moveArmPosition(
+            Constants.BHighPurple.FIRST_STAGE_POSITION, 
+            Constants.BHighPurple.SECOND_STAGE_POSITION, 
+            Constants.BHighPurple.WRIST_POSITION
+        );
     }
 
     @Override
     public void execute() {
-        /* if arm has arrived at position and stayed at position for 0.5 seconds, 
+        /* if arm has arrived at position and stayed at position for x seconds, 
         send open request to claw */
-        if (RobotMap.arm.getArrived(allowance, time)) {
+        if (RobotMap.arm.getArrived(Constants.BHighPurple.ALLOWANCE, Constants.BHighPurple.TIME)) {
             RobotMap.openRequest = true;
         }
     }
