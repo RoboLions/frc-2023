@@ -2,26 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.arm;
+package frc.robot.lib.auto.actions;
 
-import frc.robot.lib.statemachine.State;
+public class EmptyAction implements Action {
 
-/** Add your docs here. */
-public class PickupState extends State {
-    
     @Override
-    public void init() {
+    public void start() {}
 
+    @Override
+    public void update() {}
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
-    public void exit() {
-        
-    }
-
+    public void done() {}
 }

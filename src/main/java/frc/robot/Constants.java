@@ -2,6 +2,9 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -10,11 +13,12 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.util.SwerveModuleConstants;
 import frc.robot.lib.util.COTSFalconSwerveConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.25;
+    public static final double STICK_DEADBAND = 0.25;
 
     public static final class Swerve {
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -94,9 +98,9 @@ public final class Constants {
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 { 
-            public static final int driveMotorID = 21;
-            public static final int angleMotorID = 22;
-            public static final int canCoderID = 20;
+            public static final int driveMotorID = 11;
+            public static final int angleMotorID = 12;
+            public static final int canCoderID = 10;
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(236.68);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
@@ -104,9 +108,9 @@ public final class Constants {
 
         /* Front Right Module - Module 1 */
         public static final class Mod1 {
-            public static final int driveMotorID = 11;
-            public static final int angleMotorID = 12;
-            public static final int canCoderID = 10;
+            public static final int driveMotorID = 21;
+            public static final int angleMotorID = 22;
+            public static final int canCoderID = 20;
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(349.36);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
@@ -131,26 +135,21 @@ public final class Constants {
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
+
+        public static final class Profile {
+            public static final PIDController X_CONTROLLER = new PIDController(0.01, 0, 0);
+            public static final PIDController Y_CONTROLLER = new PIDController(0.01, 0, 0);
+            public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
+                0.01,
+                0,
+                0, 
+                new TrapezoidProfile.Constraints(0.25, 0.25)
+            );
+        }
     }
 
-    public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5; //3;
-        public static final double kMaxAngularSpeedRadiansPerSecond = 1.5; //Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = 1.5; //Math.PI;
-    
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
-    
-        /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-            new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-    }
-    
     public static final class PhotonConstants {
-        public static final Transform3d robotToCam =
+        public static final Transform3d ROBOT_TO_CAM =
                 new Transform3d(
                         new Translation3d(-1.0, 0.0, 0.0),
                         new Rotation3d(
@@ -160,24 +159,236 @@ public final class Constants {
         // from center.
     }
 
-    public static final class ArmFirstStageConstants {
+    public static final class TargetPoses {
+        // TODO: get poses with bot, 9 on red would = 1 one blue (they are flipped)
+
+        public static Pose2d[] RED_SCORING_POSES = new Pose2d[]{
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0))
+        };
+
+        public static Pose2d[] BLUE_SCORING_POSES = new Pose2d[]{
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0))
+        };
+
+        public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
+        public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
+    }
+
+    public static final class ShoulderMotorConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
 
-    public static final class ArmSecondStageConstants {
+    public static final class ElbowMotorConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
 
-    public static final class Wrist {
+    public static final class WristMotorConstants {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+    }
+
+    public static final class Claw {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+
+        public static final double CLOSED_CUBE_POSITION = 0.0;
+        public static final double CLOSED_CONE_POSITION = 0.0;
+
+        public static final double TIME_CLOSE_ON_CONE = 0.5;
+        public static final double TIME_CLOSE_ON_CUBE = 0.1;
+        public static final double TIME_OPEN_CLAW = 0.1;
+    }
+
+    public static final class BHighPurple {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+    
+    public static final class BHighYellow {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class BHybrid {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class BMidPurple {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class BMidYellow {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    
+    public static final class FHighPurple {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+    
+    public static final class FHighYellow {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class FHybrid {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class FMidPurple {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class FMidYellow {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class FIntakeState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class BIntakeState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class OuttakeState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
+    }
+
+    public static final class BPickupState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class FPickupState {
+        public static final double SHOULDER_POSITION = 0.0;
+        public static final double ELBOW_POSITION = 0.0;
+        public static final double WRIST_POSITION = 0.0;
+    }
+
+    public static final class BalancePitchPID {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+    }
+
+    public static final class BalanceRollPID {
+        public static final double P = 0.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+    }
+
+    public static final class DriverButtons {
+        public static final int SHIFT_LEFT_BUTTON = XboxController.Button.kLeftBumper.value;
+        public static final int SHIFT_RIGHT_BUTTON = XboxController.Button.kRightBumper.value;
+        public static final int AUTO_ALIGN_BUTTON = XboxController.Button.kB.value;
+        
+        public static final int TRANSLATION_VAL = XboxController.Axis.kLeftY.value;
+        public static final int STRAFE_VAL = XboxController.Axis.kLeftX.value;
+        public static final int ROTATION_VAL = XboxController.Axis.kRightX.value;
+
+        public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kX.value;
+
+        public static final int CLAW_OPEN_BUTTON = XboxController.Axis.kRightTrigger.value;
+
+        public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
+    }
+
+    public static final class ManipulatorButtons {
+        public static final int IDLE_BUTTON = XboxController.Button.kB.value;
+
+        public static final int HIGH_SCORE_BUTTON = XboxController.Button.kY.value;
+        public static final int MID_SCORE_BUTTON = XboxController.Button.kX.value;
+        public static final int LOW_SCORE_BUTTON = XboxController.Button.kA.value;
+        
+        public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
+        public static final int SUB_INTAKE_BACK = XboxController.Button.kLeftBumper.value;
+        public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
+        public static final int SUB_INTAKE_FRONT = XboxController.Button.kRightBumper.value;
+
+        public static final int WRIST_FORWARD_BUTTON = XboxController.Axis.kLeftTrigger.value;
+        public static final int WRIST_BACKWARD_BUTTON = XboxController.Axis.kRightTrigger.value;
+        public static final int BICEP_BUTTON = XboxController.Axis.kLeftY.value;
+        public static final int FOREARM_BUTTON = XboxController.Axis.kRightY.value;
+
+        public static final int MANUAL_MODE_BUTTON = 0; // TODO: xbox button
+
+        public static final int ENDGAME_BUTTON = 0; // TODO: back button maybe?
+
+        // outtake button is in OuttakeState.java because it is a POV
     }
 }

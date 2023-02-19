@@ -4,22 +4,41 @@
 
 package frc.robot.subsystems.arm;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
 import frc.robot.subsystems.arm.back.*;
 import frc.robot.subsystems.arm.front.*;
 
-
-/** Add your docs here. */
 public class ArmStateMachine extends StateMachine {
+    /**
+     * ARM CONTROLLER MAPPING:
+     *  in all states - 
+     *      B = idle state
+     *  in all scoring states - 
+     *      LEFT BUMPER = open claw button (this is currently in the final-claw branch of this repo)
+     *      Y = higher level
+     *      A = lower level 
+     *      (in high state, press Y for mid and A for hybrid)
+     *      (in mid state, press Y for high and A for hybrid)
+     *      (in hybrid state, press Y for high and A for mid)
+     *  in idle arm state -
+     *      A = intake at substation
+     *      X = high node
+     *      Y = mid node
+     *      B = hybrid node
+     *      LEFT BUMPER = manual move
+     *  in manual move state - 
+     *      B = idle state
+     *      left stick Y = wrist movement
+     *      right stick Y = shoulder movement
+     */
 
     public static IdleState idleState = new IdleState();
-    public static IntakeState intakeState = new IntakeState();
+    public static FIntakeState fIntakeState = new FIntakeState();
+    public static BIntakeState bIntakeState = new BIntakeState();
+    public static ManualMoveState manualMoveState = new ManualMoveState();
     public static OuttakeState outtakeState = new OuttakeState();
-    public static DropState dropState = new DropState();
+    public static FPickupState fPickupState = new FPickupState();
+    public static BPickupState bPickupState = new BPickupState();
     public static BHighPurple bHighPurple = new BHighPurple();
     public static BMidPurple bMidPurple = new BMidPurple();
     public static BHybrid bHybrid = new BHybrid();
@@ -30,17 +49,16 @@ public class ArmStateMachine extends StateMachine {
     public static FHybrid fHybrid = new FHybrid();
     public static FHighYellow fHighYellow = new FHighYellow();
     public static FMidYellow fMidYellow = new FMidYellow();
-    public static OpenState openState = new OpenState();
-    public static PickupState pickupState = new PickupState();
 
     public ArmStateMachine() {
 
         idleState.build();
-        intakeState.build();
+        fIntakeState.build();
+        bIntakeState.build();
+        manualMoveState.build();
         outtakeState.build();
-        dropState.build();
-        openState.build();
-        pickupState.build();
+        fPickupState.build();
+        bPickupState.build();
         fMidYellow.build();
         fMidPurple.build();
         fHybrid.build();

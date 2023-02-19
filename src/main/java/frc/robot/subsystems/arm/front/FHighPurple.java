@@ -5,7 +5,7 @@
 package frc.robot.subsystems.arm.front;
 
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -13,26 +13,45 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 /** Add your docs here. */
 public class FHighPurple extends State {
 
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
-
     @Override
     public void build() {
+        // return to idle automatically after scored
         transitions.add(new Transition(() -> {
-            return manipulatorController.getPOV() == 0;
-        }, ArmStateMachine.openState));
-        transitions.add(new Transition(() -> {
-            return manipulatorController.getBButton();
+            return RobotMap.arm.getClawOpen();
         }, ArmStateMachine.idleState));
+
+        // transition to mid level
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
+        }, ArmStateMachine.fMidPurple));
+
+        // transition to hybrid level
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.LOW_SCORE_BUTTON);
+        }, ArmStateMachine.fHybrid));
+
+        // return to idle manually
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
+        }, ArmStateMachine.idleState));
+
+        // transition to control arm manually
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override
     public void init() {
-
+        RobotMap.arm.moveArmPosition(
+            Constants.FHighPurple.SHOULDER_POSITION, 
+            Constants.FHighPurple.ELBOW_POSITION, 
+            Constants.FHighPurple.WRIST_POSITION
+        );
     }
 
     @Override
     public void execute() {
-
     }
 
     @Override

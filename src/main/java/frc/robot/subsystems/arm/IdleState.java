@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.arm;
 
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -12,91 +12,114 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class IdleState extends State {
 
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
     @Override
     public void build() {
-//intake transition
+        // intake from substation with arm at front of bot 
+        // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return manipulatorController.getBackButton() && !RobotMap.arm.getClawSensor();
-        }, ArmStateMachine.intakeState));
-//outtake transition
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.SUB_INTAKE_FRONT) && 
+            (RobotMap.claw.getColor() != RobotMap.coneColor || 
+            RobotMap.claw.getColor() != RobotMap.cubeColor);
+        }, ArmStateMachine.fIntakeState));
+
+        // intake from substation with arm at back of bot 
+        // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return manipulatorController.getStartButton() || 
-                   (RobotMap.arm.getBaseSensor() && RobotMap.arm.getClawSensor());
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.SUB_INTAKE_BACK) && 
+            (RobotMap.claw.getColor() != RobotMap.coneColor || 
+            RobotMap.claw.getColor() != RobotMap.cubeColor);
+        }, ArmStateMachine.bIntakeState));
+
+        // outtake if outtake button pressed
+        transitions.add(new Transition(() -> {
+            return (RobotMap.manipulatorController.getPOV() >= 135.0 || RobotMap.manipulatorController.getPOV() <= 225.0);
         }, ArmStateMachine.outtakeState));
-//pickup transition
+
+        // pickup from back
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getBaseSensor() && !RobotMap.arm.getClawSensor();
-        }, ArmStateMachine.pickupState));
-//front high purple transition
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.GROUND_INTAKE_BACK);
+        }, ArmStateMachine.bPickupState));
+
+        // pickup from front
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
-                    manipulatorController.getYButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.GROUND_INTAKE_FRONT);
+        }, ArmStateMachine.fPickupState));
+
+        // FHighPurple if bot is facing front (field relative), color sensor == purple, button (level to score: high)
+        // TODO: field relative transitions
+        transitions.add(new Transition(() -> {
+            return RobotMap.claw.getColor() == RobotMap.cubeColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.fHighPurple));
-//back high purple transition
+
+        // BHighPurple if bot is facing back, color sensor == purple, button (level to score: high)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
-                    manipulatorController.getYButton();
+            return RobotMap.claw.getColor() == RobotMap.cubeColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.bHighPurple));
-//front high yellow transition
+
+        // FHighYellow if bot is facing front, color sensor == yellow, button (level to score: high)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
-                    manipulatorController.getYButton();
+            return RobotMap.claw.getColor() == RobotMap.coneColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.fHighYellow));
-//back high purple transition
+
+        // BHighYellow if bot is facing back, color sensor == yellow, button (level to score: high)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
-                    manipulatorController.getYButton();
-        }, ArmStateMachine.bHighPurple));
-//front mid purple transition
+            return RobotMap.claw.getColor() == RobotMap.coneColor && 
+            RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON);
+        }, ArmStateMachine.bHighYellow));
+
+        // FMidPurple if bot is facing front, color sensor == purple, button (level to score: mid)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
-                    manipulatorController.getXButton();
+            return RobotMap.claw.getColor() == RobotMap.cubeColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
         }, ArmStateMachine.fMidPurple));
-//back mid purple transition
+
+        // BMidPurple if bot is facing back, color sensor == purple, button (level to score: mid)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "purple" && 
-                    manipulatorController.getXButton();
+            return RobotMap.claw.getColor() == RobotMap.cubeColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
         }, ArmStateMachine.bMidPurple));
-//front mid yellow transition
+
+        // FMidYellow if bot is facing front, color sensor == yellow, button (level to score: mid)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getRightTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
-                    manipulatorController.getXButton();
+            return RobotMap.claw.getColor() == RobotMap.coneColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
         }, ArmStateMachine.fMidYellow));
-//back mid purple transition
+
+        // BMidYellow if bot is facing back, color sensor == yellow, button (level to score: mid)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 0.25) &&
-                    RobotMap.arm.getColorSensor() == "yellow" && 
-                    manipulatorController.getXButton();
-        }, ArmStateMachine.bMidPurple));
-//front hybrid transition
+            return RobotMap.claw.getColor() == RobotMap.coneColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
+        }, ArmStateMachine.bMidYellow));
+
+        // FHybrid if bot is facing front, button (level to score: low)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getRightTriggerAxis() > 0.25) && 
-                    manipulatorController.getAButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.LOW_SCORE_BUTTON);
         }, ArmStateMachine.fHybrid));
-//back hybrid transition
+
+        // BHybrid if bot is facing back, button (level to score: low)
         transitions.add(new Transition(() -> {
-            return (manipulatorController.getLeftTriggerAxis() > 0.25) && 
-                    manipulatorController.getAButton();
+            return RobotMap.claw.getColor() == RobotMap.cubeColor && 
+                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.LOW_SCORE_BUTTON);
         }, ArmStateMachine.bHybrid));
+
+        // transition to control arm manually
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
-  
     
     @Override
     public void init() {
-
+        RobotMap.arm.setIdle();
+        RobotMap.arm.resetEncoders();
     }
 
     @Override
     public void execute() {
-        // RobotMap.arm.setIdle();
+        
     }
 
     @Override

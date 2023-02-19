@@ -1,29 +1,18 @@
 package frc.robot.subsystems.drive;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
-import frc.robot.lib.statemachine.Transition;
 
 public class DrivetrainStateMachine extends StateMachine {
 
+    public static TeleopState teleopSwerve = new TeleopState();
+    public static FollowTag followTag = new FollowTag();
     public static BalanceState balanceState = new BalanceState();
-    public static FollowTag aprilTag = new FollowTag();
-    public static ScoreState scoreState = new ScoreState();
-    public static TeleopState teleopState = new TeleopState();
-
-    private static XboxController driverController = RobotMap.driverController;
 
     public DrivetrainStateMachine() {
-        
-        aprilTag.build();
+        followTag.build();
         balanceState.build();
-        scoreState.build();
-        teleopState.build();
-    
-    } 
+        teleopSwerve.build();
+        setCurrentState(teleopSwerve);
+    }
     
 }
