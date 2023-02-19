@@ -9,6 +9,7 @@ import com.ctre.phoenix.sensors.SensorTimeBase;
 
 import frc.robot.Constants.ArmFirstStageConstants;
 import frc.robot.Constants.ArmSecondStageConstants;
+import frc.robot.Constants.Claw;
 import frc.robot.Constants.Wrist;
 
 public final class CTREConfigs {
@@ -69,5 +70,10 @@ public final class CTREConfigs {
         RobotMap.wrist.config_kP(0, Wrist.P, 10);
         RobotMap.wrist.config_kI(0, Wrist.I, 10);
         RobotMap.wrist.config_kD(0, Wrist.D, 10);
+
+        RobotMap.clawMotor.config_kF(0, Claw.F, 10);
+        RobotMap.clawMotor.config_kP(0, Claw.P, 10);
+        RobotMap.clawMotor.config_kI(0, Claw.I, 10);
+        RobotMap.clawMotor.config_kD(0, Claw.D, 10);
     }
 }

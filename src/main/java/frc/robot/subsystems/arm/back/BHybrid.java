@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
 public class BHybrid extends State {
@@ -33,6 +34,11 @@ public class BHybrid extends State {
         transitions.add(new Transition(() -> {
             return manipulatorController.getBButton();
         }, ArmStateMachine.idleState));
+
+        // open claw manually
+        transitions.add(new Transition(() -> {
+            return manipulatorController.getLeftBumper();
+        }, ClawStateMachine.openState));
     }
     
     @Override
