@@ -5,7 +5,6 @@
 package frc.robot.subsystems.arm.front;
 
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
@@ -14,8 +13,6 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 /** Add your docs here. */
 public class FHighYellow extends State {
 
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
-    
     @Override
     public void build() {
         // return to idle automatically after scored
@@ -25,22 +22,22 @@ public class FHighYellow extends State {
 
         // transition to mid level
         transitions.add(new Transition(() -> {
-            return manipulatorController.getYButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON);
         }, ArmStateMachine.fMidYellow));
 
         // transition to hybrid level
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.LOW_SCORE_BUTTON);
         }, ArmStateMachine.fHybrid));
 
         // return to idle manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getBButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getRightBumper();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
     }
     

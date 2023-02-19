@@ -5,7 +5,6 @@
 package frc.robot.subsystems.arm.front;
 
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
@@ -13,8 +12,6 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
 public class FHybrid extends State {
-
-    private static XboxController manipulatorController = RobotMap.manipulatorController;
 
     @Override
     public void build() {
@@ -25,36 +22,36 @@ public class FHybrid extends State {
 
         // transition to mid level purple
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton() &&
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON) &&
             (RobotMap.claw.getColor() == RobotMap.cubeColor);
         }, ArmStateMachine.fMidPurple));
 
         // transition to high level purple
         transitions.add(new Transition(() -> {
-            return manipulatorController.getYButton() && 
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON) && 
             (RobotMap.claw.getColor() == RobotMap.cubeColor);
         }, ArmStateMachine.fHighPurple));
 
         // transition to mid level yellow
         transitions.add(new Transition(() -> {
-            return manipulatorController.getAButton() &&
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MID_SCORE_BUTTON) &&
             (RobotMap.claw.getColor() == RobotMap.coneColor);
         }, ArmStateMachine.fMidYellow));
 
         // transition to high level yellow
         transitions.add(new Transition(() -> {
-            return manipulatorController.getYButton() && 
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.HIGH_SCORE_BUTTON) && 
             (RobotMap.claw.getColor() == RobotMap.coneColor);
         }, ArmStateMachine.fHighYellow));
 
         // return to idle manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getBButton();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return manipulatorController.getRightBumper();
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
     }
     

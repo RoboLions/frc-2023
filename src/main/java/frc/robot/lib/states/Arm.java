@@ -49,20 +49,16 @@ public class Arm {
         RobotMap.wristMotor.configAllowableClosedloopError(0, 0, 10);
     }
 
-    /*public boolean getBaseSensor() {
-        return false;
-    }*/
-
     public void setIdle() {
         RobotMap.shoulderMotor.set(TalonFXControlMode.Position, 0.0);
         RobotMap.elbowMotor.set(TalonFXControlMode.Position, 0.0);
         RobotMap.wristMotor.set(TalonFXControlMode.Position, 0.0);
     }
 
-    public void moveArmPosition(double shoulder, double elbow, double wristMotor) {
+    public void moveArmPosition(double shoulder, double elbow, double wrist) {
         RobotMap.shoulderMotor.set(TalonFXControlMode.Position, shoulder);
         RobotMap.elbowMotor.set(TalonFXControlMode.Position, elbow);
-        RobotMap.wristMotor.set(TalonFXControlMode.Position, wristMotor);
+        RobotMap.wristMotor.set(TalonFXControlMode.Position, wrist);
     }
 
     // method to check if arm has arrived at its position
@@ -84,10 +80,10 @@ public class Arm {
 
     public boolean getClawClosed() {
 
-        // assume claw is closed after some # of counts
+        // assume claw is closed after some # of seconds
         if (RobotMap.claw.getColor() == RobotMap.cubeColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CUBE_TIME)) {
+            if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CUBE)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -96,7 +92,7 @@ public class Arm {
 
         if (RobotMap.claw.getColor() == RobotMap.coneColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CONE_TIME)) {
+            if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CONE)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -106,12 +102,12 @@ public class Arm {
         return false;
     }
 
-    // assume claw is open after some # of counts
+    // assume claw is open after some # of seconds
     public boolean getClawOpen() {
-        if (!RobotMap.claw.getColor() == RobotMap.coneColor || 
-            !RobotMap.claw.getColor() == RobotMap.cubeColor) {
+        if (RobotMap.claw.getColor() != RobotMap.coneColor || 
+            RobotMap.claw.getColor() != RobotMap.cubeColor) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.CLAW_CLOSED_CONE_TIME)) {
+            if (timer.hasElapsed(Constants.Claw.TIME_OPEN_CLAW)) {
                 timer.stop();
                 timer.reset();
                 return true;
