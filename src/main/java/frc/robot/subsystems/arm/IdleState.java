@@ -16,10 +16,10 @@ public class IdleState extends State {
     public void build() {
         // intake from substation with arm at front of bot 
         // if intake button == T and claw sensor == F
-        // transitions.add(new Transition(() -> {
-        //     return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.SUBSTATION_INTAKE_BUTTON) && 
-        //         RobotMap.claw.getColor() == null;
-        // }, ArmStateMachine.substationIntakeState));
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.SUBSTATION_INTAKE_BUTTON) && 
+                RobotMap.claw.getColor() == null;
+        }, ArmStateMachine.substationIntakeState));
 
         // outtake if outtake button pressed
         // transitions.add(new Transition(() -> {
