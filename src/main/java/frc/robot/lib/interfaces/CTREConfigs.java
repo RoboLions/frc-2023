@@ -20,7 +20,7 @@ public final class CTREConfigs {
     public TalonFXConfiguration swerveDriveFXConfig;
     public CANCoderConfiguration swerveCanCoderConfig;
 
-    public CTREConfigs(){
+    public CTREConfigs() {
         swerveAngleFXConfig = new TalonFXConfiguration();
         swerveDriveFXConfig = new TalonFXConfiguration();
         swerveCanCoderConfig = new CANCoderConfiguration();
@@ -59,6 +59,7 @@ public final class CTREConfigs {
         swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
+        /* Arm motors PIDF config values */
         RobotMap.shoulderMotor.config_kF(0, ShoulderMotorConstants.F, 10);
         RobotMap.shoulderMotor.config_kP(0, ShoulderMotorConstants.P, 10);
         RobotMap.shoulderMotor.config_kI(0, ShoulderMotorConstants.I, 10);
@@ -74,6 +75,7 @@ public final class CTREConfigs {
         RobotMap.wristMotor.config_kI(0, WristMotorConstants.I, 10);
         RobotMap.wristMotor.config_kD(0, WristMotorConstants.D, 10);
 
+        /* Claw motors PIDF config values */
         RobotMap.clawMotor.config_kF(0, Claw.F, 10);
         RobotMap.clawMotor.config_kP(0, Claw.P, 10);
         RobotMap.clawMotor.config_kI(0, Claw.I, 10);
