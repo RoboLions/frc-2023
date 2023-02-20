@@ -26,7 +26,7 @@ public class SwerveModule {
 
     private static CTREConfigs ctreConfigs;
 
-    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.SWERVE.driveKS, Constants.SWERVE.driveKV, Constants.SWERVE.driveKA);
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.SWERVE.DRIVE_KS, Constants.SWERVE.DRIVE_KV, Constants.SWERVE.DRIVE_KA);
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
         this.moduleNumber = moduleNumber;
@@ -58,7 +58,7 @@ public class SwerveModule {
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
         if(isOpenLoop){
-            double percentOutput = desiredState.speedMetersPerSecond / Constants.SWERVE.maxSpeed;
+            double percentOutput = desiredState.speedMetersPerSecond / Constants.SWERVE.MAX_SPEED;
             mDriveMotor.set(ControlMode.PercentOutput, percentOutput);
         }
         else {
@@ -68,7 +68,7 @@ public class SwerveModule {
     }
 
     private void setAngle(SwerveModuleState desiredState){
-        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.SWERVE.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.SWERVE.MAX_SPEED * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle.getDegrees(), Constants.SWERVE.ANGLE_GEAR_RATIO));
         lastAngle = angle;
@@ -95,16 +95,16 @@ public class SwerveModule {
     private void configAngleMotor(){
         mAngleMotor.configFactoryDefault();
         mAngleMotor.configAllSettings(ctreConfigs.swerveAngleFXConfig);
-        mAngleMotor.setInverted(Constants.SWERVE.angleMotorInvert);
-        mAngleMotor.setNeutralMode(Constants.SWERVE.angleNeutralMode);
+        mAngleMotor.setInverted(Constants.SWERVE.ANGLE_MOTOR_INVERT);
+        mAngleMotor.setNeutralMode(Constants.SWERVE.ANGLE_NEUTRAL_MODE);
         resetToAbsolute();
     }
 
     private void configDriveMotor(){        
         mDriveMotor.configFactoryDefault();
         mDriveMotor.configAllSettings(ctreConfigs.swerveDriveFXConfig);
-        mDriveMotor.setInverted(Constants.SWERVE.driveMotorInvert);
-        mDriveMotor.setNeutralMode(Constants.SWERVE.driveNeutralMode);
+        mDriveMotor.setInverted(Constants.SWERVE.DRIVE_MOTOR_INVERT);
+        mDriveMotor.setNeutralMode(Constants.SWERVE.DRIVE_NEUTRAL_MODE);
         mDriveMotor.setSelectedSensorPosition(0);
     }
 

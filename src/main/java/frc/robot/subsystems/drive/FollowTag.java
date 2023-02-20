@@ -61,8 +61,8 @@ public class FollowTag extends State {
     @Override
     public void exit() {
         RobotMap.swerve.drive(
-            new Translation2d(0, 0).times(Constants.SWERVE.maxSpeed), 
-            0 * Constants.SWERVE.maxAngularVelocity, 
+            new Translation2d(0, 0).times(Constants.SWERVE.MAX_SPEED), 
+            0 * Constants.SWERVE.MAX_ANGULAR_VELOCITY, 
             true, 
             true
         );

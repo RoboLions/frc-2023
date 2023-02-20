@@ -40,7 +40,7 @@ public class BalanceState extends State {
             rollD,
             0, 
             5, 
-            Constants.SWERVE.maxSpeed
+            Constants.SWERVE.MAX_SPEED
         );
         rollPID.enableDeadBand = true;
         rollPID.enableCage = false;
@@ -51,7 +51,7 @@ public class BalanceState extends State {
             pitchD,
             0, 
             5, 
-            Constants.SWERVE.maxSpeed
+            Constants.SWERVE.MAX_SPEED
         );
         pitchPID.enableDeadBand = true;
         pitchPID.enableCage = false;
@@ -63,7 +63,7 @@ public class BalanceState extends State {
             new Translation2d(
                 rollPID.execute(0.0, RobotMap.gyro.getRoll()),
                 pitchPID.execute(0.0, RobotMap.gyro.getPitch())
-            ).times(Constants.SWERVE.maxSpeed), 
+            ).times(Constants.SWERVE.MAX_SPEED), 
             RobotMap.swerve.getPose().getRotation().getDegrees(), 
             false, 
             true
@@ -73,7 +73,7 @@ public class BalanceState extends State {
     @Override
     public void exit() {
         RobotMap.swerve.drive(
-            new Translation2d(0.0, 0.0).times(Constants.SWERVE.maxSpeed), 
+            new Translation2d(0.0, 0.0).times(Constants.SWERVE.MAX_SPEED), 
             0.0,
             true,
             true

@@ -24,6 +24,7 @@ public final class Constants {
 
     public static final class CAN_IDS {
         /* Motor + sensor IDs */
+        // TODO: change IDs
         public static final int PIDGEON = 5;
         public static final int SHOULDER_MOTOR = 51;
         public static final int ELBOW_MOTOR = 52;
@@ -61,55 +62,55 @@ public final class Constants {
         public static final double ANGLE_GEAR_RATIO = CHOSEN_MODULE.angleGearRatio;
 
         /* Motor Inverts */
-        public static final boolean angleMotorInvert = CHOSEN_MODULE.angleMotorInvert;
-        public static final boolean driveMotorInvert = CHOSEN_MODULE.driveMotorInvert;
+        public static final boolean ANGLE_MOTOR_INVERT = CHOSEN_MODULE.angleMotorInvert;
+        public static final boolean DRIVE_MOTOR_INVERT = CHOSEN_MODULE.driveMotorInvert;
 
         /* Angle Encoder Invert */
-        public static final boolean canCoderInvert = CHOSEN_MODULE.canCoderInvert;
+        public static final boolean CANCODER_INVERT = CHOSEN_MODULE.canCoderInvert;
 
         /* Swerve Current Limiting */
-        public static final int angleContinuousCurrentLimit = 25;
-        public static final int anglePeakCurrentLimit = 40;
-        public static final double anglePeakCurrentDuration = 0.1;
-        public static final boolean angleEnableCurrentLimit = true;
+        public static final int ANGLE_CONTINUOUS_CURRENT_LIMIT = 25;
+        public static final int ANGLE_PEAK_CURRENT_LIMIT = 40;
+        public static final double ANGLE_PEAK_CURRENT_DURATION = 0.1;
+        public static final boolean ANGLE_ENABLE_CURRENT_LIMIT = true;
 
-        public static final int driveContinuousCurrentLimit = 35;
-        public static final int drivePeakCurrentLimit = 60;
-        public static final double drivePeakCurrentDuration = 0.1;
-        public static final boolean driveEnableCurrentLimit = true;
+        public static final int DRIVE_CONTINUOUS_CURRENT_LIMIT = 35;
+        public static final int DRIVE_PEAK_CURRENT_LIMIT = 60;
+        public static final double DRIVE_PEAK_CURRENT_DURATION = 0.1;
+        public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.25;
-        public static final double closedLoopRamp = 0.0;
+        public static final double OPEN_LOOP_RAMP = 0.25;
+        public static final double CLOSED_LOOP_RAMP = 0.0;
 
         /* Angle Motor PID Values */
-        public static final double angleKP = CHOSEN_MODULE.angleKP;
-        public static final double angleKI = CHOSEN_MODULE.angleKI;
-        public static final double angleKD = CHOSEN_MODULE.angleKD;
-        public static final double angleKF = CHOSEN_MODULE.angleKF;
+        public static final double ANGLE_KP = CHOSEN_MODULE.angleKP;
+        public static final double ANGLE_KI = CHOSEN_MODULE.angleKI;
+        public static final double ANGLE_KD = CHOSEN_MODULE.angleKD;
+        public static final double ANGLE_KF = CHOSEN_MODULE.angleKF;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.15;
-        public static final double driveKI = 0.0;
-        public static final double driveKD = 0.0;
-        public static final double driveKF = 0.0;
+        public static final double DRIVE_KP = 0.15;
+        public static final double DRIVE_KI = 0.0;
+        public static final double DRIVE_KD = 0.0;
+        public static final double DRIVE_KF = 0.0;
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.68 / 12); 
-        public static final double driveKV = (0.0 / 12);
-        public static final double driveKA = (0.0 / 12);
+        public static final double DRIVE_KS = (0.68 / 12); 
+        public static final double DRIVE_KV = (0.0 / 12);
+        public static final double DRIVE_KA = (0.0 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; 
+        public static final double MAX_SPEED = 4.5; 
         /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+        public static final double MAX_ANGULAR_VELOCITY = 10.0;
 
         /* Neutral Modes */
-        public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static final NeutralMode ANGLE_NEUTRAL_MODE = NeutralMode.Coast;
+        public static final NeutralMode DRIVE_NEUTRAL_MODE = NeutralMode.Brake;
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
@@ -153,6 +154,7 @@ public final class Constants {
         }
 
         public static final class Profile {
+            // TODO: tune
             public static final PIDController X_CONTROLLER = new PIDController(0.01, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(0.01, 0, 0);
             public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
@@ -165,6 +167,7 @@ public final class Constants {
     }
 
     public static final class PhotonConstants {
+        // TODO: change to camera position on comp bot
         public static final Transform3d ROBOT_TO_CAM =
                 new Transform3d(
                         new Translation3d(-1.0, 0.0, 0.0),
@@ -206,6 +209,7 @@ public final class Constants {
         public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
     }
 
+    // TODO: tune all and find positions of all below
     public static final class ShoulderMotorConstants {
         public static final double P = 1.0;
         public static final double I = 0.00001;
