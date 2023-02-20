@@ -20,7 +20,7 @@ public class ClosingCube extends State {
         // TODO: change time
         // claw is now closed on a cube after x seconds
         transitions.add(new Transition(() -> {
-            return timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CUBE);
+            return timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE);
         }, ClawStateMachine.closedCube));
     }
 

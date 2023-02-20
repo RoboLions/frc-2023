@@ -210,7 +210,7 @@ public final class Constants {
     }
 
     // TODO: tune all and find positions of all below
-    public static final class ShoulderMotorConstants {
+    public static final class SHOULDER_MOTOR {
         public static final double P = 1.0;
         public static final double I = 0.00001;
         public static final double D = 0.0;
@@ -218,7 +218,7 @@ public final class Constants {
         public static final double TRAVEL_LIMIT = 22413.0;
     }
 
-    public static final class ElbowMotorConstants {
+    public static final class ELBOW_MOTOR {
         public static final double P = 1.0;
         public static final double I = 0.00001;
         public static final double D = 0.0;
@@ -226,7 +226,7 @@ public final class Constants {
         public static final double TRAVEL_LIMIT = 46590.0;
     }
 
-    public static final class WristMotorConstants {
+    public static final class WRIST_MOTOR {
         public static final double P = 1.0;
         public static final double I = 0.00001;
         public static final double D = 0.0;
@@ -234,7 +234,7 @@ public final class Constants {
         public static final double TRAVEL_LIMIT = 11134.0;
     }
 
-    public static final class Claw {
+    public static final class CLAW {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
@@ -251,6 +251,7 @@ public final class Constants {
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
     }
 
+    // TODO: outtake state
     public static final class OuttakeState {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
@@ -266,9 +267,9 @@ public final class Constants {
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT - 1000.0;
-        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT - 1000.0;
-        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT - 1000.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT - 1000.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT - 1000.0;
+        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT - 1000.0;
     }
 
     public static final class HIGH_SCORE_CUBE {
@@ -278,9 +279,9 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT / 2.0;
-        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT / 2.0;
-        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT / 2.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT / 2.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT / 2.0;
+        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT / 2.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -290,9 +291,9 @@ public final class Constants {
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.ShoulderMotorConstants.TRAVEL_LIMIT  / 3.0;
-        public static final double ELBOW_POSITION = Constants.ElbowMotorConstants.TRAVEL_LIMIT  / 3.0;
-        public static final double WRIST_POSITION = Constants.WristMotorConstants.TRAVEL_LIMIT  / 3.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT  / 3.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT  / 3.0;
+        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT  / 3.0;
     }
 
     public static final class LOW_SCORE_CUBE {
@@ -307,14 +308,14 @@ public final class Constants {
         public static final double WRIST_POSITION = 0.0;
     }
 
-    public static final class BalancePitchPID {
+    public static final class BALANCE_PITCH_PID {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
     }
 
-    public static final class BalanceRollPID {
+    public static final class BALANCE_ROLL_PID {
         public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
@@ -355,13 +356,13 @@ public final class Constants {
 
         /*
          * in a score state:
-         *  Kicks off the score biece sequence of events
+         *  Kicks off the score piece sequence of events
          */
         public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
 
         /*
          * in teleop state:
-         *  Zeros the gyro of the robot and changes it's field alignment
+         *  Zeros the gyro of the robot and changes its field alignment
          */
         public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
     }
@@ -384,7 +385,7 @@ public final class Constants {
         
         /*
          * in idle state:
-         *  moves arm into the ground intake position, front and back respectivley
+         *  moves arm into the ground intake position, front and back respectively
          */
         public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;

@@ -16,7 +16,7 @@ public class ClosedCube extends State {
     public void build() {
         // if we don't detect a cube, open the claw
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != Constants.Claw.CUBE_COLOR;
+            return RobotMap.claw.getColor() != Constants.CLAW.CUBE_COLOR;
         }, ClawStateMachine.openState));
 
         // open the claw if driver presses right trigger

@@ -7,13 +7,13 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
-import frc.robot.Constants.ShoulderMotorConstants;
-import frc.robot.Constants.ElbowMotorConstants;
+import frc.robot.Constants.SHOULDER_MOTOR;
+import frc.robot.Constants.ELBOW_MOTOR;
 import frc.robot.Constants.SWERVE;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.Constants.Claw;
-import frc.robot.Constants.WristMotorConstants;
+import frc.robot.Constants.CLAW;
+import frc.robot.Constants.WRIST_MOTOR;
 
 public final class CTREConfigs {
     public TalonFXConfiguration swerveAngleFXConfig;
@@ -60,25 +60,25 @@ public final class CTREConfigs {
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
         /* Arm motors PIDF config values */
-        RobotMap.shoulderMotor.config_kF(0, ShoulderMotorConstants.F, 10);
-        RobotMap.shoulderMotor.config_kP(0, ShoulderMotorConstants.P, 10);
-        RobotMap.shoulderMotor.config_kI(0, ShoulderMotorConstants.I, 10);
-        RobotMap.shoulderMotor.config_kD(0, ShoulderMotorConstants.D, 10);
+        RobotMap.shoulderMotor.config_kF(0, SHOULDER_MOTOR.F, 10);
+        RobotMap.shoulderMotor.config_kP(0, SHOULDER_MOTOR.P, 10);
+        RobotMap.shoulderMotor.config_kI(0, SHOULDER_MOTOR.I, 10);
+        RobotMap.shoulderMotor.config_kD(0, SHOULDER_MOTOR.D, 10);
 
-        RobotMap.elbowMotor.config_kF(0, ElbowMotorConstants.F, 10);
-        RobotMap.elbowMotor.config_kP(0, ElbowMotorConstants.P, 10);
-        RobotMap.elbowMotor.config_kI(0, ElbowMotorConstants.I, 10);
-        RobotMap.elbowMotor.config_kD(0, ElbowMotorConstants.D, 10);
+        RobotMap.elbowMotor.config_kF(0, ELBOW_MOTOR.F, 10);
+        RobotMap.elbowMotor.config_kP(0, ELBOW_MOTOR.P, 10);
+        RobotMap.elbowMotor.config_kI(0, ELBOW_MOTOR.I, 10);
+        RobotMap.elbowMotor.config_kD(0, ELBOW_MOTOR.D, 10);
 
-        RobotMap.wristMotor.config_kF(0, WristMotorConstants.F, 10);
-        RobotMap.wristMotor.config_kP(0, WristMotorConstants.P, 10);
-        RobotMap.wristMotor.config_kI(0, WristMotorConstants.I, 10);
-        RobotMap.wristMotor.config_kD(0, WristMotorConstants.D, 10);
+        RobotMap.wristMotor.config_kF(0, WRIST_MOTOR.F, 10);
+        RobotMap.wristMotor.config_kP(0, WRIST_MOTOR.P, 10);
+        RobotMap.wristMotor.config_kI(0, WRIST_MOTOR.I, 10);
+        RobotMap.wristMotor.config_kD(0, WRIST_MOTOR.D, 10);
 
         /* Claw motors PIDF config values */
-        RobotMap.clawMotor.config_kF(0, Claw.F, 10);
-        RobotMap.clawMotor.config_kP(0, Claw.P, 10);
-        RobotMap.clawMotor.config_kI(0, Claw.I, 10);
-        RobotMap.clawMotor.config_kD(0, Claw.D, 10);
+        RobotMap.clawMotor.config_kF(0, CLAW.F, 10);
+        RobotMap.clawMotor.config_kP(0, CLAW.P, 10);
+        RobotMap.clawMotor.config_kI(0, CLAW.I, 10);
+        RobotMap.clawMotor.config_kD(0, CLAW.D, 10);
     }
 }

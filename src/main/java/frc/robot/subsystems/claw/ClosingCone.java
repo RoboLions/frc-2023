@@ -19,7 +19,7 @@ public class ClosingCone extends State {
     public void build() {
         // claw is now closed on a cone after x seconds
         transitions.add(new Transition(() -> {
-            return timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CONE);
+            return timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CONE);
         }, ClawStateMachine.closedCone));
     }
 

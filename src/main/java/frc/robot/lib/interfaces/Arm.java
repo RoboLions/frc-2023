@@ -55,13 +55,13 @@ public class Arm {
         RobotMap.elbowMotor.configForwardSoftLimitEnable(true);
         RobotMap.wristMotor.configForwardSoftLimitEnable(true);
 
-        RobotMap.shoulderMotor.configForwardSoftLimitThreshold(Constants.ShoulderMotorConstants.TRAVEL_LIMIT);
-        RobotMap.elbowMotor.configForwardSoftLimitThreshold(Constants.ElbowMotorConstants.TRAVEL_LIMIT);
-        RobotMap.wristMotor.configForwardSoftLimitThreshold(Constants.WristMotorConstants.TRAVEL_LIMIT);
+        RobotMap.shoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.elbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.wristMotor.configForwardSoftLimitThreshold(Constants.WRIST_MOTOR.TRAVEL_LIMIT);
 
-        RobotMap.shoulderMotor.configReverseSoftLimitThreshold(-Constants.ShoulderMotorConstants.TRAVEL_LIMIT);
-        RobotMap.elbowMotor.configReverseSoftLimitThreshold(-Constants.ElbowMotorConstants.TRAVEL_LIMIT);
-        RobotMap.wristMotor.configReverseSoftLimitThreshold(-Constants.WristMotorConstants.TRAVEL_LIMIT);
+        RobotMap.shoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.elbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.wristMotor.configReverseSoftLimitThreshold(-Constants.WRIST_MOTOR.TRAVEL_LIMIT);
     }
 
     public void setIdle() {
@@ -94,18 +94,18 @@ public class Arm {
     public boolean getClawClosed() {
 
         // assume claw is closed after some # of seconds
-        if (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR) {
+        if (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CUBE)) {
+            if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE)) {
                 timer.stop();
                 timer.reset();
                 return true;
             }
         }
 
-        if (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR) {
+        if (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.TIME_CLOSE_ON_CONE)) {
+            if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CONE)) {
                 timer.stop();
                 timer.reset();
                 return true;
@@ -117,10 +117,10 @@ public class Arm {
 
     // assume claw is open after some # of seconds
     public boolean getClawOpen() {
-        if (RobotMap.claw.getColor() != Constants.Claw.CONE_COLOR || 
-            RobotMap.claw.getColor() != Constants.Claw.CUBE_COLOR) {
+        if (RobotMap.claw.getColor() != Constants.CLAW.CONE_COLOR || 
+            RobotMap.claw.getColor() != Constants.CLAW.CUBE_COLOR) {
             timer.start();
-            if (timer.hasElapsed(Constants.Claw.TIME_OPEN_CLAW)) {
+            if (timer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW)) {
                 timer.stop();
                 timer.reset();
                 return true;

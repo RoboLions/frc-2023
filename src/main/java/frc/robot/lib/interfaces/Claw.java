@@ -23,8 +23,8 @@ public class Claw {
     public Claw() {
         colorMatcher = new ColorMatch();
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
-        colorMatcher.addColorMatch(Constants.Claw.CUBE_COLOR);
-        colorMatcher.addColorMatch(Constants.Claw.CONE_COLOR);
+        colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
+        colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
     }
 
     public Color updateDetectedColor() {
@@ -32,7 +32,7 @@ public class Claw {
     }
 
     public Color getColor() {
-        return Constants.Claw.CONE_COLOR;
+        return Constants.CLAW.CONE_COLOR;
         
         // ColorMatchResult match = colorMatcher.matchClosestColor(Robot.detectedColor);
         // if (match.confidence > 0.9) {
@@ -46,11 +46,11 @@ public class Claw {
     }
 
     public void setClawClosedCube() {
-        RobotMap.clawMotor.set(ControlMode.Position, Constants.Claw.CLOSED_CUBE_POSITION);
+        RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.CLOSED_CUBE_POSITION);
     }
 
     public void setClawClosedCone() {
-        RobotMap.clawMotor.set(ControlMode.Position, Constants.Claw.CLOSED_CONE_POSITION);
+        RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.CLOSED_CONE_POSITION);
     }
 
     public boolean isClosed() {

@@ -16,12 +16,12 @@ public class OpenState extends State {
     public void build() {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.Claw.CUBE_COLOR);
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR);
         }, ClawStateMachine.closingCube));
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
-            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.Claw.CONE_COLOR);
+            return RobotMap.closeRequest && (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR);
         }, ClawStateMachine.closingCone));
     }
 

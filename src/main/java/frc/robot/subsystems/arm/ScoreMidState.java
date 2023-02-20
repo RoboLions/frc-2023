@@ -46,7 +46,7 @@ public class ScoreMidState extends State {
 
         double modifier = RobotMap.arm.getScoringDirectionModifier();
 
-        if (current_color == Constants.Claw.CUBE_COLOR) {
+        if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
                 modifier * Constants.MID_SCORE_CUBE.SHOULDER_POSITION, 
                 modifier * Constants.MID_SCORE_CUBE.ELBOW_POSITION, 
@@ -55,7 +55,7 @@ public class ScoreMidState extends State {
             return;
         }
 
-        if (current_color == Constants.Claw.CONE_COLOR) {
+        if (current_color == Constants.CLAW.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
                 modifier * Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
                 modifier * Constants.MID_SCORE_CONE.ELBOW_POSITION, 
