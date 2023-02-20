@@ -136,10 +136,10 @@ public class Arm {
     }
 
     public double applyDeadband(double armManualInput) {
-        if ((armManualInput > 0 && armManualInput < Constants.STICK_DEADBAND) || (armManualInput < 0 && armManualInput > -Constants.STICK_DEADBAND)) {
-            armManualInput = 0.0;
+        if (armManualInput > Constants.STICK_DEADBAND || armManualInput < -Constants.STICK_DEADBAND) {
+            return armManualInput;
         }
-        return armManualInput;
+        return 0.0;
     }
 
     public double getScoringDirectionModifier() {
