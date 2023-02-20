@@ -367,7 +367,7 @@ public final class Constants {
         public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
     }
 
-    public static final class ManipulatorButtons {
+    public static final class ManipulatorControls {
         /*
          * in any teleop state:
          *  puts the arm back into idle position
@@ -400,10 +400,10 @@ public final class Constants {
          * in manual control state:
          *  commands all the joints of the robot arm directly
          */
-        public static final int WRIST_FORWARD_BUTTON = XboxController.Axis.kLeftTrigger.value;
-        public static final int WRIST_BACKWARD_BUTTON = XboxController.Axis.kRightTrigger.value;
-        public static final int BICEP_BUTTON = XboxController.Axis.kLeftY.value;
-        public static final int FOREARM_BUTTON = XboxController.Axis.kRightY.value;
+        public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
+        public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
+        public static final int ELBOW_AXIS = XboxController.Axis.kLeftY.value;
+        public static final int SHOULDER_AXIS = XboxController.Axis.kRightY.value;
 
         /*
          * in idle state:

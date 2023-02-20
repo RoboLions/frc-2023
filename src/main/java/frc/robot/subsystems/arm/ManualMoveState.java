@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.Constants.ManipulatorButtons;
+import frc.robot.Constants.ManipulatorControls;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -19,7 +19,7 @@ public class ManualMoveState extends State {
     public void build() {
         // idle if idle button
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorButtons.IDLE_BUTTON);
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
     }
 
@@ -32,15 +32,15 @@ public class ManualMoveState extends State {
 
         // TODO: figure out how to manually control arm
         
-        double wristInput = RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorButtons.WRIST_BACKWARD_BUTTON)) 
-                            - RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorButtons.WRIST_FORWARD_BUTTON));
+        double wristInput = RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_BACKWARD_AXIS)) 
+                            - RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_FORWARD_AXIS));
         RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
 
         // TODO: check motors match button
-        double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorButtons.BICEP_BUTTON);
+        double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
         RobotMap.elbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 
-        double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorButtons.FOREARM_BUTTON);
+        double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
         RobotMap.shoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
     }
 
