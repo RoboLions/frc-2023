@@ -45,10 +45,6 @@ public class RobotMap {
     public static XboxController manipulatorController;
     public static XboxController driverController;
 
-    /* Claw open and close requests */
-    public static boolean openRequest = false;
-    public static boolean closeRequest = false;
-
     public static void init() {
         
         gyro = new WPI_Pigeon2(Constants.CAN_IDS.PIDGEON);

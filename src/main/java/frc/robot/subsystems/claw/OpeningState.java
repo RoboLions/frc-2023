@@ -4,41 +4,39 @@
 
 package frc.robot.subsystems.claw;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class ClosedCone extends State {
+public class OpeningState extends State {
+    
+    private Timer timer = new Timer();
     
     @Override
     public void build() {
-        // if we don't detect a cone, open the claw
+        // claw is now open after x seconds
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != Constants.CLAW.CONE_COLOR;
-        }, ClawStateMachine.openState));
-
-        // open the claw if driver presses right trigger
-        transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > Constants.STICK_DEADBAND;
+            return timer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW);
         }, ClawStateMachine.openState));
     }
 
     @Override
     public void init() {
-        
+        RobotMap.claw.setClawOpen();
+        timer.start();
     }
 
     @Override
     public void execute() {
-
+        
     }
 
     @Override
     public void exit() {
-        // set openRequest to false
-        Claw.openRequest = false;
+        timer.stop();
+        timer.reset();
     }
 }

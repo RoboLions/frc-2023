@@ -10,6 +10,7 @@ import frc.robot.lib.statemachine.StateMachine;
 public class ClawStateMachine extends StateMachine {
     
     public static OpenState openState = new OpenState();
+    public static OpeningState openingState = new OpeningState();
     public static ClosedCone closedCone = new ClosedCone();
     public static ClosedCube closedCube = new ClosedCube();
     public static ClosingCone closingCone = new ClosingCone();

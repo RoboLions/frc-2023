@@ -20,6 +20,10 @@ public class Claw {
     
     private static ColorMatch colorMatcher;
 
+    /* Claw open and close requests */
+    public static boolean openRequest = false;
+    public static boolean closeRequest = false;
+
     public Claw() {
         colorMatcher = new ColorMatch();
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
@@ -58,7 +62,16 @@ public class Claw {
             RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
     }
 
+    public boolean isClosing() {
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closingCone || 
+            RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closingCube;
+    }
+
     public boolean isOpen() {
         return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openState;
+    }
+
+    public boolean isOpening() {
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openingState;
     }
 }

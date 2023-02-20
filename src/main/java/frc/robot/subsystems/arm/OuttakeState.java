@@ -12,7 +12,7 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class OuttakeState extends State {
 
-    boolean openRequested = false;
+    private static boolean openRequested = false;
 
     @Override
     public void build() {
@@ -27,6 +27,7 @@ public class OuttakeState extends State {
     
     @Override
     public void init() {
+        openRequested = false;
         RobotMap.arm.moveArmPosition(
             Constants.OuttakeState.SHOULDER_POSITION, 
             Constants.OuttakeState.ELBOW_POSITION, 
@@ -36,7 +37,7 @@ public class OuttakeState extends State {
     @Override
     public void execute() {
         if (RobotMap.arm.getArrived(Constants.OuttakeState.ALLOWANCE, Constants.OuttakeState.TIME) && !openRequested) {
-
+            
         }
     }
 

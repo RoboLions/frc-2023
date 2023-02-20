@@ -6,6 +6,7 @@ package frc.robot.subsystems.claw;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -38,6 +39,6 @@ public class ClosedCube extends State {
     @Override
     public void exit() {
         // set openRequest to false
-        RobotMap.openRequest = false;
+        Claw.openRequest = false;
     }
 }
