@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -21,7 +22,7 @@ public class OuttakeState extends State {
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.arm.getClawOpen();
+            return RobotMap.claw.isOpen();
         }, ArmStateMachine.idleState));
     }
     
@@ -37,7 +38,7 @@ public class OuttakeState extends State {
     @Override
     public void execute() {
         if (RobotMap.arm.getArrived(Constants.OuttakeState.ALLOWANCE, Constants.OuttakeState.TIME) && !openRequested) {
-            
+            Claw.openRequest = true;
         }
     }
 
