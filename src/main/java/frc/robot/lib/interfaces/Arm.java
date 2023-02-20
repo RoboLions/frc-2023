@@ -115,20 +115,6 @@ public class Arm {
         return false;
     }
 
-    // assume claw is open after some # of seconds
-    public boolean getClawOpen() {
-        if (RobotMap.claw.getColor() != Constants.CLAW.CONE_COLOR || 
-            RobotMap.claw.getColor() != Constants.CLAW.CUBE_COLOR) {
-            timer.start();
-            if (timer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW)) {
-                timer.stop();
-                timer.reset();
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void resetEncoders() {
         RobotMap.shoulderMotor.setSelectedSensorPosition(0.0);
         RobotMap.elbowMotor.setSelectedSensorPosition(0.0);
