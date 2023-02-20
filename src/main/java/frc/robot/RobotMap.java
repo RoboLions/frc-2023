@@ -29,6 +29,7 @@ public class RobotMap {
     public static WPI_TalonFX wristMotor;
     public static VictorSPX clawMotor;
     // TODO: tbd intake motors
+
     /* Sensor instances */
     public static ColorSensorV3 clawColorSensor;
 
@@ -57,7 +58,6 @@ public class RobotMap {
         clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
         clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
 
-        
         gyro.configFactoryDefault();
         shoulderMotor.configFactoryDefault();
         elbowMotor.configFactoryDefault();
@@ -70,8 +70,10 @@ public class RobotMap {
         Timer.delay(1.0);
         swerve.resetModulesToAbsolute();
         swerve.zeroGyro();
+
         manipulatorController = new XboxController(1);
         driverController = new XboxController(0);
+        
         arm = new Arm();
         claw = new Claw();
         Field2d = new Field2d();
