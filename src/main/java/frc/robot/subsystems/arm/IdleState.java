@@ -52,9 +52,9 @@ public class IdleState extends State {
         }, ArmStateMachine.scoreLowState));
 
         // transition to control arm manually
-        // transitions.add(new Transition(() -> {
-        //     return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
-        // }, ArmStateMachine.manualMoveState));
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override
