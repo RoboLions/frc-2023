@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -60,7 +61,8 @@ public class IdleState extends State {
     @Override
     public void init() {
         RobotMap.arm.setIdle();
-        RobotMap.arm.resetEncoders();
+        Claw.openRequest = true;
+        Claw.closeRequest = true;
     }
 
     @Override
