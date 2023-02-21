@@ -14,7 +14,11 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeEndedException;
+import frc.robot.lib.auto.actions.EmptyAction;
+import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
+import frc.robot.lib.auto.actions.WaitAction;
+import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Simple auto path for testing */
 public class TestPath extends AutoModeBase {
@@ -50,7 +54,15 @@ public class TestPath extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // drive
-        runAction(testDrive);
+        runAction(new EmptyAction());
+
+        runAction(new WaitAction(1.0));
+
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
+
+        runAction(new WaitAction(5.0));
+
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreMidState)));
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);

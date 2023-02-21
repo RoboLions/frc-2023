@@ -164,6 +164,13 @@ public final class Constants {
                 new TrapezoidProfile.Constraints(0.25, 0.25)
             );
         }
+
+        public static final class AUTO {
+            /** Meters per Second */
+            public static final double MAX_SPEED = 1.0; 
+            /** Radians per Second */
+            public static final double MAX_ANGULAR_VELOCITY = 1.0;
+        }
     }
 
     public static final class PhotonConstants {

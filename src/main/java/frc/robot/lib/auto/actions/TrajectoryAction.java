@@ -18,6 +18,8 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 /**
  * An action that uses two PID controllers ({@link PIDController}) and a ProfiledPIDController
  * ({@link ProfiledPIDController}) to follow a trajectory {@link Trajectory} with a swerve drive.
@@ -31,7 +33,7 @@ import java.util.function.Supplier;
  */
 public class TrajectoryAction implements Action {
     private final Timer m_timer = new Timer();
-    private final Trajectory m_trajectory;
+    private final PathPlannerTrajectory m_trajectory;
     private final Supplier<Pose2d> m_pose;
     private final SwerveDriveKinematics m_kinematics;
     private final HolonomicDriveController m_controller;
@@ -55,7 +57,7 @@ public class TrajectoryAction implements Action {
    * @param outputModuleStates The raw output module states from the position controllers.
    */
     public TrajectoryAction(
-        Trajectory trajectory,
+        PathPlannerTrajectory trajectory,
         Supplier<Pose2d> pose,
         SwerveDriveKinematics kinematics,
         PIDController xController,
