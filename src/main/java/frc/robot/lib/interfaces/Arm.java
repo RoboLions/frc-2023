@@ -16,6 +16,7 @@ import frc.robot.RobotMap;
 /** Add your docs here. */
 public class Arm {
 
+    private boolean timerStarted = false;
     private Timer timer = new Timer();
 
     public Arm() {
@@ -75,19 +76,31 @@ public class Arm {
     }
 
     // method to check if arm has arrived at its position
-    public boolean getArrived(double allowance, double time) {
+    public Boolean getArrived(double allowance, double time) {
 
         // TODO: test and change error allowance
         if (Math.abs(RobotMap.shoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
             Math.abs(RobotMap.elbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
             Math.abs(RobotMap.wristMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
-            timer.start();
+
+            if (!timerStarted) {
+                timer.start();
+                timerStarted = true;
+            }
+
             if (timer.hasElapsed(time)) {
                 timer.stop();
                 timer.reset();
+                timerStarted = false;
                 return true;
             }
+            
+            return false;
         }
+
+        timer.stop();
+        timer.reset();
+        timerStarted = false;
         return false;
     }
 

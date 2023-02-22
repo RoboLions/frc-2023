@@ -12,6 +12,7 @@ public class DoNothing extends AutoModeBase {
     @Override
     protected void routine() throws AutoModeEndedException {
         System.out.println("doing nothing");
+        System.out.println("our best auto");
     }
 
     @Override

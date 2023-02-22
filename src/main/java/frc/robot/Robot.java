@@ -46,15 +46,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
-    // RobotMap.drivetrainStateMachine.setNextState();
-    // RobotMap.armStateMachine.setNextState();
-    // RobotMap.clawStateMachine.setNextState();
+    RobotMap.drivetrainStateMachine.setNextState();
+    RobotMap.armStateMachine.setNextState();
+    RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
-    // RobotMap.swerve.updatePoses();
+    RobotMap.swerve.updatePoses();
 
     // see robot pose on Glass
-    // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
+    RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
     
     SmartDashboard.putNumber("Integrated Encoder Shoulder", RobotMap.shoulderMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Elbow", RobotMap.elbowMotor.getSelectedSensorPosition());

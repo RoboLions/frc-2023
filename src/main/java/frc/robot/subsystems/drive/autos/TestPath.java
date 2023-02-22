@@ -57,12 +57,13 @@ public class TestPath extends AutoModeBase {
         runAction(new EmptyAction());
 
         runAction(new WaitAction(1.0));
+        runAction(new WaitAction(1.0));
 
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
-        runAction(new WaitAction(5.0));
+        // runAction(new WaitAction(5.0));
 
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreMidState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreMidState)));
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);

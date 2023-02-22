@@ -90,7 +90,7 @@ public class TrajectoryAction implements Action {
         var targetChassisSpeeds =
             m_controller.calculate(m_pose.get(), desiredState, desiredState.poseMeters.getRotation());
         var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
-
+        
         m_outputModuleStates.accept(targetModuleStates);
     }
 

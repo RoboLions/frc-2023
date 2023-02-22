@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.drive.autos.BotSimpleScore;
 import frc.robot.subsystems.drive.autos.DoNothing;
 import frc.robot.subsystems.drive.autos.TestPath;
 
@@ -15,6 +16,7 @@ public class AutoModeSelector {
     enum DesiredMode {
         DO_NOTHING, 
         TEST_PATH,
+        BOT_SIMPLE_SCORE
     }
 
     private DesiredMode mCachedDesiredMode = DesiredMode.DO_NOTHING;
@@ -27,6 +29,7 @@ public class AutoModeSelector {
         mModeChooser = new SendableChooser<>();
         mModeChooser.setDefaultOption("Do Nothing", DesiredMode.DO_NOTHING);
         mModeChooser.addOption("Test Path", DesiredMode.TEST_PATH);
+        mModeChooser.addOption("Bot Simple Score Path", DesiredMode.BOT_SIMPLE_SCORE);
         
         SmartDashboard.putData("Auto Mode", mModeChooser);
     }
@@ -50,6 +53,9 @@ public class AutoModeSelector {
 
         case TEST_PATH:
             return Optional.of(new TestPath());
+
+        case BOT_SIMPLE_SCORE:
+            return Optional.of(new BotSimpleScore());
             
         default:
             System.out.println("ERROR: unexpected auto mode: " + mode);

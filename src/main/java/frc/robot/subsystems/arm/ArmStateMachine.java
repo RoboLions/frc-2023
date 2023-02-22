@@ -21,6 +21,8 @@ public class ArmStateMachine extends StateMachine {
 
     public ArmStateMachine() {
 
+        // nutz.build();
+        // deez.build();
         idleState.build();
         manualMoveState.build();
         substationIntakeState.build();
