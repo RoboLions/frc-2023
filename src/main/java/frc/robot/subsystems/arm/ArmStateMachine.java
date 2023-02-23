@@ -12,8 +12,7 @@ public class ArmStateMachine extends StateMachine {
     public static ManualMoveState manualMoveState = new ManualMoveState();
     public static SubstationIntakeState substationIntakeState = new SubstationIntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
-    public static FPickupState fPickupState = new FPickupState();
-    public static BPickupState bPickupState = new BPickupState();
+    public static GroundPickupState groundPickupState = new GroundPickupState();
     public static ScoreHighState scoreHighState = new ScoreHighState();
     public static ScoreMidState scoreMidState = new ScoreMidState();
     public static ScoreLowState scoreLowState = new ScoreLowState();
@@ -27,8 +26,7 @@ public class ArmStateMachine extends StateMachine {
         manualMoveState.build();
         substationIntakeState.build();
         outtakeState.build();
-        fPickupState.build();
-        bPickupState.build();
+        groundPickupState.build();
         scoreHighState.build();
         scoreMidState.build();
         scoreLowState.build();

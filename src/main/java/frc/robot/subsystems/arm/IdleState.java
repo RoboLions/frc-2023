@@ -27,15 +27,10 @@ public class IdleState extends State {
         //     return (RobotMap.manipulatorController.getPOV() >= 135.0 || RobotMap.manipulatorController.getPOV() <= 225.0);
         // }, ArmStateMachine.outtakeState));
 
-        // pickup from back
-        transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.GROUND_INTAKE_BACK);
-        }, ArmStateMachine.bPickupState));
-
-        // pickup from front
+        // pickup from ground
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.GROUND_INTAKE_FRONT);
-        }, ArmStateMachine.fPickupState));
+        }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 

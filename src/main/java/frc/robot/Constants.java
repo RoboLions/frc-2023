@@ -268,53 +268,71 @@ public final class Constants {
     }
 
     // TODO: outtake state
-    public static final class OuttakeState {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+    public static final class OUTTAKE_STATE {
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class MID_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class LOW_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class SUBSTATION_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double LEFT_SHOULDER_POSITION = 0.0;
+        public static final double RIGHT_SHOULDER_POSITION = 0.0;
+        public static final double LEFT_ELBOW_POSITION = 0.0;
+        public static final double RIGHT_ELBOW_POSITION = 0.0;
     }
 
     public static final class BALANCE_PITCH_PID {

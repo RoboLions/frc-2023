@@ -48,18 +48,20 @@ public class ScoreHighState extends State {
 
         if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.HIGH_SCORE_CUBE.SHOULDER_POSITION, 
-                modifier * Constants.HIGH_SCORE_CUBE.ELBOW_POSITION, 
-                modifier * Constants.HIGH_SCORE_CUBE.WRIST_POSITION
+                Constants.HIGH_SCORE_CUBE.LEFT_SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CUBE.RIGHT_SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CUBE.LEFT_ELBOW_POSITION,
+                Constants.HIGH_SCORE_CUBE.RIGHT_ELBOW_POSITION
             );
             return;
         }
 
         if (current_color == Constants.CLAW.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-                modifier * Constants.HIGH_SCORE_CONE.ELBOW_POSITION, 
-                modifier * Constants.HIGH_SCORE_CONE.WRIST_POSITION
+                Constants.HIGH_SCORE_CONE.LEFT_SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CONE.RIGHT_SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CONE.LEFT_ELBOW_POSITION,
+                Constants.HIGH_SCORE_CONE.RIGHT_ELBOW_POSITION
             );
             return;
         }

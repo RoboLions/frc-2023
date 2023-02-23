@@ -32,7 +32,7 @@ public class ManualMoveState extends State {
 
         // TODO: figure out how to manually control arm
         
-        double wristInput = RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_BACKWARD_AXIS)) 
+        /*double wristInput = RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_BACKWARD_AXIS)) 
                             - RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_FORWARD_AXIS));
         RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
 
@@ -42,6 +42,7 @@ public class ManualMoveState extends State {
 
         double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
         RobotMap.shoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
+        */
     }
 
     @Override
