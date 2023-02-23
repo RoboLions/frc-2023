@@ -219,20 +219,20 @@ public final class Constants {
 
     // TODO: tune all and find positions of all below
     public static final class SHOULDER_MOTOR {
-        public static final double P = 1.0;
+        public static final double P = 0.0;
         public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 22413.0;
+        public static final double F_TRAVEL_LIMIT = 10.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class ELBOW_MOTOR {
-        public static final double P = 1.0;
-        public static final double I = 0.00001;
+        public static final double P = 0.0;
+        public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 46590.0;
+        public static final double F_TRAVEL_LIMIT = 10.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 

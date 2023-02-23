@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotMap.arm.resetEncoders();
+    
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }
