@@ -65,15 +65,15 @@ public class Arm {
         RobotMap.leftElbowMotor.configForwardSoftLimitEnable(true);
         RobotMap.rightElbowMotor.configForwardSoftLimitEnable(true);
 
-        RobotMap.leftShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.leftElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT);
 
-        RobotMap.leftShoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftShoulderMotor.configReverseSoftLimitThreshold(Constants.SHOULDER_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(Constants.SHOULDER_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
 
         RobotMap.rightShoulderMotor.follow(RobotMap.leftShoulderMotor);
         RobotMap.rightElbowMotor.follow(RobotMap.rightElbowMotor);
@@ -154,6 +154,23 @@ public class Arm {
             return armManualInput;
         }
         return 0.0;
+    }
+
+    public double getScoringDirectionModifier() {
+        // double current_rotation = RobotMap.swerve.getPose().getRotation().getDegrees();
+        // boolean heading_left = current_rotation > 90 && current_rotation < 270;
+        // double modifier = (!heading_left &&
+        //         DriverStation.getAlliance() == DriverStation.Alliance.Red) ||
+        //     (heading_left &&
+        //         DriverStation.getAlliance() == DriverStation.Alliance.Blue) ?
+        //         1.0 : -1.0;
+        //return modifier;
+        return 1.0;
+    }
+
+    public double getSubstationDirectionModifier() {
+        //return -1.0 * getScoringDirectionModifier();
+        return 1.0;
     }
 
     // TODO: get correct limit switch values and uncomment when ready

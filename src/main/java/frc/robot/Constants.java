@@ -223,7 +223,8 @@ public final class Constants {
         public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double TRAVEL_LIMIT = 22413.0;
+        public static final double F_TRAVEL_LIMIT = 22413.0;
+        public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class ELBOW_MOTOR {
@@ -231,7 +232,8 @@ public final class Constants {
         public static final double I = 0.00001;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double TRAVEL_LIMIT = 46590.0;
+        public static final double F_TRAVEL_LIMIT = 46590.0;
+        public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class CLAW {
@@ -269,8 +271,8 @@ public final class Constants {
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT - 1000.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT - 1000.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT - 1000.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT - 1000.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
@@ -281,8 +283,8 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT / 2.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT / 2.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT / 2.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT / 2.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -291,8 +293,8 @@ public final class Constants {
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT  / 3.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT  / 3.0;
+        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT  / 3.0;
+        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT  / 3.0;
     }
 
     public static final class LOW_SCORE_CUBE {

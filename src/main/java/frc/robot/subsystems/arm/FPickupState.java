@@ -4,14 +4,14 @@
 
 package frc.robot.subsystems.arm;
 
-import frc.robot.lib.statemachine.State;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class SubstationIntakeState extends State {
-
+public class FPickupState extends State {
+   
     @Override
     public void build() {
         // Go to IDLE Transitions
@@ -24,18 +24,18 @@ public class SubstationIntakeState extends State {
                 RobotMap.claw.isClosed();
         }, ArmStateMachine.idleState));
     }
-    
+
     @Override
     public void init() {
-        double modifier = RobotMap.arm.getSubstationDirectionModifier();
         RobotMap.arm.moveArmPosition(
-            modifier * Constants.SUBSTATION_INTAKE.SHOULDER_POSITION, 
-            modifier * Constants.SUBSTATION_INTAKE.ELBOW_POSITION
+            1.0 * Constants.GROUND_INTAKE.SHOULDER_POSITION, 
+            1.0 * Constants.GROUND_INTAKE.ELBOW_POSITION
         );
     }
 
     @Override
     public void execute() {
+        
     }
 
     @Override

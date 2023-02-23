@@ -10,7 +10,7 @@ import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class GroundPickupState extends State {
+public class BPickupState extends State {
    
     @Override
     public void build() {
@@ -28,8 +28,8 @@ public class GroundPickupState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.GROUND_INTAKE.SHOULDER_POSITION, 
-            Constants.GROUND_INTAKE.ELBOW_POSITION
+            -1.0 * Constants.GROUND_INTAKE.SHOULDER_POSITION, 
+            -1.0 * Constants.GROUND_INTAKE.ELBOW_POSITION
         );
     }
 
