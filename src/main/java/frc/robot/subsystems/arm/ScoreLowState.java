@@ -43,23 +43,19 @@ public class ScoreLowState extends State {
             RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
             return;
         }
-        
+
         if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                Constants.LOW_SCORE_CUBE.LEFT_SHOULDER_POSITION, 
-                Constants.LOW_SCORE_CUBE.RIGHT_SHOULDER_POSITION, 
-                Constants.LOW_SCORE_CUBE.LEFT_ELBOW_POSITION,
-                Constants.LOW_SCORE_CUBE.RIGHT_ELBOW_POSITION
+                Constants.LOW_SCORE_CUBE.SHOULDER_POSITION, 
+                Constants.LOW_SCORE_CUBE.ELBOW_POSITION
             );
             return;
         }
 
         if (current_color == Constants.CLAW.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                Constants.LOW_SCORE_CONE.LEFT_SHOULDER_POSITION, 
-                Constants.LOW_SCORE_CONE.RIGHT_SHOULDER_POSITION, 
-                Constants.LOW_SCORE_CONE.LEFT_ELBOW_POSITION,
-                Constants.LOW_SCORE_CONE.RIGHT_ELBOW_POSITION
+                Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
+                Constants.LOW_SCORE_CONE.ELBOW_POSITION
             );
             return;
         }

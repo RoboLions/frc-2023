@@ -28,10 +28,8 @@ public class GroundPickupState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.GROUND_INTAKE.LEFT_SHOULDER_POSITION, 
-            Constants.GROUND_INTAKE.RIGHT_SHOULDER_POSITION, 
-            Constants.GROUND_INTAKE.LEFT_ELBOW_POSITION,
-            Constants.GROUND_INTAKE.RIGHT_ELBOW_POSITION
+            Constants.GROUND_INTAKE.SHOULDER_POSITION, 
+            Constants.GROUND_INTAKE.ELBOW_POSITION
         );
     }
 

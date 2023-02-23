@@ -4,6 +4,7 @@
 
 package frc.robot.lib.interfaces;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -73,17 +74,18 @@ public class Arm {
         RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(-Constants.RIGHT_SHOULDER_MOTOR.TRAVEL_LIMIT);
         RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(-Constants.LEFT_ELBOW_MOTOR.TRAVEL_LIMIT);
         RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(-Constants.RIGHT_ELBOW_MOTOR.TRAVEL_LIMIT);
+
+        RobotMap.rightShoulderMotor.follow(RobotMap.leftShoulderMotor);
+        RobotMap.rightElbowMotor.follow(RobotMap.rightElbowMotor);
     }
 
     public void setIdle() {
-        moveArmPosition(0.0, 0.0, 0.0, 0.0);
+        moveArmPosition(0.0, 0.0);
     }
 
-    public void moveArmPosition(double leftShoulder, double rightShoulder, double leftElbow, double rightElbow) {
-        RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, leftShoulder);
-        RobotMap.rightShoulderMotor.set(TalonFXControlMode.Position, rightShoulder);
-        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, leftElbow);
-        RobotMap.rightElbowMotor.set(TalonFXControlMode.Position, rightElbow);
+    public void moveArmPosition(double shoulder, double elbow) {
+        RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
+        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, elbow);
     }
 
     // method to check if arm has arrived at its position

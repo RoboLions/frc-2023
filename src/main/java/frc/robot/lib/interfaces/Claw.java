@@ -33,7 +33,7 @@ public class Claw {
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
         // TODO: figure out encoder of claw
-        //RobotMap.clawMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        // RobotMap.clawMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
     }
 
     public Color updateDetectedColor() {

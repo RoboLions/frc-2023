@@ -30,10 +30,8 @@ public class OuttakeState extends State {
     public void init() {
         openRequested = false;
         RobotMap.arm.moveArmPosition(
-            Constants.OUTTAKE_STATE.LEFT_SHOULDER_POSITION, 
-            Constants.OUTTAKE_STATE.RIGHT_SHOULDER_POSITION, 
-            Constants.OUTTAKE_STATE.LEFT_ELBOW_POSITION,
-            Constants.OUTTAKE_STATE.RIGHT_ELBOW_POSITION
+            Constants.OUTTAKE_STATE.SHOULDER_POSITION, 
+            Constants.OUTTAKE_STATE.ELBOW_POSITION
         );
     }
 
