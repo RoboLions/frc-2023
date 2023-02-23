@@ -65,15 +65,15 @@ public class Arm {
         RobotMap.leftElbowMotor.configForwardSoftLimitEnable(true);
         RobotMap.rightElbowMotor.configForwardSoftLimitEnable(true);
 
-        RobotMap.leftShoulderMotor.configForwardSoftLimitThreshold(Constants.LEFT_SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightShoulderMotor.configForwardSoftLimitThreshold(Constants.RIGHT_SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.leftElbowMotor.configForwardSoftLimitThreshold(Constants.LEFT_ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightElbowMotor.configForwardSoftLimitThreshold(Constants.RIGHT_ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
 
-        RobotMap.leftShoulderMotor.configReverseSoftLimitThreshold(-Constants.LEFT_SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(-Constants.RIGHT_SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(-Constants.LEFT_ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(-Constants.RIGHT_ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftShoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
 
         RobotMap.rightShoulderMotor.follow(RobotMap.leftShoulderMotor);
         RobotMap.rightElbowMotor.follow(RobotMap.rightElbowMotor);

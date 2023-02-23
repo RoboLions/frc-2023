@@ -56,24 +56,24 @@ public final class CTREConfigs {
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
         /* Arm motors PIDF config values */
-        RobotMap.leftShoulderMotor.config_kF(0, Constants.LEFT_SHOULDER_MOTOR.F, 10);
-        RobotMap.leftShoulderMotor.config_kP(0, Constants.LEFT_SHOULDER_MOTOR.P, 10);
-        RobotMap.leftShoulderMotor.config_kI(0, Constants.LEFT_SHOULDER_MOTOR.I, 10);
-        RobotMap.leftShoulderMotor.config_kD(0, Constants.LEFT_SHOULDER_MOTOR.D, 10);
+        RobotMap.leftShoulderMotor.config_kF(0, Constants.SHOULDER_MOTOR.F, 10);
+        RobotMap.leftShoulderMotor.config_kP(0, Constants.SHOULDER_MOTOR.P, 10);
+        RobotMap.leftShoulderMotor.config_kI(0, Constants.SHOULDER_MOTOR.I, 10);
+        RobotMap.leftShoulderMotor.config_kD(0, Constants.SHOULDER_MOTOR.D, 10);
 
-        RobotMap.leftElbowMotor.config_kF(0, Constants.LEFT_ELBOW_MOTOR.F, 10);
-        RobotMap.leftElbowMotor.config_kP(0, Constants.LEFT_ELBOW_MOTOR.P, 10);
-        RobotMap.leftElbowMotor.config_kI(0, Constants.LEFT_ELBOW_MOTOR.I, 10);
-        RobotMap.leftElbowMotor.config_kD(0, Constants.LEFT_ELBOW_MOTOR.D, 10);
+        RobotMap.leftElbowMotor.config_kF(0, Constants.ELBOW_MOTOR.F, 10);
+        RobotMap.leftElbowMotor.config_kP(0, Constants.ELBOW_MOTOR.P, 10);
+        RobotMap.leftElbowMotor.config_kI(0, Constants.ELBOW_MOTOR.I, 10);
+        RobotMap.leftElbowMotor.config_kD(0, Constants.ELBOW_MOTOR.D, 10);
 
-        RobotMap.rightShoulderMotor.config_kF(0, Constants.RIGHT_SHOULDER_MOTOR.F, 10);
-        RobotMap.rightShoulderMotor.config_kP(0, Constants.RIGHT_SHOULDER_MOTOR.P, 10);
-        RobotMap.rightShoulderMotor.config_kI(0, Constants.RIGHT_SHOULDER_MOTOR.I, 10);
-        RobotMap.rightShoulderMotor.config_kD(0, Constants.RIGHT_SHOULDER_MOTOR.D, 10);
+        RobotMap.rightShoulderMotor.config_kF(0, Constants.SHOULDER_MOTOR.F, 10);
+        RobotMap.rightShoulderMotor.config_kP(0, Constants.SHOULDER_MOTOR.P, 10);
+        RobotMap.rightShoulderMotor.config_kI(0, Constants.SHOULDER_MOTOR.I, 10);
+        RobotMap.rightShoulderMotor.config_kD(0, Constants.SHOULDER_MOTOR.D, 10);
 
-        RobotMap.rightElbowMotor.config_kF(0, Constants.RIGHT_ELBOW_MOTOR.F, 10);
-        RobotMap.rightElbowMotor.config_kP(0, Constants.RIGHT_ELBOW_MOTOR.P, 10);
-        RobotMap.rightElbowMotor.config_kI(0, Constants.RIGHT_ELBOW_MOTOR.I, 10);
-        RobotMap.rightElbowMotor.config_kD(0, Constants.RIGHT_ELBOW_MOTOR.D, 10);
+        RobotMap.rightElbowMotor.config_kF(0, Constants.ELBOW_MOTOR.F, 10);
+        RobotMap.rightElbowMotor.config_kP(0, Constants.ELBOW_MOTOR.P, 10);
+        RobotMap.rightElbowMotor.config_kI(0, Constants.ELBOW_MOTOR.I, 10);
+        RobotMap.rightElbowMotor.config_kD(0, Constants.ELBOW_MOTOR.D, 10);
     }
 }
