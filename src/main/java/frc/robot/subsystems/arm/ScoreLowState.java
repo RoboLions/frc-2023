@@ -43,9 +43,7 @@ public class ScoreLowState extends State {
             RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
             return;
         }
-
-        double modifier = RobotMap.arm.getScoringDirectionModifier();
-
+        
         if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
                 Constants.LOW_SCORE_CUBE.LEFT_SHOULDER_POSITION, 

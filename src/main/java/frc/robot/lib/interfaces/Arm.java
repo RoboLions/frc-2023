@@ -153,19 +153,4 @@ public class Arm {
         }
         return 0.0;
     }
-
-    public double getScoringDirectionModifier() {
-        double current_rotation = RobotMap.swerve.getPose().getRotation().getDegrees();
-        boolean heading_left = current_rotation > 90 && current_rotation < 270;
-        double modifier = (!heading_left &&
-                DriverStation.getAlliance() == DriverStation.Alliance.Red) ||
-            (heading_left &&
-                DriverStation.getAlliance() == DriverStation.Alliance.Blue) ?
-                1.0 : -1.0;
-        return modifier;
-    }
-
-    public double getSubstationDirectionModifier() {
-        return -1.0 * getScoringDirectionModifier();
-    }
 }

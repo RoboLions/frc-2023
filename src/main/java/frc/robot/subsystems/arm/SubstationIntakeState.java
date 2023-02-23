@@ -27,8 +27,6 @@ public class SubstationIntakeState extends State {
     
     @Override
     public void init() {
-
-        double modifier = RobotMap.arm.getSubstationDirectionModifier();
         RobotMap.arm.moveArmPosition(
             Constants.SUBSTATION_INTAKE.LEFT_SHOULDER_POSITION, 
             Constants.SUBSTATION_INTAKE.RIGHT_SHOULDER_POSITION, 
