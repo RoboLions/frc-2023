@@ -56,9 +56,8 @@ public class Robot extends TimedRobot {
     // see robot pose on Glass
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
     
-    SmartDashboard.putNumber("Integrated Encoder Shoulder", RobotMap.shoulderMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Elbow", RobotMap.elbowMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Wrist", RobotMap.wristMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
   }
 
   /**
