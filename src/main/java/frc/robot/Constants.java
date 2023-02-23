@@ -256,6 +256,10 @@ public final class Constants {
         public static final double D = 0.0;
         public static final double F = 0.0;
 
+        public static final int CHANNEL_A = 1;
+        public static final int CHANNEL_B = 2;
+        public static final boolean INVERT_ENCODER = false;
+
         public static final double CLOSED_CUBE_POSITION = 0.0;
         public static final double CLOSED_CONE_POSITION = 0.0;
 

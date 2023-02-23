@@ -5,7 +5,10 @@
 package frc.robot.lib.interfaces;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorMatch;
@@ -29,6 +32,8 @@ public class Claw {
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
+        // TODO: figure out encoder of claw
+        //RobotMap.clawMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     }
 
     public Color updateDetectedColor() {
@@ -73,5 +78,13 @@ public class Claw {
 
     public boolean isOpening() {
         return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openingState;
+    }
+
+    public int getClawEncoder() {
+        return RobotMap.clawEncoder.get();
+    }
+ 
+    public boolean getDirection() {
+        return RobotMap.clawEncoder.getDirection();
     }
 }

@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
@@ -32,6 +33,7 @@ public class RobotMap {
 
     /* Sensor instances */
     public static ColorSensorV3 clawColorSensor;
+    public static Encoder clawEncoder;
 
     /* Smart Dashboard Instances */
     public static Field2d Field2d;
@@ -54,6 +56,7 @@ public class RobotMap {
         rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
         clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
         clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
+        clawEncoder = new Encoder(Constants.CLAW.CHANNEL_A, Constants.CLAW.CHANNEL_B, Constants.CLAW.INVERT_ENCODER);
 
         gyro.configFactoryDefault();
         leftShoulderMotor.configFactoryDefault();
