@@ -16,12 +16,15 @@ import com.revrobotics.ColorMatchResult;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.lib.RoboLionsPID;
 import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Class with methods related to the claw or color sensor */
 public class Claw {
     
     private static ColorMatch colorMatcher;
+    
+    public RoboLionsPID clawPID = new RoboLionsPID();
 
     /* Claw open and close requests */
     public static boolean openRequest = false;
@@ -32,8 +35,15 @@ public class Claw {
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
-        // TODO: figure out encoder of claw
-        // RobotMap.clawMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+
+        clawPID.initialize(
+                        0.01, // Proportional Gain 0.02
+                        0.0, // Integral Gain .311
+                        0.0, // Derivative Gain
+                        1, // Cage Limit
+                        1, // Deadband
+                        2 // MaxOutput hard deadband as to what the maximum possible command is
+        );
     }
 
     public Color updateDetectedColor() {
@@ -50,16 +60,30 @@ public class Claw {
         // return null;
     }
 
+    public int getClawEncoder() {
+        return RobotMap.clawEncoder.get();
+    }
+ 
+    public boolean getDirection() {
+        return RobotMap.clawEncoder.getDirection();
+    }
+
+    public void moveClawToPosition(double target, double feedback) {
+        double claw_cmd = clawPID.execute(target, feedback);
+    
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, claw_cmd);
+      }
+
     public void setClawOpen() {
-        RobotMap.clawMotor.set(ControlMode.Position, 0.0);
+        moveClawToPosition(Constants.CLAW.OPEN_POSITION, getClawEncoder());
     }
 
     public void setClawClosedCube() {
-        RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.CLOSED_CUBE_POSITION);
+        moveClawToPosition(Constants.CLAW.CLOSED_CUBE_POSITION, getClawEncoder());
     }
 
     public void setClawClosedCone() {
-        RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.CLOSED_CONE_POSITION);
+        moveClawToPosition(Constants.CLAW.CLOSED_CONE_POSITION, getClawEncoder());
     }
 
     public boolean isClosed() {
@@ -78,13 +102,5 @@ public class Claw {
 
     public boolean isOpening() {
         return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openingState;
-    }
-
-    public int getClawEncoder() {
-        return RobotMap.clawEncoder.get();
-    }
- 
-    public boolean getDirection() {
-        return RobotMap.clawEncoder.getDirection();
     }
 }

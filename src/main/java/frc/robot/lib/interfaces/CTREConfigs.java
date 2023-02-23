@@ -75,11 +75,5 @@ public final class CTREConfigs {
         RobotMap.rightElbowMotor.config_kP(0, Constants.RIGHT_ELBOW_MOTOR.P, 10);
         RobotMap.rightElbowMotor.config_kI(0, Constants.RIGHT_ELBOW_MOTOR.I, 10);
         RobotMap.rightElbowMotor.config_kD(0, Constants.RIGHT_ELBOW_MOTOR.D, 10);
-
-        /* Claw motors PIDF config values */
-        RobotMap.clawMotor.config_kF(0, Constants.CLAW.F, 10);
-        RobotMap.clawMotor.config_kP(0, Constants.CLAW.P, 10);
-        RobotMap.clawMotor.config_kI(0, Constants.CLAW.I, 10);
-        RobotMap.clawMotor.config_kD(0, Constants.CLAW.D, 10);
     }
 }

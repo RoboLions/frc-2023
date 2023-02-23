@@ -262,6 +262,7 @@ public final class Constants {
 
         public static final double CLOSED_CUBE_POSITION = 0.0;
         public static final double CLOSED_CONE_POSITION = 0.0;
+        public static final double OPEN_POSITION = 0.0;
 
         public static final double TIME_CLOSE_ON_CONE = 0.5;
         public static final double TIME_CLOSE_ON_CUBE = 0.1;
