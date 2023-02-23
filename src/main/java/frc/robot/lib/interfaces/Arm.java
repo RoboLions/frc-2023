@@ -153,4 +153,13 @@ public class Arm {
         }
         return 0.0;
     }
+
+    // TODO: get correct limit switch values and uncomment when ready
+    /*public int getRightLimitSwitchValue() {
+        return RobotMap.rightShoulderMotor.getSensorCollection().isFwdLimitSwitchClosed();
+    }
+
+    public int getLeftLimitSwitchValue() {
+        return RobotMap.leftShoulderMotor.getSensorCollection().isRevLimitSwitchClosed();
+    }*/
 }
