@@ -15,7 +15,7 @@ public class IdleState extends State {
 
     @Override
     public void build() {
-        // intake from substation with arm at front of bot 
+        // intake from substation
         // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
