@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems.drive.autos;
 
+import java.util.ArrayList;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -23,21 +26,41 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 /** Simple auto path for testing */
 public class TestPath extends AutoModeBase {
 
-    // This will load the file "Test Path.path" and generate it with a max velocity of 0.2 m/s and a max acceleration of 0.2 m/s^2
-    static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(0.2, 0.2));
-
     // trajectory action
-    TrajectoryAction testDrive;
+    TrajectoryAction testDrive1;
+    TrajectoryAction testDrive2;
 
     public TestPath() {
-
+        
         SmartDashboard.putBoolean("Auto Finished", false);
+        
+        ArrayList<PathPlannerTrajectory> testPath = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
+            "Test Path", 
+            new PathConstraints(0.25, 0.25)
+        );
+
+        for(int i = 0; i < testPath.size(); i++) {
+            testPath.set(
+                i, 
+                PathPlannerTrajectory.transformTrajectoryForAlliance(testPath.get(i), DriverStation.getAlliance())
+            );
+        }
 
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
     
-        testDrive = new TrajectoryAction(
-            testPath, 
+        testDrive1 = new TrajectoryAction(
+            testPath.get(0), 
+            RobotMap.swerve::getPose, 
+            Constants.SWERVE.SWERVE_KINEMATICS, 
+            Constants.SWERVE.Profile.X_CONTROLLER,
+            Constants.SWERVE.Profile.Y_CONTROLLER,
+            thetaController,
+            RobotMap.swerve::setModuleStates
+        );
+
+        testDrive2 = new TrajectoryAction(
+            testPath.get(1), 
             RobotMap.swerve::getPose, 
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
@@ -54,16 +77,9 @@ public class TestPath extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // drive
-        runAction(new EmptyAction());
+        runAction(testDrive1);
 
-        runAction(new WaitAction(1.0));
-        runAction(new WaitAction(1.0));
-
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
-
-        // runAction(new WaitAction(5.0));
-
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreMidState)));
+        runAction(testDrive2);
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);
@@ -71,6 +87,6 @@ public class TestPath extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
-        return testDrive.getInitialPose();
+        return testDrive1.getInitialPose();
     }
 }
