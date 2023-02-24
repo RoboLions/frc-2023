@@ -18,7 +18,7 @@ public class IdleState extends State {
         // intake from substation
         // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
                 RobotMap.claw.getColor() == null;
         }, ArmStateMachine.substationIntakeState));
 
@@ -29,27 +29,27 @@ public class IdleState extends State {
 
         // pickup from ground
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.GROUND_INTAKE_FRONT);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.GROUND_INTAKE_FRONT);
         }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.scoreHighState));
         
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MID_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
         
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
         }, ArmStateMachine.scoreLowState));
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
     }
     

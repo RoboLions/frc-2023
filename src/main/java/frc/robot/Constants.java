@@ -26,11 +26,11 @@ public final class Constants {
         /* Motor + sensor IDs */
         // TODO: change IDs
         public static final int PIDGEON = 5;
-        public static final int LEFT_SHOULDER_MOTOR = 51;
-        public static final int RIGHT_SHOULDER_MOTOR = 52;
+        public static final int LEFT_SHOULDER_MOTOR = 50;
+        public static final int RIGHT_SHOULDER_MOTOR = 51;
         public static final int LEFT_ELBOW_MOTOR = 53;
         public static final int RIGHT_ELBOW_MOTOR = 54;
-        public static final int CLAW_MOTOR = 12;
+        public static final int CLAW_MOTOR = 55;
     }
 
     public static final class PORTS {
@@ -119,7 +119,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 12;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(124.8);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(56.87);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -129,7 +129,7 @@ public final class Constants {
             public static final int driveMotorID = 21;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(265.95);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(37.61);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -139,7 +139,7 @@ public final class Constants {
             public static final int driveMotorID = 31;
             public static final int angleMotorID = 32;
             public static final int canCoderID = 30;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(249.78);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(350.01);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -149,7 +149,7 @@ public final class Constants {
             public static final int driveMotorID = 41;
             public static final int angleMotorID = 42;
             public static final int canCoderID = 40;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(93.9);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(309.20);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -219,20 +219,20 @@ public final class Constants {
 
     // TODO: tune all and find positions of all below
     public static final class SHOULDER_MOTOR {
-        public static final double P = 0.0;
-        public static final double I = 0.00001;
+        public static final double P = 0.01;
+        public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 10.0;
+        public static final double F_TRAVEL_LIMIT = 56500.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class ELBOW_MOTOR {
-        public static final double P = 0.0;
+        public static final double P = 0.01;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 10.0;
+        public static final double F_TRAVEL_LIMIT = 104700.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
@@ -242,8 +242,8 @@ public final class Constants {
         public static final double D = 0.0;
         public static final double F = 0.0;
 
-        public static final int CHANNEL_A = 1;
-        public static final int CHANNEL_B = 2;
+        public static final int CHANNEL_A = 0;
+        public static final int CHANNEL_B = 1;
         public static final boolean INVERT_ENCODER = false;
 
         public static final double CLOSED_CUBE_POSITION = 0.0;

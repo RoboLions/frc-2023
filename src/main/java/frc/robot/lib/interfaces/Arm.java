@@ -26,9 +26,7 @@ public class Arm {
         RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
         RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
 
-        RobotMap.leftShoulderMotor.setInverted(true);
         RobotMap.rightShoulderMotor.setInverted(true);
-        RobotMap.leftElbowMotor.setInverted(true);
         RobotMap.rightElbowMotor.setInverted(true);
 
         RobotMap.leftShoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
@@ -38,26 +36,26 @@ public class Arm {
 
         RobotMap.leftShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.leftShoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftShoulderMotor.configPeakOutputForward(0.1, 10);
-        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.1, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputForward(0.0, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.0, 10);
         RobotMap.leftShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.rightShoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightShoulderMotor.configPeakOutputForward(0.1, 10);
-        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.1, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputForward(0.0, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.0, 10);
         RobotMap.rightShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.leftElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftElbowMotor.configPeakOutputForward(0.1, 10);
-        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.1, 10);
+        RobotMap.leftElbowMotor.configPeakOutputForward(0.0, 10);
+        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.0, 10);
         RobotMap.leftElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.rightElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightElbowMotor.configPeakOutputForward(0.1, 10);
-        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.1, 10);
+        RobotMap.rightElbowMotor.configPeakOutputForward(0.0, 10);
+        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.0, 10);
         RobotMap.rightElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftShoulderMotor.configAllowableClosedloopError(0, 0, 10);

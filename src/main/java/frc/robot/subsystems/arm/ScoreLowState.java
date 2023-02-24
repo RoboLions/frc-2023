@@ -17,22 +17,22 @@ public class ScoreLowState extends State {
     public void build() {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.IDLE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
+
+        // transition to high level
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
+        }, ArmStateMachine.scoreHighState));
 
         // transition to mid level
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
-        }, ArmStateMachine.scoreHighState));
-
-        // transition to hybrid level
-        transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MID_SCORE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
 
         // Go to scoring Transitions
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.DriverButtons.SCORING_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.DriverButtons.SCORING_BUTTON);
         }, ArmStateMachine.scoringState));
     }
     
@@ -48,16 +48,16 @@ public class ScoreLowState extends State {
 
         if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.MID_SCORE_CUBE.SHOULDER_POSITION, 
-                modifier * Constants.MID_SCORE_CUBE.ELBOW_POSITION
+                modifier * Constants.LOW_SCORE_CUBE.SHOULDER_POSITION, 
+                modifier * Constants.LOW_SCORE_CUBE.ELBOW_POSITION
             );
             return;
         }
 
         if (current_color == Constants.CLAW.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
-                modifier * Constants.MID_SCORE_CONE.ELBOW_POSITION
+                modifier * Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
+                modifier * Constants.LOW_SCORE_CONE.ELBOW_POSITION
             );
             return;
         }

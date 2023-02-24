@@ -37,7 +37,7 @@ public class Claw {
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
 
         clawPID.initialize(
-                        0.01, // Proportional Gain 0.02
+                        0.0, // Proportional Gain 0.02
                         0.0, // Integral Gain .311
                         0.0, // Derivative Gain
                         1, // Cage Limit

@@ -21,7 +21,7 @@ public class TeleopState extends State {
     @Override
     public void build() {
         addTransition(new Transition(() -> {
-            return RobotMap.driverController.getRawButtonPressed(Constants.DriverButtons.AUTO_ALIGN_BUTTON);
+            return RobotMap.driverController.getRawButton(Constants.DriverButtons.AUTO_ALIGN_BUTTON);
         }, DrivetrainStateMachine.followTag));
     }
 

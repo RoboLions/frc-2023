@@ -46,9 +46,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
-    //RobotMap.drivetrainStateMachine.setNextState();
+    // RobotMap.drivetrainStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
-    //RobotMap.clawStateMachine.setNextState();
+    // RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
@@ -58,6 +58,13 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
+    SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
   }
 
   /**
@@ -90,7 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotMap.arm.resetEncoders();
-    
+
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }
