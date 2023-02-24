@@ -15,6 +15,7 @@ public class ClawStateMachine extends StateMachine {
     public static ClosedCube closedCube = new ClosedCube();
     public static ClosingCone closingCone = new ClosingCone();
     public static ClosingCube closingCube = new ClosingCube();
+    public static ManualClaw manualClaw = new ManualClaw();
 
     public ClawStateMachine() {
         openState.build();
@@ -22,7 +23,9 @@ public class ClawStateMachine extends StateMachine {
         closedCube.build();
         closingCone.build();
         closingCube.build();
+        manualClaw.build();
 
-        setCurrentState(openState);
+        //setCurrentState(openState);
+        setCurrentState(manualClaw);
     }
 }

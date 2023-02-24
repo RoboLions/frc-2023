@@ -364,6 +364,11 @@ public final class Constants {
          *  Zeros the gyro of the robot and changes its field alignment
          */
         public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
+
+        public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
+
+        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
     }
 
     public static final class ManipulatorControls {
@@ -386,7 +391,7 @@ public final class Constants {
          * in idle state:
          *  moves arm into the ground intake position, front and back respectively
          */
-        public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
+        // public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
 
         /*
@@ -399,8 +404,8 @@ public final class Constants {
          * in manual control state:
          *  commands all the joints of the robot arm directly
          */
-        public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
-        public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
+        // public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
+        // public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
         public static final int ELBOW_AXIS = XboxController.Axis.kLeftY.value;
         public static final int SHOULDER_AXIS = XboxController.Axis.kRightY.value;
 

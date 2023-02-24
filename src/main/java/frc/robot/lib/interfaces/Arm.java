@@ -21,10 +21,10 @@ public class Arm {
     private Timer timer = new Timer();
 
     public Arm() {
-        RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Coast);
-        RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Coast);
-        RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
-        RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
+        RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
+        RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
 
         RobotMap.rightShoulderMotor.setInverted(true);
         RobotMap.rightElbowMotor.setInverted(true);
@@ -36,26 +36,26 @@ public class Arm {
 
         RobotMap.leftShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.leftShoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftShoulderMotor.configPeakOutputForward(0.0, 10);
-        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.0, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.15, 10);
         RobotMap.leftShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.rightShoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightShoulderMotor.configPeakOutputForward(0.0, 10);
-        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.0, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.15, 10);
         RobotMap.rightShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.leftElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftElbowMotor.configPeakOutputForward(0.0, 10);
-        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.0, 10);
+        RobotMap.leftElbowMotor.configPeakOutputForward(0.2, 10);
+        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.2, 10);
         RobotMap.leftElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.rightElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightElbowMotor.configPeakOutputForward(0.0, 10);
-        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.0, 10);
+        RobotMap.rightElbowMotor.configPeakOutputForward(0.2, 10);
+        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.2, 10);
         RobotMap.rightElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftShoulderMotor.configAllowableClosedloopError(0, 0, 10);
@@ -78,8 +78,8 @@ public class Arm {
         RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
         RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
 
-        RobotMap.rightShoulderMotor.follow(RobotMap.leftShoulderMotor);
-        RobotMap.rightElbowMotor.follow(RobotMap.rightElbowMotor);
+        RobotMap.rightShoulderMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
+        RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
     }
 
     public void setIdle() {

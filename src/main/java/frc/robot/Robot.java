@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     /* state machines always execute current state and check for next state */
     // RobotMap.drivetrainStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
-    // RobotMap.clawStateMachine.setNextState();
+    RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();

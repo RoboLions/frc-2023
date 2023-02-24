@@ -30,19 +30,12 @@ public class ManualMoveState extends State {
     @Override
     public void execute() {
 
-        // TODO: figure out how to manually control arm
-        
-        /*double wristInput = RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_BACKWARD_AXIS)) 
-                            - RobotMap.arm.applyDeadband(RobotMap.manipulatorController.getRawAxis(ManipulatorControls.WRIST_FORWARD_AXIS));
-        RobotMap.wristMotor.set(ControlMode.PercentOutput, wristInput);
-
-        // TODO: check motors match button
+        // TODO: figure out how to manually control arm, check motors match button
         double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
-        RobotMap.elbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
+        RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 
         double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
-        RobotMap.shoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
-        */
+        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
     }
 
     @Override
