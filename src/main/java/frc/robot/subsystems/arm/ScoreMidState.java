@@ -20,7 +20,7 @@ public class ScoreMidState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
-        // transition to mid level
+        // transition to high level
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.scoreHighState));
@@ -32,7 +32,7 @@ public class ScoreMidState extends State {
 
         // Go to scoring Transitions
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.DriverButtons.SCORING_BUTTON);
+            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > 0.25;
         }, ArmStateMachine.scoringState));
     }
     

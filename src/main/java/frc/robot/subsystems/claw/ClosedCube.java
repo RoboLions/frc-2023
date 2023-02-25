@@ -17,13 +17,17 @@ public class ClosedCube extends State {
     public void build() {
         // if we don't detect a cube, open the claw
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != Constants.CLAW.CUBE_COLOR;
-        }, ClawStateMachine.openState));
+            return RobotMap.claw.getColor() != Constants.CLAW.CUBE_COLOR && !Claw.closeRequest;
+        }, ClawStateMachine.openingState));
+
+        transitions.add(new Transition(() -> {
+            return Claw.openRequest;
+        }, ClawStateMachine.openingState));
 
         // open the claw if driver presses right trigger
         transitions.add(new Transition(() -> {
             return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > Constants.STICK_DEADBAND;
-        }, ClawStateMachine.openState));
+        }, ClawStateMachine.openingState));
     }
 
     @Override

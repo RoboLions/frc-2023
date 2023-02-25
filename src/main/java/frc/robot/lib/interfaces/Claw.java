@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorMatch;
@@ -53,11 +54,11 @@ public class Claw {
     public Color getColor() {
         return Constants.CLAW.CONE_COLOR;
         
-        // ColorMatchResult match = colorMatcher.matchClosestColor(Robot.detectedColor);
-        // if (match.confidence > 0.9) {
-        //     return match.color;
-        // }
-        // return null;
+        /*ColorMatchResult match = colorMatcher.matchClosestColor(RobotMap.clawColorSensor.getColor());
+        if (match.confidence > 0.9) {
+            return match.color;
+        }
+        return null;*/
     }
 
     public int getClawEncoder() {
@@ -75,15 +76,21 @@ public class Claw {
       }
 
     public void setClawOpen() {
-        moveClawToPosition(Constants.CLAW.OPEN_POSITION, getClawEncoder());
+        // moveClawToPosition(Constants.CLAW.OPEN_POSITION, getClawEncoder());
+        
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.15);
     }
 
     public void setClawClosedCube() {
-        moveClawToPosition(Constants.CLAW.CLOSED_CUBE_POSITION, getClawEncoder());
+        // moveClawToPosition(Constants.CLAW.CLOSED_CUBE_POSITION, getClawEncoder());
+        
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.15);
     }
 
     public void setClawClosedCone() {
-        moveClawToPosition(Constants.CLAW.CLOSED_CONE_POSITION, getClawEncoder());
+        // moveClawToPosition(Constants.CLAW.CLOSED_CONE_POSITION, getClawEncoder());
+        
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.65);
     }
 
     public boolean isClosed() {

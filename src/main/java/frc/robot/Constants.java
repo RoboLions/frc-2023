@@ -219,16 +219,16 @@ public final class Constants {
 
     // TODO: tune all and find positions of all below
     public static final class SHOULDER_MOTOR {
-        public static final double P = 0.01;
+        public static final double P = 1.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 56500.0;
+        public static final double F_TRAVEL_LIMIT = 65000.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class ELBOW_MOTOR {
-        public static final double P = 0.01;
+        public static final double P = 1.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
@@ -266,49 +266,49 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 1600.0;
+        public static final double ELBOW_POSITION = 59500.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT - 1000.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT - 1000.0;
+        public static final double SHOULDER_POSITION = 63300.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT - 1000.0;
+        public static final double ELBOW_POSITION = 84300.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT - 1000.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 56500.0;
+        public static final double ELBOW_POSITION = 80000.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT / 2.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT / 2.0;
+        public static final double SHOULDER_POSITION = 43000.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT / 2.0;
+        public static final double ELBOW_POSITION = 57000.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT / 2.0;
     }
 
     public static final class MID_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 38400.0;
+        public static final double ELBOW_POSITION = 68100.0;
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT  / 3.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT  / 3.0;
+        public static final double SHOULDER_POSITION = 12250.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT  / 3.0;
+        public static final double ELBOW_POSITION = 51000.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT  / 3.0;
     }
 
     public static final class LOW_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 12250.0;
+        public static final double ELBOW_POSITION = 51000.0;
     }
 
     public static final class SUBSTATION_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 48000.0;
+        public static final double ELBOW_POSITION = 93000.0;
     }
 
     public static final class BALANCE_PITCH_PID {

@@ -19,13 +19,14 @@ public class ClawStateMachine extends StateMachine {
 
     public ClawStateMachine() {
         openState.build();
+        openingState.build();
         closedCone.build();
         closedCube.build();
         closingCone.build();
         closingCube.build();
         manualClaw.build();
 
-        //setCurrentState(openState);
-        setCurrentState(manualClaw);
+        setCurrentState(openState);
+        // setCurrentState(manualClaw);
     }
 }

@@ -5,6 +5,7 @@
 package frc.robot.subsystems.claw;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
@@ -13,20 +14,21 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class OpeningState extends State {
     
-    private Timer timer = new Timer();
+    private static Timer timer = new Timer();
     
     @Override
     public void build() {
         // claw is now open after x seconds
         transitions.add(new Transition(() -> {
-            return timer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW);
+            SmartDashboard.putNumber("Claw opening timer", OpeningState.timer.get());
+            return OpeningState.timer.get() > (Constants.CLAW.TIME_OPEN_CLAW);
         }, ClawStateMachine.openState));
     }
 
     @Override
     public void init() {
         RobotMap.claw.setClawOpen();
-        timer.start();
+        OpeningState.timer.start();
     }
 
     @Override
@@ -36,7 +38,7 @@ public class OpeningState extends State {
 
     @Override
     public void exit() {
-        timer.stop();
-        timer.reset();
+        OpeningState.timer.stop();
+        OpeningState.timer.reset();
     }
 }

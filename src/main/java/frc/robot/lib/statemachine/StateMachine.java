@@ -6,6 +6,8 @@ package frc.robot.lib.statemachine;
 
 import java.util.List;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /** Class for creating a subsystem's state machine */
 public class StateMachine {
 
@@ -21,10 +23,14 @@ public class StateMachine {
     public void setNextState() {
         currentState.execute_private();
         List<Transition> transitions = currentState.getTransitions();
-
+        // System.out.println(this.getClass().getName());
+        // System.out.println("Current State:" + getCurrentState().getClass().getName());
+        // System.out.println("Number of Transitions:" + transitions.size());
         for (int i = 0; i < transitions.size(); i++) {
             Transition t = transitions.get(i);
+            // System.out.println("Transition #" + i + ": " + t.check());
             if (t.check()) {
+                // System.out.println("Transition #" + i + ": moving to " + t.getState().getClass().getName());
                 setCurrentState(t.getState());
             }
         }

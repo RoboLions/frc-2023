@@ -6,6 +6,9 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -13,6 +16,8 @@ import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
+import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.arm.IdleState;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -48,7 +53,7 @@ public class Robot extends TimedRobot {
     /* state machines always execute current state and check for next state */
     // RobotMap.drivetrainStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
-    RobotMap.clawStateMachine.setNextState();
+    // RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
@@ -65,6 +70,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
+    
+    SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
+    SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
+    SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
+
+    SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
+    SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
+    Color read_color = RobotMap.claw.getColor();
+    SmartDashboard.putString("Detected closest color", read_color == null ? "" : read_color.toString());
+    SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
+    SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
   }
 
   /**
@@ -98,6 +114,14 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     RobotMap.arm.resetEncoders();
     // RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
+    RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
+    
+    RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
+
+    //RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.65);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
@@ -115,6 +139,12 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    
+    RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
+    
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }

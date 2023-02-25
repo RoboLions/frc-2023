@@ -21,10 +21,10 @@ public class Arm {
     private Timer timer = new Timer();
 
     public Arm() {
-        RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
-        RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
-        RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
-        RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
+        // RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
+        // RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
+        // RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
+        // RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
 
         RobotMap.rightShoulderMotor.setInverted(true);
         RobotMap.rightElbowMotor.setInverted(true);
@@ -48,14 +48,14 @@ public class Arm {
 
         RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.leftElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftElbowMotor.configPeakOutputForward(0.2, 10);
-        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.2, 10);
+        RobotMap.leftElbowMotor.configPeakOutputForward(0.5, 10);
+        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.5, 10);
         RobotMap.leftElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.rightElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightElbowMotor.configPeakOutputForward(0.2, 10);
-        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.2, 10);
+        RobotMap.rightElbowMotor.configPeakOutputForward(0.5, 10);
+        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.5, 10);
         RobotMap.rightElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftShoulderMotor.configAllowableClosedloopError(0, 0, 10);

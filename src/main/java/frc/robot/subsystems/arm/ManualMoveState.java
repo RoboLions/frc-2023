@@ -35,7 +35,7 @@ public class ManualMoveState extends State {
         RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 
         double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
-        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(shoulderInput));
+        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(-shoulderInput));
     }
 
     @Override
