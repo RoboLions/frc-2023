@@ -73,7 +73,7 @@ public class TestPath extends AutoModeBase {
     @Override
     protected void routine() throws AutoModeEndedException {
 
-        System.out.println("Running bot simple score auto!");
+        System.out.println("Running test auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // drive

@@ -1,17 +1,10 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems.drive.autos;
-
-import java.util.List;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -23,13 +16,13 @@ import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
-/** Simple bot score, 1 cone high */
-public class BotSimpleScore extends AutoModeBase {
+/** Simple auto path for top side of grids, 1 cone high */
+public class TopSimpleScore extends AutoModeBase {
     
     // trajectory action
     TrajectoryAction driveOut;
 
-    public BotSimpleScore() {
+    public TopSimpleScore() {
 
         SmartDashboard.putBoolean("Auto Finished", false);
 
@@ -37,25 +30,11 @@ public class BotSimpleScore extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory botSimpleScore = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(0.25, 0.25));
-        List<State> states_before = botSimpleScore.getStates();
-        botSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore, DriverStation.getAlliance());
-        List<State> states_after = botSimpleScore.getStates();
-        boolean temp = false;
-        for (int i = 0; i < states_before.size(); i++) {
-            if (states_before.get(i).equals(states_after.get(i))) {
-                temp = true;
-            }
-        }
-        if (temp) {
-            System.out.println("SOME STATES WERE THE SAME");
-        }
-        else {
-            System.out.println("ALL STATES WERE DIFFERENT");
-        }
+        PathPlannerTrajectory topSimpleScore = PathPlanner.loadPath("Top Simple Score", new PathConstraints(0.25, 0.25));
+        topSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(topSimpleScore, DriverStation.getAlliance());
 
         driveOut = new TrajectoryAction(
-            botSimpleScore, 
+            topSimpleScore, 
             RobotMap.swerve::getPose, 
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
@@ -69,7 +48,7 @@ public class BotSimpleScore extends AutoModeBase {
     @Override
     protected void routine() throws AutoModeEndedException {
 
-        System.out.println("Running bot simple score auto!");
+        System.out.println("Running top simple score auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // position arm to score high

@@ -97,6 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotMap.arm.resetEncoders();
+    // RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();

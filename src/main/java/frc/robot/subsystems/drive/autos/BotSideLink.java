@@ -23,7 +23,7 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** 3 piece auto on the top side of grids */
-public class TopSideLink extends AutoModeBase {
+public class BotSideLink extends AutoModeBase {
     
     // trajectory action
     TrajectoryAction driveToFirstPiece;
@@ -31,7 +31,7 @@ public class TopSideLink extends AutoModeBase {
     TrajectoryAction driveToSecondPiece;
     TrajectoryAction driveToScoreSecondPiece;
 
-    public TopSideLink() {
+    public BotSideLink() {
 
         SmartDashboard.putBoolean("Auto Finished", false);
 
@@ -40,7 +40,7 @@ public class TopSideLink extends AutoModeBase {
         
         // transform trajectory depending on alliance we are on
         ArrayList<PathPlannerTrajectory> topSideLink = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
-            "Top Side Link Auto", 
+            "Bot Side Link Auto", 
             new PathConstraints(0.25, 0.25)
         );
         for(int i = 0; i < topSideLink.size(); i++) {

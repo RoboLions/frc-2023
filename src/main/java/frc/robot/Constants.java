@@ -268,6 +268,8 @@ public final class Constants {
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CONE {
@@ -280,6 +282,8 @@ public final class Constants {
     public static final class HIGH_SCORE_CUBE {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class MID_SCORE_CONE {
