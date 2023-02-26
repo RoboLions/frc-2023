@@ -18,6 +18,7 @@ import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.arm.IdleState;
+import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -51,9 +52,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
-    // RobotMap.drivetrainStateMachine.setNextState();
+    RobotMap.drivetrainStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
-    // RobotMap.clawStateMachine.setNextState();
+    RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
@@ -113,7 +114,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotMap.arm.resetEncoders();
-    // RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
+    RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
     RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
     
     RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);

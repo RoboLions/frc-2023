@@ -5,6 +5,8 @@
 package frc.robot.subsystems.arm;
 
 import frc.robot.lib.statemachine.StateMachine;
+import frc.robot.subsystems.arm.manual.ManualMoveState;
+import frc.robot.subsystems.arm.manual.ScoreHighCubeState;
 
 public class ArmStateMachine extends StateMachine {
 
@@ -17,6 +19,7 @@ public class ArmStateMachine extends StateMachine {
     public static ScoreMidState scoreMidState = new ScoreMidState();
     public static ScoreLowState scoreLowState = new ScoreLowState();
     public static ScoringState scoringState = new ScoringState();
+    //public static ScoreHighCubeState scoreHighCubeState = new ScoreHighCubeState();
 
     public ArmStateMachine() {
 
@@ -31,6 +34,7 @@ public class ArmStateMachine extends StateMachine {
         scoreMidState.build();
         scoreLowState.build();
         scoringState.build();
+        //scoreHighCubeState.build();
 
         setCurrentState(idleState);
     }

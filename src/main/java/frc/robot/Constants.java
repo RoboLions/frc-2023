@@ -367,7 +367,7 @@ public final class Constants {
          * in teleop state:
          *  Zeros the gyro of the robot and changes its field alignment
          */
-        public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
+        public static final int ZERO_GYRO = XboxController.Button.kX.value;
 
         public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
 
@@ -418,6 +418,12 @@ public final class Constants {
          *  command arm state machine into manual mode
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
+
+        /* in manual mode:
+         *  indicates that we have a cube or cone
+         */
+        public static final int MANUAL_CUBE_INDICATOR = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_CONE_INDICATOR = XboxController.Axis.kLeftTrigger.value;
 
         /*
          * in idle mode:

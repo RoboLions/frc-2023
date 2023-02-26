@@ -34,9 +34,9 @@ public class ManualClaw extends State {
         //double clawInput = RobotMap.manipulatorController.getRawAxis(Constants.DriverButtons.MA);
 
         if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.MANUAL_OPEN_CLAW) > 0.25) {
-            clawInput = 0.15;
+            clawInput = 0.8;
         } else if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.MANUAL_CLOSE_CLAW) > 0.25) {
-            clawInput = -0.15;
+            clawInput = -0.8;
         } else {
             clawInput = 0.0;
         }
