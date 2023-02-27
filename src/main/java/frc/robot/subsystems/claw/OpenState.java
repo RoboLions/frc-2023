@@ -33,7 +33,7 @@ public class OpenState extends State {
 
         // switch to manual control of claw
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawButton(Constants.DriverControls.MANUAL_CLAW_BUTTON);
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.SWITCH_TO_MANUAL_CLAW_BUTTON);
         }, ClawStateMachine.manualMoveState));
     }
 

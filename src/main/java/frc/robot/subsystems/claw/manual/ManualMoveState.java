@@ -20,7 +20,7 @@ public class ManualMoveState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawButton(Constants.DriverControls.OPEN_CLAW_BUTTON);
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.SWITCH_TO_NORMAL_CLAW_BUTTON);
         }, ClawStateMachine.openingState));
 
         transitions.add(new Transition(() -> {
@@ -44,9 +44,9 @@ public class ManualMoveState extends State {
     @Override
     public void execute() {
 
-        if (RobotMap.driverController.getRawAxis(Constants.DriverControls.MANUAL_OPEN_CLAW) > 0.25) {
+        if (RobotMap.driverController.getRawAxis(Constants.DriverControls.MANUAL_TRIGGER_OPEN_CLAW) > 0.25) {
             clawInput = 0.8;
-        } else if (RobotMap.driverController.getRawAxis(Constants.DriverControls.MANUAL_CLOSE_CLAW) > 0.25) {
+        } else if (RobotMap.driverController.getRawAxis(Constants.DriverControls.MANUAL_TRIGGER_CLOSE_CLAW) > 0.25) {
             clawInput = -0.8;
         } else {
             clawInput = 0.0;

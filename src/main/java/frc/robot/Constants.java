@@ -375,20 +375,20 @@ public final class Constants {
          * in open state:
          *  switches claw to manual mode
          */
-        public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
+        public static final int SWITCH_TO_MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
 
         /*
-         * in manual claw state:
+         * in manual move claw state:
          *  open/close claw using triggers
          */
-        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
-        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
+        public static final int MANUAL_TRIGGER_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_TRIGGER_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
 
         /*
-         * in manual claw state:
+         * in manual claw states:
          *  return to normal use of claw
          */
-        public static final int OPEN_CLAW_BUTTON = XboxController.Button.kA.value;
+        public static final int SWITCH_TO_NORMAL_CLAW_BUTTON = XboxController.Button.kA.value;
 
         /*
          * in manual claw states:
