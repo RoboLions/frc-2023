@@ -23,12 +23,12 @@ public class ManualMoveState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
-        /*transitions.add(new Transition(() -> {
+        transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON) && 
             RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
         }, ArmStateMachine.scoreHighCubeState));
 
-        /*transitions.add(new Transition(() -> {
+        transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON) && 
             RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
         }, ArmStateMachine.scoreMidCubeState));
@@ -51,7 +51,7 @@ public class ManualMoveState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON) && 
             RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CONE_INDICATOR) > 0.25;
-        }, ArmStateMachine.scoreLowConeState));*/
+        }, ArmStateMachine.scoreLowConeState));
     }
 
     @Override

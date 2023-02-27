@@ -11,7 +11,7 @@ import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Add your docs here. */
-public class ScoreMidCubeState extends State {
+public class ScoreMidConeState extends State {
 
     @Override
     public void build() {
@@ -20,17 +20,17 @@ public class ScoreMidCubeState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
-        // go to low cube score state
+        // go to low cone score state
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON) && 
-            RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
-        }, ArmStateMachine.scoreLowCubeState));
+            RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CONE_INDICATOR) > 0.25;
+        }, ArmStateMachine.scoreLowConeState));
 
-        // go to high cube score state
+        // go to high cone score state
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON) && 
-            RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
-        }, ArmStateMachine.scoreHighCubeState));
+            RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CONE_INDICATOR) > 0.25;
+        }, ArmStateMachine.scoreHighConeState));
 
         // go to scoring state
         transitions.add(new Transition(() -> {
@@ -41,8 +41,8 @@ public class ScoreMidCubeState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.MID_SCORE_CUBE.SHOULDER_POSITION, 
-            Constants.MID_SCORE_CUBE.ELBOW_POSITION
+            Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
+            Constants.MID_SCORE_CONE.ELBOW_POSITION
         );
     }
 

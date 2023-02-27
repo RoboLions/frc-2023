@@ -6,12 +6,16 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.lib.statemachine.StateMachine;
 import frc.robot.subsystems.arm.manual.ManualMoveState;
+import frc.robot.subsystems.arm.manual.ScoreHighConeState;
 import frc.robot.subsystems.arm.manual.ScoreHighCubeState;
+import frc.robot.subsystems.arm.manual.ScoreLowConeState;
+import frc.robot.subsystems.arm.manual.ScoreLowCubeState;
+import frc.robot.subsystems.arm.manual.ScoreMidConeState;
+import frc.robot.subsystems.arm.manual.ScoreMidCubeState;
 
 public class ArmStateMachine extends StateMachine {
 
     public static IdleState idleState = new IdleState();
-    public static ManualMoveState manualMoveState = new ManualMoveState();
     public static SubstationIntakeState substationIntakeState = new SubstationIntakeState();
     public static OuttakeState outtakeState = new OuttakeState();
     public static FPickupState groundPickupState = new FPickupState();
@@ -19,14 +23,22 @@ public class ArmStateMachine extends StateMachine {
     public static ScoreMidState scoreMidState = new ScoreMidState();
     public static ScoreLowState scoreLowState = new ScoreLowState();
     public static ScoringState scoringState = new ScoringState();
-    //public static ScoreHighCubeState scoreHighCubeState = new ScoreHighCubeState();
+
+    /* manual states */
+    public static ManualMoveState manualMoveState = new ManualMoveState();
+    public static ScoreHighCubeState scoreHighCubeState = new ScoreHighCubeState();
+    public static ScoreMidCubeState scoreMidCubeState = new ScoreMidCubeState();
+    public static ScoreLowCubeState scoreLowCubeState = new ScoreLowCubeState();
+    public static ScoreHighConeState scoreHighConeState = new ScoreHighConeState();
+    public static ScoreMidConeState scoreMidConeState = new ScoreMidConeState();
+    public static ScoreLowConeState scoreLowConeState = new ScoreLowConeState();
 
     public ArmStateMachine() {
 
-        // nutz.build();
         // deez.build();
+        // nutz.build();
+        
         idleState.build();
-        manualMoveState.build();
         substationIntakeState.build();
         outtakeState.build();
         groundPickupState.build();
@@ -34,7 +46,14 @@ public class ArmStateMachine extends StateMachine {
         scoreMidState.build();
         scoreLowState.build();
         scoringState.build();
-        //scoreHighCubeState.build();
+
+        manualMoveState.build();
+        scoreHighCubeState.build();
+        scoreMidCubeState.build();
+        scoreLowCubeState.build();
+        scoreHighConeState.build();
+        scoreMidConeState.build();
+        scoreLowConeState.build();
 
         setCurrentState(idleState);
     }

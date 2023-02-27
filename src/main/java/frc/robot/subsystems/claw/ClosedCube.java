@@ -26,13 +26,13 @@ public class ClosedCube extends State {
 
         // open the claw if driver presses right trigger
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > Constants.STICK_DEADBAND;
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > Constants.STICK_DEADBAND;
         }, ClawStateMachine.openingState));
     }
 
     @Override
     public void init() {
-        RobotMap.claw.setClawClosedCube();
+        // RobotMap.claw.setClawClosedCube();
     }
 
     @Override

@@ -8,17 +8,19 @@ import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+
 import frc.robot.Constants;
 
 /** Add your docs here. */
 public class OpenState extends State {
-    
+
     @Override
     public void build() {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
             return (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) && !Claw.openRequest;
         }, ClawStateMachine.closingCube));
+
         //TODO: Figure out which state to transition to based on request
         transitions.add(new Transition(() -> {
             return Claw.closeRequest;
@@ -28,18 +30,21 @@ public class OpenState extends State {
         transitions.add(new Transition(() -> {
             return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) && !Claw.openRequest;
         }, ClawStateMachine.closingCone));
-        
-        
+
+        // switch to manual control of claw
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.MANUAL_CLAW_BUTTON);
+        }, ClawStateMachine.manualMoveState));
     }
 
     @Override
     public void init() {
-        RobotMap.claw.setClawOpen();
+        // RobotMap.claw.setClawOpen();
     }
 
     @Override
     public void execute() {
-        
+
     }
 
     @Override

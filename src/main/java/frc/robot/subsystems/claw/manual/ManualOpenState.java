@@ -2,45 +2,44 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.claw;
+package frc.robot.subsystems.claw.manual;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
-public class OpeningState extends State {
-    
-    private Timer openingStateTimer = new Timer();
+public class ManualOpenState extends State {
+
+    private Timer manualOpenTimer = new Timer();
     
     @Override
     public void build() {
-        // claw is now open after x seconds
         transitions.add(new Transition(() -> {
-            return openingStateTimer.get() > (Constants.CLAW.TIME_OPEN_CLAW + 0.1);
-        }, ClawStateMachine.openState));
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.MANUAL_CLOSE_CUBE_BUTTON);
+        }, ClawStateMachine.manualCubeState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.MANUAL_CLOSE_CONE_BUTTON);
+        }, ClawStateMachine.manualConeState));
     }
 
     @Override
     public void init() {
-        //RobotMap.claw.setClawOpen();
-        openingStateTimer.start();
+
     }
 
     @Override
     public void execute() {
-        
-        SmartDashboard.putNumber("Claw opening timer", openingStateTimer.get());
 
-        // apply power to claw motor for 1 second to open the claw
-        if (openingStateTimer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW)) {
+        if (manualOpenTimer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW)) {
             RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
-            openingStateTimer.stop();
+            manualOpenTimer.stop();
         } else {
             RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.OPEN_POWER);
         }
@@ -49,6 +48,6 @@ public class OpeningState extends State {
 
     @Override
     public void exit() {
-        openingStateTimer.reset();
+        manualOpenTimer.reset();
     }
 }

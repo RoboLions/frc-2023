@@ -237,22 +237,25 @@ public final class Constants {
     }
 
     public static final class CLAW {
-        public static final double P = 0.0;
-        public static final double I = 0.0;
-        public static final double D = 0.0;
-        public static final double F = 0.0;
+        // public static final double P = 0.0;
+        // public static final double I = 0.0;
+        // public static final double D = 0.0;
+        // public static final double F = 0.0;
 
-        public static final int CHANNEL_A = 0;
-        public static final int CHANNEL_B = 1;
-        public static final boolean INVERT_ENCODER = false;
+        // public static final int CHANNEL_A = 0;
+        // public static final int CHANNEL_B = 1;
+        // public static final boolean INVERT_ENCODER = false;
 
-        public static final double CLOSED_CUBE_POSITION = 0.0;
-        public static final double CLOSED_CONE_POSITION = 0.0;
-        public static final double OPEN_POSITION = 0.0;
+        // public static final double CLOSED_CUBE_POSITION = 0.0;
+        // public static final double CLOSED_CONE_POSITION = 0.0;
+        // public static final double OPEN_POSITION = 0.0;
 
-        public static final double TIME_CLOSE_ON_CONE = 0.5;
-        public static final double TIME_CLOSE_ON_CUBE = 0.1;
-        public static final double TIME_OPEN_CLAW = 0.1;
+        public static final double TIME_CLOSE_ON_CONE = 2.0;
+        public static final double TIME_CLOSE_ON_CUBE = 1.0;
+        public static final double TIME_OPEN_CLAW = 0.8;
+
+        public static final double OPEN_POWER = -0.8;
+        public static final double CLOSE_POWER = 0.8;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
@@ -325,20 +328,19 @@ public final class Constants {
         public static final double F = 0.0;
     }
 
-    public static final class DriverButtons {
+    public static final class DriverControls {
         /*
-         * SHIFT_LEFT_BUTTON:
          * in auto align state:
          *  if in a node scoring position, shifts the robot one node to the left
          */
         public static final int SHIFT_LEFT_BUTTON = XboxController.Button.kLeftBumper.value;
+
         /*
-         * SHIFT_RIGHT_BUTTON:
          * same as above, but opposite direction
          */
         public static final int SHIFT_RIGHT_BUTTON = XboxController.Button.kRightBumper.value;
+
         /*
-         * AUTO_ALIGN_BUTTON:
          * in teleop state:
          *  puts you in the auto align state
          */
@@ -367,12 +369,34 @@ public final class Constants {
          * in teleop state:
          *  Zeros the gyro of the robot and changes its field alignment
          */
-        public static final int ZERO_GYRO = XboxController.Button.kX.value;
+        public static final int ZERO_GYRO = XboxController.Button.kY.value;
 
+        /*
+         * in open state:
+         *  switches claw to manual mode
+         */
         public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
 
+        /*
+         * in manual claw state:
+         *  open/close claw using triggers
+         */
         public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
         public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
+
+        /*
+         * in manual claw state:
+         *  return to normal use of claw
+         */
+        public static final int OPEN_CLAW_BUTTON = XboxController.Button.kA.value;
+
+        /*
+         * in manual claw states:
+         *  close on cube/cone, open claw
+         */
+        public static final int MANUAL_CLOSE_CUBE_BUTTON = XboxController.Button.kB.value;
+        public static final int MANUAL_CLOSE_CONE_BUTTON = XboxController.Button.kX.value;
+        public static final int MANUAL_OPEN_CLAW_BUTTON = XboxController.Button.kY.value;
     }
 
     public static final class ManipulatorControls {
@@ -393,14 +417,13 @@ public final class Constants {
         
         /*
          * in idle state:
-         *  moves arm into the ground intake position, front and back respectively
+         *  moves arm into the ground intake position
          */
-        // public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
 
         /*
          * in idle state:
-         *  sets the arm into the substation intake position, direction determined by field orientation
+         *  sets the arm into the substation intake position
          */
         public static final int SUBSTATION_INTAKE_BUTTON = XboxController.Button.kRightBumper.value;
 
@@ -408,8 +431,6 @@ public final class Constants {
          * in manual control state:
          *  commands all the joints of the robot arm directly
          */
-        // public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
-        // public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
         public static final int ELBOW_AXIS = XboxController.Axis.kLeftY.value;
         public static final int SHOULDER_AXIS = XboxController.Axis.kRightY.value;
 
@@ -424,13 +445,5 @@ public final class Constants {
          */
         public static final int MANUAL_CUBE_INDICATOR = XboxController.Axis.kRightTrigger.value;
         public static final int MANUAL_CONE_INDICATOR = XboxController.Axis.kLeftTrigger.value;
-
-        /*
-         * in idle mode:
-         *  sets the arm position into the endgame position
-         */
-        public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
-
-        // outtake button is in OuttakeState.java because it is a POV
     }
 }

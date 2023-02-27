@@ -5,7 +5,6 @@
 package frc.robot.subsystems.arm.manual;
 
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
@@ -16,25 +15,27 @@ public class ScoreHighCubeState extends State {
 
     @Override
     public void build() {
-        // Go to IDLE Transitions
+        // go to idle state
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
-        /*transitions.add(new Transition(() -> {
+        // go to mid cube score state
+        transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON) && 
             RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
         }, ArmStateMachine.scoreMidCubeState));
 
+        // go to low cube score state
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON) && 
             RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.MANUAL_CUBE_INDICATOR) > 0.25;
         }, ArmStateMachine.scoreLowCubeState));
 
-        // Go to scoring Transitions
+        // go to scoring state
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > 0.25;
-        }, ArmStateMachine.scoringState));*/
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > 0.25;
+        }, ArmStateMachine.scoringState));
     }
     
     @Override

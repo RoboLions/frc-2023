@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
+    // SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
     SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());
@@ -121,8 +121,6 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
-
-    //RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.65);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();

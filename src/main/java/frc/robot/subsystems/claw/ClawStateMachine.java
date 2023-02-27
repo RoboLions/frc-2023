@@ -5,6 +5,10 @@
 package frc.robot.subsystems.claw;
 
 import frc.robot.lib.statemachine.StateMachine;
+import frc.robot.subsystems.claw.manual.ManualConeState;
+import frc.robot.subsystems.claw.manual.ManualCubeState;
+import frc.robot.subsystems.claw.manual.ManualMoveState;
+import frc.robot.subsystems.claw.manual.ManualOpenState;
 
 /** Add your docs here. */
 public class ClawStateMachine extends StateMachine {
@@ -15,7 +19,12 @@ public class ClawStateMachine extends StateMachine {
     public static ClosedCube closedCube = new ClosedCube();
     public static ClosingCone closingCone = new ClosingCone();
     public static ClosingCube closingCube = new ClosingCube();
-    public static ManualClaw manualClaw = new ManualClaw();
+
+    /* manual states */
+    public static ManualMoveState manualMoveState = new ManualMoveState();
+    public static ManualConeState manualConeState = new ManualConeState();
+    public static ManualCubeState manualCubeState = new ManualCubeState();
+    public static ManualOpenState manualOpenState = new ManualOpenState();
 
     public ClawStateMachine() {
         openState.build();
@@ -24,9 +33,12 @@ public class ClawStateMachine extends StateMachine {
         closedCube.build();
         closingCone.build();
         closingCube.build();
-        manualClaw.build();
+        manualMoveState.build();
+        manualConeState.build();
+        manualCubeState.build();
+        manualOpenState.build();
 
-        //setCurrentState(openState);
-        setCurrentState(manualClaw);
+        setCurrentState(openState);
+        // setCurrentState(manualClaw);
     }
 }

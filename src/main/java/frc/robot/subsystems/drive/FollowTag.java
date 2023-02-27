@@ -45,9 +45,9 @@ public class FollowTag extends State {
 
     @Override
     public void execute() {
-        if (RobotMap.driverController.getRawButton(Constants.DriverButtons.SHIFT_LEFT_BUTTON)) {
+        if (RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON)) {
             RobotMap.swerve.shiftPoseLeft();
-        } else if (RobotMap.driverController.getRawButton(Constants.DriverButtons.SHIFT_RIGHT_BUTTON)) {
+        } else if (RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON)) {
             RobotMap.swerve.shiftPoseRight();
         }
         Pose2d targetPose = RobotMap.swerve.getClosestPose();
