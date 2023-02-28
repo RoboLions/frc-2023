@@ -5,7 +5,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
-import frc.robot.Constants.SWERVE;
 import frc.robot.lib.math.Conversions;
 import frc.robot.lib.util.CTREModuleState;
 import frc.robot.lib.util.SwerveModuleConstants;

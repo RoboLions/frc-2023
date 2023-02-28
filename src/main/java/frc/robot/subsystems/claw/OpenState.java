@@ -29,6 +29,10 @@ public class OpenState extends State {
         transitions.add(new Transition(() -> {
             return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) && !Claw.openRequest;
         }, ClawStateMachine.closingCone));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.DriverButtons.MANUAL_CLAW_BUTTON);
+        }, ClawStateMachine.manualClaw));
     }
 
     @Override

@@ -43,7 +43,7 @@ public class TeleopState extends State {
         rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRawAxis(Constants.DriverButtons.ROTATION_VAL), Constants.STICK_DEADBAND);
 
         // if left trigger pressed, zero gyro
-        if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.ZERO_GYRO) > Constants.STICK_DEADBAND) {
+        if (RobotMap.driverController.getRawButton(Constants.DriverButtons.ZERO_GYRO)) {
             RobotMap.swerve.zeroGyro();
         }
 

@@ -6,11 +6,9 @@ package frc.robot.subsystems.claw;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
-import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
 public class ManualClaw extends State {

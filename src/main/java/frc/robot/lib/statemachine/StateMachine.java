@@ -6,8 +6,6 @@ package frc.robot.lib.statemachine;
 
 import java.util.List;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /** Class for creating a subsystem's state machine */
 public class StateMachine {
 
