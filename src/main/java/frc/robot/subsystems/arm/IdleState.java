@@ -15,10 +15,10 @@ public class IdleState extends State {
 
     @Override
     public void build() {
-        // intake from substation with arm at front of bot 
+        // intake from substation
         // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
                 RobotMap.claw.getColor() == null;
         }, ArmStateMachine.substationIntakeState));
 
@@ -27,42 +27,37 @@ public class IdleState extends State {
         //     return (RobotMap.manipulatorController.getPOV() >= 135.0 || RobotMap.manipulatorController.getPOV() <= 225.0);
         // }, ArmStateMachine.outtakeState));
 
-        // pickup from back
+        // pickup from ground
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.GROUND_INTAKE_BACK);
-        }, ArmStateMachine.bPickupState));
-
-        // pickup from front
-        transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.GROUND_INTAKE_FRONT);
-        }, ArmStateMachine.fPickupState));
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
+        }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.scoreHighState));
         
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MID_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
         
         transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
+                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
         }, ArmStateMachine.scoreLowState));
 
         // transition to control arm manually
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
     }
     
     @Override
     public void init() {
         RobotMap.arm.setIdle();
-        Claw.openRequest = true;
-        Claw.closeRequest = true;
+        Claw.openRequest = false;
+        Claw.closeRequest = false;
     }
 
     @Override

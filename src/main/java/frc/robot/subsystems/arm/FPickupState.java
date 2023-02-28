@@ -16,7 +16,7 @@ public class FPickupState extends State {
     public void build() {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.IDLE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
@@ -28,9 +28,8 @@ public class FPickupState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.GROUND_INTAKE.SHOULDER_POSITION, 
-            Constants.GROUND_INTAKE.ELBOW_POSITION, 
-            Constants.GROUND_INTAKE.WRIST_POSITION
+            1.0 * Constants.GROUND_INTAKE.SHOULDER_POSITION, 
+            1.0 * Constants.GROUND_INTAKE.ELBOW_POSITION
         );
     }
 

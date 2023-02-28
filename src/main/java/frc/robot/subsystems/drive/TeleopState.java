@@ -21,7 +21,7 @@ public class TeleopState extends State {
     @Override
     public void build() {
         addTransition(new Transition(() -> {
-            return RobotMap.driverController.getRawButtonPressed(Constants.DriverButtons.AUTO_ALIGN_BUTTON);
+            return RobotMap.driverController.getRawButton(Constants.DriverButtons.AUTO_ALIGN_BUTTON);
         }, DrivetrainStateMachine.followTag));
     }
 
@@ -48,8 +48,8 @@ public class TeleopState extends State {
         }
 
         RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.SWERVE.MAX_SPEED), 
-            rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY, 
+            new Translation2d(translationVal, strafeVal).times(1.0), // Constants.SWERVE.MAX_SPEED), 
+            rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.5, 
             true, 
             true
         );

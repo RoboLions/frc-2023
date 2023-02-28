@@ -7,12 +7,15 @@ public class DrivetrainStateMachine extends StateMachine {
     public static TeleopState teleopSwerve = new TeleopState();
     public static FollowTag followTag = new FollowTag();
     public static BalanceState balanceState = new BalanceState();
+    public static AutoState autoState = new AutoState();
 
     public DrivetrainStateMachine() {
         followTag.build();
         balanceState.build();
         teleopSwerve.build();
-        setCurrentState(teleopSwerve);
+        autoState.build();
+
+        setCurrentState(autoState);
     }
     
 }

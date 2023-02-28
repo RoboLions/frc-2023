@@ -24,16 +24,15 @@ public final class Constants {
 
     public static final class CAN_IDS {
         /* Motor + sensor IDs */
-        // TODO: change IDs
         public static final int PIDGEON = 5;
-        public static final int SHOULDER_MOTOR = 51;
-        public static final int ELBOW_MOTOR = 52;
-        public static final int WRIST_MOTOR = 50;
-        public static final int CLAW_MOTOR = 12;
+        public static final int LEFT_SHOULDER_MOTOR = 50;
+        public static final int RIGHT_SHOULDER_MOTOR = 51;
+        public static final int LEFT_ELBOW_MOTOR = 53;
+        public static final int RIGHT_ELBOW_MOTOR = 54;
+        public static final int CLAW_MOTOR = 55;
     }
 
     public static final class PORTS {
-        // TODO: change port
         public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
     }
 
@@ -44,9 +43,9 @@ public final class Constants {
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
-        public static final double WHEEL_BASE = Units.inchesToMeters(23.5); 
-        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875);
+        public static final double TRACK_WIDTH = Units.inchesToMeters(22.0);
+        public static final double WHEEL_BASE = Units.inchesToMeters(22.0); 
+        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875); // TODO: check
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         /* Swerve Kinematics 
@@ -91,15 +90,15 @@ public final class Constants {
         public static final double ANGLE_KF = CHOSEN_MODULE.angleKF;
 
         /* Drive Motor PID Values */
-        public static final double DRIVE_KP = 0.15;
+        public static final double DRIVE_KP = 0.05;
         public static final double DRIVE_KI = 0.0;
         public static final double DRIVE_KD = 0.0;
         public static final double DRIVE_KF = 0.0;
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double DRIVE_KS = (0.68 / 12); 
-        public static final double DRIVE_KV = (0.0 / 12);
+        public static final double DRIVE_KS = (0.49 / 12); 
+        public static final double DRIVE_KV = (1.7 / 12);
         public static final double DRIVE_KA = (0.0 / 12);
 
         /* Swerve Profiling Values */
@@ -118,7 +117,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 12;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(124.8);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(56.87);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -128,7 +127,7 @@ public final class Constants {
             public static final int driveMotorID = 21;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(265.95);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(34.89); 
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -138,7 +137,7 @@ public final class Constants {
             public static final int driveMotorID = 31;
             public static final int angleMotorID = 32;
             public static final int canCoderID = 30;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(249.78);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(350.27);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -148,7 +147,7 @@ public final class Constants {
             public static final int driveMotorID = 41;
             public static final int angleMotorID = 42;
             public static final int canCoderID = 40;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(93.9);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(309.20);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -219,102 +218,85 @@ public final class Constants {
     // TODO: tune all and find positions of all below
     public static final class SHOULDER_MOTOR {
         public static final double P = 1.0;
-        public static final double I = 0.00001;
+        public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double TRAVEL_LIMIT = 22413.0;
+        public static final double F_TRAVEL_LIMIT = 65000.0;
+        public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class ELBOW_MOTOR {
         public static final double P = 1.0;
-        public static final double I = 0.00001;
-        public static final double D = 0.0;
-        public static final double F = 0.0;
-        public static final double TRAVEL_LIMIT = 46590.0;
-    }
-
-    public static final class WRIST_MOTOR {
-        public static final double P = 1.0;
-        public static final double I = 0.00001;
-        public static final double D = 0.0;
-        public static final double F = 0.0;
-        public static final double TRAVEL_LIMIT = 11134.0;
-    }
-
-    public static final class CLAW {
-        public static final double P = 0.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double F_TRAVEL_LIMIT = 104700.0;
+        public static final double B_TRAVEL_LIMIT = -10.0;
+    }
 
-        public static final double CLOSED_CUBE_POSITION = 0.0;
-        public static final double CLOSED_CONE_POSITION = 0.0;
+    public static final class CLAW {
+        public static final double TIME_CLOSE_ON_CONE = 0.8;
+        public static final double TIME_CLOSE_ON_CUBE = 0.4;
+        public static final double TIME_OPEN_CLAW = 0.3;
 
-        public static final double TIME_CLOSE_ON_CONE = 0.5;
-        public static final double TIME_CLOSE_ON_CUBE = 0.1;
-        public static final double TIME_OPEN_CLAW = 0.1;
+        public static final double OPEN_POWER = -0.8;
+        public static final double CLOSE_POWER = 0.8;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
     }
 
-    // TODO: outtake state
-    public static final class OuttakeState {
+    public static final class OUTTAKE_STATE {
         public static final double SHOULDER_POSITION = 0.0;
         public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 1600.0;
+        public static final double ELBOW_POSITION = 59500.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT - 1000.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT - 1000.0;
-        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT - 1000.0;
+        public static final double SHOULDER_POSITION = 63300.0; 
+        public static final double ELBOW_POSITION = 84300.0; 
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
 
     public static final class HIGH_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 56500.0;
+        public static final double ELBOW_POSITION = 80000.0;
+        public static final double ALLOWANCE = 0.0;
+        public static final double TIME = 0.0;
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT / 2.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT / 2.0;
-        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT / 2.0;
+        public static final double SHOULDER_POSITION = 43000.0;
+        public static final double ELBOW_POSITION = 57000.0;
     }
 
     public static final class MID_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 38400.0;
+        public static final double ELBOW_POSITION = 68100.0;
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = Constants.SHOULDER_MOTOR.TRAVEL_LIMIT  / 3.0;
-        public static final double ELBOW_POSITION = Constants.ELBOW_MOTOR.TRAVEL_LIMIT  / 3.0;
-        public static final double WRIST_POSITION = Constants.WRIST_MOTOR.TRAVEL_LIMIT  / 3.0;
+        public static final double SHOULDER_POSITION = 12250.0;
+        public static final double ELBOW_POSITION = 51000.0;
     }
 
     public static final class LOW_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 12250.0;
+        public static final double ELBOW_POSITION = 51000.0;
     }
 
     public static final class SUBSTATION_INTAKE {
-        public static final double SHOULDER_POSITION = 0.0;
-        public static final double ELBOW_POSITION = 0.0;
-        public static final double WRIST_POSITION = 0.0;
+        public static final double SHOULDER_POSITION = 48000.0;
+        public static final double ELBOW_POSITION = 93000.0;
     }
 
     public static final class BALANCE_PITCH_PID {
@@ -373,7 +355,12 @@ public final class Constants {
          * in teleop state:
          *  Zeros the gyro of the robot and changes its field alignment
          */
-        public static final int ZERO_GYRO = XboxController.Axis.kLeftTrigger.value;
+        public static final int ZERO_GYRO = XboxController.Button.kX.value;
+
+        public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
+
+        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
     }
 
     public static final class ManipulatorControls {
@@ -396,7 +383,6 @@ public final class Constants {
          * in idle state:
          *  moves arm into the ground intake position, front and back respectively
          */
-        public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
 
         /*
@@ -409,8 +395,6 @@ public final class Constants {
          * in manual control state:
          *  commands all the joints of the robot arm directly
          */
-        public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
-        public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
         public static final int ELBOW_AXIS = XboxController.Axis.kLeftY.value;
         public static final int SHOULDER_AXIS = XboxController.Axis.kRightY.value;
 
@@ -420,12 +404,16 @@ public final class Constants {
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
 
+        /* in manual mode:
+         *  indicates that we have a cube or cone
+         */
+        public static final int MANUAL_CUBE_INDICATOR = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_CONE_INDICATOR = XboxController.Axis.kLeftTrigger.value;
+
         /*
          * in idle mode:
          *  sets the arm position into the endgame position
          */
         public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
-
-        // outtake button is in OuttakeState.java because it is a POV
     }
 }

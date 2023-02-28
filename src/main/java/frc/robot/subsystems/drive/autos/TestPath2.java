@@ -24,43 +24,21 @@ import frc.robot.lib.auto.actions.WaitAction;
 import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Simple auto path for testing */
-public class TestPath extends AutoModeBase {
+public class TestPath2 extends AutoModeBase {
 
+    static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(0.25, 0.25));
     // trajectory action
     TrajectoryAction testDrive1;
-    TrajectoryAction testDrive2;
 
-    public TestPath() {
+    public TestPath2() {
         
         SmartDashboard.putBoolean("Auto Finished", false);
         
-        ArrayList<PathPlannerTrajectory> testPath = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
-            "Test Path", 
-            new PathConstraints(0.25, 0.25)
-        );
-
-        for(int i = 0; i < testPath.size(); i++) {
-            testPath.set(
-                i, 
-                PathPlannerTrajectory.transformTrajectoryForAlliance(testPath.get(i), DriverStation.getAlliance())
-            );
-        }
-
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
     
         testDrive1 = new TrajectoryAction(
-            testPath.get(0), 
-            RobotMap.swerve::getPose, 
-            Constants.SWERVE.SWERVE_KINEMATICS, 
-            Constants.SWERVE.Profile.X_CONTROLLER,
-            Constants.SWERVE.Profile.Y_CONTROLLER,
-            thetaController,
-            RobotMap.swerve::setModuleStates
-        );
-
-        testDrive2 = new TrajectoryAction(
-            testPath.get(1), 
+            testPath, 
             RobotMap.swerve::getPose, 
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
@@ -78,8 +56,6 @@ public class TestPath extends AutoModeBase {
 
         // drive
         runAction(testDrive1);
-
-        runAction(testDrive2);
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);

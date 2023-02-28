@@ -18,7 +18,7 @@ public class OuttakeState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButtonPressed(Constants.ManipulatorControls.IDLE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
@@ -30,14 +30,14 @@ public class OuttakeState extends State {
     public void init() {
         openRequested = false;
         RobotMap.arm.moveArmPosition(
-            Constants.OuttakeState.SHOULDER_POSITION, 
-            Constants.OuttakeState.ELBOW_POSITION, 
-            Constants.OuttakeState.WRIST_POSITION);
+            Constants.OUTTAKE_STATE.SHOULDER_POSITION, 
+            Constants.OUTTAKE_STATE.ELBOW_POSITION
+        );
     }
 
     @Override
     public void execute() {
-        if (RobotMap.arm.getArrived(Constants.OuttakeState.ALLOWANCE, Constants.OuttakeState.TIME) && !openRequested) {
+        if (RobotMap.arm.getArrived(Constants.OUTTAKE_STATE.ALLOWANCE, Constants.OUTTAKE_STATE.TIME) && !openRequested) {
             Claw.openRequest = true;
         }
     }

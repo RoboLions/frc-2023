@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
@@ -24,14 +25,15 @@ public class RobotMap {
 
     /* Motor instances */
     public static WPI_Pigeon2 gyro;
-    public static WPI_TalonFX elbowMotor;
-    public static WPI_TalonFX shoulderMotor;
-    public static WPI_TalonFX wristMotor;
+    public static WPI_TalonFX leftElbowMotor;
+    public static WPI_TalonFX rightElbowMotor;
+    public static WPI_TalonFX leftShoulderMotor;
+    public static WPI_TalonFX rightShoulderMotor;
     public static VictorSPX clawMotor;
-    // TODO: tbd intake motors
 
     /* Sensor instances */
     public static ColorSensorV3 clawColorSensor;
+    public static Encoder clawEncoder;
 
     /* Smart Dashboard Instances */
     public static Field2d Field2d;
@@ -47,17 +49,20 @@ public class RobotMap {
 
     public static void init() {
         
-        gyro = new WPI_Pigeon2(Constants.CAN_IDS.PIDGEON);
-        shoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.SHOULDER_MOTOR);
-        elbowMotor = new WPI_TalonFX(Constants.CAN_IDS.ELBOW_MOTOR);
-        wristMotor = new WPI_TalonFX(Constants.CAN_IDS.WRIST_MOTOR);
+        gyro = new WPI_Pigeon2(Constants.CAN_IDS.PIDGEON, "Swerve");
+        leftShoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
+        rightShoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_SHOULDER_MOTOR);
+        leftElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
+        rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
         clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
         clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
+        //clawEncoder = new Encoder(Constants.CLAW.CHANNEL_A, Constants.CLAW.CHANNEL_B, Constants.CLAW.INVERT_ENCODER);
 
         gyro.configFactoryDefault();
-        shoulderMotor.configFactoryDefault();
-        elbowMotor.configFactoryDefault();
-        wristMotor.configFactoryDefault();
+        leftShoulderMotor.configFactoryDefault();
+        rightShoulderMotor.configFactoryDefault();
+        leftElbowMotor.configFactoryDefault();
+        rightElbowMotor.configFactoryDefault();
         clawMotor.configFactoryDefault();
         
         swerve = new Swerve();

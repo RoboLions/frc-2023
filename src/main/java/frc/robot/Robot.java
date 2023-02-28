@@ -6,6 +6,9 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -13,6 +16,10 @@ import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
+import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.arm.IdleState;
+import frc.robot.subsystems.claw.ClawStateMachine;
+import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -33,6 +40,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
+    RobotMap.arm.resetEncoders();
     SmartDashboard.putData("Field", RobotMap.Field2d);
   }
 
@@ -56,9 +64,26 @@ public class Robot extends TimedRobot {
     // see robot pose on Glass
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
     
-    SmartDashboard.putNumber("Integrated Encoder Shoulder", RobotMap.shoulderMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Elbow", RobotMap.elbowMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Wrist", RobotMap.wristMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
+    SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());
+    SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
+    
+    SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
+    SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
+    SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
+
+    SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
+    SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
+    Color read_color = RobotMap.claw.getColor();
+    SmartDashboard.putString("Detected closest color", read_color == null ? "" : read_color.toString());
+    SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
+    SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
   }
 
   /**
@@ -90,7 +115,14 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    RobotMap.arm.resetEncoders();
+    RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
+    RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
+    
+    RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
+
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }
@@ -107,6 +139,12 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    
+    RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
+    
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }

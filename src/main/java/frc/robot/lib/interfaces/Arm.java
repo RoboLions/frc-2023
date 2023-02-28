@@ -4,6 +4,7 @@
 
 package frc.robot.lib.interfaces;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -20,68 +21,79 @@ public class Arm {
     private Timer timer = new Timer();
 
     public Arm() {
-        RobotMap.shoulderMotor.setNeutralMode(NeutralMode.Coast);
-        RobotMap.elbowMotor.setNeutralMode(NeutralMode.Coast);
-        RobotMap.wristMotor.setNeutralMode(NeutralMode.Coast);
+        RobotMap.rightShoulderMotor.setInverted(true);
+        RobotMap.rightElbowMotor.setInverted(true);
 
-        RobotMap.wristMotor.setInverted(true);
+        RobotMap.leftShoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.rightShoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.leftElbowMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.rightElbowMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
 
-        RobotMap.shoulderMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
-        RobotMap.elbowMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
-        RobotMap.wristMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+        RobotMap.leftShoulderMotor.configNominalOutputForward(0, 10);
+        RobotMap.leftShoulderMotor.configNominalOutputReverse(0, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.15, 10);
+        RobotMap.leftShoulderMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.shoulderMotor.configNominalOutputForward(0, 10);
-        RobotMap.shoulderMotor.configNominalOutputReverse(0, 10);
-        RobotMap.shoulderMotor.configPeakOutputForward(1.0, 10);
-        RobotMap.shoulderMotor.configPeakOutputReverse(-1.0, 10);
-        RobotMap.shoulderMotor.configNeutralDeadband(0.001, 10);
+        RobotMap.rightShoulderMotor.configNominalOutputForward(0, 10);
+        RobotMap.rightShoulderMotor.configNominalOutputReverse(0, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.15, 10);
+        RobotMap.rightShoulderMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.elbowMotor.configNominalOutputForward(0, 10);
-        RobotMap.elbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.elbowMotor.configPeakOutputForward(1.0, 10);
-        RobotMap.elbowMotor.configPeakOutputReverse(-1.0, 10);
-        RobotMap.elbowMotor.configNeutralDeadband(0.001, 10);
+        RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);
+        RobotMap.leftElbowMotor.configNominalOutputReverse(0, 10);
+        RobotMap.leftElbowMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.15, 10);
+        RobotMap.leftElbowMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.wristMotor.configNominalOutputForward(0, 10);
-        RobotMap.wristMotor.configNominalOutputReverse(0, 10);
-        RobotMap.wristMotor.configPeakOutputForward(1.0, 10);
-        RobotMap.wristMotor.configPeakOutputReverse(-1.0, 10);
-        RobotMap.wristMotor.configNeutralDeadband(0.001, 10);
+        RobotMap.rightElbowMotor.configNominalOutputForward(0, 10);
+        RobotMap.rightElbowMotor.configNominalOutputReverse(0, 10);
+        RobotMap.rightElbowMotor.configPeakOutputForward(0.15, 10);
+        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.15, 10);
+        RobotMap.rightElbowMotor.configNeutralDeadband(0.001, 10);
 
-        RobotMap.shoulderMotor.configAllowableClosedloopError(0, 0, 10);
-        RobotMap.elbowMotor.configAllowableClosedloopError(0, 0, 10);
-        RobotMap.wristMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.leftShoulderMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.rightShoulderMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.leftElbowMotor.configAllowableClosedloopError(0, 0, 10);
+        RobotMap.rightElbowMotor.configAllowableClosedloopError(0, 0, 10);
+        
+        RobotMap.leftShoulderMotor.configForwardSoftLimitEnable(true);
+        RobotMap.rightShoulderMotor.configForwardSoftLimitEnable(true);
+        RobotMap.leftElbowMotor.configForwardSoftLimitEnable(true);
+        RobotMap.rightElbowMotor.configForwardSoftLimitEnable(true);
 
-        RobotMap.shoulderMotor.configForwardSoftLimitEnable(true);
-        RobotMap.elbowMotor.configForwardSoftLimitEnable(true);
-        RobotMap.wristMotor.configForwardSoftLimitEnable(true);
+        RobotMap.leftShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT);
 
-        RobotMap.shoulderMotor.configForwardSoftLimitThreshold(Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.elbowMotor.configForwardSoftLimitThreshold(Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.wristMotor.configForwardSoftLimitThreshold(Constants.WRIST_MOTOR.TRAVEL_LIMIT);
+        RobotMap.leftShoulderMotor.configReverseSoftLimitThreshold(Constants.SHOULDER_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.configReverseSoftLimitThreshold(Constants.SHOULDER_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
+        RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
 
-        RobotMap.shoulderMotor.configReverseSoftLimitThreshold(-Constants.SHOULDER_MOTOR.TRAVEL_LIMIT);
-        RobotMap.elbowMotor.configReverseSoftLimitThreshold(-Constants.ELBOW_MOTOR.TRAVEL_LIMIT);
-        RobotMap.wristMotor.configReverseSoftLimitThreshold(-Constants.WRIST_MOTOR.TRAVEL_LIMIT);
+        RobotMap.rightShoulderMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
+        RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
     }
 
     public void setIdle() {
-        moveArmPosition(0.0, 0.0, 0.0);
+        moveArmPosition(0.0, 0.0);
     }
 
-    public void moveArmPosition(double shoulder, double elbow, double wrist) {
-        RobotMap.shoulderMotor.set(TalonFXControlMode.Position, shoulder);
-        RobotMap.elbowMotor.set(TalonFXControlMode.Position, elbow);
-        RobotMap.wristMotor.set(TalonFXControlMode.Position, wrist);
+    public void moveArmPosition(double shoulder, double elbow) {
+        RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
+        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, elbow);
     }
 
     // method to check if arm has arrived at its position
     public Boolean getArrived(double allowance, double time) {
 
         // TODO: test and change error allowance
-        if (Math.abs(RobotMap.shoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
-            Math.abs(RobotMap.elbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
-            Math.abs(RobotMap.wristMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
+        if (Math.abs(RobotMap.leftShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
+            Math.abs(RobotMap.rightShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) &&
+            Math.abs(RobotMap.leftElbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
+            Math.abs(RobotMap.rightElbowMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
 
             if (!timerStarted) {
                 timer.start();
@@ -129,9 +141,10 @@ public class Arm {
     }
 
     public void resetEncoders() {
-        RobotMap.shoulderMotor.setSelectedSensorPosition(0.0);
-        RobotMap.elbowMotor.setSelectedSensorPosition(0.0);
-        RobotMap.wristMotor.setSelectedSensorPosition(0.0);
+        RobotMap.leftShoulderMotor.setSelectedSensorPosition(0.0);
+        RobotMap.rightShoulderMotor.setSelectedSensorPosition(0.0);
+        RobotMap.leftElbowMotor.setSelectedSensorPosition(0.0);
+        RobotMap.rightElbowMotor.setSelectedSensorPosition(0.0);
     }
 
     public double applyDeadband(double armManualInput) {
@@ -139,20 +152,5 @@ public class Arm {
             return armManualInput;
         }
         return 0.0;
-    }
-
-    public double getScoringDirectionModifier() {
-        double current_rotation = RobotMap.swerve.getPose().getRotation().getDegrees();
-        boolean heading_left = current_rotation > 90 && current_rotation < 270;
-        double modifier = (!heading_left &&
-                DriverStation.getAlliance() == DriverStation.Alliance.Red) ||
-            (heading_left &&
-                DriverStation.getAlliance() == DriverStation.Alliance.Blue) ?
-                1.0 : -1.0;
-        return modifier;
-    }
-
-    public double getSubstationDirectionModifier() {
-        return -1.0 * getScoringDirectionModifier();
     }
 }

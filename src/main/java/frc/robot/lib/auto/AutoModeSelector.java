@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drive.autos.BotSimpleScore;
 import frc.robot.subsystems.drive.autos.DoNothing;
 import frc.robot.subsystems.drive.autos.TestPath;
+import frc.robot.subsystems.drive.autos.TestPath2;
 
 public class AutoModeSelector {
     enum DesiredMode {
         DO_NOTHING, 
-        TEST_PATH,
+        TEST_PATH_2,
         BOT_SIMPLE_SCORE
     }
 
@@ -28,7 +29,7 @@ public class AutoModeSelector {
     public AutoModeSelector() {
         mModeChooser = new SendableChooser<>();
         mModeChooser.setDefaultOption("Do Nothing", DesiredMode.DO_NOTHING);
-        mModeChooser.addOption("Test Path", DesiredMode.TEST_PATH);
+        mModeChooser.addOption("Test Path", DesiredMode.TEST_PATH_2);
         mModeChooser.addOption("Bot Simple Score Path", DesiredMode.BOT_SIMPLE_SCORE);
         
         SmartDashboard.putData("Auto Mode", mModeChooser);
@@ -51,8 +52,8 @@ public class AutoModeSelector {
         case DO_NOTHING:
             return Optional.of(new DoNothing());
 
-        case TEST_PATH:
-            return Optional.of(new TestPath());
+        case TEST_PATH_2:
+            return Optional.of(new TestPath2());
 
         case BOT_SIMPLE_SCORE:
             return Optional.of(new BotSimpleScore());
