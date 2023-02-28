@@ -27,6 +27,5 @@ public class ClawStateMachine extends StateMachine {
         manualClaw.build();
 
         setCurrentState(openState);
-        // setCurrentState(manualClaw);
     }
 }

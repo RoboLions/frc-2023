@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
+    RobotMap.arm.resetEncoders();
     SmartDashboard.putData("Field", RobotMap.Field2d);
   }
 
@@ -114,7 +115,6 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    RobotMap.arm.resetEncoders();
     RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
     RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
     
@@ -122,8 +122,6 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
-
-    //RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.65);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();

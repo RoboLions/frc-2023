@@ -44,20 +44,18 @@ public class ScoreMidState extends State {
             return;
         }
 
-        double modifier = RobotMap.arm.getScoringDirectionModifier();
-
         if (current_color == Constants.CLAW.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
-                modifier * Constants.MID_SCORE_CONE.ELBOW_POSITION
+                Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
+                Constants.MID_SCORE_CONE.ELBOW_POSITION
             );
             return;
         }
 
         if (current_color == Constants.CLAW.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
-                modifier * Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
-                modifier * Constants.MID_SCORE_CONE.ELBOW_POSITION
+                Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
+                Constants.MID_SCORE_CONE.ELBOW_POSITION
             );
             return;
         }

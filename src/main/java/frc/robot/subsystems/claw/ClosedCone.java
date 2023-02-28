@@ -16,14 +16,13 @@ public class ClosedCone extends State {
     @Override
     public void build() {
         // if we don't detect a cone, open the claw
-        /*transitions.add(new Transition(() -> {
+        transitions.add(new Transition(() -> {
             return RobotMap.claw.getColor() != Constants.CLAW.CONE_COLOR && !Claw.closeRequest;
         }, ClawStateMachine.openingState));
 
         transitions.add(new Transition(() -> {
             return Claw.openRequest;
         }, ClawStateMachine.openingState));
-        */
 
         // open the claw if driver presses right trigger
         transitions.add(new Transition(() -> {

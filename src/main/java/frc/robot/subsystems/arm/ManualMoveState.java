@@ -4,43 +4,40 @@
 
 package frc.robot.subsystems.arm;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.Constants.ManipulatorControls;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class BPickupState extends State {
-   
+public class ManualMoveState extends State {
+
     @Override
     public void build() {
-        // Go to IDLE Transitions
+        // idle if idle button
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != null &&
-                RobotMap.claw.isClosed();
         }, ArmStateMachine.idleState));
     }
 
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(
-            -1.0 * Constants.GROUND_INTAKE.SHOULDER_POSITION, 
-            -1.0 * Constants.GROUND_INTAKE.ELBOW_POSITION
-        );
     }
 
     @Override
     public void execute() {
-        
+        double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
+        RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
+
+        double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
+        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(-shoulderInput));
     }
 
     @Override
     public void exit() {
         
     }
-
 }

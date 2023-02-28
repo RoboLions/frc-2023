@@ -56,9 +56,8 @@ public class IdleState extends State {
     @Override
     public void init() {
         RobotMap.arm.setIdle();
-        Claw.openRequest = true;
-        Claw.closeRequest = true;
-        // RobotMap.arm.resetEncoders(); TODO uncomment when ready
+        Claw.openRequest = false;
+        Claw.closeRequest = false;
     }
 
     @Override

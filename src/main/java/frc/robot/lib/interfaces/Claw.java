@@ -36,15 +36,6 @@ public class Claw {
         RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
-
-        /*clawPID.initialize(
-                        0.0, // Proportional Gain 0.02
-                        0.0, // Integral Gain .311
-                        0.0, // Derivative Gain
-                        1, // Cage Limit
-                        1, // Deadband
-                        2 // MaxOutput hard deadband as to what the maximum possible command is
-        );*/ 
     }
 
     public Color getColor() {
@@ -57,35 +48,15 @@ public class Claw {
         return null;*/
     }
 
-    /*public int getClawEncoder() {
-        return RobotMap.clawEncoder.get();
-    }
- 
-    public boolean getDirection() {
-        return RobotMap.clawEncoder.getDirection();
-    }
-
-    public void moveClawToPosition(double target, double feedback) {
-        double claw_cmd = clawPID.execute(target, feedback);
-    
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, claw_cmd);
-      }*/
-
     public void setClawOpen() {
-        // moveClawToPosition(Constants.CLAW.OPEN_POSITION, getClawEncoder());
-        
         RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
     }
 
     public void setClawClosedCube() {
-        // moveClawToPosition(Constants.CLAW.CLOSED_CUBE_POSITION, getClawEncoder());
-        
         RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.8);
     }
 
     public void setClawClosedCone() {
-        // moveClawToPosition(Constants.CLAW.CLOSED_CONE_POSITION, getClawEncoder());
-        
         RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.8);
     }
 

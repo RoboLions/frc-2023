@@ -24,7 +24,6 @@ public final class Constants {
 
     public static final class CAN_IDS {
         /* Motor + sensor IDs */
-        // TODO: change IDs
         public static final int PIDGEON = 5;
         public static final int LEFT_SHOULDER_MOTOR = 50;
         public static final int RIGHT_SHOULDER_MOTOR = 51;
@@ -34,7 +33,6 @@ public final class Constants {
     }
 
     public static final class PORTS {
-        // TODO: change port
         public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
     }
 
@@ -47,7 +45,7 @@ public final class Constants {
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.0);
         public static final double WHEEL_BASE = Units.inchesToMeters(22.0); 
-        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875);
+        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875); // TODO: check
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         /* Swerve Kinematics 
@@ -237,19 +235,6 @@ public final class Constants {
     }
 
     public static final class CLAW {
-        // public static final double P = 0.0;
-        // public static final double I = 0.0;
-        // public static final double D = 0.0;
-        // public static final double F = 0.0;
-
-        // public static final int CHANNEL_A = 0;
-        // public static final int CHANNEL_B = 1;
-        // public static final boolean INVERT_ENCODER = false;
-
-        // public static final double CLOSED_CUBE_POSITION = 0.0;
-        // public static final double CLOSED_CONE_POSITION = 0.0;
-        // public static final double OPEN_POSITION = 0.0;
-
         public static final double TIME_CLOSE_ON_CONE = 0.8;
         public static final double TIME_CLOSE_ON_CUBE = 0.4;
         public static final double TIME_OPEN_CLAW = 0.3;
@@ -276,8 +261,8 @@ public final class Constants {
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 63300.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT - 1000.0;
-        public static final double ELBOW_POSITION = 84300.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT - 1000.0;
+        public static final double SHOULDER_POSITION = 63300.0; 
+        public static final double ELBOW_POSITION = 84300.0; 
         public static final double ALLOWANCE = 0.0;
         public static final double TIME = 0.0;
     }
@@ -290,8 +275,8 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 43000.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT / 2.0;
-        public static final double ELBOW_POSITION = 57000.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT / 2.0;
+        public static final double SHOULDER_POSITION = 43000.0;
+        public static final double ELBOW_POSITION = 57000.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -300,8 +285,8 @@ public final class Constants {
     }
 
     public static final class LOW_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 12250.0; // Constants.SHOULDER_MOTOR.F_TRAVEL_LIMIT  / 3.0;
-        public static final double ELBOW_POSITION = 51000.0; // Constants.ELBOW_MOTOR.F_TRAVEL_LIMIT  / 3.0;
+        public static final double SHOULDER_POSITION = 12250.0;
+        public static final double ELBOW_POSITION = 51000.0;
     }
 
     public static final class LOW_SCORE_CUBE {
@@ -398,7 +383,6 @@ public final class Constants {
          * in idle state:
          *  moves arm into the ground intake position, front and back respectively
          */
-        // public static final int GROUND_INTAKE_BACK = XboxController.Axis.kLeftTrigger.value;
         public static final int GROUND_INTAKE_FRONT = XboxController.Axis.kRightTrigger.value;
 
         /*
@@ -411,8 +395,6 @@ public final class Constants {
          * in manual control state:
          *  commands all the joints of the robot arm directly
          */
-        // public static final int WRIST_FORWARD_AXIS = XboxController.Axis.kLeftTrigger.value;
-        // public static final int WRIST_BACKWARD_AXIS = XboxController.Axis.kRightTrigger.value;
         public static final int ELBOW_AXIS = XboxController.Axis.kLeftY.value;
         public static final int SHOULDER_AXIS = XboxController.Axis.kRightY.value;
 
@@ -433,7 +415,5 @@ public final class Constants {
          *  sets the arm position into the endgame position
          */
         public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
-
-        // outtake button is in OuttakeState.java because it is a POV
     }
 }
