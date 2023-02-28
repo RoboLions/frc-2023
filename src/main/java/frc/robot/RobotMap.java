@@ -56,7 +56,7 @@ public class RobotMap {
         rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
         clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
         clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
-        clawEncoder = new Encoder(Constants.CLAW.CHANNEL_A, Constants.CLAW.CHANNEL_B, Constants.CLAW.INVERT_ENCODER);
+        //clawEncoder = new Encoder(Constants.CLAW.CHANNEL_A, Constants.CLAW.CHANNEL_B, Constants.CLAW.INVERT_ENCODER);
 
         gyro.configFactoryDefault();
         leftShoulderMotor.configFactoryDefault();

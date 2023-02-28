@@ -18,6 +18,7 @@ import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.arm.IdleState;
+import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -66,7 +67,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
+    // SmartDashboard.putNumber("Claw Encoder", RobotMap.claw.getClawEncoder());
     SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
     SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());

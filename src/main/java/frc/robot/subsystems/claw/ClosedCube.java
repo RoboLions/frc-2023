@@ -32,7 +32,7 @@ public class ClosedCube extends State {
 
     @Override
     public void init() {
-        RobotMap.claw.setClawClosedCube();
+        
     }
 
     @Override

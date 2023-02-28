@@ -29,7 +29,7 @@ public class IdleState extends State {
 
         // pickup from ground
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.GROUND_INTAKE_FRONT);
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
         }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {

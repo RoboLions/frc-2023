@@ -237,22 +237,25 @@ public final class Constants {
     }
 
     public static final class CLAW {
-        public static final double P = 0.0;
-        public static final double I = 0.0;
-        public static final double D = 0.0;
-        public static final double F = 0.0;
+        // public static final double P = 0.0;
+        // public static final double I = 0.0;
+        // public static final double D = 0.0;
+        // public static final double F = 0.0;
 
-        public static final int CHANNEL_A = 0;
-        public static final int CHANNEL_B = 1;
-        public static final boolean INVERT_ENCODER = false;
+        // public static final int CHANNEL_A = 0;
+        // public static final int CHANNEL_B = 1;
+        // public static final boolean INVERT_ENCODER = false;
 
-        public static final double CLOSED_CUBE_POSITION = 0.0;
-        public static final double CLOSED_CONE_POSITION = 0.0;
-        public static final double OPEN_POSITION = 0.0;
+        // public static final double CLOSED_CUBE_POSITION = 0.0;
+        // public static final double CLOSED_CONE_POSITION = 0.0;
+        // public static final double OPEN_POSITION = 0.0;
 
-        public static final double TIME_CLOSE_ON_CONE = 0.5;
-        public static final double TIME_CLOSE_ON_CUBE = 0.1;
-        public static final double TIME_OPEN_CLAW = 0.1;
+        public static final double TIME_CLOSE_ON_CONE = 0.8;
+        public static final double TIME_CLOSE_ON_CUBE = 0.4;
+        public static final double TIME_OPEN_CLAW = 0.3;
+
+        public static final double OPEN_POWER = -0.8;
+        public static final double CLOSE_POWER = 0.8;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
