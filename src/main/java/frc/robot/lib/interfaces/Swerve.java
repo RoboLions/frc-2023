@@ -21,7 +21,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 import frc.robot.RobotMap;
 
 /** Class with methods that get used in states of DrivetrainStateMachine */
@@ -39,6 +42,8 @@ public class Swerve {
     private Pose2d closestPose;
     public static int poseNumber;
     public static AprilTagFieldLayout aprilTagFieldLayout;
+
+    public static Timer timer = new Timer();
 
     public Swerve() {
         
@@ -141,6 +146,26 @@ public class Swerve {
         swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
     }
 
+    private void updateSwervePoseLimelight() {
+        timer.reset();
+        timer.start();
+        Pose2d botPose2d = LimelightHelpers.getBotPose2d(Constants.LIMELIGHT.NAME);
+        double tl = LimelightHelpers.getLatency_Pipeline(Constants.LIMELIGHT.NAME);
+        double tc = LimelightHelpers.getLatency_Capture(Constants.LIMELIGHT.NAME);
+        timer.stop();
+
+        SmartDashboard.putNumber("LL pose data X", botPose2d.getTranslation().getX());
+        SmartDashboard.putNumber("LL pose data Y", botPose2d.getTranslation().getY());
+        SmartDashboard.putNumber("LL pose data rotation", botPose2d.getRotation().getDegrees());
+        SmartDashboard.putNumber("LL delay", timer.get() / 1000.0);
+
+        swerveOdometry.addVisionMeasurement(botPose2d, 
+        Timer.getFPGATimestamp() - 
+            (tl/1000.0) - 
+            (tc/1000.0)
+        );
+    }
+
     public Pose2d getPose() {
         return swerveOdometry.getEstimatedPosition();
     }
@@ -189,6 +214,7 @@ public class Swerve {
     public void updatePoses() {
         updateSwervePoseAprilTags();
         updateSwervePoseKinematics();
+        updateSwervePoseLimelight();
     }
 
     /** Updates the field relative position of the robot. */

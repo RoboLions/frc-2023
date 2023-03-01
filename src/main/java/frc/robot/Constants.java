@@ -36,6 +36,10 @@ public final class Constants {
         public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
     }
 
+    public static final class LIMELIGHT {
+        public static final String NAME = "limelight";
+    }
+
     public static final class SWERVE {
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
 
@@ -45,7 +49,7 @@ public final class Constants {
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(22.0);
         public static final double WHEEL_BASE = Units.inchesToMeters(22.0); 
-        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.875); // TODO: check
+        public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.9);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         /* Swerve Kinematics 

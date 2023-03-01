@@ -38,6 +38,6 @@ public class ManualMoveState extends State {
 
     @Override
     public void exit() {
-        
+        RobotMap.arm.resetEncoders();
     }
 }
