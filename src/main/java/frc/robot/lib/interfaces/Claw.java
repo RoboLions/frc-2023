@@ -10,6 +10,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.claw.ClawStateMachine;
@@ -31,13 +33,13 @@ public class Claw {
     }
 
     public Color getColor() {
-        return Constants.CLAW.CONE_COLOR;
+        // return Constants.CLAW.CONE_COLOR;
         
-        /*ColorMatchResult match = colorMatcher.matchClosestColor(RobotMap.clawColorSensor.getColor());
+        ColorMatchResult match = colorMatcher.matchClosestColor(RobotMap.clawColorSensor.getColor());
         if (match.confidence > 0.9) {
             return match.color;
         }
-        return null;*/
+        return null;
     }
 
     public void setClawOpen() {

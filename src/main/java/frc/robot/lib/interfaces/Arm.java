@@ -87,7 +87,6 @@ public class Arm {
     // method to check if arm has arrived at its position
     public Boolean getArrived(double allowance, double time) {
 
-        // TODO: test and change error allowance
         if (Math.abs(RobotMap.leftShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
             Math.abs(RobotMap.rightShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) &&
             Math.abs(RobotMap.leftElbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
