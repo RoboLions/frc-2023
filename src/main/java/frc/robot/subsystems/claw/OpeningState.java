@@ -22,7 +22,7 @@ public class OpeningState extends State {
     public void build() {
         // claw is now open after x seconds
         transitions.add(new Transition(() -> {
-            return openingStateTimer.get() > (Constants.CLAW.TIME_OPEN_CLAW + 0.05);
+            return openingStateTimer.get() > (Constants.CLAW.TIME_OPEN_CLAW + 0.4);
         }, ClawStateMachine.openState));
     }
 

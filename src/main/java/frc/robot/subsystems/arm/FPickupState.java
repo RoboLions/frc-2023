@@ -8,6 +8,7 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
 public class FPickupState extends State {
@@ -20,8 +21,7 @@ public class FPickupState extends State {
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != null &&
-                RobotMap.claw.isClosed();
+            return (RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube);
         }, ArmStateMachine.idleState));
     }
 

@@ -39,7 +39,6 @@ public class ClosingCube extends State {
         // apply power to claw motor long enough to close on the cube
         if (closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE)) {
             RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
-            closingCubeTimer.stop();
         } else {
             RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.CLOSE_POWER);
         }
@@ -48,6 +47,7 @@ public class ClosingCube extends State {
 
     @Override
     public void exit() {
+        closingCubeTimer.stop();
         closingCubeTimer.reset();
     }
     

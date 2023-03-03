@@ -17,7 +17,7 @@ public class OpenState extends State {
     public void build() {
         // close on a cube if "close request" and color sensor == purple
         transitions.add(new Transition(() -> {
-            return (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) && Claw.closeRequest;
+            return (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR);
         }, ClawStateMachine.closingCube));
 
         //TODO: Figure out which state to transition to based on request
@@ -27,11 +27,15 @@ public class OpenState extends State {
     
         // close on a cone if "close request" and color sensor == yellow
         transitions.add(new Transition(() -> {
-            return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) && Claw.closeRequest;
+            return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR);
         }, ClawStateMachine.closingCone));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.DriverButtons.MANUAL_CLAW_BUTTON);
+            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > 0.25;
+        }, ClawStateMachine.openingState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawButton(Constants.DriverButtons.MANUAL_CLAW_BUTTON);
         }, ClawStateMachine.manualClaw));
     }
 
