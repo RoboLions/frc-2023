@@ -5,6 +5,8 @@
 package frc.robot.lib.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -89,6 +91,7 @@ public class TrajectoryAction implements Action {
 
         var targetChassisSpeeds =
             m_controller.calculate(m_pose.get(), desiredState, desiredState.poseMeters.getRotation());
+        System.out.println(desiredState.poseMeters.getRotation().getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
         var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
         
         m_outputModuleStates.accept(targetModuleStates);

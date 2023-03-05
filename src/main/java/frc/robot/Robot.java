@@ -15,6 +15,7 @@ import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
