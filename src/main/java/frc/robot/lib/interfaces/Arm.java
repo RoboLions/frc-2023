@@ -117,29 +117,29 @@ public class Arm {
         return false;
     }
 
-    public boolean getClawClosed() {
+    // public boolean getClawClosed() {
 
-        // assume claw is closed after some # of seconds
-        if (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) {
-            timer.start();
-            if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE)) {
-                timer.stop();
-                timer.reset();
-                return true;
-            }
-        }
+    //     // assume claw is closed after some # of seconds
+    //     if (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) {
+    //         timer.start();
+    //         if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE)) {
+    //             timer.stop();
+    //             timer.reset();
+    //             return true;
+    //         }
+    //     }
 
-        if (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) {
-            timer.start();
-            if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CONE)) {
-                timer.stop();
-                timer.reset();
-                return true;
-            }
-        }
+    //     if (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) {
+    //         timer.start();
+    //         if (timer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CONE)) {
+    //             timer.stop();
+    //             timer.reset();
+    //             return true;
+    //         }
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     public void resetEncoders() {
         RobotMap.leftShoulderMotor.setSelectedSensorPosition(0.0);

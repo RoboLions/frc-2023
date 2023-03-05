@@ -5,6 +5,7 @@
 package frc.robot.lib.interfaces;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.util.Color;
@@ -14,6 +15,7 @@ import com.revrobotics.ColorMatchResult;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.RoboLionsPID;
 import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Class with methods related to the claw or color sensor */
@@ -25,11 +27,19 @@ public class Claw {
     public static boolean openRequest = false;
     public static boolean closeRequest = false;
 
+    public static RoboLionsPID clawPID = new RoboLionsPID();
+
     public Claw() {
         colorMatcher = new ColorMatch();
-        RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
+
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
+
+        RobotMap.clawMotor.configPeakOutputForward(0.7);
+        RobotMap.clawMotor.configPeakOutputReverse(-0.7);
+
+        clawPID.initialize(
+            0.1, 0, 0, 0, 0.05, 0.6);
     }
 
     public Color getColor() {

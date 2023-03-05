@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.arm;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
@@ -12,6 +14,8 @@ import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
 public class IdleState extends State {
+
+    private int count = 0;
 
     @Override
     public void build() {
@@ -55,13 +59,14 @@ public class IdleState extends State {
     
     @Override
     public void init() {
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
         RobotMap.arm.setIdle();
-        Claw.requestClawClosed();
+        // Claw.requestClawClosed();
     }
 
     @Override
     public void execute() {
-        
+
     }
 
     @Override

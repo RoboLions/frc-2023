@@ -4,18 +4,18 @@
 
 package frc.robot.subsystems.arm;
 
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.Timer;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
-import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
 public class SubstationIntakeState extends State {
 
-    private Timer substationIntakeTimer = new Timer();
+    private int count = 0;
     
     @Override
     public void build() {
@@ -41,20 +41,25 @@ public class SubstationIntakeState extends State {
             Constants.SUBSTATION_INTAKE.SHOULDER_POSITION, 
             Constants.SUBSTATION_INTAKE.ELBOW_POSITION
         );
-
-        substationIntakeTimer.start();
     }
 
     @Override
     public void execute() {
 
-        // TODO: open request for claw somehow
+        if (count < 10) {
+            RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
+            count++;
+        } else {
+            RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
+        }
+    
     }
 
     @Override
     public void exit() {
-        substationIntakeTimer.stop();
-        substationIntakeTimer.reset();
-        Claw.requestClawClosed();
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.8);
+        for (int i = 0; i < 300; i++) {
+            System.out.println(i);
+        }
     }
 }

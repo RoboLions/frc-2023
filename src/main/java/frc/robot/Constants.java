@@ -239,9 +239,9 @@ public final class Constants {
     }
 
     public static final class CLAW {
-        public static final double TIME_CLOSE_ON_CONE = 0.8;
-        public static final double TIME_CLOSE_ON_CUBE = 0.4;
-        public static final double TIME_OPEN_CLAW = 0.1;
+        public static final double CLOSE_CONE_POSITION = -4.0;
+        public static final double CLOSE_CUBE_POSITION = -115.0;
+        public static final double OPEN_POSITION = -175.0;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -378,8 +378,8 @@ public final class Constants {
          * in manual claw state:
          *  Opens or closes the claw manually
          */
-        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
-        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
+        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kRightTrigger.value;
+        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kLeftTrigger.value;
     }
 
     public static final class ManipulatorControls {

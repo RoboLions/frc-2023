@@ -18,6 +18,7 @@ import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
+import frc.robot.subsystems.claw.ManualClaw;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     RobotMap.init();
     RobotMap.arm.resetEncoders();
+    RobotMap.clawEncoder.reset();
     SmartDashboard.putData("Field", RobotMap.Field2d);
   }
 
@@ -83,7 +85,9 @@ public class Robot extends TimedRobot {
     // Color read_color = RobotMap.claw.getColor();
     // System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
-    // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
+    SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
+    SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
+    SmartDashboard.putNumber("Claw setpoint", ManualClaw.setpoint);
   }
 
   /**

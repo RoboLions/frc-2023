@@ -21,9 +21,9 @@ public class ClosingCube extends State {
     @Override
     public void build() {
         // claw is now closed on a cube after x seconds
-        transitions.add(new Transition(() -> {
-            return closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE);
-        }, ClawStateMachine.closedCube));
+        // transitions.add(new Transition(() -> {
+        //     return closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE);
+        // }, ClawStateMachine.closedCube));
     }
 
     @Override

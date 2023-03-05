@@ -26,6 +26,6 @@ public class ClawStateMachine extends StateMachine {
         closingCube.build();
         manualClaw.build();
 
-        setCurrentState(closedCube);
+        setCurrentState(manualClaw);
     }
 }
