@@ -22,25 +22,19 @@ public class OpeningState extends State {
     public void build() {
         // claw is now open after x seconds
         transitions.add(new Transition(() -> {
-            return openingStateTimer.get() > (Constants.CLAW.TIME_OPEN_CLAW + 0.4);
+            return openingStateTimer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW);
         }, ClawStateMachine.openState));
     }
 
     @Override
     public void init() {
         openingStateTimer.start();
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.OPEN_POWER);
     }
 
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Claw opening timer", openingStateTimer.get());
-
-        // apply power to claw motor for 1 second to open the claw
-        if (openingStateTimer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW)) {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
-        } else {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.OPEN_POWER);
-        }
+        // SmartDashboard.putNumber("Claw opening timer", openingStateTimer.get());
     }
 
     @Override

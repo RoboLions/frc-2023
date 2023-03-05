@@ -76,7 +76,11 @@ public class Arm {
     }
 
     public void setIdle() {
-        moveArmPosition(0.0, 0.0);
+        moveArmPosition(100.0, 0.0);
+    }
+
+    public void setElbowIdle() {
+        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, 40000.0);
     }
 
     public void moveArmPosition(double shoulder, double elbow) {

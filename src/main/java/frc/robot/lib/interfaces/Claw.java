@@ -42,6 +42,16 @@ public class Claw {
         return null;
     }
 
+    public static void requestClawOpen() {
+        Claw.openRequest = true;
+        Claw.closeRequest = false;
+    }
+
+    public static  void requestClawClosed() {
+        Claw.openRequest = false;
+        Claw.closeRequest = true;
+    }
+
     public void setClawOpen() {
         RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
     }

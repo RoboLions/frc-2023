@@ -29,13 +29,14 @@ public class SwerveModule {
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
         this.moduleNumber = moduleNumber;
-        this.angleOffset = moduleConstants.angleOffset;
 
         ctreConfigs = new CTREConfigs();
         
         /* Angle Encoder Config */
         angleEncoder = new CANCoder(moduleConstants.cancoderID, "Swerve");
         configAngleEncoder();
+
+        this.angleOffset = Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
 
         /* Angle Motor Config */
         mAngleMotor = new TalonFX(moduleConstants.angleMotorID, "Swerve");

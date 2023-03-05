@@ -16,6 +16,7 @@ import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -61,27 +62,27 @@ public class Robot extends TimedRobot {
     // see robot pose on Glass
     RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
     
-    SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Integrated Encoder Shoulder (R)", RobotMap.rightShoulderMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Integrated Encoder Elbow (R)", RobotMap.rightElbowMotor.getSelectedSensorPosition());
 
-    // SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
-    // SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
+    // // SmartDashboard.putNumber("Shoulder L Setpoint", RobotMap.leftShoulderMotor.getClosedLoopTarget());
+    // // SmartDashboard.putNumber("Shoulder R Setpoint", RobotMap.rightShoulderMotor.getClosedLoopTarget());
     // SmartDashboard.putNumber("Elbow L Setpoint", RobotMap.leftElbowMotor.getClosedLoopTarget());
     // SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
     
-    SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
-    SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
-    SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
+    // SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
+    // SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
+    // SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
 
-    SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
-    SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
+    // SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
+    // SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
     
-    Color read_color = RobotMap.claw.getColor();
-    SmartDashboard.putString("Detected closest color", read_color == null ? "" : read_color.toString());
+    // Color read_color = RobotMap.claw.getColor();
+    // SmartDashboard.putString("Detected closest color", read_color == null ? "" : read_color.toString());
     // SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
-    SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
+    // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
   }
 
   /**

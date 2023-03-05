@@ -22,26 +22,19 @@ public class ClosingCube extends State {
     public void build() {
         // claw is now closed on a cube after x seconds
         transitions.add(new Transition(() -> {
-            return closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE + 0.1);
+            return closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE);
         }, ClawStateMachine.closedCube));
     }
 
     @Override
     public void init() {
         closingCubeTimer.start();
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.CLOSE_POWER);
     }
 
     @Override
     public void execute() {
-        
-        SmartDashboard.putNumber("Claw closing on cube timer", closingCubeTimer.get());
-
-        // apply power to claw motor long enough to close on the cube
-        if (closingCubeTimer.hasElapsed(Constants.CLAW.TIME_CLOSE_ON_CUBE)) {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
-        } else {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, Constants.CLAW.CLOSE_POWER);
-        }
+        // SmartDashboard.putNumber("Claw closing on cube timer", closingCubeTimer.get());
         
     }
 

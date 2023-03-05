@@ -18,7 +18,7 @@ public class ScoreMidState extends State {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
 
         // transition to high level
         transitions.add(new Transition(() -> {
@@ -40,7 +40,7 @@ public class ScoreMidState extends State {
     public void init() {
         Color current_color = RobotMap.claw.getColor();
         if (current_color == null) {
-            RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
+            RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState);
             return;
         }
 

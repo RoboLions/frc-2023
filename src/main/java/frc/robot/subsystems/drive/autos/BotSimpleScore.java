@@ -38,21 +38,22 @@ public class BotSimpleScore extends AutoModeBase {
         
         // transform trajectory depending on alliance we are on
         PathPlannerTrajectory botSimpleScore = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(0.25, 0.25));
-        List<State> states_before = botSimpleScore.getStates();
-        botSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore, DriverStation.getAlliance());
-        List<State> states_after = botSimpleScore.getStates();
-        boolean temp = false;
-        for (int i = 0; i < states_before.size(); i++) {
-            if (states_before.get(i).equals(states_after.get(i))) {
-                temp = true;
-            }
-        }
-        if (temp) {
-            System.out.println("SOME STATES WERE THE SAME");
-        }
-        else {
-            System.out.println("ALL STATES WERE DIFFERENT");
-        }
+        SmartDashboard.putNumber("rotation pose original", botSimpleScore.getInitialHolonomicPose().getRotation().getDegrees());
+        // List<State> states_before = botSimpleScore.getStates();
+        // botSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore, DriverStation.getAlliance());
+        // List<State> states_after = botSimpleScore.getStates();
+        // boolean temp = false;
+        // for (int i = 0; i < states_before.size(); i++) {
+        //     if (states_before.get(i).equals(states_after.get(i))) {
+        //         temp = true;
+        //     }
+        // }
+        // if (temp) {
+        //     System.out.println("SOME STATES WERE THE SAME");
+        // }
+        // else {
+        //     System.out.println("ALL STATES WERE DIFFERENT");
+        // }
 
         driveOut = new TrajectoryAction(
             botSimpleScore, 
@@ -97,6 +98,12 @@ public class BotSimpleScore extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
+        double xPose = driveOut.getInitialPose().getX();
+        double yPose =  driveOut.getInitialPose().getY();
+        double rotation =  driveOut.getInitialPose().getRotation().getDegrees();
+        SmartDashboard.putNumber("X pose", xPose);
+        SmartDashboard.putNumber("Y pose", yPose);
+        SmartDashboard.putNumber("rotation pose", rotation);
         return driveOut.getInitialPose();
     }
 }

@@ -19,11 +19,11 @@ public class OuttakeState extends State {
     public void build() {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.claw.isOpen();
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
     }
     
     @Override

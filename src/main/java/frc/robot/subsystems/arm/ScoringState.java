@@ -17,16 +17,16 @@ public class ScoringState extends State {
     public void build() {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.claw.isOpen();
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
     }
     
     @Override
     public void init() {
-        Claw.openRequest = true;
+        Claw.requestClawOpen();
     }
 
     @Override

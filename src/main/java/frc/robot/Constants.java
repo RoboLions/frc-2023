@@ -161,7 +161,7 @@ public final class Constants {
             public static final PIDController X_CONTROLLER = new PIDController(0.01, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(0.01, 0, 0);
             public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
-                0.01,
+                0.1,
                 0,
                 0, 
                 new TrapezoidProfile.Constraints(0.25, 0.25)
@@ -225,7 +225,7 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 65000.0;
+        public static final double F_TRAVEL_LIMIT = 71000.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
@@ -247,7 +247,7 @@ public final class Constants {
         public static final double CLOSE_POWER = 0.8;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
-        public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00);
+        public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00); // grayson cone: new Color(141, 93, 20);
     }
 
     public static final class OUTTAKE_STATE {
@@ -260,22 +260,22 @@ public final class Constants {
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 17000.0;
         public static final double ELBOW_POSITION = 56000.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
+        public static final double ALLOWANCE = 100.0;
+        public static final double TIME = 0.5;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 63300.0; 
+        public static final double SHOULDER_POSITION = 70000.0; 
         public static final double ELBOW_POSITION = 84300.0; 
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
+        public static final double ALLOWANCE = 100.0;
+        public static final double TIME = 0.5;
     }
 
     public static final class HIGH_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 56500.0;
+        public static final double SHOULDER_POSITION = 58000.0;
         public static final double ELBOW_POSITION = 80000.0;
-        public static final double ALLOWANCE = 0.0;
-        public static final double TIME = 0.0;
+        public static final double ALLOWANCE = 100.0;
+        public static final double TIME = 0.5;
     }
 
     public static final class MID_SCORE_CONE {
@@ -301,6 +301,11 @@ public final class Constants {
     public static final class SUBSTATION_INTAKE {
         public static final double SHOULDER_POSITION = 48000.0;
         public static final double ELBOW_POSITION = 68000.0;
+    }
+
+    public static final class ELBOW_IDLE {
+        public static final double ALLOWANCE = 10000.0;
+        public static final double TIME = 0.1;
     }
 
     public static final class BALANCE_PITCH_PID {

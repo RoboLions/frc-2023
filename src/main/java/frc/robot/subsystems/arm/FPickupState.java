@@ -18,11 +18,11 @@ public class FPickupState extends State {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
 
         transitions.add(new Transition(() -> {
             return (RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube);
-        }, ArmStateMachine.idleState));
+        }, ArmStateMachine.elbowIdleState));
     }
 
     @Override

@@ -143,7 +143,7 @@ public class Swerve {
         Transform3d camToTarget = target.getBestCameraToTarget();
         Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
         var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.ROBOT_TO_CAM);
-        swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+        // swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
     }
 
     private void updateSwervePoseLimelight() {
@@ -154,16 +154,16 @@ public class Swerve {
         double tc = LimelightHelpers.getLatency_Capture(Constants.LIMELIGHT.NAME);
         timer.stop();
 
-        SmartDashboard.putNumber("LL pose data X", botPose2d.getTranslation().getX());
-        SmartDashboard.putNumber("LL pose data Y", botPose2d.getTranslation().getY());
-        SmartDashboard.putNumber("LL pose data rotation", botPose2d.getRotation().getDegrees());
-        SmartDashboard.putNumber("LL delay", timer.get() / 1000.0);
+        // SmartDashboard.putNumber("LL pose data X", botPose2d.getTranslation().getX());
+        // SmartDashboard.putNumber("LL pose data Y", botPose2d.getTranslation().getY());
+        // SmartDashboard.putNumber("LL pose data rotation", botPose2d.getRotation().getDegrees());
+        // SmartDashboard.putNumber("LL delay", timer.get() / 1000.0);
 
-        swerveOdometry.addVisionMeasurement(botPose2d, 
-        Timer.getFPGATimestamp() - 
-            (tl/1000.0) - 
-            (tc/1000.0)
-        );
+        // swerveOdometry.addVisionMeasurement(botPose2d, 
+        // Timer.getFPGATimestamp() - 
+        //     (tl/1000.0) - 
+        //     (tc/1000.0)
+        // );
     }
 
     public Pose2d getPose() {

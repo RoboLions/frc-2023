@@ -8,6 +8,9 @@ import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants;
 
 /** Add your docs here. */
@@ -16,9 +19,9 @@ public class OpenState extends State {
     @Override
     public void build() {
         // close on a cube if "close request" and color sensor == purple
-        transitions.add(new Transition(() -> {
-            return (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR);
-        }, ClawStateMachine.closingCube));
+        // transitions.add(new Transition(() -> {
+        //     return (RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR) && !Claw.openRequest;
+        // }, ClawStateMachine.closingCube));
 
         //TODO: Figure out which state to transition to based on request
         transitions.add(new Transition(() -> {
@@ -26,13 +29,9 @@ public class OpenState extends State {
         }, ClawStateMachine.closingCube));
     
         // close on a cone if "close request" and color sensor == yellow
-        transitions.add(new Transition(() -> {
-            return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR);
-        }, ClawStateMachine.closingCone));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > 0.25;
-        }, ClawStateMachine.openingState));
+        // transitions.add(new Transition(() -> {
+        //     return (RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR) && !Claw.openRequest;
+        // }, ClawStateMachine.closingCone));
 
         transitions.add(new Transition(() -> {
             return RobotMap.driverController.getRawButton(Constants.DriverButtons.MANUAL_CLAW_BUTTON);
@@ -41,7 +40,7 @@ public class OpenState extends State {
 
     @Override
     public void init() {
-
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
     @Override
@@ -51,7 +50,5 @@ public class OpenState extends State {
 
     @Override
     public void exit() {
-        // set closeRequest to false
-        Claw.closeRequest = false;
     }
 }

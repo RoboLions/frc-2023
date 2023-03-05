@@ -56,8 +56,7 @@ public class IdleState extends State {
     @Override
     public void init() {
         RobotMap.arm.setIdle();
-        Claw.openRequest = false;
-        Claw.closeRequest = false;
+        Claw.requestClawClosed();
     }
 
     @Override

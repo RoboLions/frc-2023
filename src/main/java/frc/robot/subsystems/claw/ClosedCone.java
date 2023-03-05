@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.claw;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
@@ -17,21 +19,17 @@ public class ClosedCone extends State {
     public void build() {
         // if we don't detect a cone, open the claw
         // transitions.add(new Transition(() -> {
-        //     return RobotMap.claw.getColor() == null;
+        //     return RobotMap.claw.getColor() == null && !Claw.closeRequest;
         // }, ClawStateMachine.openingState));
 
         transitions.add(new Transition(() -> {
             return Claw.openRequest;
         }, ClawStateMachine.openingState));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverButtons.SCORING_BUTTON) > 0.25;
-        }, ClawStateMachine.openingState));
     }
 
     @Override
     public void init() {
-        
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
     @Override
@@ -41,7 +39,5 @@ public class ClosedCone extends State {
 
     @Override
     public void exit() {
-        // set openRequest to false
-        Claw.openRequest = false;
     }
 }
