@@ -366,8 +366,16 @@ public final class Constants {
          */
         public static final int ZERO_GYRO = XboxController.Button.kX.value;
 
+        /**
+         * in open claw state:
+         *  Switches to manual control of the claw
+         */
         public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
 
+        /**
+         * in manual claw state:
+         *  Opens or closes the claw manually
+         */
         public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kRightTrigger.value;
         public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kLeftTrigger.value;
     }
@@ -412,12 +420,6 @@ public final class Constants {
          *  command arm state machine into manual mode
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
-
-        /* in manual mode:
-         *  indicates that we have a cube or cone
-         */
-        public static final int MANUAL_CUBE_INDICATOR = XboxController.Axis.kRightTrigger.value;
-        public static final int MANUAL_CONE_INDICATOR = XboxController.Axis.kLeftTrigger.value;
 
         /*
          * in idle mode:
