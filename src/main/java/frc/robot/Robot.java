@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     RobotMap.swerve.updatePoses();
 
     // see robot pose on Glass
-    RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
+    // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
     
     // SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
     // SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
@@ -75,13 +75,13 @@ public class Robot extends TimedRobot {
     
     // SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
     // SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
-    // SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
+    // // SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
 
     // SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
     // SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
     
     // Color read_color = RobotMap.claw.getColor();
-    // SmartDashboard.putString("Detected closest color", read_color == null ? "" : read_color.toString());
+    // System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
     // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
   }

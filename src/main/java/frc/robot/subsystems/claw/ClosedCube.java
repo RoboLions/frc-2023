@@ -25,6 +25,10 @@ public class ClosedCube extends State {
         transitions.add(new Transition(() -> {
             return Claw.openRequest;
         }, ClawStateMachine.openingState));
+        
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawButton(Constants.DriverButtons.MANUAL_CLAW_BUTTON);
+        }, ClawStateMachine.manualClaw));
     }
 
     @Override

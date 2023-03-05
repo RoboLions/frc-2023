@@ -241,7 +241,7 @@ public final class Constants {
     public static final class CLAW {
         public static final double TIME_CLOSE_ON_CONE = 0.8;
         public static final double TIME_CLOSE_ON_CUBE = 0.4;
-        public static final double TIME_OPEN_CLAW = 0.2;
+        public static final double TIME_OPEN_CLAW = 0.1;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -258,8 +258,8 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 17000.0;
-        public static final double ELBOW_POSITION = 56000.0;
+        public static final double SHOULDER_POSITION = 15000.0;
+        public static final double ELBOW_POSITION = 63000.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.5;
     }
@@ -301,6 +301,8 @@ public final class Constants {
     public static final class SUBSTATION_INTAKE {
         public static final double SHOULDER_POSITION = 48000.0;
         public static final double ELBOW_POSITION = 68000.0;
+        public static final double ALLOWANCE = 100.0;
+        public static final double TIME = 0.5;
     }
 
     public static final class ELBOW_IDLE {

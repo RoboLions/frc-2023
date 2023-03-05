@@ -25,8 +25,12 @@ public class OpenState extends State {
 
         //TODO: Figure out which state to transition to based on request
         transitions.add(new Transition(() -> {
-            return Claw.closeRequest;
+            return Claw.closeRequest && RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR;
         }, ClawStateMachine.closingCube));
+
+        transitions.add(new Transition(() -> {
+            return Claw.closeRequest && RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR;
+        }, ClawStateMachine.closingCone));
     
         // close on a cone if "close request" and color sensor == yellow
         // transitions.add(new Transition(() -> {
@@ -40,7 +44,7 @@ public class OpenState extends State {
 
     @Override
     public void init() {
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
+
     }
 
     @Override

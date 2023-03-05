@@ -21,6 +21,7 @@ public class OpeningState extends State {
     @Override
     public void build() {
         // claw is now open after x seconds
+        // TODO; time is too much? claw opens much more than it used to even with shorter time
         transitions.add(new Transition(() -> {
             return openingStateTimer.hasElapsed(Constants.CLAW.TIME_OPEN_CLAW);
         }, ClawStateMachine.openState));

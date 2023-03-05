@@ -31,11 +31,11 @@ public class TeleopState extends State {
     @Override
     public void execute() {
 
-        for(SwerveModule mod : Swerve.mSwerveMods) {
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-        }
+        // for(SwerveModule mod : Swerve.mSwerveMods) {
+        //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
+        //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+        //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+        // }
 
         // invert because Xbox controllers return negative values when we push forward
         translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverButtons.TRANSLATION_VAL), Constants.STICK_DEADBAND);
