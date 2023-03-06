@@ -15,8 +15,6 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class IdleState extends State {
 
-    private int count = 0;
-
     @Override
     public void build() {
         // intake from substation
@@ -33,7 +31,8 @@ public class IdleState extends State {
 
         // pickup from ground
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25 &&
+                RobotMap.claw.getColor() == null;
         }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {
