@@ -27,7 +27,7 @@ public class Claw {
     public static boolean openRequest = false;
     public static boolean closeRequest = false;
 
-    public static RoboLionsPID clawPID = new RoboLionsPID();
+    // public static RoboLionsPID clawPID = new RoboLionsPID();
 
     public Claw() {
         colorMatcher = new ColorMatch();
@@ -38,8 +38,8 @@ public class Claw {
         RobotMap.clawMotor.configPeakOutputForward(0.7);
         RobotMap.clawMotor.configPeakOutputReverse(-0.7);
 
-        clawPID.initialize(
-            0.1, 0, 0, 0, 0.05, 0.6);
+        // clawPID.initialize(
+        //     0.1, 0, 0, 0, 5.0, 0.6);
     }
 
     public Color getColor() {
