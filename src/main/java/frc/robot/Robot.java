@@ -126,6 +126,7 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
+    RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
@@ -148,6 +149,7 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Coast);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.clawMotor.setNeutralMode(NeutralMode.Coast);
     
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
