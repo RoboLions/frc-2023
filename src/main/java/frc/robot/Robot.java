@@ -9,16 +9,17 @@ import java.util.Optional;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
-import frc.robot.subsystems.claw.ManualClaw;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -55,12 +56,20 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
-    RobotMap.drivetrainStateMachine.setNextState();
-    RobotMap.armStateMachine.setNextState();
+    // RobotMap.drivetrainStateMachine.setNextState();
+    // RobotMap.armStateMachine.setNextState();
     RobotMap.clawStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
+
+    if (RobotMap.driverController.getRawButton(XboxController.Button.kA.value)) {
+      Claw.requestClawOpen();
+    }
+
+    if (RobotMap.driverController.getRawButton(XboxController.Button.kB.value)) {
+      Claw.requestClawClosed();
+    }
 
     // see robot pose on Glass
     // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
@@ -76,7 +85,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
     
     // SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
-    // SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
+    SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
     // // SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
 
     // SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
@@ -85,9 +94,8 @@ public class Robot extends TimedRobot {
     // Color read_color = RobotMap.claw.getColor();
     // System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", RobotMap.clawColorSensor.getColor().toString());
-    SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
+    // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
     SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
-    SmartDashboard.putNumber("Claw setpoint", ManualClaw.setpoint);
   }
 
   /**

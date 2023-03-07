@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorMatch;
@@ -23,9 +24,11 @@ public class Claw {
     
     private static ColorMatch colorMatcher;
 
+    private static boolean timerStarted = false;
+    private static Timer timer = new Timer();
+
     /* Claw open and close requests */
     public static boolean openRequest = false;
-    public static boolean closeRequest = false;
 
     // public static RoboLionsPID clawPID = new RoboLionsPID();
 
@@ -37,6 +40,7 @@ public class Claw {
 
         RobotMap.clawMotor.configPeakOutputForward(0.7);
         RobotMap.clawMotor.configPeakOutputReverse(-0.7);
+        RobotMap.clawMotor.setInverted(true);
 
         // clawPID.initialize(
         //     0.1, 0, 0, 0, 5.0, 0.6);
@@ -54,12 +58,10 @@ public class Claw {
 
     public static void requestClawOpen() {
         Claw.openRequest = true;
-        Claw.closeRequest = false;
     }
 
     public static  void requestClawClosed() {
         Claw.openRequest = false;
-        Claw.closeRequest = true;
     }
 
     public void setClawOpen() {
@@ -75,13 +77,11 @@ public class Claw {
     }
 
     public boolean isClosed() {
-        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || 
-            RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
     }
 
     public boolean isClosing() {
-        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closingCone || 
-            RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closingCube;
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closingState;
     }
 
     public boolean isOpen() {
@@ -90,5 +90,30 @@ public class Claw {
 
     public boolean isOpening() {
         return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.openingState;
+    }
+
+    public static Boolean getArrived(double allowance, double time, double target) {
+
+        if (Math.abs(RobotMap.clawEncoder.get() - target) <= allowance) {
+
+            if (!timerStarted) {
+                timer.start();
+                timerStarted = true;
+            }
+
+            if (timer.hasElapsed(time)) {
+                timer.stop();
+                timer.reset();
+                timerStarted = false;
+                return true;
+            }
+            
+            return false;
+        }
+
+        timer.stop();
+        timer.reset();
+        timerStarted = false;
+        return false;
     }
 }

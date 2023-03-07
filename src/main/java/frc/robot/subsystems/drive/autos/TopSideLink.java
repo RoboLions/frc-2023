@@ -126,12 +126,12 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, close on the cube
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCube)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCube)));
 
-        // wait for the claw to grab onto the cube
-        runAction(new ConditionAction(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
-        }));
+        // // wait for the claw to grab onto the cube
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
+        // }));
 
         // position arm to idle
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState)));
@@ -183,12 +183,12 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, close on the cone
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCone)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCone)));
 
-        // wait for the claw to grab onto the cone
-        runAction(new ConditionAction(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone;
-        }));
+        // // wait for the claw to grab onto the cone
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone;
+        // }));
 
         // position arm to idle
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState)));

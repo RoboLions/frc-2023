@@ -16,35 +16,40 @@ import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class OpeningState extends State {
+public class ClosingState extends State {
     
     private PIDController controller = new PIDController(
         0.01, 0.0, 0.0
     );
+
+    private Timer timer = new Timer();
     
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.OPEN_POSITION);
-        }, ClawStateMachine.openState));
+            return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.CLOSED_POSITION);
+        }, ClawStateMachine.closedState));
+
+        transitions.add(new Transition(() -> {
+            return timer.hasElapsed(Constants.CLAW.TIMEOUT);
+        }, ClawStateMachine.closedState));
     }
 
     @Override
     public void init() {
-        RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.OPEN_POSITION);
+        timer.reset();
+        timer.start();
     }
 
     @Override
     public void execute() {
-
-        double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.OPEN_POSITION);
-        SmartDashboard.putNumber("Opening command", command);
+        double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.CLOSED_POSITION);
+        SmartDashboard.putNumber("Closing command", command);
         RobotMap.clawMotor.set(ControlMode.PercentOutput, command);
-
     }
 
     @Override
     public void exit() {
-
+        
     }
 }

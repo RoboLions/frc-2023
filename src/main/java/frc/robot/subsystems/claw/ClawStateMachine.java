@@ -11,21 +11,15 @@ public class ClawStateMachine extends StateMachine {
     
     public static OpenState openState = new OpenState();
     public static OpeningState openingState = new OpeningState();
-    public static ClosedCone closedCone = new ClosedCone();
-    public static ClosedCube closedCube = new ClosedCube();
-    public static ClosingCone closingCone = new ClosingCone();
-    public static ClosingCube closingCube = new ClosingCube();
-    public static ManualClaw manualClaw = new ManualClaw();
+    public static ClosedState closedState = new ClosedState();
+    public static ClosingState closingState = new ClosingState();
 
     public ClawStateMachine() {
         openState.build();
         openingState.build();
-        closedCone.build();
-        closedCube.build();
-        closingCone.build();
-        closingCube.build();
-        manualClaw.build();
+        closedState.build();
+        closingState.build();
 
-        setCurrentState(manualClaw);
+        setCurrentState(closedState);
     }
 }

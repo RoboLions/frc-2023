@@ -13,15 +13,10 @@ import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
 /** Add your docs here. */
-public class ClosedCone extends State {
+public class ClosedState extends State {
     
     @Override
     public void build() {
-        // if we don't detect a cone, open the claw
-        // transitions.add(new Transition(() -> {
-        //     return RobotMap.claw.getColor() == null && !Claw.closeRequest;
-        // }, ClawStateMachine.openingState));
-
         transitions.add(new Transition(() -> {
             return Claw.openRequest;
         }, ClawStateMachine.openingState));

@@ -114,12 +114,12 @@ public class TopSideLoadingStation extends AutoModeBase {
         }));
 
         // then, close on the cube
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCube)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCube)));
 
         // wait for the claw to grab onto the cube
-        runAction(new ConditionAction(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
+        // }));
 
         // position arm to idle
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState)));
