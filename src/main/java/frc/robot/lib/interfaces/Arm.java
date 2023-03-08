@@ -15,8 +15,10 @@ import frc.robot.RobotMap;
 /** Add your docs here. */
 public class Arm {
 
-    private boolean timerStarted = false;
-    private Timer timer = new Timer();
+    private static boolean timerStarted = false;
+    private static Timer timer = new Timer();
+    private static double shoulderTarget = 0.0;
+    private static double elbowTarget = 0.0;
 
     public Arm() {
         RobotMap.rightShoulderMotor.setInverted(true);
@@ -80,21 +82,22 @@ public class Arm {
     }
 
     public void setElbowIdle() {
-        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, 40000.0);
+        RobotMap.leftShoulderMotor.getSelectedSensorPosition();
+        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, Constants.ELBOW_IDLE.ELBOW_POSITION);
+        elbowTarget = Constants.ELBOW_IDLE.ELBOW_POSITION;
     }
 
     public void moveArmPosition(double shoulder, double elbow) {
         RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
         RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, elbow);
+        shoulderTarget = shoulder;
+        elbowTarget = elbow;
     }
 
     // method to check if arm has arrived at its position
-    public Boolean getArrived(double allowance, double time) {
-
-        if (Math.abs(RobotMap.leftShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) && 
-            Math.abs(RobotMap.rightShoulderMotor.getClosedLoopError()) <= Math.abs(allowance) &&
-            Math.abs(RobotMap.leftElbowMotor.getClosedLoopError()) <= Math.abs(allowance) &&
-            Math.abs(RobotMap.rightElbowMotor.getClosedLoopError()) <= Math.abs(allowance)) { 
+    public static Boolean getArrived(double allowance, double time) {
+        if (Math.abs(RobotMap.leftShoulderMotor.getSelectedSensorPosition() - shoulderTarget) <= Math.abs(allowance) && 
+            Math.abs(RobotMap.leftElbowMotor.getSelectedSensorPosition() - elbowTarget) <= Math.abs(allowance)) {
 
             if (!timerStarted) {
                 timer.start();

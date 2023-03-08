@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Arm;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -16,17 +17,14 @@ public class ElbowIdleState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.idleState));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
+            return Arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
         }, ArmStateMachine.idleState));
     }
     
     @Override
     public void init() {
         RobotMap.arm.setElbowIdle();
+        Claw.requestClawClosed();
     }
 
     @Override

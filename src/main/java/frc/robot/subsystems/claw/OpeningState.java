@@ -38,7 +38,6 @@ public class OpeningState extends State {
     public void execute() {
 
         double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.OPEN_POSITION);
-        SmartDashboard.putNumber("Opening command", command);
         RobotMap.clawMotor.set(ControlMode.PercentOutput, command);
 
     }

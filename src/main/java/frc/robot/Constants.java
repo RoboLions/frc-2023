@@ -239,13 +239,13 @@ public final class Constants {
     }
 
     public static final class CLAW {
-        public static final double CLOSE_CONE_POSITION = 4.0;
-        public static final double CLOSE_CUBE_POSITION = 115.0;
+        // public static final double CLOSE_CONE_POSITION = 4.0;
+        // public static final double CLOSE_CUBE_POSITION = 115.0;
         public static final double OPEN_POSITION = 500.0;
         public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 1.5;
+        public static final double TIMEOUT = 1.4;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -262,10 +262,10 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 15000.0;
-        public static final double ELBOW_POSITION = 63000.0;
+        public static final double SHOULDER_POSITION = 13500.0;
+        public static final double ELBOW_POSITION = 55000.0;
         public static final double ALLOWANCE = 100.0;
-        public static final double TIME = 0.5;
+        public static final double TIME = 0.3;
     }
 
     public static final class HIGH_SCORE_CONE {
@@ -310,8 +310,9 @@ public final class Constants {
     }
 
     public static final class ELBOW_IDLE {
+        public static final double ELBOW_POSITION = 30000.0;
         public static final double ALLOWANCE = 10000.0;
-        public static final double TIME = 0.1;
+        public static final double TIME = 0.2;
     }
 
     public static final class BALANCE_PITCH_PID {

@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.arm;
 
+import frc.robot.lib.interfaces.Arm;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
 public class SubstationIntakeState extends State {
@@ -24,15 +27,9 @@ public class SubstationIntakeState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.elbowIdleState));
 
-        // TODO: transition back to idle when we have a piece
-        // transitions.add(new Transition(() -> {
-        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube;
-        // }, ArmStateMachine.elbowIdleState));
-
-        // if we hold a cone or cube
-        // transitions.add(new Transition(() -> {
-        //     return RobotMap.claw.getColor() == Constants.CLAW.CONE_COLOR || RobotMap.claw.getColor() == Constants.CLAW.CUBE_COLOR;
-        // }, ArmStateMachine.elbowIdleState));
+       transitions.add(new Transition(() -> {
+        return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+       }, ArmStateMachine.elbowIdleState));
     }
     
     @Override
@@ -41,25 +38,21 @@ public class SubstationIntakeState extends State {
             Constants.SUBSTATION_INTAKE.SHOULDER_POSITION, 
             Constants.SUBSTATION_INTAKE.ELBOW_POSITION
         );
+        Claw.requestClawOpen();
+        count = 0; // reset the count each time
     }
 
     @Override
     public void execute() {
-
-        if (count < 10) {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
+        if (Arm.getArrived(Constants.SUBSTATION_INTAKE.ALLOWANCE, Constants.SUBSTATION_INTAKE.TIME) && Claw.getColor() != null && count < 1) {
+            Claw.requestClawClosed();
             count++;
-        } else {
-            RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
         }
     
     }
 
     @Override
     public void exit() {
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.8);
-        for (int i = 0; i < 300; i++) {
-            System.out.println(i);
-        }
+     
     }
 }

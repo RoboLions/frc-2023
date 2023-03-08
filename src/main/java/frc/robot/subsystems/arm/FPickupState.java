@@ -6,6 +6,7 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Arm;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -21,31 +22,25 @@ public class FPickupState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.elbowIdleState));
 
-        // TODO: our current default state is the closed cube state
-        // transitions.add(new Transition(() -> {
-        //     return (RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCone || RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedCube);
-        // }, ArmStateMachine.elbowIdleState));
+        transitions.add(new Transition(() -> {
+            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        }, ArmStateMachine.elbowIdleState));
     }
 
     @Override
     public void init() {
-        // TODO: request claw open somehow, can't be in init because we need to open the claw after the arm moves a bit
-        // Claw.requestClawOpen();
-
         RobotMap.arm.moveArmPosition(
-            1.0 * Constants.GROUND_INTAKE.SHOULDER_POSITION, 
-            1.0 * Constants.GROUND_INTAKE.ELBOW_POSITION
+            Constants.GROUND_INTAKE.SHOULDER_POSITION, 
+            Constants.GROUND_INTAKE.ELBOW_POSITION
         );
+        Claw.requestClawOpen();
     }
 
     @Override
     public void execute() {
-
-        // TODO: can't close claw as soon as arm arrives, need to depend on if we have piece
-        // if (RobotMap.arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME)) {
-        //     Claw.requestClawClosed();
-        // }
-
+        if (Arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME) && Claw.getColor() != null) {
+            Claw.requestClawClosed();
+        }
     }
 
     @Override

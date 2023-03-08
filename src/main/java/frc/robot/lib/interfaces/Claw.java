@@ -26,6 +26,9 @@ public class Claw {
 
     private static boolean timerStarted = false;
     private static Timer timer = new Timer();
+    private static Timer colorTimer = new Timer();
+
+    private static Color colorMatch = null;
 
     /* Claw open and close requests */
     public static boolean openRequest = false;
@@ -41,19 +44,26 @@ public class Claw {
         RobotMap.clawMotor.configPeakOutputForward(0.7);
         RobotMap.clawMotor.configPeakOutputReverse(-0.7);
         RobotMap.clawMotor.setInverted(true);
+        colorTimer.start();
 
         // clawPID.initialize(
         //     0.1, 0, 0, 0, 5.0, 0.6);
     }
 
-    public Color getColor() {
+    public static Color getColor() {
         // return Constants.CLAW.CONE_COLOR;
-        
+        // TODO: add distance check maybe?
+        if (!colorTimer.hasElapsed(0.1))
+            return colorMatch;
+        colorTimer.restart();
         ColorMatchResult match = colorMatcher.matchClosestColor(RobotMap.clawColorSensor.getColor());
-        if (match.confidence > 0.9) {
-            return match.color;
+        if (match.confidence > 0.85) {
+            colorMatch = match.color;
         }
-        return null;
+        else {
+            colorMatch = null;
+        }
+        return colorMatch;
     }
 
     public static void requestClawOpen() {
