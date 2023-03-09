@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.Constants.ManipulatorControls;
+import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -29,6 +30,11 @@ public class ManualMoveState extends State {
 
     @Override
     public void execute() {
+
+        if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLOSE_BUTTON) > 0.25) {
+            Claw.requestClawClosed();
+        }
+        
         double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
         RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 

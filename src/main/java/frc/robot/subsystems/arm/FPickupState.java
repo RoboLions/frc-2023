@@ -38,7 +38,11 @@ public class FPickupState extends State {
 
     @Override
     public void execute() {
-        if (Arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME) && Claw.getColor() != null) {
+        // if (Arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME) && Claw.getColor() != null) {
+        //     Claw.requestClawClosed();
+        // }
+
+        if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLOSE_BUTTON) > 0.25) {
             Claw.requestClawClosed();
         }
     }

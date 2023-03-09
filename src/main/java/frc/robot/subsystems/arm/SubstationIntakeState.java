@@ -30,6 +30,10 @@ public class SubstationIntakeState extends State {
        transitions.add(new Transition(() -> {
         return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
        }, ArmStateMachine.elbowIdleState));
+
+       transitions.add(new Transition(() -> {
+        return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+       }, ArmStateMachine.manualMoveState));
     }
     
     @Override
@@ -44,11 +48,14 @@ public class SubstationIntakeState extends State {
 
     @Override
     public void execute() {
-        if (Arm.getArrived(Constants.SUBSTATION_INTAKE.ALLOWANCE, Constants.SUBSTATION_INTAKE.TIME) && Claw.getColor() != null && count < 1) {
-            Claw.requestClawClosed();
-            count++;
-        }
+        // if (Arm.getArrived(Constants.SUBSTATION_INTAKE.ALLOWANCE, Constants.SUBSTATION_INTAKE.TIME) && Claw.getColor() != null && count < 1) {
+        //     Claw.requestClawClosed();
+        //     count++;
+        // }
     
+        if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLOSE_BUTTON) > 0.25) {
+            Claw.requestClawClosed();
+        }
     }
 
     @Override

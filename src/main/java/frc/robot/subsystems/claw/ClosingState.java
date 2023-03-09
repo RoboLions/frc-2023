@@ -19,7 +19,7 @@ import frc.robot.lib.statemachine.Transition;
 public class ClosingState extends State {
     
     private PIDController controller = new PIDController(
-        0.01, 0.0, 0.0
+        0.1, 0.0, 0.0
     );
 
     private Timer timer = new Timer();
@@ -44,7 +44,7 @@ public class ClosingState extends State {
     @Override
     public void execute() {
         double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.CLOSED_POSITION);
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, command);
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, command * 2.0);
     }
 
     @Override

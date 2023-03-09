@@ -109,7 +109,7 @@ public final class Constants {
         /** Meters per Second */
         public static final double MAX_SPEED = 4.5; 
         /** Radians per Second */
-        public static final double MAX_ANGULAR_VELOCITY = 10.0;
+        public static final double MAX_ANGULAR_VELOCITY = 4.0;
 
         /* Neutral Modes */
         public static final NeutralMode ANGLE_NEUTRAL_MODE = NeutralMode.Coast;
@@ -121,7 +121,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 12;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(56.87);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(235.72);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -131,7 +131,7 @@ public final class Constants {
             public static final int driveMotorID = 21;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(34.89); 
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(215.50); 
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -141,7 +141,7 @@ public final class Constants {
             public static final int driveMotorID = 31;
             public static final int angleMotorID = 32;
             public static final int canCoderID = 30;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(350.27);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(169.80);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -151,7 +151,7 @@ public final class Constants {
             public static final int driveMotorID = 41;
             public static final int angleMotorID = 42;
             public static final int canCoderID = 40;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(309.20);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(128.40);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -225,7 +225,7 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 71000.0;
+        public static final double F_TRAVEL_LIMIT = 74000.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
@@ -245,7 +245,7 @@ public final class Constants {
         public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 1.4;
+        public static final double TIMEOUT = 0.9;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -263,20 +263,20 @@ public final class Constants {
 
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 13500.0;
-        public static final double ELBOW_POSITION = 55000.0;
+        public static final double ELBOW_POSITION = 60000.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 70000.0; 
+        public static final double SHOULDER_POSITION = 71500.0; 
         public static final double ELBOW_POSITION = 84300.0; 
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.5;
     }
 
     public static final class HIGH_SCORE_CUBE {
-        public static final double SHOULDER_POSITION = 58000.0;
+        public static final double SHOULDER_POSITION = 62000.0;
         public static final double ELBOW_POSITION = 80000.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.5;
@@ -303,8 +303,8 @@ public final class Constants {
     }
 
     public static final class SUBSTATION_INTAKE {
-        public static final double SHOULDER_POSITION = 48000.0;
-        public static final double ELBOW_POSITION = 68000.0;
+        public static final double SHOULDER_POSITION = 66500.0;
+        public static final double ELBOW_POSITION = 89500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.5;
     }
@@ -366,6 +366,8 @@ public final class Constants {
          *  Kicks off the score piece sequence of events
          */
         public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
+
+        public static final int CLOSE_BUTTON = XboxController.Axis.kRightTrigger.value;
 
         /*
          * in teleop state:

@@ -36,18 +36,15 @@ public class IdleState extends State {
         }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
         }, ArmStateMachine.scoreHighState));
         
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
         
         transitions.add(new Transition(() -> {
-            return RobotMap.claw.getColor() != null && 
-                    RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
         }, ArmStateMachine.scoreLowState));
 
         // transition to control arm manually

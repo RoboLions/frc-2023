@@ -2,10 +2,14 @@ package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.arm.ArmStateMachine;
 
 public class TeleopState extends State {
     
@@ -44,13 +48,21 @@ public class TeleopState extends State {
             RobotMap.swerve.zeroGyro();
         }
 
-        RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(1.0), // Constants.SWERVE.MAX_SPEED), 
-            rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.5, 
-            true, 
-            true
-        );
-
+        if (RobotMap.armStateMachine.getCurrentState() != ArmStateMachine.idleState) {
+            RobotMap.swerve.drive(
+                new Translation2d(translationVal, strafeVal).times(2.0), // Constants.SWERVE.MAX_SPEED), 
+                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY,
+                true, 
+                true
+            );
+        } else {
+            RobotMap.swerve.drive(
+                new Translation2d(translationVal, strafeVal).times(3.25), // Constants.SWERVE.MAX_SPEED), 
+                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY,
+                true, 
+                true
+            );
+        }
     }
 
     @Override

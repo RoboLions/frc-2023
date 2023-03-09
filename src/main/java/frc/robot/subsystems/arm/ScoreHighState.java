@@ -40,7 +40,10 @@ public class ScoreHighState extends State {
     public void init() {
         Color current_color = RobotMap.claw.getColor();
         if (current_color == null) {
-            RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState);
+            RobotMap.arm.moveArmPosition(
+                Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CONE.ELBOW_POSITION
+            );
             return;
         }
 
