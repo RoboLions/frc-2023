@@ -5,6 +5,7 @@
 package frc.robot.lib.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -19,6 +20,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 /**
  * An action that uses two PID controllers ({@link PIDController}) and a ProfiledPIDController
@@ -35,6 +37,7 @@ public class TrajectoryAction implements Action {
     private final Timer m_timer = new Timer();
     private final PathPlannerTrajectory m_trajectory;
     private final Supplier<Pose2d> m_pose;
+    // private final Supplier<Rotation2d> m_desired_rotation;
     private final SwerveDriveKinematics m_kinematics;
     private final HolonomicDriveController m_controller;
     private final Consumer<SwerveModuleState[]> m_outputModuleStates;
@@ -56,6 +59,23 @@ public class TrajectoryAction implements Action {
    * @param thetaController The Trajectory Tracker PID controller for angle for the robot.
    * @param outputModuleStates The raw output module states from the position controllers.
    */
+    // public TrajectoryAction(
+    //     PathPlannerTrajectory trajectory,
+    //     Supplier<Pose2d> pose,
+    //     Supplier<Rotation2d> desired_rotation,
+    //     SwerveDriveKinematics kinematics,
+    //     PIDController xController,
+    //     PIDController yController,
+    //     ProfiledPIDController thetaController,
+    //     Consumer<SwerveModuleState[]> outputModuleStates) {
+    //         m_trajectory = trajectory;
+    //         m_pose = pose;
+    //         m_desired_rotation = desired_rotation;
+    //         m_kinematics = kinematics;
+    //         m_controller = new HolonomicDriveController(xController, yController, thetaController);
+    //         m_outputModuleStates = outputModuleStates;
+    // }
+
     public TrajectoryAction(
         PathPlannerTrajectory trajectory,
         Supplier<Pose2d> pose,
@@ -85,11 +105,13 @@ public class TrajectoryAction implements Action {
     @Override
     public void update() {
         double curTime = m_timer.get();
-        var desiredState = m_trajectory.sample(curTime);
+        var desiredState = (PathPlannerState)m_trajectory.sample(curTime);
 
         var targetChassisSpeeds =
-            m_controller.calculate(m_pose.get(), desiredState, desiredState.poseMeters.getRotation());
-        System.out.println(desiredState.poseMeters.getRotation().getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
+            m_controller.calculate(m_pose.get(), desiredState, desiredState.holonomicRotation);
+        System.out.println(desiredState.poseMeters.getRotation().getDegrees() + ", " + desiredState.holonomicRotation.getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
+        // SmartDashboard.putNumber("State rotation", desiredState.poseMeters.getRotation().getDegrees());
+        // SmartDashboard.putNumber("Feedback rotation", m_pose.get().getRotation().getDegrees());
         var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
         
         m_outputModuleStates.accept(targetModuleStates);

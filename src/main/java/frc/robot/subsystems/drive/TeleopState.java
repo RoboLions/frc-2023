@@ -21,9 +21,9 @@ public class TeleopState extends State {
 
     @Override
     public void build() {
-        addTransition(new Transition(() -> {
-            return RobotMap.driverController.getRawButton(Constants.DriverButtons.AUTO_ALIGN_BUTTON);
-        }, DrivetrainStateMachine.followTag));
+        // addTransition(new Transition(() -> {
+        //     return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
+        // }, DrivetrainStateMachine.followTag));
     }
 
     @Override
@@ -39,12 +39,12 @@ public class TeleopState extends State {
         // }
 
         // invert because Xbox controllers return negative values when we push forward
-        translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverButtons.TRANSLATION_VAL), Constants.STICK_DEADBAND);
-        strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverButtons.STRAFE_VAL), Constants.STICK_DEADBAND);
-        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRawAxis(Constants.DriverButtons.ROTATION_VAL), Constants.STICK_DEADBAND);
+        translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.TRANSLATION_VAL), Constants.STICK_DEADBAND);
+        strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.STRAFE_VAL), Constants.STICK_DEADBAND);
+        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRawAxis(Constants.DriverControls.ROTATION_VAL), Constants.STICK_DEADBAND);
 
         // if left trigger pressed, zero gyro
-        if (RobotMap.driverController.getRawButton(Constants.DriverButtons.ZERO_GYRO)) {
+        if (RobotMap.driverController.getRawButton(Constants.DriverControls.ZERO_GYRO)) {
             RobotMap.swerve.zeroGyro();
         }
 

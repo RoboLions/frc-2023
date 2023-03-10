@@ -41,8 +41,8 @@ public class Claw {
         colorMatcher.addColorMatch(Constants.CLAW.CUBE_COLOR);
         colorMatcher.addColorMatch(Constants.CLAW.CONE_COLOR);
 
-        RobotMap.clawMotor.configPeakOutputForward(0.7);
-        RobotMap.clawMotor.configPeakOutputReverse(-0.7);
+        RobotMap.clawMotor.configPeakOutputForward(1.0);
+        RobotMap.clawMotor.configPeakOutputReverse(-1.0);
         RobotMap.clawMotor.setInverted(true);
         colorTimer.start();
 

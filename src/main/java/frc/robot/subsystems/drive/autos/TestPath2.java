@@ -11,6 +11,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -40,6 +41,8 @@ public class TestPath2 extends AutoModeBase {
         testDrive1 = new TrajectoryAction(
             testPath, 
             RobotMap.swerve::getPose, 
+            // () -> Rotation2d.fromDegrees(180.0),
+            // () -> testPath.sample(testPath.getTotalTimeSeconds()).poseMeters.getRotation(),
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,

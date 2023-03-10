@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -53,6 +54,7 @@ public class TopSideLink extends AutoModeBase {
         driveToFirstPiece = new TrajectoryAction(
             topSideLink.get(0), 
             RobotMap.swerve::getPose, 
+            // () -> Rotation2d.fromDegrees(0.0),
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
@@ -63,6 +65,7 @@ public class TopSideLink extends AutoModeBase {
         driveToScoreFirstPiece = new TrajectoryAction(
             topSideLink.get(1), 
             RobotMap.swerve::getPose, 
+            // () -> Rotation2d.fromDegrees(0.0),
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
@@ -73,6 +76,7 @@ public class TopSideLink extends AutoModeBase {
         driveToSecondPiece = new TrajectoryAction(
             topSideLink.get(2), 
             RobotMap.swerve::getPose, 
+            // () -> Rotation2d.fromDegrees(0.0),
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
@@ -83,6 +87,7 @@ public class TopSideLink extends AutoModeBase {
         driveToScoreSecondPiece = new TrajectoryAction(
             topSideLink.get(3), 
             RobotMap.swerve::getPose, 
+            // () -> Rotation2d.fromDegrees(0.0),
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,

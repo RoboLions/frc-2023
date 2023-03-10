@@ -42,7 +42,7 @@ public class FPickupState extends State {
         //     Claw.requestClawClosed();
         // }
 
-        if (RobotMap.driverController.getRawAxis(Constants.DriverButtons.CLOSE_BUTTON) > 0.25) {
+        if (RobotMap.driverController.getRawAxis(Constants.DriverControls.CLOSE_BUTTON) > 0.25) {
             Claw.requestClawClosed();
         }
     }

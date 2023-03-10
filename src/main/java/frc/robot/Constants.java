@@ -158,13 +158,13 @@ public final class Constants {
 
         public static final class Profile {
             // TODO: tune
-            public static final PIDController X_CONTROLLER = new PIDController(0.01, 0, 0);
-            public static final PIDController Y_CONTROLLER = new PIDController(0.01, 0, 0);
+            public static final PIDController X_CONTROLLER = new PIDController(1.0, 0, 0);
+            public static final PIDController Y_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
-                0.1,
+                0.8,
                 0,
                 0, 
-                new TrapezoidProfile.Constraints(0.25, 0.25)
+                new TrapezoidProfile.Constraints(0.5, 0.5)
             );
         }
 
@@ -245,7 +245,7 @@ public final class Constants {
         public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 0.9;
+        public static final double TIMEOUT = 0.7;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -329,7 +329,7 @@ public final class Constants {
         public static final double F = 0.0;
     }
 
-    public static final class DriverButtons {
+    public static final class DriverControls {
         /*
          * SHIFT_LEFT_BUTTON:
          * in auto align state:
@@ -356,17 +356,14 @@ public final class Constants {
         public static final int ROTATION_VAL = XboxController.Axis.kRightX.value;
 
         /*
-         * in teleop state:
-         *  puts robot into auto balace state
-         */
-        public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kX.value;
-
-        /*
          * in a score state:
          *  Kicks off the score piece sequence of events
          */
         public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
 
+        /* in ground intake or substation intake:
+         *  manually close the claw
+         */
         public static final int CLOSE_BUTTON = XboxController.Axis.kRightTrigger.value;
 
         /*
@@ -374,19 +371,6 @@ public final class Constants {
          *  Zeros the gyro of the robot and changes its field alignment
          */
         public static final int ZERO_GYRO = XboxController.Button.kX.value;
-
-        /**
-         * in open claw state:
-         *  Switches to manual control of the claw
-         */
-        public static final int MANUAL_CLAW_BUTTON = XboxController.Button.kStart.value;
-
-        /**
-         * in manual claw state:
-         *  Opens or closes the claw manually
-         */
-        public static final int MANUAL_CLOSE_CLAW = XboxController.Axis.kRightTrigger.value;
-        public static final int MANUAL_OPEN_CLAW = XboxController.Axis.kLeftTrigger.value;
     }
 
     public static final class ManipulatorControls {
@@ -429,11 +413,5 @@ public final class Constants {
          *  command arm state machine into manual mode
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
-
-        /*
-         * in idle mode:
-         *  sets the arm position into the endgame position
-         */
-        public static final int ENDGAME_BUTTON = XboxController.Button.kBack.value;
     }
 }
