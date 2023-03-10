@@ -121,7 +121,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 12;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(235.72);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(59.90); // 235.72);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -131,7 +131,7 @@ public final class Constants {
             public static final int driveMotorID = 21;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(215.50); 
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(37.2); // 215.50); 
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -141,7 +141,7 @@ public final class Constants {
             public static final int driveMotorID = 31;
             public static final int angleMotorID = 32;
             public static final int canCoderID = 30;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(169.80);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(350.50); // 169.80);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -151,7 +151,7 @@ public final class Constants {
             public static final int driveMotorID = 41;
             public static final int angleMotorID = 42;
             public static final int canCoderID = 40;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(128.40);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(306.82); // 128.40);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -161,9 +161,9 @@ public final class Constants {
             public static final PIDController X_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
-                0.8,
-                0,
-                0, 
+                10.35,
+                45.0,
+                0.0, 
                 new TrapezoidProfile.Constraints(0.5, 0.5)
             );
         }
@@ -242,10 +242,10 @@ public final class Constants {
         // public static final double CLOSE_CONE_POSITION = 4.0;
         // public static final double CLOSE_CUBE_POSITION = 115.0;
         public static final double OPEN_POSITION = 500.0;
-        public static final double CLOSED_POSITION = -50.0;
+        public static final double CLOSED_POSITION = -80.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 0.7;
+        public static final double TIMEOUT = 1.2;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -263,7 +263,7 @@ public final class Constants {
 
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 13500.0;
-        public static final double ELBOW_POSITION = 60000.0;
+        public static final double ELBOW_POSITION = 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
@@ -283,7 +283,7 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 43000.0;
+        public static final double SHOULDER_POSITION = 44000.0;
         public static final double ELBOW_POSITION = 57000.0;
     }
 

@@ -41,7 +41,7 @@ public class TeleopState extends State {
         // invert because Xbox controllers return negative values when we push forward
         translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.TRANSLATION_VAL), Constants.STICK_DEADBAND);
         strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.STRAFE_VAL), Constants.STICK_DEADBAND);
-        rotationVal = MathUtil.applyDeadband(RobotMap.driverController.getRawAxis(Constants.DriverControls.ROTATION_VAL), Constants.STICK_DEADBAND);
+        rotationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.ROTATION_VAL), Constants.STICK_DEADBAND);
 
         // if left trigger pressed, zero gyro
         if (RobotMap.driverController.getRawButton(Constants.DriverControls.ZERO_GYRO)) {
@@ -51,7 +51,7 @@ public class TeleopState extends State {
         if (RobotMap.armStateMachine.getCurrentState() != ArmStateMachine.idleState) {
             RobotMap.swerve.drive(
                 new Translation2d(translationVal, strafeVal).times(2.0), // Constants.SWERVE.MAX_SPEED), 
-                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY,
+                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.6,
                 true, 
                 true
             );

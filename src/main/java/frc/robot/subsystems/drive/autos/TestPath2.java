@@ -27,7 +27,7 @@ import frc.robot.subsystems.arm.ArmStateMachine;
 /** Simple auto path for testing */
 public class TestPath2 extends AutoModeBase {
 
-    static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(0.25, 0.25));
+    static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(1.50, 0.50));
     // trajectory action
     TrajectoryAction testDrive1;
 
@@ -66,6 +66,6 @@ public class TestPath2 extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
-        return testDrive1.getInitialPose();
+        return testPath.getInitialHolonomicPose();
     }
 }

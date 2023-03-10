@@ -91,9 +91,9 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
     // SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
     
-    // Color read_color = RobotMap.claw.getColor();
-    // System.out.println(read_color);
-    // SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
+    Color read_color = RobotMap.claw.getColor();
+    //System.out.println(read_color);
+    SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
     // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
     // SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
   }

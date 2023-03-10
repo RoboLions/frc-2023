@@ -105,7 +105,7 @@ public class TrajectoryAction implements Action {
     @Override
     public void update() {
         double curTime = m_timer.get();
-        var desiredState = (PathPlannerState)m_trajectory.sample(curTime);
+        var desiredState = (PathPlannerState) m_trajectory.sample(curTime);
 
         var targetChassisSpeeds =
             m_controller.calculate(m_pose.get(), desiredState, desiredState.holonomicRotation);

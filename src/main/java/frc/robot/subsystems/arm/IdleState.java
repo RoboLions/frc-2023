@@ -20,8 +20,7 @@ public class IdleState extends State {
         // intake from substation
         // if intake button == T and claw sensor == F
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON) && 
-                RobotMap.claw.getColor() == null;
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON);
         }, ArmStateMachine.substationIntakeState));
 
         // outtake if outtake button pressed
@@ -31,8 +30,7 @@ public class IdleState extends State {
 
         // pickup from ground
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25 &&
-                RobotMap.claw.getColor() == null;
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
         }, ArmStateMachine.groundPickupState));
 
         transitions.add(new Transition(() -> {

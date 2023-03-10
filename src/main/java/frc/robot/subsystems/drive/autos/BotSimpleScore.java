@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.drive.autos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pathplanner.lib.PathConstraints;
@@ -30,6 +31,8 @@ public class BotSimpleScore extends AutoModeBase {
     // trajectory action
     TrajectoryAction driveOut;
 
+    Pose2d initialHolonomicPose;
+
     public BotSimpleScore() {
 
         SmartDashboard.putBoolean("Auto Finished", false);
@@ -38,8 +41,8 @@ public class BotSimpleScore extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory botSimpleScore = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(0.5, 0.5));
-        SmartDashboard.putNumber("rotation pose original", botSimpleScore.getInitialHolonomicPose().getRotation().getDegrees());
+        //PathPlannerTrajectory botSimpleScore = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(0.5, 0.5));
+        //SmartDashboard.putNumber("rotation pose original", botSimpleScore.getInitialHolonomicPose().getRotation().getDegrees());
         // List<State> states_before = botSimpleScore.getStates();
         // botSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore, DriverStation.getAlliance());
         // List<State> states_after = botSimpleScore.getStates();
@@ -55,9 +58,21 @@ public class BotSimpleScore extends AutoModeBase {
         // else {
         //     System.out.println("ALL STATES WERE DIFFERENT");
         // }
+        ArrayList<PathPlannerTrajectory> botSimpleScore = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
+            "Bot Simple Score", 
+            new PathConstraints(0.5, 0.5)
+        );
+        for(int i = 0; i < botSimpleScore.size(); i++) {
+            botSimpleScore.set(
+                i, 
+                PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore.get(i), DriverStation.getAlliance())
+            );
+        }
+
+        initialHolonomicPose = botSimpleScore.get(0).getInitialHolonomicPose();
 
         driveOut = new TrajectoryAction(
-            botSimpleScore, 
+            botSimpleScore.get(0), 
             RobotMap.swerve::getPose, 
             // () -> Rotation2d.fromDegrees(0.0),
             Constants.SWERVE.SWERVE_KINEMATICS, 
@@ -100,12 +115,6 @@ public class BotSimpleScore extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
-        double xPose = driveOut.getInitialPose().getX();
-        double yPose =  driveOut.getInitialPose().getY();
-        double rotation =  driveOut.getInitialPose().getRotation().getDegrees();
-        SmartDashboard.putNumber("X pose", xPose);
-        SmartDashboard.putNumber("Y pose", yPose);
-        SmartDashboard.putNumber("rotation pose", rotation);
-        return driveOut.getInitialPose();
+        return initialHolonomicPose;
     }
 }
