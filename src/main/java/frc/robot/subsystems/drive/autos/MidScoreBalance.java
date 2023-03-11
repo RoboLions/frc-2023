@@ -5,7 +5,6 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -15,7 +14,9 @@ import frc.robot.lib.auto.AutoModeEndedException;
 import frc.robot.lib.auto.actions.ConditionAction;
 import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
+import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /** Simple mid score, 1 cone high, then balance on charging station */
@@ -23,6 +24,8 @@ public class MidScoreBalance extends AutoModeBase {
     
     // trajectory action
     TrajectoryAction driveToChargeStation;
+
+    Pose2d initialHolonomicPose;
 
     public MidScoreBalance() {
 
@@ -34,18 +37,18 @@ public class MidScoreBalance extends AutoModeBase {
         // transform trajectory depending on alliance we are on
         PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(0.25, 0.25));
         botMidScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botMidScore, DriverStation.getAlliance());
+        
+        initialHolonomicPose = botMidScore.getInitialHolonomicPose();
 
         driveToChargeStation = new TrajectoryAction(
             botMidScore, 
-            RobotMap.swerve::getPose, 
-            // () -> Rotation2d.fromDegrees(0.0),
+            RobotMap.swerve::getPose,
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
             thetaController,
             RobotMap.swerve::setModuleStates
         );
-
     }
 
     @Override
@@ -54,12 +57,20 @@ public class MidScoreBalance extends AutoModeBase {
         System.out.println("Running mid score with balance auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
+        // close the claw
+        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closingState)));
+
+        // wait for claw to be in closed state
+        runAction(new ConditionAction(() -> {
+            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        }));
+        
         // position arm to score high
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
 
         // then, score the piece
@@ -82,6 +93,6 @@ public class MidScoreBalance extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
-        return driveToChargeStation.getInitialPose();
+        return initialHolonomicPose;
     }
 }

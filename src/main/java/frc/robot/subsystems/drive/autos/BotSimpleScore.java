@@ -5,15 +5,10 @@
 package frc.robot.subsystems.drive.autos;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -23,7 +18,9 @@ import frc.robot.lib.auto.AutoModeEndedException;
 import frc.robot.lib.auto.actions.ConditionAction;
 import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
+import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Simple bot score, 1 cone high */
 public class BotSimpleScore extends AutoModeBase {
@@ -58,10 +55,12 @@ public class BotSimpleScore extends AutoModeBase {
         // else {
         //     System.out.println("ALL STATES WERE DIFFERENT");
         // }
+
         ArrayList<PathPlannerTrajectory> botSimpleScore = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Bot Simple Score", 
-            new PathConstraints(0.5, 0.5)
+            new PathConstraints(1.50, 0.5)
         );
+
         for(int i = 0; i < botSimpleScore.size(); i++) {
             botSimpleScore.set(
                 i, 
@@ -73,8 +72,7 @@ public class BotSimpleScore extends AutoModeBase {
 
         driveOut = new TrajectoryAction(
             botSimpleScore.get(0), 
-            RobotMap.swerve::getPose, 
-            // () -> Rotation2d.fromDegrees(0.0),
+            RobotMap.swerve::getPose,
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
@@ -90,12 +88,20 @@ public class BotSimpleScore extends AutoModeBase {
         System.out.println("Running bot simple score auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
+        // close the claw
+        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closingState)));
+
+        // wait for claw to be in closed state
+        runAction(new ConditionAction(() -> {
+            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        }));
+
         // position arm to score high
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
 
         // then, score the piece
