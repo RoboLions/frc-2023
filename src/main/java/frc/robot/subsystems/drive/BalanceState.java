@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drive;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -18,8 +19,16 @@ public class BalanceState extends State {
     public double rollI = Constants.BALANCE_ROLL_PID.I;
     public double rollD = Constants.BALANCE_ROLL_PID.D;
 
-    public static RoboLionsPID rollPID = new RoboLionsPID();
-    public static RoboLionsPID pitchPID = new RoboLionsPID();
+    // public static RoboLionsPID rollPID = new RoboLionsPID();
+    // public static RoboLionsPID pitchPID = new RoboLionsPID();
+
+    private PIDController pitchController = new PIDController(
+        pitchP, pitchI, pitchD
+    );
+
+    private PIDController rollController = new PIDController(
+        rollP, rollI, rollD
+    );
 
     @Override
     public void build(){
@@ -34,36 +43,38 @@ public class BalanceState extends State {
 
     @Override
     public void init() {
-        rollPID.initialize(
-            rollD,
-            rollI,
-            rollD,
-            0, 
-            5, 
-            Constants.SWERVE.MAX_SPEED
-        );
-        rollPID.enableDeadBand = true;
-        rollPID.enableCage = false;
+        // rollPID.initialize(
+        //     rollD,
+        //     rollI,
+        //     rollD,
+        //     0, 
+        //     5, 
+        //     Constants.SWERVE.MAX_SPEED
+        // );
+        // rollPID.enableDeadBand = true;
+        // rollPID.enableCage = false;
 
-        pitchPID.initialize(
-            pitchD,
-            pitchI,
-            pitchD,
-            0, 
-            5, 
-            Constants.SWERVE.MAX_SPEED
-        );
-        pitchPID.enableDeadBand = true;
-        pitchPID.enableCage = false;
+        // pitchPID.initialize(
+        //     pitchD,
+        //     pitchI,
+        //     pitchD,
+        //     0, 
+        //     5, 
+        //     Constants.SWERVE.MAX_SPEED
+        // );
+        // pitchPID.enableDeadBand = true;
+        // pitchPID.enableCage = false;
     }
 
     @Override
     public void execute() {
         RobotMap.swerve.drive(
             new Translation2d(
-                rollPID.execute(0.0, RobotMap.gyro.getRoll()),
-                pitchPID.execute(0.0, RobotMap.gyro.getPitch())
-            ).times(Constants.SWERVE.MAX_SPEED), 
+                // rollPID.execute(0.0, RobotMap.gyro.getRoll()),
+                // pitchPID.execute(0.0, RobotMap.gyro.getPitch())
+                rollController.calculate(RobotMap.gyro.getRoll(), 0.0),
+                pitchController.calculate(RobotMap.gyro.getPitch(), 0.0)
+            ).times(0.75), // Constants.SWERVE.MAX_SPEED), 
             RobotMap.swerve.getPose().getRotation().getDegrees(), 
             false, 
             true
