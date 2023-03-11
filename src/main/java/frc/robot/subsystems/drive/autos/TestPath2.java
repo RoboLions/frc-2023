@@ -4,32 +4,25 @@
 
 package frc.robot.subsystems.drive.autos;
 
-import java.util.ArrayList;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeEndedException;
-import frc.robot.lib.auto.actions.EmptyAction;
-import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
-import frc.robot.lib.auto.actions.WaitAction;
-import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Simple auto path for testing */
 public class TestPath2 extends AutoModeBase {
 
     static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(1.50, 0.50));
+    
     // trajectory action
-    TrajectoryAction testDrive1;
+    TrajectoryAction testDrive;
 
     public TestPath2() {
         
@@ -38,11 +31,9 @@ public class TestPath2 extends AutoModeBase {
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
     
-        testDrive1 = new TrajectoryAction(
+        testDrive = new TrajectoryAction(
             testPath, 
-            RobotMap.swerve::getPose, 
-            // () -> Rotation2d.fromDegrees(180.0),
-            // () -> testPath.sample(testPath.getTotalTimeSeconds()).poseMeters.getRotation(),
+            RobotMap.swerve::getPose,
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
@@ -58,7 +49,7 @@ public class TestPath2 extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // drive
-        runAction(testDrive1);
+        runAction(testDrive);
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);
