@@ -18,7 +18,7 @@ import frc.robot.lib.statemachine.Transition;
 public class ClosingState extends State {
     
     private PIDController controller = new PIDController(
-        0.08, 0.0, 0.0
+        0.01, 0.0, 0.0
     );
 
     private Timer timer = new Timer();
