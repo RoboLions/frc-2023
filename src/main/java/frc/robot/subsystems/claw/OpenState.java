@@ -11,8 +11,6 @@ import frc.robot.lib.statemachine.Transition;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Constants;
-
 /** Add your docs here. */
 public class OpenState extends State {
     

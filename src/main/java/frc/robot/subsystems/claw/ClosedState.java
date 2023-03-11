@@ -6,7 +6,6 @@ package frc.robot.subsystems.claw;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;

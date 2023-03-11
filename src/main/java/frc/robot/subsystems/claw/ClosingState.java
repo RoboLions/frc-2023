@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
@@ -19,7 +18,7 @@ import frc.robot.lib.statemachine.Transition;
 public class ClosingState extends State {
     
     private PIDController controller = new PIDController(
-        0.1, 0.0, 0.0
+        0.08, 0.0, 0.0
     );
 
     private Timer timer = new Timer();

@@ -5,9 +5,6 @@
 package frc.robot.lib.interfaces;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -16,7 +13,6 @@ import com.revrobotics.ColorMatchResult;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.RoboLionsPID;
 import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Class with methods related to the claw or color sensor */
@@ -45,14 +41,9 @@ public class Claw {
         RobotMap.clawMotor.configPeakOutputReverse(-1.0);
         RobotMap.clawMotor.setInverted(true);
         colorTimer.start();
-
-        // clawPID.initialize(
-        //     0.1, 0, 0, 0, 5.0, 0.6);
     }
 
     public static Color getColor() {
-        // return Constants.CLAW.CONE_COLOR;
-        // TODO: add distance check maybe?
         if (!colorTimer.hasElapsed(0.1))
             return colorMatch;
         colorTimer.restart();
