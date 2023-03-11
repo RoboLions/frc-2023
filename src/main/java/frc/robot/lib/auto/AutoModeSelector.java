@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drive.autos.BotSimpleScore;
 import frc.robot.subsystems.drive.autos.DoNothing;
-import frc.robot.subsystems.drive.autos.TestPath;
-import frc.robot.subsystems.drive.autos.TestPath2;
+import frc.robot.subsystems.drive.autos.TestDrivePath;
+import frc.robot.subsystems.drive.autos.TestDrivePath;
 
 public class AutoModeSelector {
     enum DesiredMode {
@@ -53,7 +53,7 @@ public class AutoModeSelector {
             return Optional.of(new DoNothing());
 
         case TEST_PATH_2:
-            return Optional.of(new TestPath2());
+            return Optional.of(new TestDrivePath());
 
         case BOT_SIMPLE_SCORE:
             return Optional.of(new BotSimpleScore());

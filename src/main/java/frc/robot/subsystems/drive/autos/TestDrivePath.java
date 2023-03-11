@@ -17,14 +17,14 @@ import frc.robot.lib.auto.AutoModeEndedException;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 
 /** Simple auto path for testing */
-public class TestPath2 extends AutoModeBase {
+public class TestDrivePath extends AutoModeBase {
 
     static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(1.50, 0.50));
     
     // trajectory action
     TrajectoryAction testDrive;
 
-    public TestPath2() {
+    public TestDrivePath() {
         
         SmartDashboard.putBoolean("Auto Finished", false);
         
