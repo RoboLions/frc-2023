@@ -160,11 +160,14 @@ public final class Constants {
             // TODO: tune
             public static final PIDController X_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(1.0, 0, 0);
-            public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
+            public static final ProfiledPIDController HD_THETA_CONTROLLER = new ProfiledPIDController(
                 11.0,
                 45.0,
                 0.0, 
                 new TrapezoidProfile.Constraints(0.5, 0.5)
+            );
+            public static final PIDController THETA_CONTROLLER = new PIDController(
+                1.0, 0, 0
             );
         }
 

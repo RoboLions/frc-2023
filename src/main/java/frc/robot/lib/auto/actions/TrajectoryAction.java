@@ -24,6 +24,7 @@ import java.util.function.Supplier;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 /**
  * An action that uses two PID controllers ({@link PIDController}) and a ProfiledPIDController
@@ -42,7 +43,8 @@ public class TrajectoryAction implements Action {
     private final Supplier<Pose2d> m_pose;
     // private final Supplier<Rotation2d> m_desired_rotation;
     private final SwerveDriveKinematics m_kinematics;
-    private final HolonomicDriveController m_controller;
+    //private final HolonomicDriveController m_controller;
+    private final PPHolonomicDriveController m_controller;
     private final Consumer<SwerveModuleState[]> m_outputModuleStates;
 
     /**
@@ -85,12 +87,12 @@ public class TrajectoryAction implements Action {
         SwerveDriveKinematics kinematics,
         PIDController xController,
         PIDController yController,
-        ProfiledPIDController thetaController,
+        PIDController thetaController,
         Consumer<SwerveModuleState[]> outputModuleStates) {
             m_trajectory = trajectory;
             m_pose = pose;
             m_kinematics = kinematics;
-            m_controller = new HolonomicDriveController(xController, yController, thetaController);
+            m_controller = new PPHolonomicDriveController(xController, yController, thetaController);
             m_outputModuleStates = outputModuleStates;
     }
 
@@ -113,33 +115,12 @@ public class TrajectoryAction implements Action {
         var rotation_feedback = m_pose.get().getRotation().getDegrees();
         var rotation_command = desiredState.holonomicRotation.getDegrees();
 
-        // if (Math.abs(rotation_command - rotation_command) > 180.0) {
-        //     if (rotation_command > 0.0) {
-        //         rotation_command -= 360.0;
-        //     }
-        //     else {
-        //         rotation_command += 360.0;
-        //     }
-        // }
-
-        // var translationVal = Constants.SWERVE.Profile.X_CONTROLLER.calculate(m_pose.get().getX(), desiredState.poseMeters.getX());
-        // var strafeVal = Constants.SWERVE.Profile.Y_CONTROLLER.calculate(m_pose.get().getY(), desiredState.poseMeters.getY());
-        // var rotationVal = Constants.SWERVE.Profile.THETA_CONTROLLER.calculate(rotation_feedback, rotation_command);
-        
-        // RobotMap.swerve.drive(
-        //     new Translation2d(translationVal, strafeVal).times(2.0), // Constants.SWERVE.MAX_SPEED), 
-        //     rotationVal,
-        //     true, 
-        //     false
-        // );
-
         //System.out.println(rotation_command + ", " + rotation_feedback + ", " + desiredState.poseMeters.getX() + ", " + m_pose.get().getX() + ", " + desiredState.poseMeters.getY() + ", " + m_pose.get().getY());
 
-        var targetChassisSpeeds =
-            m_controller.calculate(m_pose.get(), desiredState, desiredState.holonomicRotation);
+        var targetChassisSpeeds = m_controller.calculate(m_pose.get(), desiredState);
+        // var targetChassisSpeeds =
+        //     m_controller.calculate(m_pose.get(), desiredState, desiredState.holonomicRotation);
         // System.out.println(desiredState.holonomicRotation.getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
-        // // SmartDashboard.putNumber("State rotation", desiredState.poseMeters.getRotation().getDegrees());
-        // // SmartDashboard.putNumber("Feedback rotation", m_pose.get().getRotation().getDegrees());
         var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
         
         m_outputModuleStates.accept(targetModuleStates);

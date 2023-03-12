@@ -39,7 +39,7 @@ public class FollowTag extends State {
         m_controller = new HolonomicDriveController(
             Constants.SWERVE.Profile.X_CONTROLLER,
             Constants.SWERVE.Profile.Y_CONTROLLER,
-            Constants.SWERVE.Profile.THETA_CONTROLLER
+            Constants.SWERVE.Profile.HD_THETA_CONTROLLER
         );
     }
 
