@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems.drive.autos;
 
+import java.util.ArrayList;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -24,20 +27,34 @@ import frc.robot.subsystems.claw.ClawStateMachine;
 /** Simple auto path for testing */
 public class TestDrivePath extends AutoModeBase {
 
-    static PathPlannerTrajectory testPath = PathPlanner.loadPath("Test Path", new PathConstraints(1.50, 0.50));
-    
+    Pose2d initialHolonomicPose;
+
     // trajectory action
     TrajectoryAction testDrive;
 
     public TestDrivePath() {
         
         SmartDashboard.putBoolean("Auto Finished", false);
+
+        ArrayList<PathPlannerTrajectory> testPath = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
+            "Test Path", 
+            new PathConstraints(1.50, 0.5)
+        );
+
+        for(int i = 0; i < testPath.size(); i++) {
+            testPath.set(
+                i, 
+                PathPlannerTrajectory.transformTrajectoryForAlliance(testPath.get(i), DriverStation.getAlliance())
+            );
+        }
+
+        initialHolonomicPose = testPath.get(0).getInitialHolonomicPose();
         
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
     
         testDrive = new TrajectoryAction(
-            testPath, 
+            testPath.get(0), 
             RobotMap.swerve::getPose,
             Constants.SWERVE.SWERVE_KINEMATICS, 
             Constants.SWERVE.Profile.X_CONTROLLER,
@@ -87,6 +104,6 @@ public class TestDrivePath extends AutoModeBase {
 
     @Override
     public Pose2d getStartingPose() {
-        return testPath.getInitialHolonomicPose();
+        return initialHolonomicPose;
     }
 }

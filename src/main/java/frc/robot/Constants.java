@@ -167,8 +167,10 @@ public final class Constants {
                 new TrapezoidProfile.Constraints(0.5, 0.5)
             );
             public static final PIDController THETA_CONTROLLER = new PIDController(
-                1.0, 0, 0
+                0.21, 0, 0
             );
+
+            // how do we test if it's going the right way on the red side
         }
 
         public static final class AUTO {
@@ -243,10 +245,10 @@ public final class Constants {
 
     public static final class CLAW {
         public static final double OPEN_POSITION = 500.0;
-        public static final double CLOSED_POSITION = -150.0;
+        public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 0.9; // 1.2;
+        public static final double TIMEOUT = 0.7; // 1.2;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
