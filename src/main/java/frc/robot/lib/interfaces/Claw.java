@@ -58,10 +58,12 @@ public class Claw {
     }
 
     public static void requestClawOpen() {
+        System.out.println("requesting claw open");
         Claw.openRequest = true;
     }
 
     public static  void requestClawClosed() {
+        System.out.println("requesting claw close");
         Claw.openRequest = false;
     }
 

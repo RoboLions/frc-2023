@@ -161,7 +161,7 @@ public final class Constants {
             public static final PIDController X_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final ProfiledPIDController THETA_CONTROLLER = new ProfiledPIDController(
-                10.35,
+                11.0,
                 45.0,
                 0.0, 
                 new TrapezoidProfile.Constraints(0.5, 0.5)
@@ -240,10 +240,10 @@ public final class Constants {
 
     public static final class CLAW {
         public static final double OPEN_POSITION = 500.0;
-        public static final double CLOSED_POSITION = -80.0;
+        public static final double CLOSED_POSITION = -150.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 0.9; // 1.2;
+        public static final double TIMEOUT = 1.1; // 1.2;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -314,17 +314,19 @@ public final class Constants {
     }
 
     public static final class BALANCE_PITCH_PID {
-        public static final double P = 0.0;
+        public static final double P = 0.08;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double DEADBAND = 7.0;
     }
 
     public static final class BALANCE_ROLL_PID {
-        public static final double P = 0.0;
+        public static final double P = 0.08;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
+        public static final double DEADBAND = 7.0;
     }
 
     public static final class DriverControls {
@@ -369,6 +371,8 @@ public final class Constants {
          *  Zeros the gyro of the robot and changes its field alignment
          */
         public static final int ZERO_GYRO = XboxController.Button.kX.value;
+
+        public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kA.value;
     }
 
     public static final class ManipulatorControls {

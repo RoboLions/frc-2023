@@ -6,11 +6,14 @@ package frc.robot.lib.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.RobotMap;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -107,11 +110,36 @@ public class TrajectoryAction implements Action {
         double curTime = m_timer.get();
         var desiredState = (PathPlannerState) m_trajectory.sample(curTime);
 
+        var rotation_feedback = m_pose.get().getRotation().getDegrees();
+        var rotation_command = desiredState.holonomicRotation.getDegrees();
+
+        // if (Math.abs(rotation_command - rotation_command) > 180.0) {
+        //     if (rotation_command > 0.0) {
+        //         rotation_command -= 360.0;
+        //     }
+        //     else {
+        //         rotation_command += 360.0;
+        //     }
+        // }
+
+        // var translationVal = Constants.SWERVE.Profile.X_CONTROLLER.calculate(m_pose.get().getX(), desiredState.poseMeters.getX());
+        // var strafeVal = Constants.SWERVE.Profile.Y_CONTROLLER.calculate(m_pose.get().getY(), desiredState.poseMeters.getY());
+        // var rotationVal = Constants.SWERVE.Profile.THETA_CONTROLLER.calculate(rotation_feedback, rotation_command);
+        
+        // RobotMap.swerve.drive(
+        //     new Translation2d(translationVal, strafeVal).times(2.0), // Constants.SWERVE.MAX_SPEED), 
+        //     rotationVal,
+        //     true, 
+        //     false
+        // );
+
+        //System.out.println(rotation_command + ", " + rotation_feedback + ", " + desiredState.poseMeters.getX() + ", " + m_pose.get().getX() + ", " + desiredState.poseMeters.getY() + ", " + m_pose.get().getY());
+
         var targetChassisSpeeds =
             m_controller.calculate(m_pose.get(), desiredState, desiredState.holonomicRotation);
-        System.out.println(desiredState.poseMeters.getRotation().getDegrees() + ", " + desiredState.holonomicRotation.getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
-        // SmartDashboard.putNumber("State rotation", desiredState.poseMeters.getRotation().getDegrees());
-        // SmartDashboard.putNumber("Feedback rotation", m_pose.get().getRotation().getDegrees());
+        // System.out.println(desiredState.holonomicRotation.getDegrees() + ", " + m_pose.get().getRotation().getDegrees());
+        // // SmartDashboard.putNumber("State rotation", desiredState.poseMeters.getRotation().getDegrees());
+        // // SmartDashboard.putNumber("Feedback rotation", m_pose.get().getRotation().getDegrees());
         var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
         
         m_outputModuleStates.accept(targetModuleStates);

@@ -36,25 +36,6 @@ public class BotSimpleScore extends AutoModeBase {
 
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
-        
-        // transform trajectory depending on alliance we are on
-        //PathPlannerTrajectory botSimpleScore = PathPlanner.loadPath("Bot Simple Score", new PathConstraints(0.5, 0.5));
-        //SmartDashboard.putNumber("rotation pose original", botSimpleScore.getInitialHolonomicPose().getRotation().getDegrees());
-        // List<State> states_before = botSimpleScore.getStates();
-        // botSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botSimpleScore, DriverStation.getAlliance());
-        // List<State> states_after = botSimpleScore.getStates();
-        // boolean temp = false;
-        // for (int i = 0; i < states_before.size(); i++) {
-        //     if (states_before.get(i).equals(states_after.get(i))) {
-        //         temp = true;
-        //     }
-        // }
-        // if (temp) {
-        //     System.out.println("SOME STATES WERE THE SAME");
-        // }
-        // else {
-        //     System.out.println("ALL STATES WERE DIFFERENT");
-        // }
 
         ArrayList<PathPlannerTrajectory> botSimpleScore = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Bot Simple Score", 

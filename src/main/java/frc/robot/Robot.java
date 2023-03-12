@@ -41,6 +41,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     RobotMap.init();
+    Swerve.zeroPitch();
+    Swerve.zeroRoll();
     RobotMap.arm.resetEncoders();
     RobotMap.clawEncoder.reset();
     SmartDashboard.putData("Field", RobotMap.Field2d);
@@ -57,8 +59,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
     RobotMap.drivetrainStateMachine.setNextState();
-    RobotMap.armStateMachine.setNextState();
     RobotMap.clawStateMachine.setNextState();
+    RobotMap.armStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
@@ -94,8 +96,13 @@ public class Robot extends TimedRobot {
     Color read_color = RobotMap.claw.getColor();
     //System.out.println(read_color);
     SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
-    // SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
+    //SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
     // SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
+
+    // SmartDashboard.putNumber("Roll", Swerve.getRoll());
+    // SmartDashboard.putNumber("Pitch", Swerve.getPitch());
+
+    //SmartDashboard.putNumber("Claw moto", kDefaultPeriod)
   }
 
   /**
@@ -121,7 +128,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    
+    //System.out.println(RobotMap.clawMotor.getMotorOutputPercent() + ", " + RobotMap.clawEncoder.get());
   }
 
   /** This function is called once when teleop is enabled. */

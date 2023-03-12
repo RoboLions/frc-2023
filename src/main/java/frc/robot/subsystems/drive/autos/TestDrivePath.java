@@ -14,7 +14,12 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeEndedException;
+import frc.robot.lib.auto.actions.ConditionAction;
+import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
+import frc.robot.lib.interfaces.Arm;
+import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Simple auto path for testing */
 public class TestDrivePath extends AutoModeBase {
@@ -48,6 +53,31 @@ public class TestDrivePath extends AutoModeBase {
         System.out.println("Running test auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
+        // close the claw
+        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
+
+        // // wait for claw to be in closed state
+        // // runAction(new ConditionAction(() -> {
+        // //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        // // }));
+        
+        // // position arm to score high
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
+
+        // // wait for arm to arrive in position
+        // runAction(new ConditionAction(() -> {
+        //     return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+        // }));
+
+        // // then, score the piece
+        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+
+        // // wait for the piece to be scored which means the arm is in idle
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.idleState;
+        // }));
+        
         // drive
         runAction(testDrive);
 

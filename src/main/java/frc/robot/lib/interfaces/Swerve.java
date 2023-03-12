@@ -45,6 +45,9 @@ public class Swerve {
 
     public static Timer timer = new Timer();
 
+    private static double rollOffset = 0.0;
+    private static double pitchOffset = 0.0;
+
     public Swerve() {
         
         try {
@@ -77,6 +80,23 @@ public class Swerve {
             scoringPoses = Constants.TargetPoses.BLUE_SCORING_POSES;
             loadingStation = Constants.TargetPoses.BLUE_LOADING_STATION;
         }
+
+    }
+
+    public static void zeroRoll() {
+        rollOffset = RobotMap.gyro.getRoll();
+    }
+
+    public static double getRoll() {
+        return RobotMap.gyro.getRoll() - rollOffset;
+    }
+
+    public static void zeroPitch() {
+        pitchOffset = RobotMap.gyro.getPitch();
+    }
+
+    public static double getPitch() {
+        return RobotMap.gyro.getPitch() - pitchOffset;
     }
     
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {

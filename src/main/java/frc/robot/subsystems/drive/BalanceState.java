@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.RoboLionsPID;
+import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -68,14 +69,26 @@ public class BalanceState extends State {
 
     @Override
     public void execute() {
+
+        double rollCommand = rollController.calculate(Swerve.getRoll(), 0.0);
+        double pitchCommand = pitchController.calculate(Swerve.getPitch(), 0.0);
+
+        if (Math.abs(Swerve.getRoll()) < Constants.BALANCE_PITCH_PID.DEADBAND) {
+            rollCommand = 0.0;
+        }
+
+        if (Math.abs(Swerve.getPitch()) < Constants.BALANCE_ROLL_PID.DEADBAND) {
+            pitchCommand = 0.0;
+        }
+
         RobotMap.swerve.drive(
             new Translation2d(
                 // rollPID.execute(0.0, RobotMap.gyro.getRoll()),
                 // pitchPID.execute(0.0, RobotMap.gyro.getPitch())
-                rollController.calculate(RobotMap.gyro.getRoll(), 0.0),
-                pitchController.calculate(RobotMap.gyro.getPitch(), 0.0)
-            ).times(0.75), // Constants.SWERVE.MAX_SPEED), 
-            RobotMap.swerve.getPose().getRotation().getDegrees(), 
+                -rollCommand,
+                -pitchCommand
+            ).times(1.0), // Constants.SWERVE.MAX_SPEED), 
+            0.0, //RobotMap.swerve.getPose().getRotation().getDegrees(), 
             false, 
             true
         );

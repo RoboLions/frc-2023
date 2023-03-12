@@ -10,6 +10,7 @@ import java.util.List;
 public class StateMachine {
 
     State currentState;
+    boolean maintain = false;
 
     // returns the current state of the state machine
     public State getCurrentState() {
@@ -20,6 +21,8 @@ public class StateMachine {
        then checks if any transitions are true to transition to the next state */
     public void setNextState() {
         currentState.execute_private();
+        if (maintain)
+            return;
         List<Transition> transitions = currentState.getTransitions();
         for (int i = 0; i < transitions.size(); i++) {
             Transition t = transitions.get(i);
@@ -38,5 +41,11 @@ public class StateMachine {
         currentState = newState;
         currentState.state_machine_name = this.getClass().getName();
         currentState.init_private();
+        maintain = false;
+    }
+
+    public void maintainState(State newState) {
+        setCurrentState(newState);
+        maintain = true;
     }
 }

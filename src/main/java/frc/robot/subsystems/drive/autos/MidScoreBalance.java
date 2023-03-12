@@ -35,7 +35,7 @@ public class MidScoreBalance extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(0.25, 0.25));
+        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(1.5, 0.5));
         botMidScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botMidScore, DriverStation.getAlliance());
         
         initialHolonomicPose = botMidScore.getInitialHolonomicPose();
@@ -61,9 +61,9 @@ public class MidScoreBalance extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closingState)));
 
         // wait for claw to be in closed state
-        runAction(new ConditionAction(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        // }));
         
         // position arm to score high
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
