@@ -73,9 +73,9 @@ public class BotSimpleScore extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closingState)));
 
         // wait for claw to be in closed state
-        runAction(new ConditionAction(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        // }));
 
         // position arm to score high
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
