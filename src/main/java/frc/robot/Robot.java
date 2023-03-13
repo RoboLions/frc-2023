@@ -146,6 +146,7 @@ public class Robot extends TimedRobot {
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }
+
   }
 
   /** This function is called periodically during operator control. */

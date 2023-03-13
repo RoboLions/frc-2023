@@ -62,7 +62,7 @@ public class TopSimpleScore extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // close the claw
-        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closingState)));
+        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
 
         // wait for claw to be in closed state
         // runAction(new ConditionAction(() -> {
@@ -78,6 +78,7 @@ public class TopSimpleScore extends AutoModeBase {
         }));
 
         // then, score the piece
+        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle

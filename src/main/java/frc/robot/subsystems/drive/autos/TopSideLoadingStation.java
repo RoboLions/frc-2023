@@ -41,6 +41,7 @@ public class TopSideLoadingStation extends AutoModeBase {
 
         // define theta controller for robot heading
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
+        thetaController.enableContinuousInput(-180.0, 180.0);
         
         // transform trajectory depending on alliance we are on
         ArrayList<PathPlannerTrajectory> topSideLoadingStation = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
