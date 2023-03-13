@@ -46,8 +46,8 @@ public class AutoModeSelector {
         mModeChooser.addOption("Mid Balance", DesiredMode.MID_SCORE_BALANCE);
         mModeChooser.addOption("Bot Loading Station", DesiredMode.BOT_LOADING_STATION);
         mModeChooser.addOption("Top Loading Station", DesiredMode.TOP_LOADING_STATION);
-        mModeChooser.addOption("Bot Link", DesiredMode.BOT_LINK);
-        mModeChooser.addOption("Top Link", DesiredMode.TOP_LINK);
+        // mModeChooser.addOption("Bot Link", DesiredMode.BOT_LINK);
+        // mModeChooser.addOption("Top Link", DesiredMode.TOP_LINK);
         
         SmartDashboard.putData("Auto Mode", mModeChooser);
     }
