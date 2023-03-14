@@ -44,7 +44,7 @@ public class TopSideLoadingStation extends AutoModeBase {
         // transform trajectory depending on alliance we are on
         ArrayList<PathPlannerTrajectory> topSideLoadingStation = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Top Side Loading Station", 
-            new PathConstraints(1.5, 1.0)
+            new PathConstraints(2.5, 1.0)
         );
 
         for(int i = 0; i < topSideLoadingStation.size(); i++) {

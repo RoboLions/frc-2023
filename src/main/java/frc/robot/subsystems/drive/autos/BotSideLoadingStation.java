@@ -43,7 +43,7 @@ public class BotSideLoadingStation extends AutoModeBase {
         // transform trajectory depending on alliance we are on
         ArrayList<PathPlannerTrajectory> botSideLoadingStation = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Bot Side Loading Station", 
-            new PathConstraints(2.5, 0.5)
+            new PathConstraints(1.5, 0.5)
         );
 
         for(int i = 0; i < botSideLoadingStation.size(); i++) {
