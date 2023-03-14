@@ -4,7 +4,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.RoboLionsPID;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
@@ -19,9 +18,6 @@ public class BalanceState extends State {
     public double rollP = Constants.BALANCE_ROLL_PID.P;
     public double rollI = Constants.BALANCE_ROLL_PID.I;
     public double rollD = Constants.BALANCE_ROLL_PID.D;
-
-    // public static RoboLionsPID rollPID = new RoboLionsPID();
-    // public static RoboLionsPID pitchPID = new RoboLionsPID();
 
     private PIDController pitchController = new PIDController(
         pitchP, pitchI, pitchD
@@ -44,27 +40,6 @@ public class BalanceState extends State {
 
     @Override
     public void init() {
-        // rollPID.initialize(
-        //     rollD,
-        //     rollI,
-        //     rollD,
-        //     0, 
-        //     5, 
-        //     Constants.SWERVE.MAX_SPEED
-        // );
-        // rollPID.enableDeadBand = true;
-        // rollPID.enableCage = false;
-
-        // pitchPID.initialize(
-        //     pitchD,
-        //     pitchI,
-        //     pitchD,
-        //     0, 
-        //     5, 
-        //     Constants.SWERVE.MAX_SPEED
-        // );
-        // pitchPID.enableDeadBand = true;
-        // pitchPID.enableCage = false;
     }
 
     @Override
@@ -83,12 +58,10 @@ public class BalanceState extends State {
 
         RobotMap.swerve.drive(
             new Translation2d(
-                // rollPID.execute(0.0, RobotMap.gyro.getRoll()),
-                // pitchPID.execute(0.0, RobotMap.gyro.getPitch())
                 -rollCommand,
                 -pitchCommand
-            ).times(1.0), // Constants.SWERVE.MAX_SPEED), 
-            0.0, //RobotMap.swerve.getPose().getRotation().getDegrees(), 
+            ).times(1.0),
+            0.0,
             false, 
             true
         );
