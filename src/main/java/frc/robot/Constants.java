@@ -185,10 +185,10 @@ public final class Constants {
         // TODO: change to camera position on comp bot
         public static final Transform3d ROBOT_TO_CAM =
                 new Transform3d(
-                        new Translation3d(-1.0, 0.0, 0.0),
+                        new Translation3d(0.007, 0.0, 0.0),
                         new Rotation3d(
                                 0, 0,
-                                0)); 
+                                Math.PI)); 
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
     }
