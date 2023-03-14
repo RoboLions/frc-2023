@@ -38,7 +38,7 @@ public class TopSimpleScore extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory topSimpleScore = PathPlanner.loadPath("Top Simple Score", new PathConstraints(0.5, 0.5));
+        PathPlannerTrajectory topSimpleScore = PathPlanner.loadPath("Top Simple Score", new PathConstraints(1.5, 0.5));
         topSimpleScore = PathPlannerTrajectory.transformTrajectoryForAlliance(topSimpleScore, DriverStation.getAlliance());
         
         initialHolonomicPose = topSimpleScore.getInitialHolonomicPose();
