@@ -68,7 +68,7 @@ public class Swerve {
             Constants.SWERVE.SWERVE_KINEMATICS, 
             RobotMap.gyro.getRotation2d(), 
             getModulePositions(), 
-            new Pose2d() // TODO: should this be our initial pose instead of new Pose2d()?
+            new Pose2d()
         );
             
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
