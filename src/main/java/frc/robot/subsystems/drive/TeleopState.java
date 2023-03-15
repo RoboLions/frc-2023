@@ -22,9 +22,9 @@ public class TeleopState extends State {
 
     @Override
     public void build() {
-        // addTransition(new Transition(() -> {
-        //     return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
-        // }, DrivetrainStateMachine.followTag));
+        addTransition(new Transition(() -> {
+            return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
+        }, DrivetrainStateMachine.followTag));
 
         addTransition(new Transition(() -> {
             return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_BALANCE_BUTTON);

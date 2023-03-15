@@ -157,7 +157,6 @@ public final class Constants {
         }
 
         public static final class Profile {
-            // TODO: tune
             public static final PIDController X_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final PIDController Y_CONTROLLER = new PIDController(1.0, 0, 0);
             public static final ProfiledPIDController HD_THETA_CONTROLLER = new ProfiledPIDController(
@@ -169,8 +168,6 @@ public final class Constants {
             public static final PIDController THETA_CONTROLLER = new PIDController(
                 0.21, 0, 0
             );
-
-            // how do we test if it's going the right way on the red side
         }
 
         public static final class AUTO {
@@ -185,10 +182,10 @@ public final class Constants {
         // TODO: change to camera position on comp bot
         public static final Transform3d ROBOT_TO_CAM =
                 new Transform3d(
-                        new Translation3d(-1.0, 0.0, 0.0),
+                        new Translation3d(0.007, 0.0, 0.0),
                         new Rotation3d(
                                 0, 0,
-                                0)); 
+                                Math.PI)); 
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
     }

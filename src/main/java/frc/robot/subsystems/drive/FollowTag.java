@@ -4,11 +4,9 @@
 
 package frc.robot.subsystems.drive;
 
-import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Swerve;
@@ -18,7 +16,20 @@ import frc.robot.lib.statemachine.Transition;
 /** State to auto-align to a known position on the field */
 public class FollowTag extends State {
 
-    HolonomicDriveController m_controller;
+    private final PIDController xController =
+        new PIDController(
+            1, 0.0, 0.0
+    );
+
+    private final PIDController yController =
+        new PIDController(
+            1, 0.0, 0.0
+    );
+
+    private final PIDController thetaController =
+        new PIDController(
+            0.01, 0.0, 0.0
+    );
 
     @Override
     public void build() {
@@ -35,12 +46,7 @@ public class FollowTag extends State {
     public void init() {
         Pose2d currentPose = Swerve.swerveOdometry.getEstimatedPosition();
         RobotMap.swerve.setClosestPose(currentPose);
-        
-        m_controller = new HolonomicDriveController(
-            Constants.SWERVE.Profile.X_CONTROLLER,
-            Constants.SWERVE.Profile.Y_CONTROLLER,
-            Constants.SWERVE.Profile.HD_THETA_CONTROLLER
-        );
+        thetaController.enableContinuousInput(-180.0, 180.0);
     }
 
     @Override
@@ -50,12 +56,42 @@ public class FollowTag extends State {
         } else if (RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON)) {
             RobotMap.swerve.shiftPoseRight();
         }
-        Pose2d targetPose = RobotMap.swerve.getClosestPose();
-        Pose2d currentPose = Swerve.swerveOdometry.getEstimatedPosition();
-        ChassisSpeeds targetChassisSpeeds = m_controller.calculate(currentPose, targetPose, 0.25, targetPose.getRotation());
-        SwerveModuleState[] outputModuleStates = Constants.SWERVE.SWERVE_KINEMATICS.toSwerveModuleStates(targetChassisSpeeds);
 
-        RobotMap.swerve.setModuleStates(outputModuleStates);
+        double targetPoseX = RobotMap.swerve.getClosestPose().getX();
+        double targetPoseY = RobotMap.swerve.getClosestPose().getY();
+        double targetPoseRotation = RobotMap.swerve.getClosestPose().getRotation().getDegrees();
+        // double targetPoseX = 1.034;
+        // double targetPoseY = 2.75;
+        // double targetPoseRotation = 180.0;
+
+        double currentPoseX = Swerve.swerveOdometry.getEstimatedPosition().getX();
+        double currentPoseY = Swerve.swerveOdometry.getEstimatedPosition().getY();
+        double currentPoseRotation = Swerve.swerveOdometry.getEstimatedPosition().getRotation().getDegrees();
+
+        double translationVal = xController.calculate(currentPoseX, targetPoseX);
+        double strafeVal = yController.calculate(currentPoseY, targetPoseY);
+        double rotationVal = thetaController.calculate(currentPoseRotation, targetPoseRotation);
+
+        // System.out.println(targetPoseX + ", " + currentPoseX + ", " + targetPoseY + ", " + currentPoseY + ", " + targetPoseRotation + ", " + currentPoseRotation);
+
+        if (Math.abs(translationVal) < 0.08) {
+            translationVal = 0.0;
+        }
+
+        if (Math.abs(strafeVal) < 0.08) {
+            strafeVal = 0.0;
+        }
+
+        if (Math.abs(rotationVal) < 0.08) {
+            rotationVal = 0.0;
+        }
+
+        RobotMap.swerve.drive(
+            new Translation2d(translationVal, -strafeVal).times(1.0), // Constants.SWERVE.MAX_SPEED), 
+            rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.3,
+            true, 
+            true
+        );
     }
 
     @Override
@@ -68,4 +104,4 @@ public class FollowTag extends State {
         );
     }
 
-}
+} 

@@ -22,6 +22,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -143,6 +144,7 @@ public class Swerve {
 
         previousPipelineTimestamp = resultTimestamp;
         var target = pipelineResult.getBestTarget();
+        // System.out.println(target);
         var fiducialId = target.getFiducialId();
         
         if (fiducialId <= 0 || fiducialId > 8) {
@@ -152,38 +154,56 @@ public class Swerve {
         // Get the tag pose from field layout - consider that the layout will be null if it failed to load
         Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
 
-        if (target.getPoseAmbiguity() > 0.2) {
+        if (target.getPoseAmbiguity() > 0.1) {
             return;
         }
         if (!tagPose.isPresent()) {
             return;
         }
 
-        var targetPose = tagPose.get();
-        Transform3d camToTarget = target.getBestCameraToTarget();
-        Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
-        var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.ROBOT_TO_CAM);
-        // swerveOdometry.addVisionMeasurement(visionMeasurement.toPose2d(), resultTimestamp);
+        
+        // FieldObject2d tagPoseDisplay = RobotMap.Field2d.getObject("tagPose");
+        // tagPoseDisplay.setPose(tagPose.get().toPose2d());
+        // var targetPose = tagPose.get();
+        // Transform3d camToTarget = target.getBestCameraToTarget();
+        // System.out.println(camToTarget);
+        // Pose2d camPose = new Pose2d(
+        //     targetPose.getX() + camToTarget.getX(), 
+        //     targetPose.getY() + camToTarget.getY(), 
+        //     targetPose.getRotation().toRotation2d().plus(camToTarget.getRotation().toRotation2d())
+        // );
+        // // Pose3d camPose = targetPose.transformBy(camToTarget.inverse());
+        // FieldObject2d camPoseDisplay = RobotMap.Field2d.getObject("camPose");
+        // camPoseDisplay.setPose(camPose);
+        // var visionMeasurement = camPose;
+        // // var visionMeasurement = camPose.transformBy(Constants.PhotonConstants.ROBOT_TO_CAM);
+        // FieldObject2d visionMeasurementDisplay = RobotMap.Field2d.getObject("visionMeasurement");
+        // visionMeasurementDisplay.setPose(visionMeasurement);
+        // swerveOdometry.addVisionMeasurement(visionMeasurement, resultTimestamp);
     }
 
     private void updateSwervePoseLimelight() {
         timer.reset();
         timer.start();
-        Pose2d botPose2d = LimelightHelpers.getBotPose2d(Constants.LIMELIGHT.NAME);
+        Pose2d botPose2d = LimelightHelpers.getBotPose2d_wpiBlue(Constants.LIMELIGHT.NAME);
         double tl = LimelightHelpers.getLatency_Pipeline(Constants.LIMELIGHT.NAME);
         double tc = LimelightHelpers.getLatency_Capture(Constants.LIMELIGHT.NAME);
         timer.stop();
+
+        if ((int)LimelightHelpers.getFiducialID(Constants.LIMELIGHT.NAME) == -1.0) {
+            return;
+        }
 
         // SmartDashboard.putNumber("LL pose data X", botPose2d.getTranslation().getX());
         // SmartDashboard.putNumber("LL pose data Y", botPose2d.getTranslation().getY());
         // SmartDashboard.putNumber("LL pose data rotation", botPose2d.getRotation().getDegrees());
         // SmartDashboard.putNumber("LL delay", timer.get() / 1000.0);
 
-        // swerveOdometry.addVisionMeasurement(botPose2d, 
-        // Timer.getFPGATimestamp() - 
-        //     (tl/1000.0) - 
-        //     (tc/1000.0)
-        // );
+        swerveOdometry.addVisionMeasurement(botPose2d, 
+        Timer.getFPGATimestamp() - 
+            (tl/1000.0) - 
+            (tc/1000.0)
+        );
     }
 
     public Pose2d getPose() {
