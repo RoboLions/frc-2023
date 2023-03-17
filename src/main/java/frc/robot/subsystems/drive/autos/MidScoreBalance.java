@@ -65,7 +65,7 @@ public class MidScoreBalance extends AutoModeBase {
 
         // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+          return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
 
         // then, score the piece

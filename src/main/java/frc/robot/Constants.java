@@ -193,29 +193,12 @@ public final class Constants {
     public static final class TargetPoses {
         // TODO: get poses with bot, 9 on red would = 1 one blue (they are flipped)
 
-        public static Pose2d[] RED_SCORING_POSES = new Pose2d[]{
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0))
-        };
+        public static double BLUE_SCORING_X = 2.0;
+        public static double BLUE_SCORING_Y = 0.381;
+        public static double SCORING_SPACING = 0.559;
 
-        public static Pose2d[] BLUE_SCORING_POSES = new Pose2d[]{
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-            new Pose2d(0.0, 0.0, new Rotation2d(0.0))
-        };
+        public static double BLUE_SUBSTATION_X = 1000.0;
+        public static double BLUE_SUBSTATION_Y = 1000.0;
 
         public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
         public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));

@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
+    Swerve.periodic();
 
     // if (RobotMap.driverController.getRawButton(XboxController.Button.kA.value)) {
     //   Claw.requestClawOpen();
@@ -128,7 +129,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    //System.out.println(RobotMap.clawMotor.getMotorOutputPercent() + ", " + RobotMap.clawEncoder.get());
   }
 
   /** This function is called once when teleop is enabled. */
@@ -152,6 +152,32 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    // System.out.println(
+    //   Swerve.mSwerveMods[0].mAngleMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[1].mAngleMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[2].mAngleMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[3].mAngleMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[0].mDriveMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[1].mDriveMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[2].mDriveMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[3].mDriveMotor.getMotorOutputVoltage() + "," +
+    //   Swerve.mSwerveMods[0].mAngleMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[1].mAngleMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[2].mAngleMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[3].mAngleMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[0].mDriveMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[1].mDriveMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[2].mDriveMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[3].mDriveMotor.getStatorCurrent() + "," + 
+    //   Swerve.mSwerveMods[0].mAngleMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[1].mAngleMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[2].mAngleMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[3].mAngleMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[1].mDriveMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[2].mDriveMotor.getSelectedSensorVelocity() + "," + 
+    //   Swerve.mSwerveMods[3].mDriveMotor.getSelectedSensorVelocity()
+    // );
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
     }

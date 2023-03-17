@@ -117,7 +117,7 @@ public class TrajectoryAction implements Action {
 
         //System.out.println(rotation_command + ", " + rotation_feedback + ", " + desiredState.poseMeters.getX() + ", " + m_pose.get().getX() + ", " + desiredState.poseMeters.getY() + ", " + m_pose.get().getY());
 
-        System.out.println(rotation_command + ", " + rotation_feedback);
+        //System.out.println(rotation_command + ", " + rotation_feedback);
 
         var targetChassisSpeeds = m_controller.calculate(m_pose.get(), desiredState);
         // var targetChassisSpeeds =

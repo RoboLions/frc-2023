@@ -19,8 +19,8 @@ public class SwerveModule {
     private Rotation2d angleOffset;
     private Rotation2d lastAngle;
 
-    private TalonFX mAngleMotor;
-    private TalonFX mDriveMotor;
+    public TalonFX mAngleMotor;
+    public TalonFX mDriveMotor;
     private CANCoder angleEncoder;
 
     private static CTREConfigs ctreConfigs;

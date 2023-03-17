@@ -4,6 +4,7 @@
 
 package frc.robot.lib.interfaces;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
@@ -38,7 +39,7 @@ public class Swerve {
 
     private double previousPipelineTimestamp = 0;
     
-    private static Pose2d[] scoringPoses;
+    private static ArrayList<Pose2d> scoringPoses = new ArrayList<Pose2d>();
     private static Pose2d loadingStation;
     private Pose2d closestPose;
     public static int poseNumber;
@@ -48,6 +49,12 @@ public class Swerve {
 
     private static double rollOffset = 0.0;
     private static double pitchOffset = 0.0;
+
+    private static boolean leftShiftPrev = false;
+    private static boolean rightShiftPrev = false;
+
+    public static boolean leftShift = false;
+    public static boolean rightShift = false;
 
     public Swerve() {
         
@@ -74,14 +81,44 @@ public class Swerve {
             
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
 
+        double starting_x = 0.0;
+        Rotation2d rotation = Rotation2d.fromDegrees(0.0);
+
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            scoringPoses = Constants.TargetPoses.RED_SCORING_POSES;
-            loadingStation = Constants.TargetPoses.RED_LOADING_STATION;
+            starting_x = Constants.TargetPoses.BLUE_SCORING_X + 100.0;
+            rotation = Rotation2d.fromDegrees(0.0);
+            loadingStation = new Pose2d(
+                Constants.TargetPoses.BLUE_SUBSTATION_X, 
+                Constants.TargetPoses.BLUE_SUBSTATION_Y, 
+                Rotation2d.fromDegrees(180.0)
+            );
         } else if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-            scoringPoses = Constants.TargetPoses.BLUE_SCORING_POSES;
-            loadingStation = Constants.TargetPoses.BLUE_LOADING_STATION;
+            starting_x = Constants.TargetPoses.BLUE_SCORING_X;
+            rotation = Rotation2d.fromDegrees(180.0);
+            loadingStation = new Pose2d(
+                Constants.TargetPoses.BLUE_SUBSTATION_X,
+                Constants.TargetPoses.BLUE_SUBSTATION_Y,
+                Rotation2d.fromDegrees(0.0)
+            );
         }
 
+        for (int i = 0; i < 9; i++) {
+            scoringPoses.add(new Pose2d(
+                starting_x,
+                Constants.TargetPoses.BLUE_SCORING_Y + i * Constants.TargetPoses.SCORING_SPACING,
+                rotation
+            ));
+        }
+
+    }
+
+    public static void periodic() {
+        boolean leftShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON);
+        leftShift = !leftShiftPrev && leftShiftCurr;
+        leftShiftPrev = leftShiftCurr;
+        boolean rightShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON);
+        rightShift = !rightShiftPrev && rightShiftCurr;
+        rightShiftPrev = rightShiftCurr;
     }
 
     public static void zeroRoll() {
@@ -277,11 +314,11 @@ public class Swerve {
         closestPose = loadingStation;
         double shortestDistance = currentPose.getTranslation().getDistance(loadingStation.getTranslation());
 
-        for (int i = 0; i < scoringPoses.length; i++) {
-            double temp_distance = currentPose.getTranslation().getDistance(scoringPoses[i].getTranslation());
+        for (int i = 0; i < scoringPoses.size(); i++) {
+            double temp_distance = currentPose.getTranslation().getDistance(scoringPoses.get(i).getTranslation());
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
-                closestPose = scoringPoses[i];
+                closestPose = scoringPoses.get(i);
                 poseNumber = i;
             }
         }
@@ -294,10 +331,11 @@ public class Swerve {
             return;
         }
         poseNumber = go_right ? 
-            poseNumber + 1 :
-            poseNumber - 1;
-        poseNumber = Math.max(Math.min(poseNumber, 9), 0);
-        closestPose = scoringPoses[poseNumber];
+            poseNumber - 1 :
+            poseNumber + 1;
+        poseNumber = Math.max(Math.min(poseNumber, 8), 0);
+        closestPose = scoringPoses.get(poseNumber);
+        System.out.println("Shifting to pose " + closestPose);
     }
 
     public void shiftPoseRight() {
