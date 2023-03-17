@@ -25,6 +25,10 @@ public class FPickupState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
         }, ArmStateMachine.elbowIdleState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
 
     @Override

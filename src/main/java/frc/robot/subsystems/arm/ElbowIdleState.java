@@ -19,6 +19,10 @@ public class ElbowIdleState extends State {
         transitions.add(new Transition(() -> {
             return Arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
         }, ArmStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override
