@@ -85,7 +85,7 @@ public class Swerve {
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            starting_x = Constants.TargetPoses.BLUE_SCORING_X + 100.0;
+            starting_x = 15.81658 - Constants.TargetPoses.BLUE_SCORING_X;
             rotation = Rotation2d.fromDegrees(0.0);
             loadingStation = new Pose2d(
                 Constants.TargetPoses.BLUE_SUBSTATION_X, 
@@ -294,9 +294,11 @@ public class Swerve {
     }
 
     public void updatePoses() {
-        updateSwervePoseAprilTags();
         updateSwervePoseKinematics();
-        updateSwervePoseLimelight();
+        if (!DriverStation.isAutonomous()) {
+            updateSwervePoseLimelight();
+            updateSwervePoseAprilTags();
+        }
     }
 
     /** Updates the field relative position of the robot. */
@@ -331,24 +333,24 @@ public class Swerve {
         return shortestDistance;
     }
 
-    public void shiftPose(boolean go_right) {
+    public void shiftPose(boolean increase) {
         if (poseNumber == -1) {
             return;
         }
-        poseNumber = go_right ? 
-            poseNumber - 1 :
-            poseNumber + 1;
+        poseNumber = increase ? 
+            poseNumber + 1 :
+            poseNumber - 1;
         poseNumber = Math.max(Math.min(poseNumber, 8), 0);
         closestPose = scoringPoses.get(poseNumber);
         System.out.println("Shifting to pose " + closestPose);
     }
 
     public void shiftPoseRight() {
-        shiftPose(true);
+        shiftPose(DriverStation.getAlliance() == DriverStation.Alliance.Red);
     }
 
     public void shiftPoseLeft() {
-        shiftPose(false);
+        shiftPose(DriverStation.getAlliance() == DriverStation.Alliance.Blue);
     }
 
     public Pose2d getClosestPose() {
