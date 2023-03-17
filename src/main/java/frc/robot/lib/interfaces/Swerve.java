@@ -231,6 +231,11 @@ public class Swerve {
             return;
         }
 
+        // if the bot is farther than 2 meters away from the tag, do not update the pose with Limelight
+        if (botPose2d.getTranslation().getX() > 2.0) {
+            return;
+        }
+
         // SmartDashboard.putNumber("LL pose data X", botPose2d.getTranslation().getX());
         // SmartDashboard.putNumber("LL pose data Y", botPose2d.getTranslation().getY());
         // SmartDashboard.putNumber("LL pose data rotation", botPose2d.getRotation().getDegrees());
