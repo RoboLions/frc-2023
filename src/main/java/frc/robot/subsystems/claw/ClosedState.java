@@ -6,7 +6,7 @@ package frc.robot.subsystems.claw;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Robot;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
@@ -20,6 +20,10 @@ public class ClosedState extends State {
         transitions.add(new Transition(() -> {
             return Claw.openRequest;
         }, ClawStateMachine.openingState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.CLOSE_BUTTON) > 0.25;
+        }, ClawStateMachine.closingState));
     }
 
     @Override
