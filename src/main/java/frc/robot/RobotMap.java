@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.LED;
+import frc.robot.subsystems.LED.LEDStateMachine;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
@@ -22,6 +24,7 @@ public class RobotMap {
     public static DrivetrainStateMachine drivetrainStateMachine;
     public static ArmStateMachine armStateMachine;
     public static ClawStateMachine clawStateMachine;
+    public static LEDStateMachine ledStateMachine;
 
     /* Motor instances */
     public static WPI_Pigeon2 gyro;
@@ -42,6 +45,7 @@ public class RobotMap {
     public static Swerve swerve; 
     public static Arm arm;
     public static Claw claw;
+    public static LED led;
 
     /* Xbox controllers */
     public static XboxController manipulatorController;
@@ -78,9 +82,11 @@ public class RobotMap {
         arm = new Arm();
         claw = new Claw();
         Field2d = new Field2d();
+        led = new LED();
 
         drivetrainStateMachine = new DrivetrainStateMachine();
         armStateMachine = new ArmStateMachine();
         clawStateMachine = new ClawStateMachine();
+        ledStateMachine = new LEDStateMachine();
     }
 }

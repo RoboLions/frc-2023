@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
     RobotMap.drivetrainStateMachine.setNextState();
     RobotMap.clawStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
+    RobotMap.ledStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
