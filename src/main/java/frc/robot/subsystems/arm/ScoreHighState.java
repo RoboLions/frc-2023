@@ -34,6 +34,10 @@ public class ScoreHighState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > 0.25;
         }, ArmStateMachine.scoringState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
+        }, ArmStateMachine.manualMoveState));
     }
     
     @Override

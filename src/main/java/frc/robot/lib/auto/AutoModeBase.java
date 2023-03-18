@@ -5,9 +5,14 @@
 package frc.robot.lib.auto;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.RobotMap;
 import frc.robot.lib.auto.actions.Action;
 import frc.robot.lib.auto.actions.EmptyAction;
+import frc.robot.lib.interfaces.Swerve;
 
 /**
  * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto modes (which are
@@ -34,6 +39,16 @@ public abstract class AutoModeBase {
     }
 
     public void done() {
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+            Pose2d currentPose = Swerve.swerveOdometry.getEstimatedPosition();
+            // System.out.println(currentPose);
+            Pose2d newPose = currentPose.transformBy(new Transform2d(new Translation2d(0, 0), Rotation2d.fromDegrees(180.0)));
+            RobotMap.swerve.resetOdometry(newPose);
+            // Pose2d finalPose = Swerve.swerveOdometry.getEstimatedPosition();
+            // System.out.println(finalPose);
+            // Pose2d newPose = Swerve.swerveOdometry.getEstimatedPosition();
+            // System.out.println(newPose);
+        }
         System.out.println("Auto mode done");
     }
 

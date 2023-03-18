@@ -25,9 +25,9 @@ public class ClosingState extends State {
     
     @Override
     public void build() {
-        transitions.add(new Transition(() -> {
-            return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.CLOSED_POSITION);
-        }, ClawStateMachine.closedState));
+        // transitions.add(new Transition(() -> {
+        //     return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.CLOSED_POSITION);
+        // }, ClawStateMachine.closedState));
 
         transitions.add(new Transition(() -> {
             return timer.hasElapsed(Constants.CLAW.TIMEOUT);
@@ -42,8 +42,8 @@ public class ClosingState extends State {
 
     @Override
     public void execute() {
-        double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.CLOSED_POSITION);
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, command);
+        // double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.CLOSED_POSITION);
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
     }
 
     @Override

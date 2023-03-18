@@ -22,7 +22,7 @@ public class ClosedState extends State {
         }, ClawStateMachine.openingState));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverControls.RE_SQUEEZE_BUTTON) > 0.25;
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.RE_SQUEEZE_AXIS) > 0.25;
         }, ClawStateMachine.closingState));
     }
 

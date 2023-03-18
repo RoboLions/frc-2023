@@ -8,8 +8,11 @@ import java.util.Optional;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.auto.AutoModeBase;
@@ -76,7 +79,9 @@ public class Robot extends TimedRobot {
     // }
 
     // see robot pose on Glass
-    RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
+    // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
+    FieldObject2d currentPoseDisplay = RobotMap.Field2d.getObject("currentPose");
+    currentPoseDisplay.setPose(Swerve.swerveOdometry.getEstimatedPosition());
     
     // SmartDashboard.putNumber("Integrated Encoder Shoulder (L)", RobotMap.leftShoulderMotor.getSelectedSensorPosition());
     // SmartDashboard.putNumber("Integrated Encoder Elbow (L)", RobotMap.leftElbowMotor.getSelectedSensorPosition());
@@ -99,7 +104,7 @@ public class Robot extends TimedRobot {
     // //System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
     //SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
-    // SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
+    SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
 
     // SmartDashboard.putNumber("Roll", Swerve.getRoll());
     // SmartDashboard.putNumber("Pitch", Swerve.getPitch());

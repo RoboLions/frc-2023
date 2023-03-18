@@ -7,6 +7,7 @@ package frc.robot.subsystems.claw;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Claw;
@@ -19,24 +20,32 @@ public class OpeningState extends State {
     private PIDController controller = new PIDController(
         0.01, 0.0, 0.0
     );
+
+    private Timer timer = new Timer();
     
     @Override
     public void build() {
+        // transitions.add(new Transition(() -> {
+        //     return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.OPEN_POSITION);
+        // }, ClawStateMachine.openState));
+
         transitions.add(new Transition(() -> {
-            return Claw.getArrived(Constants.CLAW.ALLOWANCE, Constants.CLAW.TIME, Constants.CLAW.OPEN_POSITION);
+            return timer.hasElapsed(Constants.CLAW.TIMEOUT);
         }, ClawStateMachine.openState));
     }
 
     @Override
     public void init() {
         RobotMap.clawMotor.set(ControlMode.Position, Constants.CLAW.OPEN_POSITION);
+        timer.reset();
+        timer.start();
     }
 
     @Override
     public void execute() {
 
-        double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.OPEN_POSITION);
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, command);
+        // double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.OPEN_POSITION);
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.35);
 
     }
 

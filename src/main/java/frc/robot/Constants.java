@@ -229,7 +229,7 @@ public final class Constants {
         public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 0.7; // 1.2;
+        public static final double TIMEOUT = 2.0; // 1.2;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
@@ -315,6 +315,10 @@ public final class Constants {
         public static final double DEADBAND = 7.0;
     }
 
+    public static final class LED { 
+        public static final int CANdleID = 34;
+    }
+
     public static final class DriverControls {
         /*
          * SHIFT_LEFT_BUTTON:
@@ -351,11 +355,6 @@ public final class Constants {
          *  manually close the claw
          */
         public static final int CLOSE_BUTTON = XboxController.Axis.kRightTrigger.value;
-
-        /* in ground intake or substation intake:
-         *  manually close the claw
-         */
-        public static final int RE_SQUEEZE_BUTTON = XboxController.Axis.kLeftTrigger.value;
 
         /*
          * in teleop state:
@@ -406,5 +405,13 @@ public final class Constants {
          *  command arm state machine into manual mode
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
+
+        public static final int CONE_LED_BUTTON = XboxController.Button.kBack.value;
+        public static final int CUBE_LED_BUTTON = XboxController.Button.kLeftBumper.value;
+        
+        /* in ground intake or substation intake:
+         *  manually close the claw
+         */
+        public static final int RE_SQUEEZE_AXIS = XboxController.Axis.kLeftTrigger.value;
     }
 }

@@ -11,16 +11,22 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeEndedException;
 import frc.robot.lib.auto.actions.ConditionAction;
 import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
+import frc.robot.lib.auto.actions.WaitAction;
 import frc.robot.lib.interfaces.Arm;
+import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.claw.ClawStateMachine;
 
@@ -38,7 +44,7 @@ public class TestDrivePath extends AutoModeBase {
 
         ArrayList<PathPlannerTrajectory> testPath = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Test Path", 
-            new PathConstraints(1.50, 0.5)
+            new PathConstraints(1.0, 0.5)
         );
 
         for(int i = 0; i < testPath.size(); i++) {
@@ -96,7 +102,9 @@ public class TestDrivePath extends AutoModeBase {
         // }));
         
         // drive
-        // runAction(testDrive);
+        runAction(testDrive);
+
+        //runAction(new WaitAction(2.0));
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);
