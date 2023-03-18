@@ -35,7 +35,7 @@ public class MidScoreBalance extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(1.5, 0.5));
+        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(2.5, 2.0));
         botMidScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botMidScore, DriverStation.getAlliance());
         
         initialHolonomicPose = botMidScore.getInitialHolonomicPose();
@@ -81,7 +81,7 @@ public class MidScoreBalance extends AutoModeBase {
         runAction(driveToChargeStation);
 
         // switch drivetrain to balance state
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(DrivetrainStateMachine.balanceState)));
+        runAction(new LambdaAction(() -> RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.balanceState)));
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);
