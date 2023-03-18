@@ -299,7 +299,7 @@ public final class Constants {
     }
 
     public static final class BALANCE_PITCH_PID {
-        public static final double P = 0.08;
+        public static final double P = 0.035;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
@@ -307,7 +307,7 @@ public final class Constants {
     }
 
     public static final class BALANCE_ROLL_PID {
-        public static final double P = 0.08;
+        public static final double P = 0.035;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
@@ -350,6 +350,11 @@ public final class Constants {
          *  manually close the claw
          */
         public static final int CLOSE_BUTTON = XboxController.Axis.kRightTrigger.value;
+
+        /* in ground intake or substation intake:
+         *  manually close the claw
+         */
+        public static final int RE_SQUEEZE_BUTTON = XboxController.Axis.kLeftTrigger.value;
 
         /*
          * in teleop state:
