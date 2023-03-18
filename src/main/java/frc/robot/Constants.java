@@ -30,6 +30,7 @@ public final class Constants {
         public static final int LEFT_ELBOW_MOTOR = 53;
         public static final int RIGHT_ELBOW_MOTOR = 54;
         public static final int CLAW_MOTOR = 55;
+        public static final int CANdle = 34;
     }
 
     public static final class PORTS {
