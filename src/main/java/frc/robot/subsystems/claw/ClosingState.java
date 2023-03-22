@@ -43,7 +43,7 @@ public class ClosingState extends State {
     @Override
     public void execute() {
         // double command = controller.calculate(RobotMap.clawEncoder.get(), Constants.CLAW.CLOSED_POSITION);
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, -0.8);
+        RobotMap.clawMotor.set(ControlMode.PercentOutput, -1.0);
     }
 
     @Override

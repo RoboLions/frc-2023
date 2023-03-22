@@ -19,14 +19,15 @@ public class TeleopState extends State {
     double translationVal;
     double strafeVal;
     double rotationVal;
+    double translationValScalar;
 
     public TeleopState() {}
 
     @Override
     public void build() {
-        addTransition(new Transition(() -> {
-            return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
-        }, DrivetrainStateMachine.followTag));
+        // addTransition(new Transition(() -> {
+        //     return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
+        // }, DrivetrainStateMachine.followTag));
 
         addTransition(new Transition(() -> {
             return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_BALANCE_BUTTON);
@@ -69,21 +70,24 @@ public class TeleopState extends State {
             }
         }
 
-        if (RobotMap.armStateMachine.getCurrentState() != ArmStateMachine.idleState) {
-            RobotMap.swerve.drive(
-                new Translation2d(translationVal, strafeVal).times(2.0), // Constants.SWERVE.MAX_SPEED), 
-                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.6,
-                true, 
-                true
-            );
+        if (RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.groundPickupState) {
+            translationValScalar = 2.0;
+            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.6;
+        } else if (RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.scoreHighState || 
+                   RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.scoreMidState) {
+            translationValScalar = 2.0;
+            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.3;
         } else {
-            RobotMap.swerve.drive(
-                new Translation2d(translationVal, strafeVal).times(Constants.SWERVE.MAX_SPEED), 
-                rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY,
-                true, 
-                true
-            );
+            translationValScalar = Constants.SWERVE.MAX_SPEED;
+            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY;
         }
+
+        RobotMap.swerve.drive(
+            new Translation2d(translationVal, strafeVal).times(translationValScalar), 
+            rotationVal,
+            true, 
+            true
+        );
     }
 
     @Override

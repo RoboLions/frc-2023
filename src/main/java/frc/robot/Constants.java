@@ -229,7 +229,7 @@ public final class Constants {
         public static final double CLOSED_POSITION = -50.0;
         public static final double ALLOWANCE = 10.0;
         public static final double TIME = 0.1;
-        public static final double TIMEOUT = 1.75; // 1.2;
+        public static final double TIMEOUT = 1.65; // 1.2;
 
         public static final double OPEN_POWER = -0.8;
         public static final double CLOSE_POWER = 0.8;
