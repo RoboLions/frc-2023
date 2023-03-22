@@ -231,7 +231,7 @@ public class Swerve {
             return;
         }
 
-        if (LimelightHelpers.getTargetPose3d_CameraSpace(Constants.LIMELIGHT.NAME).getZ() > 2.0) {
+        if (LimelightHelpers.getTargetPose3d_CameraSpace(Constants.LIMELIGHT.NAME).getZ() > 2.5) {
             return;
         }
 
