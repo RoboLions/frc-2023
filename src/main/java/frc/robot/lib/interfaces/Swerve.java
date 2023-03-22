@@ -231,8 +231,7 @@ public class Swerve {
             return;
         }
 
-        // if the bot is farther than 2 meters away from the tag, do not update the pose with Limelight
-        if (botPose2d.getTranslation().getX() > 2.0) {
+        if (LimelightHelpers.getTargetPose3d_CameraSpace(Constants.LIMELIGHT.NAME).getZ() > 2.0) {
             return;
         }
 
