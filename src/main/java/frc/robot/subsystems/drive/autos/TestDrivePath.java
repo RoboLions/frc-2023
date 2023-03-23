@@ -44,7 +44,7 @@ public class TestDrivePath extends AutoModeBase {
 
         ArrayList<PathPlannerTrajectory> testPath = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup(
             "Test Path", 
-            new PathConstraints(1.0, 0.5)
+            new PathConstraints(0.25, 0.25)
         );
 
         for(int i = 0; i < testPath.size(); i++) {

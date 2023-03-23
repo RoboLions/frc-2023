@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
     // //System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
     //SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
-    SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
+    // SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
 
     // SmartDashboard.putNumber("Roll", Swerve.getRoll());
     // SmartDashboard.putNumber("Pitch", Swerve.getPitch());

@@ -7,7 +7,9 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Swerve;
@@ -81,6 +83,10 @@ public class FollowTag extends State {
         double strafeVal = yController.calculate(currentPoseY, targetPoseY);
         double rotationVal = thetaController.calculate(currentPoseRotation, targetPoseRotation);
 
+        SmartDashboard.putNumber("pose x error", targetPoseX - currentPoseX);
+        SmartDashboard.putNumber("pose y error", targetPoseY - currentPoseY);
+        SmartDashboard.putNumber("pose rotation error", targetPoseRotation - currentPoseRotation);
+
         // System.out.println(targetPoseX + ", " + currentPoseX + ", " + targetPoseY + ", " + currentPoseY + ", " + targetPoseRotation + ", " + currentPoseRotation);
 
         // if (Math.abs(translationVal) < 0.08) {
@@ -95,8 +101,15 @@ public class FollowTag extends State {
         //     rotationVal = 0.0;
         // }
 
+        translationVal = Math.min(Math.max(translationVal, -0.5), 0.5);
+        strafeVal = Math.min(Math.max(strafeVal, -0.7), 0.7);
+        rotationVal = Math.min(Math.max(rotationVal, -2.0), 2.0);
+
+        translationVal *= DriverStation.getAlliance() == DriverStation.Alliance.Blue ? -1.0 : 1.0;
+        strafeVal *= DriverStation.getAlliance() == DriverStation.Alliance.Blue ? -1.0 : 1.0;
+
         RobotMap.swerve.drive(
-            new Translation2d(-translationVal, -strafeVal), // Constants.SWERVE.MAX_SPEED), 
+            new Translation2d(translationVal, strafeVal), // Constants.SWERVE.MAX_SPEED), 
             rotationVal,
             true, 
             true

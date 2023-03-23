@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotMap;
+import frc.robot.LimelightHelpers.LimelightResults;
 
 /** Class with methods that get used in states of DrivetrainStateMachine */
 public class Swerve {
@@ -81,14 +82,24 @@ public class Swerve {
             
         camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
 
+    }
+
+    public static void periodic() {
+        boolean leftShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON);
+        leftShift = !leftShiftPrev && leftShiftCurr;
+        leftShiftPrev = leftShiftCurr;
+        boolean rightShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON);
+        rightShift = !rightShiftPrev && rightShiftCurr;
+        rightShiftPrev = rightShiftCurr;
+
         double starting_x = 0.0;
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            starting_x = 15.81658 - Constants.TargetPoses.BLUE_SCORING_X;
+            starting_x = 15.875508 - Constants.TargetPoses.BLUE_SCORING_X;
             rotation = Rotation2d.fromDegrees(0.0);
             loadingStation = new Pose2d(
-                Constants.TargetPoses.BLUE_SUBSTATION_X, 
+                15.875508 - Constants.TargetPoses.BLUE_SUBSTATION_X, 
                 Constants.TargetPoses.BLUE_SUBSTATION_Y, 
                 Rotation2d.fromDegrees(180.0)
             );
@@ -102,6 +113,8 @@ public class Swerve {
             );
         }
 
+        scoringPoses.clear();
+
         for (int i = 0; i < 9; i++) {
             scoringPoses.add(new Pose2d(
                 starting_x,
@@ -109,16 +122,6 @@ public class Swerve {
                 rotation
             ));
         }
-
-    }
-
-    public static void periodic() {
-        boolean leftShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON);
-        leftShift = !leftShiftPrev && leftShiftCurr;
-        leftShiftPrev = leftShiftCurr;
-        boolean rightShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON);
-        rightShift = !rightShiftPrev && rightShiftCurr;
-        rightShiftPrev = rightShiftCurr;
     }
 
     public static void zeroRoll() {
@@ -219,13 +222,35 @@ public class Swerve {
         // swerveOdometry.addVisionMeasurement(visionMeasurement, resultTimestamp);
     }
 
+    private Pose2d lastLLBotPose2d = new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(0.0));
+
     private void updateSwervePoseLimelight() {
-        timer.reset();
-        timer.start();
-        Pose2d botPose2d = LimelightHelpers.getBotPose2d_wpiBlue(Constants.LIMELIGHT.NAME);
-        double tl = LimelightHelpers.getLatency_Pipeline(Constants.LIMELIGHT.NAME);
-        double tc = LimelightHelpers.getLatency_Capture(Constants.LIMELIGHT.NAME);
-        timer.stop();
+        // double tl = LimelightHelpers.getLatency_Pipeline(Constants.LIMELIGHT.NAME);
+        // double tc = LimelightHelpers.getLatency_Capture(Constants.LIMELIGHT.NAME);
+        LimelightResults results = LimelightHelpers.getLatestResults(Constants.LIMELIGHT.NAME);
+        var num_targets = results.targetingResults.targets_Fiducials.length;
+        Pose2d botPose2d = LimelightHelpers.toPose2D(results.targetingResults.botpose_wpiblue);
+        double tl = results.targetingResults.latency_pipeline;
+        double tc = results.targetingResults.latency_capture;
+
+        if (Math.abs(results.targetingResults.botpose_wpiblue[0]) < 1.0E-10 && 
+            Math.abs(results.targetingResults.botpose_wpiblue[1]) < 1.0E-10 && 
+            Math.abs(results.targetingResults.botpose_wpiblue[2]) < 1.0E-10 && 
+            Math.abs(results.targetingResults.botpose_wpiblue[3]) < 1.0E-10 && 
+            Math.abs(results.targetingResults.botpose_wpiblue[4]) < 1.0E-10 && 
+            Math.abs(results.targetingResults.botpose_wpiblue[5]) < 1.0E-10) {
+            return;
+        }
+
+        if (num_targets != 1) {
+            return;
+        }
+
+        if (botPose2d.getTranslation().getDistance(lastLLBotPose2d.getTranslation()) > 1.0) {
+            lastLLBotPose2d = botPose2d;
+            return;
+        }
+        lastLLBotPose2d = botPose2d;
 
         if ((int)LimelightHelpers.getFiducialID(Constants.LIMELIGHT.NAME) == -1.0) {
             return;
