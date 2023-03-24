@@ -29,7 +29,7 @@ public final class Constants {
         public static final int RIGHT_SHOULDER_MOTOR = 51;
         public static final int LEFT_ELBOW_MOTOR = 53;
         public static final int RIGHT_ELBOW_MOTOR = 54;
-        public static final int CLAW_MOTOR = 55;
+        public static final int INTAKE_MOTOR = 55;
         public static final int CANdle = 34;
     }
 
@@ -224,15 +224,9 @@ public final class Constants {
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
-    public static final class CLAW {
-        public static final double OPEN_POSITION = 500.0;
-        public static final double CLOSED_POSITION = -50.0;
-        public static final double ALLOWANCE = 10.0;
-        public static final double TIME = 0.1;
-        public static final double TIMEOUT = 1.65; // 1.2;
-
-        public static final double OPEN_POWER = -0.8;
-        public static final double CLOSE_POWER = 0.8;
+    public static final class INTAKE {
+        public static final double OUTTAKE_POWER = -1.0;
+        public static final double INTAKE_POWER = 1.0;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00); // grayson cone: new Color(141, 93, 20);
@@ -326,18 +320,20 @@ public final class Constants {
          *  if in a node scoring position, shifts the robot one node to the left
          */
         public static final int SHIFT_LEFT_BUTTON = XboxController.Button.kLeftBumper.value;
+
         /*
          * SHIFT_RIGHT_BUTTON:
          * same as above, but opposite direction
          */
         public static final int SHIFT_RIGHT_BUTTON = XboxController.Button.kRightBumper.value;
+
         /*
          * AUTO_ALIGN_BUTTON:
          * in teleop state:
          *  puts you in the auto align state
          */
         public static final int AUTO_ALIGN_BUTTON = XboxController.Button.kB.value;
-        
+
         /*
          * Axes to control drive base in teleop mode
          */
@@ -351,17 +347,16 @@ public final class Constants {
          */
         public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
 
-        /* in ground intake or substation intake:
-         *  manually close the claw
-         */
-        public static final int CLOSE_BUTTON = XboxController.Axis.kRightTrigger.value;
-
         /*
          * in teleop state:
          *  Zeros the gyro of the robot and changes its field alignment
          */
         public static final int ZERO_GYRO = XboxController.Button.kX.value;
 
+        /*
+         * in teleop state:
+         *  transitions drivetrain to auto balancing on the charging station
+         */
         public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kA.value;
     }
 
@@ -410,8 +405,13 @@ public final class Constants {
         public static final int CUBE_LED_BUTTON = XboxController.Button.kLeftBumper.value;
         
         /* in ground intake or substation intake:
-         *  manually close the claw
+         *  manually outtake
          */
-        public static final int RE_SQUEEZE_AXIS = XboxController.Axis.kLeftTrigger.value;
+        public static final int OUTTAKE_AXIS = XboxController.Axis.kLeftTrigger.value;
+
+        /* in ground intake or substation intake:
+         *  manually intake
+         */
+        public static final int INTAKE_BUTTON = XboxController.Button.kY.value;
     }
 }
