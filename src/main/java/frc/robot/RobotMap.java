@@ -3,9 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
@@ -34,10 +32,6 @@ public class RobotMap {
     public static WPI_TalonFX rightShoulderMotor;
     public static VictorSPX intakeMotor;
 
-    /* Sensor instances */
-    public static ColorSensorV3 intakeColorSensor;
-    public static Encoder intakeEncoder;
-
     /* Smart Dashboard Instances */
     public static Field2d Field2d;
 
@@ -59,8 +53,6 @@ public class RobotMap {
         leftElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
         rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
         intakeMotor = new VictorSPX(Constants.CAN_IDS.INTAKE_MOTOR);
-        intakeColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
-        intakeEncoder = new Encoder(0, 1, true);
 
         gyro.configFactoryDefault();
         leftShoulderMotor.configFactoryDefault();

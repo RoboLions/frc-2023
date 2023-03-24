@@ -46,7 +46,6 @@ public class Robot extends TimedRobot {
     Swerve.zeroPitch();
     Swerve.zeroRoll();
     RobotMap.arm.resetEncoders();
-    RobotMap.intakeEncoder.reset();
     SmartDashboard.putData("Field", RobotMap.Field2d);
     RobotMap.intakeMotor.setNeutralMode(NeutralMode.Coast);
   }

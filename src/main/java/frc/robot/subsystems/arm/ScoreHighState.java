@@ -42,30 +42,10 @@ public class ScoreHighState extends State {
     
     @Override
     public void init() {
-        Color current_color = RobotMap.intake.getColor();
-        if (current_color == null) {
-            RobotMap.arm.moveArmPosition(
-                Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-                Constants.HIGH_SCORE_CONE.ELBOW_POSITION
-            );
-            return;
-        }
-
-        if (current_color == Constants.INTAKE.CUBE_COLOR) {
-            RobotMap.arm.moveArmPosition(
-                Constants.HIGH_SCORE_CUBE.SHOULDER_POSITION, 
-                Constants.HIGH_SCORE_CUBE.ELBOW_POSITION
-            );
-            return;
-        }
-
-        if (current_color == Constants.INTAKE.CONE_COLOR) {
-            RobotMap.arm.moveArmPosition(
-                Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-                Constants.HIGH_SCORE_CONE.ELBOW_POSITION
-            );
-            return;
-        }
+        RobotMap.arm.moveArmPosition(
+            Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
+            Constants.HIGH_SCORE_CONE.ELBOW_POSITION
+        );
     }
 
     @Override
