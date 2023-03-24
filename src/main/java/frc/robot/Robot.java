@@ -18,11 +18,10 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
-import frc.robot.lib.interfaces.Claw;
+import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
 /**
@@ -47,8 +46,9 @@ public class Robot extends TimedRobot {
     Swerve.zeroPitch();
     Swerve.zeroRoll();
     RobotMap.arm.resetEncoders();
-    RobotMap.clawEncoder.reset();
+    RobotMap.intakeEncoder.reset();
     SmartDashboard.putData("Field", RobotMap.Field2d);
+    RobotMap.intakeMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   /**
@@ -62,21 +62,13 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     /* state machines always execute current state and check for next state */
     RobotMap.drivetrainStateMachine.setNextState();
-    RobotMap.clawStateMachine.setNextState();
+    RobotMap.intakeStateMachine.setNextState();
     RobotMap.armStateMachine.setNextState();
     RobotMap.ledStateMachine.setNextState();
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
     Swerve.periodic();
-
-    // if (RobotMap.driverController.getRawButton(XboxController.Button.kA.value)) {
-    //   Claw.requestClawOpen();
-    // }
-
-    // if (RobotMap.driverController.getRawButton(XboxController.Button.kB.value)) {
-    //   Claw.requestClawClosed();
-    // }
 
     // see robot pose on Glass
     // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
@@ -94,17 +86,17 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Elbow R Setpoint", RobotMap.rightElbowMotor.getClosedLoopTarget());
     
     // SmartDashboard.putString("Current arm state", RobotMap.armStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.arm.", ""));
-    // SmartDashboard.putString("Current claw state", RobotMap.clawStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
+    // SmartDashboard.putString("Current claw state", RobotMap.intakeStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.claw.", ""));
     // // SmartDashboard.putString("Current drivetrain state", RobotMap.drivetrainStateMachine.getCurrentState().toString().replace("frc.robot.subsystems.drive.", ""));
 
     // SmartDashboard.putNumber("Error Shoulder", RobotMap.leftShoulderMotor.getClosedLoopError());
     // SmartDashboard.putNumber("Error Elbow", RobotMap.leftElbowMotor.getClosedLoopError());
     
-    // Color read_color = RobotMap.claw.getColor();
+    // Color read_color = RobotMap.intake.getColor();
     // //System.out.println(read_color);
     // SmartDashboard.putString("Detected HEX code", read_color != null ? read_color.toString() : "");
-    //SmartDashboard.putNumber("Claw set power", RobotMap.clawMotor.getMotorOutputPercent());
-    // SmartDashboard.putNumber("Claw encoder", RobotMap.clawEncoder.get());
+    //SmartDashboard.putNumber("Claw set power", RobotMap.intakeMotor.getMotorOutputPercent());
+    // SmartDashboard.putNumber("Claw encoder", RobotMap.intakeEncoder.get());
 
     // SmartDashboard.putNumber("Roll", Swerve.getRoll());
     // SmartDashboard.putNumber("Pitch", Swerve.getPitch());
@@ -147,7 +139,6 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
-    RobotMap.clawMotor.setNeutralMode(NeutralMode.Brake);
 
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();
@@ -197,7 +188,7 @@ public class Robot extends TimedRobot {
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Coast);
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Coast);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
-    RobotMap.clawMotor.setNeutralMode(NeutralMode.Coast);
+    RobotMap.intakeMotor.setNeutralMode(NeutralMode.Coast);
     
     if (autoModeExecutor != null) {
       autoModeExecutor.stop();

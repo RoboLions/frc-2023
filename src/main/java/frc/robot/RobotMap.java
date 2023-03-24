@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
-import frc.robot.lib.interfaces.Claw;
+import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.interfaces.LED;
 import frc.robot.subsystems.LED.LEDStateMachine;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
+import frc.robot.subsystems.intake.IntakeStateMachine;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public class RobotMap {
@@ -23,7 +23,7 @@ public class RobotMap {
     /* state machine instances */
     public static DrivetrainStateMachine drivetrainStateMachine;
     public static ArmStateMachine armStateMachine;
-    public static ClawStateMachine clawStateMachine;
+    public static IntakeStateMachine intakeStateMachine;
     public static LEDStateMachine ledStateMachine;
 
     /* Motor instances */
@@ -32,11 +32,11 @@ public class RobotMap {
     public static WPI_TalonFX rightElbowMotor;
     public static WPI_TalonFX leftShoulderMotor;
     public static WPI_TalonFX rightShoulderMotor;
-    public static VictorSPX clawMotor;
+    public static VictorSPX intakeMotor;
 
     /* Sensor instances */
-    public static ColorSensorV3 clawColorSensor;
-    public static Encoder clawEncoder;
+    public static ColorSensorV3 intakeColorSensor;
+    public static Encoder intakeEncoder;
 
     /* Smart Dashboard Instances */
     public static Field2d Field2d;
@@ -44,7 +44,7 @@ public class RobotMap {
     /* Interface instances */
     public static Swerve swerve; 
     public static Arm arm;
-    public static Claw claw;
+    public static Intake intake;
     public static LED led;
 
     /* Xbox controllers */
@@ -58,16 +58,16 @@ public class RobotMap {
         rightShoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_SHOULDER_MOTOR);
         leftElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
         rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
-        clawMotor = new VictorSPX(Constants.CAN_IDS.CLAW_MOTOR);
-        clawColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
-        clawEncoder = new Encoder(0, 1, true);
+        intakeMotor = new VictorSPX(Constants.CAN_IDS.INTAKE_MOTOR);
+        intakeColorSensor = new ColorSensorV3(Constants.PORTS.COLOR_SENSOR);
+        intakeEncoder = new Encoder(0, 1, true);
 
         gyro.configFactoryDefault();
         leftShoulderMotor.configFactoryDefault();
         rightShoulderMotor.configFactoryDefault();
         leftElbowMotor.configFactoryDefault();
         rightElbowMotor.configFactoryDefault();
-        clawMotor.configFactoryDefault();
+        intakeMotor.configFactoryDefault();
         
         swerve = new Swerve();
         /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
@@ -80,13 +80,13 @@ public class RobotMap {
         driverController = new XboxController(0);
         
         arm = new Arm();
-        claw = new Claw();
+        intake = new Intake();
         Field2d = new Field2d();
         led = new LED();
 
         drivetrainStateMachine = new DrivetrainStateMachine();
         armStateMachine = new ArmStateMachine();
-        clawStateMachine = new ClawStateMachine();
+        intakeStateMachine = new IntakeStateMachine();
         ledStateMachine = new LEDStateMachine();
     }
 }
