@@ -28,7 +28,6 @@ import frc.robot.lib.auto.actions.WaitAction;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Simple auto path for testing */
 public class TestDrivePath extends AutoModeBase {
@@ -77,11 +76,11 @@ public class TestDrivePath extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // close the claw
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
+        // runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.maintainState(IntakeStateMachine.closingState)));
 
         // // wait for claw to be in closed state
         // // runAction(new ConditionAction(() -> {
-        // //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
+        // //     return RobotMap.intakeStateMachine.getCurrentState() == IntakeStateMachine.closedState;
         // // }));
         
         // // position arm to score high
@@ -93,7 +92,7 @@ public class TestDrivePath extends AutoModeBase {
         // }));
 
         // // then, score the piece
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
+        // runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.closedState)));
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // // wait for the piece to be scored which means the arm is in idle

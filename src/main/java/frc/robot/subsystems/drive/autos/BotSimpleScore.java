@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -20,7 +21,7 @@ import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
+import frc.robot.subsystems.intake.IntakeStateMachine;
 
 /** Simple bot score, 1 cone high */
 public class BotSimpleScore extends AutoModeBase {
@@ -29,6 +30,8 @@ public class BotSimpleScore extends AutoModeBase {
     TrajectoryAction driveOut;
 
     Pose2d initialHolonomicPose;
+
+    private Timer timer = new Timer();
 
     public BotSimpleScore() {
 
@@ -60,7 +63,6 @@ public class BotSimpleScore extends AutoModeBase {
             thetaController,
             RobotMap.swerve::setModuleStates
         );
-
     }
 
     @Override
@@ -68,9 +70,6 @@ public class BotSimpleScore extends AutoModeBase {
 
         System.out.println("Running bot simple score auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
-
-        // close the claw
-        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
 
         // position arm to score high
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
@@ -81,13 +80,16 @@ public class BotSimpleScore extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        timer.start();
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.outtakingState)));
 
-        // wait for the piece to be scored which means the arm is in idle
+        // wait for the piece to be scored
         runAction(new ConditionAction(() -> {
-            return RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.idleState;
+            return timer.hasElapsed(Constants.INTAKE.OUTTAKE_TIME);
         }));
+
+        // put arm to idle
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
 
         // drive out of the community
         runAction(driveOut);
