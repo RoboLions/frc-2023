@@ -7,7 +7,6 @@ package frc.robot.subsystems.arm;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Arm;
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -28,7 +27,6 @@ public class ElbowIdleState extends State {
     @Override
     public void init() {
         RobotMap.arm.setElbowIdle();
-        Claw.requestClawClosed();
     }
 
     @Override

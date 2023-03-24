@@ -6,11 +6,8 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Arm;
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
-import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** Add your docs here. */
 public class FPickupState extends State {
@@ -20,10 +17,6 @@ public class FPickupState extends State {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.elbowIdleState));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
         }, ArmStateMachine.elbowIdleState));
 
         transitions.add(new Transition(() -> {
@@ -37,24 +30,15 @@ public class FPickupState extends State {
             Constants.GROUND_INTAKE.SHOULDER_POSITION, 
             Constants.GROUND_INTAKE.ELBOW_POSITION
         );
-        Claw.requestClawOpen();
     }
 
     @Override
     public void execute() {
-        // if (Arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME) && Claw.getColor() != null) {
-        //     Claw.requestClawClosed();
-        // }
 
-        if (RobotMap.driverController.getRawAxis(Constants.DriverControls.CLOSE_BUTTON) > 0.25) {
-            Claw.requestClawClosed();
-        }
     }
 
     @Override
     public void exit() {
 
-        // TODO: need to send power to close motor throughout pickup to idle states
     }
-
 }

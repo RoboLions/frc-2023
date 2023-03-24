@@ -4,11 +4,8 @@
 
 package frc.robot.subsystems.arm;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -22,11 +19,6 @@ public class IdleState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON);
         }, ArmStateMachine.substationIntakeState));
-
-        // outtake if outtake button pressed
-        // transitions.add(new Transition(() -> {
-        //     return (RobotMap.manipulatorController.getPOV() >= 135.0 || RobotMap.manipulatorController.getPOV() <= 225.0);
-        // }, ArmStateMachine.outtakeState));
 
         // pickup from ground
         transitions.add(new Transition(() -> {
@@ -53,9 +45,7 @@ public class IdleState extends State {
     
     @Override
     public void init() {
-        RobotMap.clawMotor.set(ControlMode.PercentOutput, 0.0);
         RobotMap.arm.setIdle();
-        // Claw.requestClawClosed();
     }
 
     @Override

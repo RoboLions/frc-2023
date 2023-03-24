@@ -30,7 +30,7 @@ public class ScoreLowState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
 
-        // Go to scoring Transitions
+        // Go to scoring transition
         transitions.add(new Transition(() -> {
             return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > 0.25;
         }, ArmStateMachine.scoringState));
@@ -42,7 +42,7 @@ public class ScoreLowState extends State {
     
     @Override
     public void init() {
-        Color current_color = RobotMap.claw.getColor();
+        Color current_color = RobotMap.intake.getColor();
         if (current_color == null) {
             RobotMap.arm.moveArmPosition(
                 Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
@@ -51,7 +51,7 @@ public class ScoreLowState extends State {
             return;
         }
 
-        if (current_color == Constants.CLAW.CUBE_COLOR) {
+        if (current_color == Constants.INTAKE.CUBE_COLOR) {
             RobotMap.arm.moveArmPosition(
                 Constants.LOW_SCORE_CUBE.SHOULDER_POSITION, 
                 Constants.LOW_SCORE_CUBE.ELBOW_POSITION
@@ -59,7 +59,7 @@ public class ScoreLowState extends State {
             return;
         }
 
-        if (current_color == Constants.CLAW.CONE_COLOR) {
+        if (current_color == Constants.INTAKE.CONE_COLOR) {
             RobotMap.arm.moveArmPosition(
                 Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
                 Constants.LOW_SCORE_CONE.ELBOW_POSITION

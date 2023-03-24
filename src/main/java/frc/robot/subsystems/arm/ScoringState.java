@@ -6,7 +6,6 @@ package frc.robot.subsystems.arm;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Claw;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 
@@ -18,15 +17,11 @@ public class ScoringState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.elbowIdleState));
-
-        transitions.add(new Transition(() -> {
-            return RobotMap.claw.isOpen();
-        }, ArmStateMachine.elbowIdleState));
     }
     
     @Override
     public void init() {
-        Claw.requestClawOpen();
+
     }
 
     @Override
