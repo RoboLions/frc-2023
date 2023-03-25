@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -20,6 +21,7 @@ import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
+import frc.robot.subsystems.intake.IntakeStateMachine;
 
 /** Simple auto path for top side of grids, 1 cone high */
 public class TopSimpleScore extends AutoModeBase {
@@ -29,6 +31,8 @@ public class TopSimpleScore extends AutoModeBase {
 
     Pose2d initialHolonomicPose;
 
+    private Timer timer = new Timer();
+    
     public TopSimpleScore() {
 
         SmartDashboard.putBoolean("Auto Finished", false);
@@ -60,30 +64,27 @@ public class TopSimpleScore extends AutoModeBase {
         System.out.println("Running top simple score auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
-        // close the claw
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
+        // position arm to score high
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
-        // // wait for claw to be in closed state
-        // // runAction(new ConditionAction(() -> {
-        // //     return RobotMap.clawStateMachine.getCurrentState() == ClawStateMachine.closedState;
-        // // }));
-
-        // // position arm to score high
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
-
-        // // wait for arm to arrive in position
-        // runAction(new ConditionAction(() -> {
-        //     return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        // }));
-
-        // // then, score the piece
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
-
-        // wait for the piece to be scored which means the arm is in idle
+        // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.idleState;
+            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
+
+        // then, score the piece
+        timer.start();
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.maintainState(IntakeStateMachine.outtakingState)));
+
+        // wait for the piece to be scored
+        runAction(new ConditionAction(() -> {
+            return timer.hasElapsed(Constants.INTAKE.OUTTAKE_TIME);
+        }));
+
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.idleState)));
+
+        // put arm to idle
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
 
         // drive out of the community
         runAction(driveOut);
