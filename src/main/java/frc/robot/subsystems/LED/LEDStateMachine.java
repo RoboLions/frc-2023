@@ -4,10 +4,6 @@
 
 package frc.robot.subsystems.LED;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.StateMachine;
 
 /** Add your docs here. */
