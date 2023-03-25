@@ -5,7 +5,6 @@
 package frc.robot.subsystems.arm;
 
 import frc.robot.lib.statemachine.State;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
