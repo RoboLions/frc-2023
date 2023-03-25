@@ -195,16 +195,16 @@ public final class Constants {
         // TODO: get poses with bot, 9 on red would = 1 one blue (they are flipped)
 
         public static double BLUE_SCORING_X = 2.0;
-        public static double BLUE_SCORING_Y = 0.381;
+        public static double BLUE_SCORING_Y = 0.54;
         public static double SCORING_SPACING = 0.559;
 
-        public static double BLUE_SUBSTATION_X = 1000.0;
-        public static double BLUE_SUBSTATION_Y = 1000.0;
+        public static double BLUE_SUBSTATION_X = 14.699;
+        public static double BLUE_SUBSTATION_Y = 7.283;
 
         public static double RED_TRANSPOSE_DISTANCE = 16.54175;
 
-        public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-        public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
+        // public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
+        // public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
     }
 
     // TODO: tune all and find positions of all below
@@ -245,13 +245,13 @@ public final class Constants {
 
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 8000.0; //13500.0;
-        public static final double ELBOW_POSITION = 54000.0; // 59500.0;
+        public static final double ELBOW_POSITION = 52900.0; // 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 67500.0; // 71500.0;
+        public static final double SHOULDER_POSITION = 68500.0; // 71500.0;
         public static final double ELBOW_POSITION = 90000.0; // 84300.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.25;
@@ -265,8 +265,8 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 73000.0; // 44000.0;
-        public static final double ELBOW_POSITION = 110000.0; // 57000.0;
+        public static final double SHOULDER_POSITION = 75500.0; // 44000.0;
+        public static final double ELBOW_POSITION = 125000.0; // 57000.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -285,8 +285,8 @@ public final class Constants {
     }
 
     public static final class SUBSTATION_INTAKE {
-        public static final double SHOULDER_POSITION = 66500.0;
-        public static final double ELBOW_POSITION = 89500.0;
+        public static final double SHOULDER_POSITION = 65000.0;
+        public static final double ELBOW_POSITION = 92500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.5;
     }

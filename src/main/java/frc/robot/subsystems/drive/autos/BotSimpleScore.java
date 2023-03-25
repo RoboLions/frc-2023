@@ -94,7 +94,7 @@ public class BotSimpleScore extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
 
         // drive out of the community
-        // runAction(driveOut);
+        runAction(driveOut);
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);

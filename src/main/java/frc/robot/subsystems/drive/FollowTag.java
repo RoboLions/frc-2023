@@ -83,9 +83,9 @@ public class FollowTag extends State {
         double strafeVal = yController.calculate(currentPoseY, targetPoseY);
         double rotationVal = thetaController.calculate(currentPoseRotation, targetPoseRotation);
 
-        SmartDashboard.putNumber("pose x error", targetPoseX - currentPoseX);
-        SmartDashboard.putNumber("pose y error", targetPoseY - currentPoseY);
-        SmartDashboard.putNumber("pose rotation error", targetPoseRotation - currentPoseRotation);
+        // SmartDashboard.putNumber("pose x error", targetPoseX - currentPoseX);
+        // SmartDashboard.putNumber("pose y error", targetPoseY - currentPoseY);
+        // SmartDashboard.putNumber("pose rotation error", targetPoseRotation - currentPoseRotation);
 
         // System.out.println(targetPoseX + ", " + currentPoseX + ", " + targetPoseY + ", " + currentPoseY + ", " + targetPoseRotation + ", " + currentPoseRotation);
 

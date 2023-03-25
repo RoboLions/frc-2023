@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -20,6 +21,9 @@ public class TeleopState extends State {
     double strafeVal;
     double rotationVal;
     double translationValScalar;
+
+    private SlewRateLimiter translationFilter = new SlewRateLimiter(0.98);
+    private SlewRateLimiter strafeFilter = new SlewRateLimiter(0.98);
 
     public TeleopState() {}
 
@@ -83,7 +87,7 @@ public class TeleopState extends State {
         }
 
         RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(translationValScalar), 
+            new Translation2d(translationFilter.calculate(translationVal), strafeFilter.calculate(strafeVal)).times(translationValScalar), 
             rotationVal,
             true, 
             true

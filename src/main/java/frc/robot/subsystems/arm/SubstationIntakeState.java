@@ -23,6 +23,11 @@ public class SubstationIntakeState extends State {
        transitions.add(new Transition(() -> {
         return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
        }, ArmStateMachine.manualMoveState));
+       
+        // pickup from ground
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
+        }, ArmStateMachine.groundPickupState));
     }
     
     @Override

@@ -6,6 +6,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -17,6 +18,7 @@ import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
+import frc.robot.subsystems.intake.IntakeStateMachine;
 
 /** Simple mid score, 1 cone high, then balance on charging station */
 public class MidScoreBalance extends AutoModeBase {
@@ -26,6 +28,8 @@ public class MidScoreBalance extends AutoModeBase {
 
     Pose2d initialHolonomicPose;
 
+    private Timer timer = new Timer();
+
     public MidScoreBalance() {
 
         SmartDashboard.putBoolean("Auto Finished", false);
@@ -34,7 +38,7 @@ public class MidScoreBalance extends AutoModeBase {
         var thetaController = Constants.SWERVE.Profile.THETA_CONTROLLER;
         
         // transform trajectory depending on alliance we are on
-        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(2.5, 2.0));
+        PathPlannerTrajectory botMidScore = PathPlanner.loadPath("Mid Score + Balance", new PathConstraints(1.25, 1.75));
         botMidScore = PathPlannerTrajectory.transformTrajectoryForAlliance(botMidScore, DriverStation.getAlliance());
         
         initialHolonomicPose = botMidScore.getInitialHolonomicPose();
@@ -56,25 +60,27 @@ public class MidScoreBalance extends AutoModeBase {
         System.out.println("Running mid score with balance auto!");
         SmartDashboard.putBoolean("Auto Finished", false);
 
-        // close the claw
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
-        
-        // // position arm to score high
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
+        // position arm to score high
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
-        // // wait for arm to arrive in position
-        // runAction(new ConditionAction(() -> {
-        //   return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        // }));
-
-        // // then, score the piece
-        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
-        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
-
-        // wait for the piece to be scored which means the arm is in idle
+        // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.idleState;
+            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
+
+        // then, score the piece
+        timer.start();
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.maintainState(IntakeStateMachine.outtakingState)));
+
+        // wait for the piece to be scored
+        runAction(new ConditionAction(() -> {
+            return timer.hasElapsed(Constants.INTAKE.OUTTAKE_TIME);
+        }));
+
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.idleState)));
+
+        // put arm to idle
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
 
         // drive onto the charge station
         runAction(driveToChargeStation);
