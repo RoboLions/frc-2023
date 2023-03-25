@@ -344,11 +344,9 @@ public class Swerve {
         poseNumber = -1;
         closestPose = loadingStation;
         double shortestDistance = currentPose.getTranslation().getDistance(loadingStation.getTranslation());
-        System.out.println(shortestDistance);
 
         for (int i = 0; i < scoringPoses.size(); i++) {
             double temp_distance = currentPose.getTranslation().getDistance(scoringPoses.get(i).getTranslation());
-            System.out.println(temp_distance);
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
                 closestPose = scoringPoses.get(i);
@@ -356,8 +354,6 @@ public class Swerve {
             }
         }
 
-        
-        System.out.println("shortest distance found, " + shortestDistance);
         return shortestDistance;
     }
 
