@@ -30,11 +30,6 @@ public class ScoreLowState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
         }, ArmStateMachine.scoreMidState));
 
-        // Go to scoring transition
-        transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > 0.25;
-        }, ArmStateMachine.scoringState));
-
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
@@ -43,8 +38,8 @@ public class ScoreLowState extends State {
     @Override
     public void init() {
         RobotMap.arm.moveArmPosition(
-            Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-            Constants.HIGH_SCORE_CONE.ELBOW_POSITION
+            Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
+            Constants.LOW_SCORE_CONE.ELBOW_POSITION
         );
     }
 

@@ -16,11 +16,15 @@ public class OuttakingState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
+            return !RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.OUTTAKE_BUTTON);
         }, IntakeStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
             return RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.elbowIdleState;
+        }, IntakeStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_AXIS) < 0.25;
         }, IntakeStateMachine.idleState));
     }
 

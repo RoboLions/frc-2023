@@ -19,8 +19,8 @@ public class CubeLEDState extends State {
     
     public void build(){
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.CONE_LED_BUTTON);
-        }, LEDStateMachine.LEDIdleState));    
+            return LED.backButton;
+        }, LEDStateMachine.coneLEDState));
     }
 
     @Override

@@ -15,7 +15,6 @@ public class ArmStateMachine extends StateMachine {
     public static ScoreHighState scoreHighState = new ScoreHighState();
     public static ScoreMidState scoreMidState = new ScoreMidState();
     public static ScoreLowState scoreLowState = new ScoreLowState();
-    public static ScoringState scoringState = new ScoringState();
     public static ElbowIdleState elbowIdleState = new ElbowIdleState();
 
     public ArmStateMachine() {
@@ -27,7 +26,6 @@ public class ArmStateMachine extends StateMachine {
         scoreHighState.build();
         scoreMidState.build();
         scoreLowState.build();
-        scoringState.build();
         elbowIdleState.build();
 
         setCurrentState(idleState);

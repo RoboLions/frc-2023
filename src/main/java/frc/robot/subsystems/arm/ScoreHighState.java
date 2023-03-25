@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.LED.LEDStateMachine;
 
 /** Add your docs here. */
 public class ScoreHighState extends State {
@@ -30,11 +31,6 @@ public class ScoreHighState extends State {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
         }, ArmStateMachine.scoreLowState));
 
-        // Go to scoring transition
-        transitions.add(new Transition(() -> {
-            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_BUTTON) > 0.25;
-        }, ArmStateMachine.scoringState));
-
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
@@ -42,10 +38,17 @@ public class ScoreHighState extends State {
     
     @Override
     public void init() {
-        RobotMap.arm.moveArmPosition(
-            Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
-            Constants.HIGH_SCORE_CONE.ELBOW_POSITION
-        );
+        if (RobotMap.ledStateMachine.getCurrentState() == LEDStateMachine.coneLEDState) {
+            RobotMap.arm.moveArmPosition(
+                Constants.HIGH_SCORE_CONE.SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CONE.ELBOW_POSITION
+            );
+        } else {
+            RobotMap.arm.moveArmPosition(
+                Constants.HIGH_SCORE_CUBE.SHOULDER_POSITION, 
+                Constants.HIGH_SCORE_CUBE.ELBOW_POSITION
+            );
+        }
     }
 
     @Override

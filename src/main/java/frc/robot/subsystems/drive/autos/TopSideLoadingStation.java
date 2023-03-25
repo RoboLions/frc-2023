@@ -21,7 +21,6 @@ import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.lib.interfaces.Arm;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** 3 piece auto on the top side of grids */
 public class TopSideLoadingStation extends AutoModeBase {
@@ -94,19 +93,19 @@ public class TopSideLoadingStation extends AutoModeBase {
         SmartDashboard.putBoolean("Auto Finished", false);
 
         // close the claw
-        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
+        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.maintainState(ClawStateMachine.closingState)));
         
-        // position arm to score high
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
+        // // position arm to score high
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
-        // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        }));
+        // // wait for arm to arrive in position
+        // runAction(new ConditionAction(() -> {
+        //     return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+        // }));
 
-        // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // // then, score the piece
+        // runAction(new LambdaAction(() -> RobotMap.clawStateMachine.setCurrentState(ClawStateMachine.closedState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {

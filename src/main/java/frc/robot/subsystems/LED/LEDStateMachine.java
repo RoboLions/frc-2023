@@ -13,16 +13,14 @@ import frc.robot.lib.statemachine.StateMachine;
 /** Add your docs here. */
 public class LEDStateMachine extends StateMachine {
 
-    public static LEDIdleState LEDIdleState = new LEDIdleState();
     public static CubeLEDState cubeLEDState = new CubeLEDState();
     public static ConeLEDState coneLEDState = new ConeLEDState();
 
     public LEDStateMachine() {
 
-        LEDIdleState.build();
         cubeLEDState.build();
         coneLEDState.build();
 
-        setCurrentState(LEDIdleState);
+        setCurrentState(coneLEDState);
     }
 }

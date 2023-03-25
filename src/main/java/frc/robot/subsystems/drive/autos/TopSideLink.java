@@ -21,7 +21,6 @@ import frc.robot.lib.auto.actions.ConditionAction;
 import frc.robot.lib.auto.actions.LambdaAction;
 import frc.robot.lib.auto.actions.TrajectoryAction;
 import frc.robot.subsystems.arm.ArmStateMachine;
-import frc.robot.subsystems.claw.ClawStateMachine;
 
 /** 3 piece auto on the top side of grids */
 public class TopSideLink extends AutoModeBase {
@@ -112,7 +111,7 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {
@@ -153,7 +152,7 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {
@@ -169,7 +168,7 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {
@@ -210,7 +209,7 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {
@@ -226,7 +225,7 @@ public class TopSideLink extends AutoModeBase {
         }));
 
         // then, score the piece
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
+        // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
 
         // wait for the piece to be scored which means the arm is in idle
         runAction(new ConditionAction(() -> {

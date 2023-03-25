@@ -201,6 +201,8 @@ public final class Constants {
         public static double BLUE_SUBSTATION_X = 1000.0;
         public static double BLUE_SUBSTATION_Y = 1000.0;
 
+        public static double RED_TRANSPOSE_DISTANCE = 16.54175;
+
         public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
         public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
     }
@@ -220,15 +222,15 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double F_TRAVEL_LIMIT = 104700.0;
+        public static final double F_TRAVEL_LIMIT = 120000.0;
         public static final double B_TRAVEL_LIMIT = -10.0;
     }
 
     public static final class INTAKE {
-        public static final double OUTTAKE_POWER = -1.0;
-        public static final double INTAKE_POWER = 1.0;
+        public static final double OUTTAKE_POWER = -0.75;
+        public static final double INTAKE_POWER = 0.75;
 
-        public static final double OUTTAKE_TIME = 1.0;
+        public static final double OUTTAKE_TIME = 0.25;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00); // grayson cone: new Color(141, 93, 20);
@@ -242,17 +244,17 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 13500.0;
-        public static final double ELBOW_POSITION = 59500.0;
+        public static final double SHOULDER_POSITION = 8000.0; //13500.0;
+        public static final double ELBOW_POSITION = 54000.0; // 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
 
     public static final class HIGH_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 71500.0; 
-        public static final double ELBOW_POSITION = 84300.0; 
+        public static final double SHOULDER_POSITION = 67500.0; // 71500.0;
+        public static final double ELBOW_POSITION = 90000.0; // 84300.0;
         public static final double ALLOWANCE = 100.0;
-        public static final double TIME = 0.5;
+        public static final double TIME = 0.25;
     }
 
     public static final class HIGH_SCORE_CUBE {
@@ -263,8 +265,8 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 44000.0;
-        public static final double ELBOW_POSITION = 57000.0;
+        public static final double SHOULDER_POSITION = 73000.0; // 44000.0;
+        public static final double ELBOW_POSITION = 110000.0; // 57000.0;
     }
 
     public static final class MID_SCORE_CUBE {
@@ -347,7 +349,7 @@ public final class Constants {
          * in a score state:
          *  Kicks off the score piece sequence of events
          */
-        public static final int SCORING_BUTTON = XboxController.Axis.kRightTrigger.value;
+        public static final int SCORING_AXIS = XboxController.Axis.kRightTrigger.value;
 
         /*
          * in teleop state:
@@ -403,17 +405,18 @@ public final class Constants {
          */
         public static final int MANUAL_MODE_BUTTON = XboxController.Button.kStart.value;
 
-        public static final int CONE_LED_BUTTON = XboxController.Button.kBack.value;
-        public static final int CUBE_LED_BUTTON = XboxController.Button.kLeftBumper.value;
+        public static final int LED_BUTTON = XboxController.Button.kBack.value;
         
         /* in ground intake or substation intake:
-         *  manually outtake
+         *  manually outtake cube
+         *  manually intake cone
          */
-        public static final int OUTTAKE_AXIS = XboxController.Axis.kLeftTrigger.value;
+        public static final int OUTTAKE_BUTTON = XboxController.Button.kLeftBumper.value;
 
         /* in ground intake or substation intake:
-         *  manually intake
+         *  manually intake cube
+         *  manually outtake cone
          */
-        public static final int INTAKE_BUTTON = XboxController.Button.kY.value;
+        public static final int INTAKE_AXIS = XboxController.Axis.kLeftTrigger.value;
     }
 }

@@ -96,10 +96,10 @@ public class Swerve {
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            starting_x = 15.875508 - Constants.TargetPoses.BLUE_SCORING_X;
+            starting_x = Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SCORING_X;
             rotation = Rotation2d.fromDegrees(0.0);
             loadingStation = new Pose2d(
-                15.875508 - Constants.TargetPoses.BLUE_SUBSTATION_X, 
+                Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SUBSTATION_X, 
                 Constants.TargetPoses.BLUE_SUBSTATION_Y, 
                 Rotation2d.fromDegrees(180.0)
             );

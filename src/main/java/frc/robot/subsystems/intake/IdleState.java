@@ -18,11 +18,15 @@ public class IdleState extends State {
     public void build() {
 
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.INTAKE_BUTTON);
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.INTAKE_AXIS) > 0.25;
         }, IntakeStateMachine.intakingState));
 
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.OUTTAKE_AXIS) > 0.25;
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.OUTTAKE_BUTTON);
+        }, IntakeStateMachine.outtakingState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.SCORING_AXIS) > 0.25;
         }, IntakeStateMachine.outtakingState));
         
     }

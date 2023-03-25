@@ -81,18 +81,20 @@ public class BotSimpleScore extends AutoModeBase {
 
         // then, score the piece
         timer.start();
-        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.outtakingState)));
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.maintainState(IntakeStateMachine.outtakingState)));
 
         // wait for the piece to be scored
         runAction(new ConditionAction(() -> {
             return timer.hasElapsed(Constants.INTAKE.OUTTAKE_TIME);
         }));
 
+        runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.idleState)));
+
         // put arm to idle
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
 
         // drive out of the community
-        runAction(driveOut);
+        // runAction(driveOut);
 
         System.out.println("Finished auto!");
         SmartDashboard.putBoolean("Auto Finished", true);

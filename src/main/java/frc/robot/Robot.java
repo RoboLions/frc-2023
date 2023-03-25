@@ -19,6 +19,7 @@ import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
 import frc.robot.lib.interfaces.Intake;
+import frc.robot.lib.interfaces.LED;
 import frc.robot.lib.interfaces.Swerve;
 import frc.robot.lib.interfaces.SwerveModule;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -68,6 +69,7 @@ public class Robot extends TimedRobot {
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
     Swerve.periodic();
+    LED.periodic();
 
     // see robot pose on Glass
     // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());

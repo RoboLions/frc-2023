@@ -16,6 +16,9 @@ import com.ctre.phoenix.led.TwinkleOffAnimation.TwinkleOffPercent;
 public class LED {
     public static final CANdle m_candle = new CANdle(Constants.LED.CANdleID, "rio");
     public final int LedCount = 42;
+
+    private static boolean backButtonPrev = false;
+    public static boolean backButton = false;
     
     public static Animation m_toAnimate = null;
 
@@ -27,5 +30,11 @@ public class LED {
         configAll.brightnessScalar = 0.1;
         configAll.vBatOutputMode = VBatOutputMode.Modulated;
         m_candle.configAllSettings(configAll, 100);
+    }
+
+    public static void periodic() {
+        boolean backButtonCurr = RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LED_BUTTON);
+        backButton = !backButtonPrev && backButtonCurr;
+        backButtonPrev = backButtonCurr;
     }
 }
