@@ -95,6 +95,7 @@ public class Swerve {
         double starting_x = 0.0;
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
         Pose2d starting_loading_station = new Pose2d();
+        Rotation2d loading_station_rotation = Rotation2d.fromDegrees(0.0);
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
             starting_x = Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SCORING_X;
@@ -102,7 +103,7 @@ public class Swerve {
             starting_loading_station = new Pose2d(
                 Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SUBSTATION_X, 
                 Constants.TargetPoses.BLUE_SUBSTATION_Y, 
-                Rotation2d.fromDegrees(180.0)
+                loading_station_rotation = Rotation2d.fromDegrees(180.0)
             );
         } else if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
             starting_x = Constants.TargetPoses.BLUE_SCORING_X;
@@ -110,7 +111,7 @@ public class Swerve {
             starting_loading_station = new Pose2d(
                 Constants.TargetPoses.BLUE_SUBSTATION_X,
                 Constants.TargetPoses.BLUE_SUBSTATION_Y,
-                Rotation2d.fromDegrees(0.0)
+                loading_station_rotation = Rotation2d.fromDegrees(0.0)
             );
         }
 
@@ -129,7 +130,7 @@ public class Swerve {
             loadingStationPoses.add(new Pose2d(
                 starting_loading_station.getX(),
                 Constants.TargetPoses.BLUE_SUBSTATION_Y + i * Constants.TargetPoses.SUBSTATION_SPACING,
-                rotation
+                loading_station_rotation
             ));
         }
     }
