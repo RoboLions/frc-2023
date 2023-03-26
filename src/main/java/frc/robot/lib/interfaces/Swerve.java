@@ -353,11 +353,24 @@ public class Swerve {
         // get distance between current pose and target pose of every target pose 
         // for the pose with shortest distance, make that the closest pose
         poseNumber = -1;
-        closestPose = loadingStationPoses.get(0);
         double shortestDistance = currentPose.getTranslation().getDistance(loadingStationPoses.get(0).getTranslation());
 
+        // compare the distance between our current pose and loading station poses
+        for (int i = 0; i < loadingStationPoses.size(); i++) {
+            double temp_distance = currentPose.getTranslation().getDistance(loadingStationPoses.get(i).getTranslation());
+            if (temp_distance < shortestDistance) {
+                shortestDistance = temp_distance;
+                closestPose = loadingStationPoses.get(i);
+                // pose number = -1 still, no pose shifting at the substation
+            }
+        }
+
+        // compare the distance between current pose and scoring poses
         for (int i = 0; i < scoringPoses.size(); i++) {
             double temp_distance = currentPose.getTranslation().getDistance(scoringPoses.get(i).getTranslation());
+            /* the shortest distance is currently the distance to loading station pose 0 or 1
+            if the distance from current pose to the scoring pose is smaller than 
+            distance to closest loading station pose, make this our closest pose */
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
                 closestPose = scoringPoses.get(i);
