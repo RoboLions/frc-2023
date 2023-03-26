@@ -41,7 +41,7 @@ public class Swerve {
     private double previousPipelineTimestamp = 0;
     
     private static ArrayList<Pose2d> scoringPoses = new ArrayList<Pose2d>();
-    private static Pose2d loadingStation;
+    private static ArrayList<Pose2d> loadingStationPoses = new ArrayList<Pose2d>();
     private Pose2d closestPose;
     public static int poseNumber;
     public static AprilTagFieldLayout aprilTagFieldLayout;
@@ -94,11 +94,12 @@ public class Swerve {
 
         double starting_x = 0.0;
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
+        Pose2d starting_loading_station = new Pose2d();
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
             starting_x = Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SCORING_X;
             rotation = Rotation2d.fromDegrees(0.0);
-            loadingStation = new Pose2d(
+            starting_loading_station = new Pose2d(
                 Constants.TargetPoses.RED_TRANSPOSE_DISTANCE - Constants.TargetPoses.BLUE_SUBSTATION_X, 
                 Constants.TargetPoses.BLUE_SUBSTATION_Y, 
                 Rotation2d.fromDegrees(180.0)
@@ -106,7 +107,7 @@ public class Swerve {
         } else if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
             starting_x = Constants.TargetPoses.BLUE_SCORING_X;
             rotation = Rotation2d.fromDegrees(180.0);
-            loadingStation = new Pose2d(
+            starting_loading_station = new Pose2d(
                 Constants.TargetPoses.BLUE_SUBSTATION_X,
                 Constants.TargetPoses.BLUE_SUBSTATION_Y,
                 Rotation2d.fromDegrees(0.0)
@@ -114,11 +115,20 @@ public class Swerve {
         }
 
         scoringPoses.clear();
+        loadingStationPoses.clear();
 
         for (int i = 0; i < 9; i++) {
             scoringPoses.add(new Pose2d(
                 starting_x,
                 Constants.TargetPoses.BLUE_SCORING_Y + i * Constants.TargetPoses.SCORING_SPACING,
+                rotation
+            ));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            loadingStationPoses.add(new Pose2d(
+                starting_loading_station.getX(),
+                Constants.TargetPoses.BLUE_SUBSTATION_Y + i * Constants.TargetPoses.SUBSTATION_SPACING,
                 rotation
             ));
         }
@@ -342,8 +352,8 @@ public class Swerve {
         // get distance between current pose and target pose of every target pose 
         // for the pose with shortest distance, make that the closest pose
         poseNumber = -1;
-        closestPose = loadingStation;
-        double shortestDistance = currentPose.getTranslation().getDistance(loadingStation.getTranslation());
+        closestPose = loadingStationPoses.get(0);
+        double shortestDistance = currentPose.getTranslation().getDistance(loadingStationPoses.get(0).getTranslation());
 
         for (int i = 0; i < scoringPoses.size(); i++) {
             double temp_distance = currentPose.getTranslation().getDistance(scoringPoses.get(i).getTranslation());
