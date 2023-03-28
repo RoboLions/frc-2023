@@ -129,7 +129,7 @@ public class Swerve {
         for (int i = 0; i < 2; i++) {
             loadingStationPoses.add(new Pose2d(
                 starting_loading_station.getX(),
-                Constants.TargetPoses.BLUE_SUBSTATION_Y + i * Constants.TargetPoses.SUBSTATION_SPACING,
+                Constants.TargetPoses.BLUE_SUBSTATION_Y - i * Constants.TargetPoses.SUBSTATION_SPACING,
                 loading_station_rotation
             ));
         }
