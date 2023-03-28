@@ -22,15 +22,17 @@ public class TeleopState extends State {
     double rotationVal;
     double translationValScalar;
 
-    private SlewRateLimiter translationFilter = new SlewRateLimiter(0.98);
-    private SlewRateLimiter strafeFilter = new SlewRateLimiter(0.98);
+    boolean accelEnabled = true;
+
+    private SlewRateLimiter translationFilter = new SlewRateLimiter(2.0);
+    private SlewRateLimiter strafeFilter = new SlewRateLimiter(2.0);
 
     public TeleopState() {}
 
     @Override
     public void build() {
         addTransition(new Transition(() -> {
-            return RobotMap.driverController.getRawButton(Constants.DriverControls.AUTO_ALIGN_BUTTON);
+            return RobotMap.driverController.getRawAxis(Constants.DriverControls.AUTO_ALIGN_AXIS) > 0.25;
         }, DrivetrainStateMachine.followTag));
 
         addTransition(new Transition(() -> {
@@ -43,7 +45,6 @@ public class TeleopState extends State {
 
     @Override
     public void execute() {
-
         // for(SwerveModule mod : Swerve.mSwerveMods) {
         //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
         //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
@@ -86,8 +87,23 @@ public class TeleopState extends State {
             rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY;
         }
 
+        // toggle whether the accel/decel on is enabled
+        if (Swerve.bButton) {
+            if (accelEnabled) {
+                accelEnabled = false;
+            } else {
+                accelEnabled = true;
+            }
+        }
+
+        // only apply the accel/decel filter if accelEnabled is true
+        if (accelEnabled) {
+            translationVal = translationFilter.calculate(translationVal);
+            strafeVal = strafeFilter.calculate(strafeVal);
+        }
+
         RobotMap.swerve.drive(
-            new Translation2d(translationFilter.calculate(translationVal), strafeFilter.calculate(strafeVal)).times(translationValScalar), 
+            new Translation2d(translationVal, strafeVal).times(translationValScalar), 
             rotationVal,
             true, 
             true
