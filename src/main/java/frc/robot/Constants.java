@@ -196,7 +196,9 @@ public final class Constants {
 
         public static double BLUE_SCORING_X = 2.0;
         public static double BLUE_SCORING_Y = 0.54;
+        
         public static double SCORING_SPACING = 0.559;
+        public static double SUBSTATION_SPACING = 0.5;
 
         public static double BLUE_SUBSTATION_X = 14.699;
         public static double BLUE_SUBSTATION_Y = 7.283;
