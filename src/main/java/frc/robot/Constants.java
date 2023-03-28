@@ -227,10 +227,10 @@ public final class Constants {
     }
 
     public static final class INTAKE {
-        public static final double OUTTAKE_POWER = -0.75;
+        public static final double OUTTAKE_POWER = -0.55;
         public static final double INTAKE_POWER = 0.75;
 
-        public static final double OUTTAKE_TIME = 0.25;
+        public static final double OUTTAKE_TIME = 0.2;
 
         public static final Color CUBE_COLOR = new Color(0.21, 0.33, 0.46);
         public static final Color CONE_COLOR = new Color(0.37, 0.57, 0.00); // grayson cone: new Color(141, 93, 20);
@@ -244,8 +244,8 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 8000.0; //13500.0;
-        public static final double ELBOW_POSITION = 52900.0; // 59500.0;
+        public static final double SHOULDER_POSITION = 9000.0; //13500.0;
+        public static final double ELBOW_POSITION = 52500.0; // 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
@@ -254,7 +254,7 @@ public final class Constants {
         public static final double SHOULDER_POSITION = 68500.0; // 71500.0;
         public static final double ELBOW_POSITION = 90000.0; // 84300.0;
         public static final double ALLOWANCE = 100.0;
-        public static final double TIME = 0.25;
+        public static final double TIME = 0.2;
     }
 
     public static final class HIGH_SCORE_CUBE {
@@ -297,6 +297,11 @@ public final class Constants {
         public static final double TIME = 0.2;
     }
 
+    public static final class IDLE {
+        public static final double ALLOWANCE = 1000.0;
+        public static final double TIME = 0.2;
+    }
+
     public static final class BALANCE_PITCH_PID {
         public static final double P = 0.035;
         public static final double I = 0.0;
@@ -332,11 +337,11 @@ public final class Constants {
         public static final int SHIFT_RIGHT_BUTTON = XboxController.Button.kRightBumper.value;
 
         /*
-         * AUTO_ALIGN_BUTTON:
+         * AUTO_ALIGN_AXIS:
          * in teleop state:
          *  puts you in the auto align state
          */
-        public static final int AUTO_ALIGN_BUTTON = XboxController.Button.kB.value;
+        public static final int AUTO_ALIGN_AXIS = XboxController.Axis.kLeftTrigger.value;
 
         /*
          * Axes to control drive base in teleop mode
@@ -362,6 +367,12 @@ public final class Constants {
          *  transitions drivetrain to auto balancing on the charging station
          */
         public static final int AUTO_BALANCE_BUTTON = XboxController.Button.kA.value;
+
+        /*
+         * in teleop state:
+         *  toggle accel and decel on the drivetrain
+         */
+        public static final int TOGGLE_ACCEL_BUTTON = XboxController.Button.kB.value;
     }
 
     public static final class ManipulatorControls {

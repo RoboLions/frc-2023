@@ -53,9 +53,11 @@ public class Swerve {
 
     private static boolean leftShiftPrev = false;
     private static boolean rightShiftPrev = false;
+    private static boolean bButtonPrev = false;
 
     public static boolean leftShift = false;
     public static boolean rightShift = false;
+    public static boolean bButton = false;
 
     public Swerve() {
         
@@ -91,6 +93,10 @@ public class Swerve {
         boolean rightShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_RIGHT_BUTTON);
         rightShift = !rightShiftPrev && rightShiftCurr;
         rightShiftPrev = rightShiftCurr;
+
+        boolean bButtonCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.TOGGLE_ACCEL_BUTTON);
+        bButton = !bButtonPrev && bButtonCurr;
+        bButtonPrev = bButtonCurr;
 
         double starting_x = 0.0;
         Rotation2d rotation = Rotation2d.fromDegrees(0.0);
