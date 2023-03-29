@@ -337,7 +337,7 @@ public class Swerve {
     public void updatePoses() {
         updateSwervePoseKinematics();
         if (!DriverStation.isAutonomous()) {
-            updateSwervePoseLimelight();
+            //updateSwervePoseLimelight();
             updateSwervePoseAprilTags();
         }
     }
