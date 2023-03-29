@@ -26,6 +26,8 @@ public class TeleopState extends State {
     double prevRotationVal = 0.0;
     double currRotationVal = 0.0;
 
+    double targetHeading = 0.0;
+
     int count = 0;
 
     boolean accelEnabled = true;
@@ -77,14 +79,18 @@ public class TeleopState extends State {
 
         // anti-drifting
         if (rotationVal == 0.0 && prevRotationVal != 0.0) {
-            double targetHeading = RobotMap.swerve.getYaw().getDegrees();
+            targetHeading = RobotMap.swerve.getYaw().getDegrees();
+        } 
+
+        if (rotationVal == 0.0) {
             count++;
-            if (count > 100) {
-                // the joystick input = 0 for a significant amount of time, meaning maintain the last target heading
-                rotationVal = controller.calculate(RobotMap.swerve.getYaw().getDegrees(), targetHeading);
-            }
-        } else if (rotationVal != 0.0 && prevRotationVal == 0.0) {
+        } else {
             count = 0;
+        }
+        
+        if (count > 100) {
+            // the joystick input = 0 for a significant amount of time, meaning maintain the last target heading
+            rotationVal = controller.calculate(RobotMap.swerve.getYaw().getDegrees(), targetHeading);
         }
 
         if (RobotMap.driverController.getRawButton(Constants.DriverControls.ZERO_GYRO)) {
