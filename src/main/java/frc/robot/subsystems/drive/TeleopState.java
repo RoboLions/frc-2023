@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,13 +20,22 @@ public class TeleopState extends State {
     
     double translationVal;
     double strafeVal;
-    double rotationVal;
+    double rotationVal = 0.0;
     double translationValScalar;
+
+    double prevRotationVal = 0.0;
+    double currRotationVal = 0.0;
+
+    double targetHeading = 0.0;
+
+    int count = 0;
 
     boolean accelEnabled = true;
 
     private SlewRateLimiter translationFilter = new SlewRateLimiter(2.0);
     private SlewRateLimiter strafeFilter = new SlewRateLimiter(2.0);
+
+    private PIDController controller = new PIDController(0.1, 0.0, 0.0);
 
     public TeleopState() {}
 
@@ -51,6 +61,8 @@ public class TeleopState extends State {
         //     SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
         // }
         
+        prevRotationVal = rotationVal;
+        
         translationVal = -1.0 * MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.TRANSLATION_VAL), Constants.STICK_DEADBAND);
         strafeVal = -1.0 * MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.STRAFE_VAL), Constants.STICK_DEADBAND);
         rotationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.ROTATION_VAL), Constants.STICK_DEADBAND);
@@ -64,6 +76,22 @@ public class TeleopState extends State {
         //     strafeVal = -1.0 * MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.STRAFE_VAL), Constants.STICK_DEADBAND);
         //     rotationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.ROTATION_VAL), Constants.STICK_DEADBAND);
         // }
+
+        // anti-drifting
+        if (rotationVal == 0.0 && prevRotationVal != 0.0) {
+            targetHeading = RobotMap.swerve.getYaw().getDegrees();
+        } 
+
+        if (rotationVal == 0.0) {
+            count++;
+        } else {
+            count = 0;
+        }
+        
+        if (count > 100) {
+            // the joystick input = 0 for a significant amount of time, meaning maintain the last target heading
+            rotationVal = controller.calculate(RobotMap.swerve.getYaw().getDegrees(), targetHeading);
+        }
 
         if (RobotMap.driverController.getRawButton(Constants.DriverControls.ZERO_GYRO)) {
             Translation2d current_coords = Swerve.swerveOdometry.getEstimatedPosition().getTranslation();
