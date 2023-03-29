@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
-    RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
+    // RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState);
     
     RobotMap.leftShoulderMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightShoulderMotor.setNeutralMode(NeutralMode.Brake);

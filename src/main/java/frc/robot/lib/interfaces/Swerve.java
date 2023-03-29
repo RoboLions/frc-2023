@@ -367,6 +367,7 @@ public class Swerve {
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
                 closestPose = loadingStationPoses.get(i);
+                // System.out.println(closestPose);
                 // pose number = -1 still, no pose shifting at the substation
             }
         }

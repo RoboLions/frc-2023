@@ -198,7 +198,7 @@ public final class Constants {
         public static double BLUE_SCORING_Y = 0.54;
         
         public static double SCORING_SPACING = 0.559;
-        public static double SUBSTATION_SPACING = 0.5;
+        public static double SUBSTATION_SPACING = 1.43;
 
         public static double BLUE_SUBSTATION_X = 14.699;
         public static double BLUE_SUBSTATION_Y = 7.283;
@@ -246,8 +246,8 @@ public final class Constants {
     }
 
     public static final class GROUND_INTAKE {
-        public static final double SHOULDER_POSITION = 9000.0; //13500.0;
-        public static final double ELBOW_POSITION = 52500.0; // 59500.0;
+        public static final double SHOULDER_POSITION = 9500.0; //13500.0;
+        public static final double ELBOW_POSITION = 54500.0; // 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
