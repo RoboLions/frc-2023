@@ -16,6 +16,7 @@ import frc.robot.subsystems.drive.autos.MidScoreBalance;
 import frc.robot.subsystems.drive.autos.TestDrivePath;
 import frc.robot.subsystems.drive.autos.TopSideLink;
 import frc.robot.subsystems.drive.autos.TopTwoPieceBlue;
+import frc.robot.subsystems.drive.autos.TopTwoPieceRed;
 import frc.robot.subsystems.drive.autos.TopSimpleScore;
 
 public class AutoModeSelector {
@@ -27,6 +28,7 @@ public class AutoModeSelector {
         MID_SCORE_BALANCE,
         BOT_LOADING_STATION,
         TOP_TWO_PIECE_BLUE,
+        TOP_TWO_PIECE_RED,
         BOT_LINK,
         TOP_LINK
     }
@@ -45,6 +47,7 @@ public class AutoModeSelector {
         mModeChooser.addOption("Top Simple Score", DesiredMode.TOP_SIMPLE_SCORE);
         mModeChooser.addOption("Mid Balance", DesiredMode.MID_SCORE_BALANCE);
         mModeChooser.addOption("Top Two Piece Blue", DesiredMode.TOP_TWO_PIECE_BLUE);
+        mModeChooser.addOption("Top Two Piece Red", DesiredMode.TOP_TWO_PIECE_RED);
         // mModeChooser.addOption("Bot Loading Station", DesiredMode.BOT_LOADING_STATION);
         // mModeChooser.addOption("Top Loading Station", DesiredMode.TOP_LOADING_STATION);
         // mModeChooser.addOption("Bot Link", DesiredMode.BOT_LINK);
@@ -87,6 +90,9 @@ public class AutoModeSelector {
 
         case TOP_TWO_PIECE_BLUE:
             return Optional.of(new TopTwoPieceBlue());
+
+        case TOP_TWO_PIECE_RED:
+            return Optional.of(new TopTwoPieceRed());
 
         case BOT_LINK:
             return Optional.of(new BotSideLink());

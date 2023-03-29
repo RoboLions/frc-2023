@@ -359,15 +359,16 @@ public class Swerve {
         // get distance between current pose and target pose of every target pose 
         // for the pose with shortest distance, make that the closest pose
         poseNumber = -1;
-        double shortestDistance = currentPose.getTranslation().getDistance(loadingStationPoses.get(0).getTranslation());
+        double shortestDistance = 1000.0;
 
         // compare the distance between our current pose and loading station poses
         for (int i = 0; i < loadingStationPoses.size(); i++) {
+            System.out.println("Loading station pose " + i + ": " + loadingStationPoses.get(i));
             double temp_distance = currentPose.getTranslation().getDistance(loadingStationPoses.get(i).getTranslation());
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
                 closestPose = loadingStationPoses.get(i);
-                // System.out.println(closestPose);
+                System.out.println("Setting closest pose to: " + closestPose);
                 // pose number = -1 still, no pose shifting at the substation
             }
         }
@@ -375,15 +376,21 @@ public class Swerve {
         // compare the distance between current pose and scoring poses
         for (int i = 0; i < scoringPoses.size(); i++) {
             double temp_distance = currentPose.getTranslation().getDistance(scoringPoses.get(i).getTranslation());
+            System.out.println("Scoring pose " + i + ": " + scoringPoses.get(i));
             /* the shortest distance is currently the distance to loading station pose 0 or 1
             if the distance from current pose to the scoring pose is smaller than 
             distance to closest loading station pose, make this our closest pose */
             if (temp_distance < shortestDistance) {
                 shortestDistance = temp_distance;
                 closestPose = scoringPoses.get(i);
+                System.out.println("Setting closest pose to: " + closestPose);
                 poseNumber = i;
             }
         }
+
+        System.out.println("Shortest distance: " + shortestDistance);
+        System.out.println("Closest pose: " + closestPose);
+        System.out.println("Pose #: " + poseNumber);
 
         return shortestDistance;
     }
