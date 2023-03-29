@@ -27,16 +27,16 @@ public class State {
         return transitions;
     }
 
-    public void init() {}
+    public void init(State prevState) {}
 
     public void execute() {}
 
-    public void exit() {}
+    public void exit(State nexState) {}
 
     // this method is called when initializing a state and it will also print statement
-    public void init_private() {
+    public void init_private(State prevState) {
         System.out.println(state_machine_name + ": entering state " + this.getClass().getName());
-        init();
+        init(prevState);
     }
 
     // this method is called when executing a state
@@ -45,8 +45,9 @@ public class State {
     }
 
     // this method is called when exiting a state
-    public void exit_private() {
+    public void exit_private(State nexState) {
         System.out.println(state_machine_name + ": exiting state " + this.getClass().getName());
-        exit();
+        exit(nexState);
+        
     }
 }

@@ -16,7 +16,6 @@ import frc.robot.RobotMap;
 
 /** Class with methods related to the claw or color sensor */
 public class Intake {
-    
     private static ColorMatch colorMatcher;
     private static Color colorMatch = null;
 
@@ -55,4 +54,5 @@ public class Intake {
     public void runOuttake() {
         RobotMap.intakeMotor.set(ControlMode.PercentOutput, Constants.INTAKE.OUTTAKE_POWER);
     }
+
 }

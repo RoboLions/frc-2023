@@ -35,7 +35,7 @@ public class ElbowIdleState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nexState) {
         
     }
 }
