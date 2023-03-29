@@ -15,7 +15,7 @@ public class AutoState extends State {
     }
 
     @Override
-    public void init() {}
+    public void init(State prevState) {}
 
     @Override
     public void execute() {
@@ -23,7 +23,7 @@ public class AutoState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
 
     }
 }

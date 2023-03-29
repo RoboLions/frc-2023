@@ -22,7 +22,7 @@ public class LEDIdleState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
 
     }
 
@@ -32,7 +32,7 @@ public class LEDIdleState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         
     }
 

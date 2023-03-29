@@ -44,12 +44,12 @@ public class ManualMoveState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
+
     }
 
     @Override
     public void execute() {
-        
         double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
         RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
 
@@ -58,11 +58,7 @@ public class ManualMoveState extends State {
     }
 
     @Override
-    public void exit( State nexState) {
-        //TODO define nexstate based off where we are transitioning to and yea
-        nexState = "hi";
-        RobotMap.arm.manualEncoderFix(nexState);
-      //  RobotMap.arm.resetEncoders();
-
+    public void exit(State nextState) {
+        RobotMap.arm.manualEncoderFix(nextState);
     }
 }

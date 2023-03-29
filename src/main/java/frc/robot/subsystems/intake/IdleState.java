@@ -28,7 +28,7 @@ public class IdleState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
         RobotMap.intakeMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
@@ -38,6 +38,6 @@ public class IdleState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
     }
 }

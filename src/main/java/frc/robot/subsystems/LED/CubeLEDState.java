@@ -24,7 +24,7 @@ public class CubeLEDState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
 
     }
 
@@ -34,7 +34,7 @@ public class CubeLEDState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         LED.m_toAnimate = null;        
     }
 

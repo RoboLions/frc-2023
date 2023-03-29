@@ -41,7 +41,7 @@ public class ScoreMidState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
         Color current_color = RobotMap.intake.getColor();
         if (current_color == null) {
             RobotMap.arm.moveArmPosition(
@@ -73,7 +73,7 @@ public class ScoreMidState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         
     }
 

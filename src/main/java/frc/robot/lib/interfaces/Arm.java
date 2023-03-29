@@ -138,35 +138,33 @@ public class Arm {
         return 0.0;
     }
 
-    public void manualEncoderFix(State nexState) {
-        if( nexState == ArmStateMachine.idleState){
+    public void manualEncoderFix(State nextState) {
+        if (nextState == ArmStateMachine.idleState) {
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(0.0);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(0.0);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(0.0);
             RobotMap.rightElbowMotor.setSelectedSensorPosition(0.0);
-        } else if(nexState == ArmStateMachine.scoreHighState){
-//redefine the motor to say 
+        } else if (nextState == ArmStateMachine.scoreHighState){
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(Constants.HIGH_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(Constants.HIGH_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(Constants.HIGH_SCORE_CONE.ELBOW_POSITION);
             RobotMap.rightElbowMotor.setSelectedSensorPosition(Constants.HIGH_SCORE_CONE.ELBOW_POSITION);
-        } else if(nexState == ArmStateMachine.scoreMidState){
+        } else if (nextState == ArmStateMachine.scoreMidState){
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(Constants.MID_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(Constants.MID_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(Constants.MID_SCORE_CONE.ELBOW_POSITION);
             RobotMap.rightElbowMotor.setSelectedSensorPosition(Constants.MID_SCORE_CONE.ELBOW_POSITION);
-
-        } else if(nexState == ArmStateMachine.scoreLowState){
+        } else if (nextState == ArmStateMachine.scoreLowState){
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(Constants.LOW_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(Constants.LOW_SCORE_CONE.SHOULDER_POSITION);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(Constants.LOW_SCORE_CONE.ELBOW_POSITION);
             RobotMap.rightElbowMotor.setSelectedSensorPosition(Constants.LOW_SCORE_CONE.ELBOW_POSITION);
-        } else if(nexState == ArmStateMachine.groundPickupState){
+        } else if (nextState == ArmStateMachine.groundPickupState){
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(Constants.GROUND_INTAKE.SHOULDER_POSITION);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(Constants.GROUND_INTAKE.SHOULDER_POSITION);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(Constants.GROUND_INTAKE.ELBOW_POSITION);
             RobotMap.rightElbowMotor.setSelectedSensorPosition(Constants.GROUND_INTAKE.ELBOW_POSITION);
-        } else if(nexState == ArmStateMachine.substationIntakeState){
+        } else if (nextState == ArmStateMachine.substationIntakeState){
             RobotMap.leftShoulderMotor.setSelectedSensorPosition(Constants.SUBSTATION_INTAKE.SHOULDER_POSITION);
             RobotMap.rightShoulderMotor.setSelectedSensorPosition(Constants.SUBSTATION_INTAKE.SHOULDER_POSITION);
             RobotMap.leftElbowMotor.setSelectedSensorPosition(Constants.SUBSTATION_INTAKE.ELBOW_POSITION);

@@ -25,7 +25,7 @@ public class ConeLEDState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
        //LED.m_toAnimate = new StrobeAnimation(255, 228, 0, 0, 0.5, 68);
        //LED.m_toAnimate = new LarsonAnimation(255, 228, 0, 0, 0.5, 68, LarsonAnimation.BounceMode.Front, 2);
        //LED.m_toAnimate = new TwinkleAnimation(255, 228, 0, 0, 0.5, 68, TwinkleAnimation.TwinklePercent.Percent30);
@@ -38,7 +38,7 @@ public class ConeLEDState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         LED.m_toAnimate = null;
         LED.m_candle.animate(LED.m_toAnimate);
     }

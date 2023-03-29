@@ -31,7 +31,7 @@ public class State {
 
     public void execute() {}
 
-    public void exit(State nexState) {}
+    public void exit(State nextState) {}
 
     // this method is called when initializing a state and it will also print statement
     public void init_private(State prevState) {
@@ -45,9 +45,8 @@ public class State {
     }
 
     // this method is called when exiting a state
-    public void exit_private(State nexState) {
+    public void exit_private(State nextState) {
         System.out.println(state_machine_name + ": exiting state " + this.getClass().getName());
-        exit(nexState);
-        
+        exit(nextState);
     }
 }

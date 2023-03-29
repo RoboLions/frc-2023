@@ -39,7 +39,7 @@ public class BalanceState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
     }
 
     @Override
@@ -68,7 +68,7 @@ public class BalanceState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         RobotMap.swerve.drive(
             new Translation2d(0.0, 0.0).times(Constants.SWERVE.MAX_SPEED), 
             0.0,
