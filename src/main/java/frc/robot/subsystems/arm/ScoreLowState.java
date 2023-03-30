@@ -35,7 +35,7 @@ public class ScoreLowState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
         RobotMap.arm.moveArmPosition(
             Constants.LOW_SCORE_CONE.SHOULDER_POSITION, 
             Constants.LOW_SCORE_CONE.ELBOW_POSITION
@@ -47,7 +47,7 @@ public class ScoreLowState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         
     }
 

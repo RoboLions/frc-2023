@@ -31,7 +31,7 @@ public class SubstationIntakeState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
         RobotMap.arm.moveArmPosition(
             Constants.SUBSTATION_INTAKE.SHOULDER_POSITION, 
             Constants.SUBSTATION_INTAKE.ELBOW_POSITION
@@ -44,7 +44,7 @@ public class SubstationIntakeState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
      
     }
 }

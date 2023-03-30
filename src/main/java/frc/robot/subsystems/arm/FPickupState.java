@@ -29,7 +29,7 @@ public class FPickupState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
         RobotMap.arm.moveArmPosition(
             Constants.GROUND_INTAKE.SHOULDER_POSITION, 
             Constants.GROUND_INTAKE.ELBOW_POSITION
@@ -42,7 +42,7 @@ public class FPickupState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
 
     }
 }

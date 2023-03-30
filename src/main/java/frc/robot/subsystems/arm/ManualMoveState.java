@@ -21,10 +21,30 @@ public class ManualMoveState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.HIGH_SCORE_BUTTON);
+        }, ArmStateMachine.scoreHighState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MID_SCORE_BUTTON);
+        }, ArmStateMachine.scoreMidState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.LOW_SCORE_BUTTON);
+        }, ArmStateMachine.scoreLowState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
+        }, ArmStateMachine.groundPickupState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON);
+        }, ArmStateMachine.substationIntakeState));
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
     }
 
     @Override
@@ -38,7 +58,7 @@ public class ManualMoveState extends State {
     }
 
     @Override
-    public void exit() {
-        RobotMap.arm.resetEncoders();
+    public void exit(State nextState) {
+        RobotMap.arm.manualEncoderFix(nextState);
     }
 }

@@ -44,7 +44,7 @@ public class IdleState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
         RobotMap.arm.setIdle();
     }
 
@@ -54,7 +54,7 @@ public class IdleState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         
     }
 }

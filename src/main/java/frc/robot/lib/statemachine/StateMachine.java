@@ -36,11 +36,12 @@ public class StateMachine {
     setting the new state as the current state */
     public void setCurrentState(State newState) {
         if (currentState != null) {
-            currentState.exit_private();
+            currentState.exit_private(newState);
         }
+        State prevState = currentState;
         currentState = newState;
         currentState.state_machine_name = this.getClass().getName();
-        currentState.init_private();
+        currentState.init_private(prevState);
         maintain = false;
     }
 

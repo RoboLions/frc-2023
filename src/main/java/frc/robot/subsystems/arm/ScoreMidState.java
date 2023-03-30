@@ -36,7 +36,7 @@ public class ScoreMidState extends State {
     }
     
     @Override
-    public void init() {
+    public void init(State prevState) {
         if (RobotMap.ledStateMachine.getCurrentState() == LEDStateMachine.coneLEDState) {
             RobotMap.arm.moveArmPosition(
                 Constants.MID_SCORE_CONE.SHOULDER_POSITION, 
@@ -55,7 +55,7 @@ public class ScoreMidState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         
     }
 

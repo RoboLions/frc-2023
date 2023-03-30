@@ -13,7 +13,7 @@ public class ConeLEDState extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
        
     }
 
@@ -23,7 +23,7 @@ public class ConeLEDState extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         LED.m_toAnimate = null;
         LED.m_candle.animate(LED.m_toAnimate);
     }

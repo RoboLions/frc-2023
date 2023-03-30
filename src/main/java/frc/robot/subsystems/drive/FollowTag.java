@@ -46,7 +46,7 @@ public class FollowTag extends State {
     }
 
     @Override
-    public void init() {
+    public void init(State prevState) {
         Pose2d currentPose = Swerve.swerveOdometry.getEstimatedPosition();
         RobotMap.swerve.setClosestPose(currentPose);
         thetaController.enableContinuousInput(-180.0, 180.0);
@@ -117,7 +117,7 @@ public class FollowTag extends State {
     }
 
     @Override
-    public void exit() {
+    public void exit(State nextState) {
         RobotMap.swerve.drive(
             new Translation2d(0, 0).times(Constants.SWERVE.MAX_SPEED), 
             0 * Constants.SWERVE.MAX_ANGULAR_VELOCITY, 
