@@ -36,7 +36,7 @@ public class Swerve {
     public static SwerveDrivePoseEstimator swerveOdometry;
     public static SwerveModule[] mSwerveMods;
 
-    public static PhotonCamera camera;
+    //public static PhotonCamera camera;
 
     private double previousPipelineTimestamp = 0;
     
@@ -82,8 +82,7 @@ public class Swerve {
             new Pose2d()
         );
             
-        camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
-
+        // camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
     }
 
     public static void periodic() {
@@ -189,34 +188,34 @@ public class Swerve {
     
     private void updateSwervePoseAprilTags() {
         // Update pose estimator with the best visible target
-        var pipelineResult = camera.getLatestResult();
-        var resultTimestamp = pipelineResult.getTimestampSeconds();
+        // var pipelineResult = camera.getLatestResult();
+        // var resultTimestamp = pipelineResult.getTimestampSeconds();
 
-        if (resultTimestamp == previousPipelineTimestamp) {
-            return;
-        }
-        if (!pipelineResult.hasTargets()) {
-            return;
-        }
+        // if (resultTimestamp == previousPipelineTimestamp) {
+        //     return;
+        // }
+        // if (!pipelineResult.hasTargets()) {
+        //     return;
+        // }
 
-        previousPipelineTimestamp = resultTimestamp;
-        var target = pipelineResult.getBestTarget();
-        // System.out.println(target);
-        var fiducialId = target.getFiducialId();
+        // previousPipelineTimestamp = resultTimestamp;
+        // var target = pipelineResult.getBestTarget();
+        // // System.out.println(target);
+        // var fiducialId = target.getFiducialId();
         
-        if (fiducialId <= 0 || fiducialId > 8) {
-            return;
-        }
+        // if (fiducialId <= 0 || fiducialId > 8) {
+        //     return;
+        // }
 
         // Get the tag pose from field layout - consider that the layout will be null if it failed to load
-        Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
+        // Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
 
-        if (target.getPoseAmbiguity() > 0.1) {
-            return;
-        }
-        if (!tagPose.isPresent()) {
-            return;
-        }
+        // if (target.getPoseAmbiguity() > 0.1) {
+        //     return;
+        // }
+        // if (!tagPose.isPresent()) {
+        //     return;
+        // }
 
         
         // FieldObject2d tagPoseDisplay = RobotMap.Field2d.getObject("tagPose");
@@ -337,8 +336,8 @@ public class Swerve {
     public void updatePoses() {
         updateSwervePoseKinematics();
         if (!DriverStation.isAutonomous()) {
-            //updateSwervePoseLimelight();
-            updateSwervePoseAprilTags();
+            updateSwervePoseLimelight();
+            //updateSwervePoseAprilTags();
         }
     }
 
