@@ -33,7 +33,7 @@ public class AutoModeSelector {
         TOP_LINK
     }
 
-    private DesiredMode mCachedDesiredMode = DesiredMode.DO_NOTHING;
+    public static DesiredMode mCachedDesiredMode = DesiredMode.DO_NOTHING;
 
     private Optional<AutoModeBase> mAutoMode = Optional.empty();
 
