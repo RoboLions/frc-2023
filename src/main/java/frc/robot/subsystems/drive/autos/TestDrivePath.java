@@ -46,12 +46,12 @@ public class TestDrivePath extends AutoModeBase {
             new PathConstraints(0.25, 0.25)
         );
 
-        for(int i = 0; i < testPath.size(); i++) {
-            testPath.set(
-                i, 
-                PathPlannerTrajectory.transformTrajectoryForAlliance(testPath.get(i), DriverStation.getAlliance())
-            );
-        }
+        // for(int i = 0; i < testPath.size(); i++) {
+        //     testPath.set(
+        //         i, 
+        //         PathPlannerTrajectory.transformTrajectoryForAlliance(testPath.get(i), DriverStation.getAlliance())
+        //     );
+        // }
 
         initialHolonomicPose = testPath.get(0).getInitialHolonomicPose();
         
