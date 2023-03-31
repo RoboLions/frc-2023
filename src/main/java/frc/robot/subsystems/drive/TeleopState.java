@@ -35,7 +35,7 @@ public class TeleopState extends State {
     private SlewRateLimiter translationFilter = new SlewRateLimiter(2.0);
     private SlewRateLimiter strafeFilter = new SlewRateLimiter(2.0);
 
-    private PIDController controller = new PIDController(0.03, 0.0, 0.0);
+    //private PIDController controller = new PIDController(0.03, 0.0, 0.0);
 
     public TeleopState() {}
 
@@ -52,7 +52,7 @@ public class TeleopState extends State {
 
     @Override
     public void init(State prevState) {
-        controller.enableContinuousInput(-180.0, 180.0);
+        //controller.enableContinuousInput(-180.0, 180.0);
     }
 
     @Override
@@ -78,23 +78,23 @@ public class TeleopState extends State {
         // }
 
         // anti-drifting
-        if (Math.abs(rotationVal) < 1.0E-10 && Math.abs(prevRotationVal) > 10E-10) {
-            targetHeading = RobotMap.swerve.getYaw().getDegrees();
-            SmartDashboard.putNumber("Target heading", targetHeading);
-        }
-        prevRotationVal = rotationVal;
+        // if (Math.abs(rotationVal) < 1.0E-10 && Math.abs(prevRotationVal) > 10E-10) {
+        //     targetHeading = RobotMap.swerve.getYaw().getDegrees();
+        //     SmartDashboard.putNumber("Target heading", targetHeading);
+        // }
+        // prevRotationVal = rotationVal;
 
-        if (rotationVal == 0.0) {
-            count++;
-        } else {
-            count = 0;
-        }
+        // if (rotationVal == 0.0) {
+        //     count++;
+        // } else {
+        //     count = 0;
+        // }
         
-        if (count > 10) {
-            // the joystick input = 0 for a significant amount of time, meaning maintain the last target heading
-            rotationVal = controller.calculate(RobotMap.swerve.getYaw().getDegrees(), targetHeading);
-            SmartDashboard.putNumber("PID rotation value", rotationVal);
-        }
+        // if (count > 10) {
+        //     // the joystick input = 0 for a significant amount of time, meaning maintain the last target heading
+        //     rotationVal = controller.calculate(RobotMap.swerve.getYaw().getDegrees(), targetHeading);
+        //     SmartDashboard.putNumber("PID rotation value", rotationVal);
+        // }
 
         if (RobotMap.driverController.getRawButton(Constants.DriverControls.ZERO_GYRO)) {
             Translation2d current_coords = Swerve.swerveOdometry.getEstimatedPosition().getTranslation();
