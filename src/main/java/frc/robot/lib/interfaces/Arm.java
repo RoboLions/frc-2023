@@ -23,8 +23,8 @@ public class Arm {
     private static double shoulderTarget = 0.0;
     private static double elbowTarget = 0.0;
 
-    private PIDController controller = new PIDController(0.01, 0.0, 0.0);
-    private double elbowCommand = 0.0;
+    private static PIDController controller = new PIDController(0.01, 0.0, 0.0);
+    private static double elbowCommand = 0.0;
 
     public Arm() {
         RobotMap.rightShoulderMotor.setInverted(true);
@@ -82,7 +82,14 @@ public class Arm {
         // TODO: config mount pose of IMU
 
         RobotMap.rightShoulderMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
-        RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
+        //RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
+    }
+
+    public static void periodic() {
+        // TODO: figure out if reading pitch or roll
+        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), elbowTarget);
+        RobotMap.leftElbowMotor.set(elbowCommand);
+        RobotMap.rightElbowMotor.set(elbowCommand);
     }
 
     public void setIdle() {
@@ -92,22 +99,12 @@ public class Arm {
 
     public void setElbowIdle() {
         RobotMap.leftShoulderMotor.getSelectedSensorPosition();
-
-        // TODO: figure out if reading pitch or roll
-        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), Constants.ELBOW_IDLE.ELBOW_POSITION);
-        RobotMap.leftElbowMotor.set(elbowCommand);
-        
         elbowTarget = Constants.ELBOW_IDLE.ELBOW_POSITION;
     }
 
     // encoder position for the shoulder, IMU degree for the elbow
     public void moveArmPosition(double shoulder, double elbow) {
         RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
-
-        // TODO: figure out if reading pitch or roll
-        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), elbow);
-        RobotMap.leftElbowMotor.set(elbowCommand);
-
         shoulderTarget = shoulder;
         elbowTarget = elbow;
     }
@@ -115,7 +112,8 @@ public class Arm {
     // method to check if arm has arrived at its position
     public static Boolean getArrived(double shoulderAllowance, double elbowAllowance, double time) {
         if (Math.abs(RobotMap.leftShoulderMotor.getSelectedSensorPosition() - shoulderTarget) <= Math.abs(shoulderAllowance) && 
-            Math.abs(RobotMap.leftElbowMotor.getSelectedSensorPosition() - elbowTarget) <= Math.abs(elbowAllowance)) {
+            // TODO: IMU reading
+            Math.abs(RobotMap.elbowIMU.getRoll() - elbowTarget) <= Math.abs(elbowAllowance)) {
 
             if (!timerStarted) {
                 timer.start();

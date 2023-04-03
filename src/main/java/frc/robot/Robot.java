@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lib.auto.AutoModeBase;
 import frc.robot.lib.auto.AutoModeExecutor;
 import frc.robot.lib.auto.AutoModeSelector;
+import frc.robot.lib.interfaces.Arm;
 import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.LED;
 import frc.robot.lib.interfaces.Swerve;
@@ -70,6 +71,7 @@ public class Robot extends TimedRobot {
     RobotMap.swerve.updatePoses();
     Swerve.periodic();
     LED.periodic();
+    Arm.periodic();
 
     // see robot pose on Glass
     // RobotMap.Field2d.setRobotPose(Swerve.swerveOdometry.getEstimatedPosition());
