@@ -89,7 +89,7 @@ public class TopTwoPieceBlue extends AutoModeBase {
 
         // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+            return Arm.getArrived(Constants.HIGH_SCORE_CONE.SHOULDER_ALLOWANCE, Constants.HIGH_SCORE_CONE.ELBOW_ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
         }));
 
         // then, score the piece
@@ -108,7 +108,7 @@ public class TopTwoPieceBlue extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.maintainState(ArmStateMachine.elbowIdleState)));
 
         runAction(new ConditionAction(() -> {
-            return Arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
+            return Arm.getArrived(Constants.ELBOW_IDLE.SHOULDER_ALLOWANCE, Constants.ELBOW_IDLE.ELBOW_ALLOWANCE, Constants.ELBOW_IDLE.TIME);
         }));
 
         // put arm to idle
@@ -149,7 +149,7 @@ public class TopTwoPieceBlue extends AutoModeBase {
 
         // wait for arm to arrive in position
         runAction(new ConditionAction(() -> {
-            return Arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+            return Arm.getArrived(Constants.HIGH_SCORE_CUBE.SHOULDER_ALLOWANCE, Constants.HIGH_SCORE_CUBE.ELBOW_ALLOWANCE, Constants.HIGH_SCORE_CUBE.TIME);
         }));
 
         // then, score the piece

@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -21,6 +22,9 @@ public class Arm {
     private static Timer timer = new Timer();
     private static double shoulderTarget = 0.0;
     private static double elbowTarget = 0.0;
+
+    private PIDController controller = new PIDController(0.01, 0.0, 0.0);
+    private double elbowCommand = 0.0;
 
     public Arm() {
         RobotMap.rightShoulderMotor.setInverted(true);
@@ -75,31 +79,43 @@ public class Arm {
         RobotMap.leftElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
         RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
 
+        // TODO: config mount pose of IMU
+
         RobotMap.rightShoulderMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
         RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
     }
 
     public void setIdle() {
+        // TODO: IMU degree
         moveArmPosition(100.0, 0.0);
     }
 
     public void setElbowIdle() {
         RobotMap.leftShoulderMotor.getSelectedSensorPosition();
-        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, Constants.ELBOW_IDLE.ELBOW_POSITION);
+
+        // TODO: figure out if reading pitch or roll
+        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), Constants.ELBOW_IDLE.ELBOW_POSITION);
+        RobotMap.leftElbowMotor.set(elbowCommand);
+        
         elbowTarget = Constants.ELBOW_IDLE.ELBOW_POSITION;
     }
 
+    // encoder position for the shoulder, IMU degree for the elbow
     public void moveArmPosition(double shoulder, double elbow) {
         RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
-        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, elbow);
+
+        // TODO: figure out if reading pitch or roll
+        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), elbow);
+        RobotMap.leftElbowMotor.set(elbowCommand);
+
         shoulderTarget = shoulder;
         elbowTarget = elbow;
     }
 
     // method to check if arm has arrived at its position
-    public static Boolean getArrived(double allowance, double time) {
-        if (Math.abs(RobotMap.leftShoulderMotor.getSelectedSensorPosition() - shoulderTarget) <= Math.abs(allowance) && 
-            Math.abs(RobotMap.leftElbowMotor.getSelectedSensorPosition() - elbowTarget) <= Math.abs(allowance)) {
+    public static Boolean getArrived(double shoulderAllowance, double elbowAllowance, double time) {
+        if (Math.abs(RobotMap.leftShoulderMotor.getSelectedSensorPosition() - shoulderTarget) <= Math.abs(shoulderAllowance) && 
+            Math.abs(RobotMap.leftElbowMotor.getSelectedSensorPosition() - elbowTarget) <= Math.abs(elbowAllowance)) {
 
             if (!timerStarted) {
                 timer.start();

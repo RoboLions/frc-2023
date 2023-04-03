@@ -31,6 +31,7 @@ public final class Constants {
         public static final int RIGHT_ELBOW_MOTOR = 54;
         public static final int INTAKE_MOTOR = 55;
         public static final int CANdle = 34;
+        public static final int ELBOW_IMU = 6;
     }
 
     public static final class PORTS {
@@ -247,60 +248,66 @@ public final class Constants {
 
     public static final class GROUND_INTAKE {
         public static final double SHOULDER_POSITION = 9500.0; //13500.0;
-        public static final double ELBOW_POSITION = 54500.0; // 59500.0;
-        public static final double ALLOWANCE = 100.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
+        public static final double SHOULDER_ALLOWANCE = 100.0;
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
         public static final double TIME = 0.3;
     }
 
     public static final class HIGH_SCORE_CONE {
         public static final double SHOULDER_POSITION = 68500.0; // 71500.0;
-        public static final double ELBOW_POSITION = 90000.0; // 84300.0;
-        public static final double ALLOWANCE = 100.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
+        public static final double SHOULDER_ALLOWANCE = 100.0;
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
         public static final double TIME = 0.2;
     }
 
     public static final class HIGH_SCORE_CUBE {
         public static final double SHOULDER_POSITION = 62000.0;
-        public static final double ELBOW_POSITION = 80000.0;
-        public static final double ALLOWANCE = 100.0;
-        public static final double TIME = 0.5;
+        public static final double ELBOW_POSITION = 0.0; // TODO
+        public static final double SHOULDER_ALLOWANCE = 100.0;
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
+        public static final double TIME = 0.2;
     }
 
     public static final class MID_SCORE_CONE {
         public static final double SHOULDER_POSITION = 75500.0; // 44000.0;
-        public static final double ELBOW_POSITION = 125000.0; // 57000.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
     }
 
     public static final class MID_SCORE_CUBE {
         public static final double SHOULDER_POSITION = 20000; // 38400.0;
-        public static final double ELBOW_POSITION = 27000; // 66100.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
     }
 
     public static final class LOW_SCORE_CONE {
         public static final double SHOULDER_POSITION = 12250.0;
-        public static final double ELBOW_POSITION = 51000.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
     }
 
     public static final class LOW_SCORE_CUBE {
         public static final double SHOULDER_POSITION = 12250.0;
-        public static final double ELBOW_POSITION = 51000.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
     }
 
     public static final class SUBSTATION_INTAKE {
         public static final double SHOULDER_POSITION = 65000.0;
-        public static final double ELBOW_POSITION = 92500.0;
-        public static final double ALLOWANCE = 100.0;
+        public static final double ELBOW_POSITION = 0.0; // TODO
+        public static final double SHOULDER_ALLOWANCE = 100.0;
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
         public static final double TIME = 0.5;
     }
 
     public static final class ELBOW_IDLE {
-        public static final double ELBOW_POSITION = 30000.0;
-        public static final double ALLOWANCE = 10000.0;
+        public static final double SHOULDER_ALLOWANCE = 100.0; // TODO
+        public static final double ELBOW_POSITION = 0.0; // TODO
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
         public static final double TIME = 0.2;
     }
 
     public static final class IDLE {
-        public static final double ALLOWANCE = 1000.0;
+        public static final double SHOULDER_ALLOWANCE = 1000.0;
+        public static final double ELBOW_ALLOWANCE = 0.0; // TODO
         public static final double TIME = 0.2;
     }
 
