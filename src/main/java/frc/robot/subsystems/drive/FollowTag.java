@@ -51,7 +51,7 @@ public class FollowTag extends State {
         RobotMap.swerve.setClosestPose(currentPose);
         thetaController.enableContinuousInput(-180.0, 180.0);
         Pose2d targetPose = RobotMap.swerve.getClosestPose();
-        if (currentPose.getTranslation().getDistance(targetPose.getTranslation()) > 1.0) {
+        if (currentPose.getTranslation().getDistance(targetPose.getTranslation()) > 2.0) {
             System.out.println("No Close Target!");
             RobotMap.drivetrainStateMachine.setCurrentState(DrivetrainStateMachine.teleopSwerve);
         }

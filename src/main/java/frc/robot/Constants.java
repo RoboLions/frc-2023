@@ -192,7 +192,6 @@ public final class Constants {
     }
 
     public static final class TargetPoses {
-        // TODO: get poses with bot, 9 on red would = 1 one blue (they are flipped)
 
         public static double BLUE_SCORING_X = 2.0;
         public static double BLUE_SCORING_Y = 0.54;
@@ -200,13 +199,10 @@ public final class Constants {
         public static double SCORING_SPACING = 0.559;
         public static double SUBSTATION_SPACING = 1.43;
 
-        public static double BLUE_SUBSTATION_X = 14.699;
+        public static double BLUE_SUBSTATION_X = 14.699; // TODO: move closer to substation
         public static double BLUE_SUBSTATION_Y = 7.283;
 
         public static double RED_TRANSPOSE_DISTANCE = 16.54175;
-
-        // public static final Pose2d BLUE_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-        // public static final Pose2d RED_LOADING_STATION = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
     }
 
     // TODO: tune all and find positions of all below
