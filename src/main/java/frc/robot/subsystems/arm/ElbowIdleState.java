@@ -16,7 +16,8 @@ public class ElbowIdleState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return Arm.getArrived(Constants.ELBOW_IDLE.SHOULDER_ALLOWANCE, Constants.ELBOW_IDLE.ELBOW_ALLOWANCE, Constants.ELBOW_IDLE.TIME);
+            return true;
+            // return Arm.getArrived(Constants.ELBOW_IDLE.SHOULDER_ALLOWANCE, Constants.ELBOW_IDLE.ELBOW_ALLOWANCE, Constants.ELBOW_IDLE.TIME);
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {

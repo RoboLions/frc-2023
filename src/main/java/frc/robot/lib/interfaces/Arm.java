@@ -9,7 +9,10 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
@@ -23,7 +26,20 @@ public class Arm {
     private static double shoulderTarget = 0.0;
     private static double elbowTarget = 0.0;
 
-    private static PIDController controller = new PIDController(0.01, 0.0, 0.0);
+    private static ProfiledPIDController controller1 = new ProfiledPIDController(
+        0.006,
+        0.0, 
+        0.0, 
+        new TrapezoidProfile.Constraints(100.0, 1600.0)
+    );
+
+    private static ProfiledPIDController controller2 = new ProfiledPIDController(
+        0.006,
+        0.0, 
+        0.0, 
+        new TrapezoidProfile.Constraints(100.0, 1600.0)
+    ); 
+
     private static double elbowCommand = 0.0;
 
     public Arm() {
@@ -49,14 +65,14 @@ public class Arm {
 
         RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.leftElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.leftElbowMotor.configPeakOutputForward(0.17, 10);
-        RobotMap.leftElbowMotor.configPeakOutputReverse(-0.25, 10);
+        RobotMap.leftElbowMotor.configPeakOutputForward(1.0, 10);
+        RobotMap.leftElbowMotor.configPeakOutputReverse(-1.0, 10);
         RobotMap.leftElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightElbowMotor.configNominalOutputForward(0, 10);
         RobotMap.rightElbowMotor.configNominalOutputReverse(0, 10);
-        RobotMap.rightElbowMotor.configPeakOutputForward(0.17, 10);
-        RobotMap.rightElbowMotor.configPeakOutputReverse(-0.25, 10);
+        RobotMap.rightElbowMotor.configPeakOutputForward(1.0, 10);
+        RobotMap.rightElbowMotor.configPeakOutputReverse(-1.0, 10);
         RobotMap.rightElbowMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftShoulderMotor.configAllowableClosedloopError(0, 0, 10);
@@ -80,26 +96,39 @@ public class Arm {
         RobotMap.rightElbowMotor.configReverseSoftLimitThreshold(Constants.ELBOW_MOTOR.B_TRAVEL_LIMIT);
 
         // TODO: config mount pose of IMU
+        RobotMap.elbowIMU.configMountPose(-90.0, -90.0, 0);
 
         RobotMap.rightShoulderMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
         //RobotMap.rightElbowMotor.set(ControlMode.Follower, Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
     }
 
     public static void periodic() {
-        // TODO: figure out if reading pitch or roll
-        elbowCommand = controller.calculate(RobotMap.elbowIMU.getRoll(), elbowTarget);
-        RobotMap.leftElbowMotor.set(elbowCommand);
-        RobotMap.rightElbowMotor.set(elbowCommand);
+        if (RobotMap.elbowIMU.getPitch() < -80.0) {
+            RobotMap.leftElbowMotor.set(0.1);
+            RobotMap.rightElbowMotor.set(0.1);
+        } else if (RobotMap.elbowIMU.getPitch() > 80.0) {
+            RobotMap.leftElbowMotor.set(-0.1);
+            RobotMap.rightElbowMotor.set(-0.1);
+        } else if (RobotMap.armStateMachine.getCurrentState() != ArmStateMachine.manualMoveState) {
+            RobotMap.leftElbowMotor.set(controller1.calculate(RobotMap.elbowIMU.getPitch()));
+            RobotMap.rightElbowMotor.set(controller2.calculate(RobotMap.elbowIMU.getPitch()));
+        }
+
+        SmartDashboard.putNumber("Left elbow motor power", RobotMap.leftElbowMotor.getMotorOutputPercent());
+        SmartDashboard.putNumber("Right elbow motor power", RobotMap.rightElbowMotor.getMotorOutputPercent());
+
+        
+        SmartDashboard.putNumber("Left setpoint position", controller1.getSetpoint().position);
+        SmartDashboard.putNumber("Right setpoint velocity", controller2.getSetpoint().velocity);
     }
 
     public void setIdle() {
         // TODO: IMU degree
-        moveArmPosition(100.0, 0.0);
+        moveArmPosition(100.0, -70.0);
     }
 
     public void setElbowIdle() {
-        RobotMap.leftShoulderMotor.getSelectedSensorPosition();
-        elbowTarget = Constants.ELBOW_IDLE.ELBOW_POSITION;
+        moveArmPosition(shoulderTarget, Constants.ELBOW_IDLE.ELBOW_POSITION);
     }
 
     // encoder position for the shoulder, IMU degree for the elbow
@@ -107,13 +136,17 @@ public class Arm {
         RobotMap.leftShoulderMotor.set(TalonFXControlMode.Position, shoulder);
         shoulderTarget = shoulder;
         elbowTarget = elbow;
+        System.out.println("Setting shoulder target to: " + shoulder);
+        System.out.println("Setting elbow target to: " + elbow);
+        controller1.setGoal(elbowTarget + 2.0);
+        controller2.setGoal(elbowTarget - 2.0);
     }
 
     // method to check if arm has arrived at its position
     public static Boolean getArrived(double shoulderAllowance, double elbowAllowance, double time) {
         if (Math.abs(RobotMap.leftShoulderMotor.getSelectedSensorPosition() - shoulderTarget) <= Math.abs(shoulderAllowance) && 
             // TODO: IMU reading
-            Math.abs(RobotMap.elbowIMU.getRoll() - elbowTarget) <= Math.abs(elbowAllowance)) {
+            Math.abs(RobotMap.elbowIMU.getPitch() - elbowTarget) <= Math.abs(elbowAllowance)) {
 
             if (!timerStarted) {
                 timer.start();
