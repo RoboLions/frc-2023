@@ -31,6 +31,7 @@ public class RobotMap {
     public static WPI_TalonFX leftShoulderMotor;
     public static WPI_TalonFX rightShoulderMotor;
     public static VictorSPX intakeMotor;
+    public static WPI_Pigeon2 elbowIMU;
 
     /* Smart Dashboard Instances */
     public static Field2d Field2d;
@@ -53,6 +54,7 @@ public class RobotMap {
         leftElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_ELBOW_MOTOR);
         rightElbowMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_ELBOW_MOTOR);
         intakeMotor = new VictorSPX(Constants.CAN_IDS.INTAKE_MOTOR);
+        elbowIMU = new WPI_Pigeon2(Constants.CAN_IDS.ELBOW_IMU);
 
         gyro.configFactoryDefault();
         leftShoulderMotor.configFactoryDefault();
@@ -60,6 +62,7 @@ public class RobotMap {
         leftElbowMotor.configFactoryDefault();
         rightElbowMotor.configFactoryDefault();
         intakeMotor.configFactoryDefault();
+        elbowIMU.configFactoryDefault();
         
         swerve = new Swerve();
         /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.

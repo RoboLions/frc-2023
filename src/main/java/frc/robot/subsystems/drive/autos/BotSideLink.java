@@ -102,9 +102,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+        // }));
 
         // then, score the piece
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
@@ -121,9 +121,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.groundPickupState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME);
+        // }));
 
         // then, close on the cube
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCube)));
@@ -143,9 +143,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CUBE.ALLOWANCE, Constants.HIGH_SCORE_CUBE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CUBE.ALLOWANCE, Constants.HIGH_SCORE_CUBE.TIME);
+        // }));
 
         // // then, score the piece
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
@@ -159,9 +159,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+        // }));
 
         // then, score the piece
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
@@ -178,9 +178,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.groundPickupState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.GROUND_INTAKE.ALLOWANCE, Constants.GROUND_INTAKE.TIME);
+        // }));
 
         // then, close on the cone
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ClawStateMachine.closingCone)));
@@ -200,9 +200,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CUBE.ALLOWANCE, Constants.HIGH_SCORE_CUBE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CUBE.ALLOWANCE, Constants.HIGH_SCORE_CUBE.TIME);
+        // }));
 
         // then, score the piece
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
@@ -216,9 +216,9 @@ public class BotSideLink extends AutoModeBase {
         runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoreHighState)));
 
         // wait for arm to arrive in position
-        runAction(new ConditionAction(() -> {
-            return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
-        }));
+        // runAction(new ConditionAction(() -> {
+        //     return RobotMap.arm.getArrived(Constants.HIGH_SCORE_CONE.ALLOWANCE, Constants.HIGH_SCORE_CONE.TIME);
+        // }));
 
         // then, score the piece
         // runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.scoringState)));
