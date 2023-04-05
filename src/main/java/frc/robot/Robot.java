@@ -103,6 +103,12 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Pitch", Swerve.getPitch());
 
     //SmartDashboard.putNumber("Claw moto", kDefaultPeriod)
+
+    // for(SwerveModule mod : Swerve.mSwerveMods) {
+    //   SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
+    //   SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+    //   SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+    // }
   }
 
   /**
