@@ -197,10 +197,10 @@ public final class Constants {
         public static double BLUE_SCORING_Y = 0.54;
         
         public static double SCORING_SPACING = 0.559;
-        public static double SUBSTATION_SPACING = 1.43;
+        public static double SUBSTATION_SPACING = 1.33;
 
-        public static double BLUE_SUBSTATION_X = 14.699; // TODO: move closer to substation
-        public static double BLUE_SUBSTATION_Y = 7.283;
+        public static double BLUE_SUBSTATION_X = 14.6;
+        public static double BLUE_SUBSTATION_Y = 7.41;
 
         public static double RED_TRANSPOSE_DISTANCE = 16.54175;
     }
@@ -241,9 +241,16 @@ public final class Constants {
         public static final double TIME = 0.0;
     }
 
-    public static final class GROUND_INTAKE {
+    public static final class GROUND_INTAKE_CONE {
         public static final double SHOULDER_POSITION = 9500.0; //13500.0;
         public static final double ELBOW_POSITION = 54500.0; // 59500.0;
+        public static final double ALLOWANCE = 100.0;
+        public static final double TIME = 0.3;
+    }
+
+    public static final class GROUND_INTAKE_CUBE {
+        public static final double SHOULDER_POSITION = 9500.0; //13500.0;
+        public static final double ELBOW_POSITION = 53500.0; // 59500.0;
         public static final double ALLOWANCE = 100.0;
         public static final double TIME = 0.3;
     }
@@ -263,8 +270,11 @@ public final class Constants {
     }
 
     public static final class MID_SCORE_CONE {
-        public static final double SHOULDER_POSITION = 75500.0; // 44000.0;
-        public static final double ELBOW_POSITION = 125000.0; // 57000.0;
+        // public static final double SHOULDER_POSITION = 75500.0; // 44000.0;
+        // public static final double ELBOW_POSITION = 125000.0; // 57000.0;
+
+        public static final double SHOULDER_POSITION = 20000; // 38400.0;
+        public static final double ELBOW_POSITION = 27000; // 66100.0;
     }
 
     public static final class MID_SCORE_CUBE {

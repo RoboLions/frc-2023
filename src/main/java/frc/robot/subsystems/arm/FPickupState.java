@@ -8,6 +8,7 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
+import frc.robot.subsystems.LED.LEDStateMachine;
 
 /** Add your docs here. */
 public class FPickupState extends State {
@@ -30,10 +31,17 @@ public class FPickupState extends State {
 
     @Override
     public void init(State prevState) {
-        RobotMap.arm.moveArmPosition(
-            Constants.GROUND_INTAKE.SHOULDER_POSITION, 
-            Constants.GROUND_INTAKE.ELBOW_POSITION
-        );
+        if (RobotMap.ledStateMachine.getCurrentState() == LEDStateMachine.coneLEDState) {
+            RobotMap.arm.moveArmPosition(
+                Constants.GROUND_INTAKE_CONE.SHOULDER_POSITION, 
+                Constants.GROUND_INTAKE_CONE.ELBOW_POSITION
+            );
+        } else {
+            RobotMap.arm.moveArmPosition(
+                Constants.GROUND_INTAKE_CUBE.SHOULDER_POSITION, 
+                Constants.GROUND_INTAKE_CUBE.ELBOW_POSITION
+            );
+        }
     }
 
     @Override

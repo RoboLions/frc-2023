@@ -22,6 +22,10 @@ public class ElbowIdleState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);
         }, ArmStateMachine.manualMoveState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON);
+        }, ArmStateMachine.substationIntakeState));
     }
     
     @Override

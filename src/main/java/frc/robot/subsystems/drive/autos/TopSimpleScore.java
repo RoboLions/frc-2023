@@ -81,12 +81,20 @@ public class TopSimpleScore extends AutoModeBase {
             return timer.hasElapsed(Constants.INTAKE.OUTTAKE_TIME);
         }));
 
+        // stop intake
         runAction(new LambdaAction(() -> RobotMap.intakeStateMachine.setCurrentState(IntakeStateMachine.idleState)));
 
         // put arm to idle
-        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.elbowIdleState)));
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.maintainState(ArmStateMachine.elbowIdleState)));
 
-        // drive out of the community
+        runAction(new ConditionAction(() -> {
+            return Arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
+        }));
+
+        // put arm to idle
+        runAction(new LambdaAction(() -> RobotMap.armStateMachine.setCurrentState(ArmStateMachine.idleState)));
+
+        // drive out of the community to get cube
         runAction(driveOut);
 
         System.out.println("Finished auto!");

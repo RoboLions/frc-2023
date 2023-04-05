@@ -15,6 +15,8 @@ import frc.robot.lib.statemachine.Transition;
 /** Add your docs here. */
 public class ManualMoveState extends State {
 
+    State prevState;
+
     @Override
     public void build() {
         // idle if idle button
@@ -45,20 +47,21 @@ public class ManualMoveState extends State {
 
     @Override
     public void init(State prevState) {
+        this.prevState = prevState;
     }
 
     @Override
     public void execute() {
         
         double elbowInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.ELBOW_AXIS);
-        RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput));
+        RobotMap.leftElbowMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(elbowInput) * 0.31);
 
         double shoulderInput = RobotMap.manipulatorController.getRawAxis(ManipulatorControls.SHOULDER_AXIS);
-        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(-shoulderInput));
+        RobotMap.leftShoulderMotor.set(ControlMode.PercentOutput, RobotMap.arm.applyDeadband(-shoulderInput) * 0.31);
     }
 
     @Override
     public void exit(State nextState) {
-        RobotMap.arm.manualEncoderFix(nextState);
+        RobotMap.arm.manualEncoderFix(this.prevState);
     }
 }
