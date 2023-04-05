@@ -36,13 +36,13 @@ public class Arm {
         RobotMap.leftShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.leftShoulderMotor.configNominalOutputReverse(0, 10);
         RobotMap.leftShoulderMotor.configPeakOutputForward(0.25, 10);
-        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.22, 10);
+        RobotMap.leftShoulderMotor.configPeakOutputReverse(-0.2, 10);
         RobotMap.leftShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.rightShoulderMotor.configNominalOutputForward(0, 10);
         RobotMap.rightShoulderMotor.configNominalOutputReverse(0, 10);
         RobotMap.rightShoulderMotor.configPeakOutputForward(0.25, 10);
-        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.22, 10);
+        RobotMap.rightShoulderMotor.configPeakOutputReverse(-0.2, 10);
         RobotMap.rightShoulderMotor.configNeutralDeadband(0.001, 10);
 
         RobotMap.leftElbowMotor.configNominalOutputForward(0, 10);

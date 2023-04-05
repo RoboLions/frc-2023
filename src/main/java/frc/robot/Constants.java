@@ -273,8 +273,8 @@ public final class Constants {
         // public static final double SHOULDER_POSITION = 75500.0; // 44000.0;
         // public static final double ELBOW_POSITION = 125000.0; // 57000.0;
 
-        public static final double SHOULDER_POSITION = 20000; // 38400.0;
-        public static final double ELBOW_POSITION = 27000; // 66100.0;
+        public static final double SHOULDER_POSITION = 37500; // 38400.0;
+        public static final double ELBOW_POSITION = 44000; // 66100.0;
     }
 
     public static final class MID_SCORE_CUBE {

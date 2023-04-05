@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.LED.LEDStateMachine;
+import frc.robot.subsystems.arm.ArmStateMachine;
 
 /** Class with methods related to the claw or color sensor */
 public class Intake {
@@ -29,6 +30,8 @@ public class Intake {
     public void runOuttake() {
         if (RobotMap.ledStateMachine.getCurrentState() == LEDStateMachine.coneLEDState) {
             RobotMap.intakeMotor.set(ControlMode.PercentOutput, -1.0 * Constants.INTAKE.OUTTAKE_POWER);
+        } else if (RobotMap.ledStateMachine.getCurrentState() == LEDStateMachine.coneLEDState && RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.scoreMidState) {
+            RobotMap.intakeMotor.set(ControlMode.PercentOutput, -1.0 * Constants.INTAKE.OUTTAKE_POWER * 1.4);
         } else {
             RobotMap.intakeMotor.set(ControlMode.PercentOutput, Constants.INTAKE.OUTTAKE_POWER);
         }
