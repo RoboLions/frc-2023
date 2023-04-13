@@ -16,7 +16,7 @@ public class ElbowIdleState extends State {
     @Override
     public void build() {
         transitions.add(new Transition(() -> {
-            return Arm.getArrived(Constants.ELBOW_IDLE.ALLOWANCE, Constants.ELBOW_IDLE.TIME);
+            return RobotMap.leftElbowMotor.getSelectedSensorPosition() < Constants.ELBOW_IDLE.ELBOW_POSITION;
         }, ArmStateMachine.idleState));
 
         transitions.add(new Transition(() -> {
@@ -26,6 +26,10 @@ public class ElbowIdleState extends State {
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.SUBSTATION_INTAKE_BUTTON);
         }, ArmStateMachine.substationIntakeState));
+
+        transitions.add(new Transition(() -> {
+            return RobotMap.manipulatorController.getRawAxis(Constants.ManipulatorControls.GROUND_INTAKE_FRONT) > 0.25;
+        }, ArmStateMachine.groundPickupState));
     }
     
     @Override

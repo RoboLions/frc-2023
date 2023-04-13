@@ -86,9 +86,9 @@ public class Arm {
     }
 
     public void setElbowIdle() {
-        RobotMap.leftShoulderMotor.getSelectedSensorPosition();
-        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, Constants.ELBOW_IDLE.ELBOW_POSITION);
-        elbowTarget = Constants.ELBOW_IDLE.ELBOW_POSITION;
+        // RobotMap.leftShoulderMotor.getSelectedSensorPosition();
+        RobotMap.leftElbowMotor.set(TalonFXControlMode.Position, 0.0);
+        elbowTarget = 0.0;
     }
 
     public void moveArmPosition(double shoulder, double elbow) {

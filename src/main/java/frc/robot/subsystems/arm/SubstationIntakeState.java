@@ -18,7 +18,7 @@ public class SubstationIntakeState extends State {
         // Go to IDLE Transitions
         transitions.add(new Transition(() -> {
             return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
-        }, ArmStateMachine.elbowIdleState));
+        }, ArmStateMachine.idleState));
 
        transitions.add(new Transition(() -> {
         return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.MANUAL_MODE_BUTTON);

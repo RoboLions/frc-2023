@@ -21,7 +21,15 @@ public class ManualMoveState extends State {
     public void build() {
         // idle if idle button
         transitions.add(new Transition(() -> {
-            return RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
+            return prevState == ArmStateMachine.idleState && RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
+        }, ArmStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return prevState == ArmStateMachine.substationIntakeState && RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
+        }, ArmStateMachine.idleState));
+
+        transitions.add(new Transition(() -> {
+            return prevState != ArmStateMachine.idleState && RobotMap.manipulatorController.getRawButton(Constants.ManipulatorControls.IDLE_BUTTON);
         }, ArmStateMachine.elbowIdleState));
 
         transitions.add(new Transition(() -> {

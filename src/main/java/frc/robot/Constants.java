@@ -300,7 +300,7 @@ public final class Constants {
     }
 
     public static final class ELBOW_IDLE {
-        public static final double ELBOW_POSITION = 30000.0;
+        public static final double ELBOW_POSITION = 60000.0;
         public static final double ALLOWANCE = 10000.0;
         public static final double TIME = 0.2;
     }
