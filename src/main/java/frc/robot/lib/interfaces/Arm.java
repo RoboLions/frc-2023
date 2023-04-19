@@ -23,7 +23,8 @@ public class Arm {
     private static Timer timer = new Timer();
     private static double shoulderTarget = 0.0;
     private static double elbowTarget = 0.0;
-
+    
+    
     public Arm() {
         RobotMap.rightShoulderMotor.setInverted(true);
         RobotMap.rightElbowMotor.setInverted(true);

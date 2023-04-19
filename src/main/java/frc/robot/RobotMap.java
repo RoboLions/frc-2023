@@ -46,7 +46,6 @@ public class RobotMap {
     public static XboxController driverController;
 
     public static void init() {
-        
         gyro = new WPI_Pigeon2(Constants.CAN_IDS.PIDGEON, "Swerve");
         leftShoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.LEFT_SHOULDER_MOTOR);
         rightShoulderMotor = new WPI_TalonFX(Constants.CAN_IDS.RIGHT_SHOULDER_MOTOR);

@@ -6,12 +6,20 @@ package frc.robot;
 
 import java.util.Optional;
 
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -31,7 +39,7 @@ import frc.robot.subsystems.drive.DrivetrainStateMachine;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot  {
 
   // auto instances
 	private AutoModeExecutor autoModeExecutor;
@@ -43,12 +51,31 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Logger logger = Logger.getInstance();
+    logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
+
+if (isReal()) {
+    logger.addDataReceiver(new WPILOGWriter("/media/sda1/")); // Log to a USB stick
+    logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+    new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+} else {
+    setUseTiming(false); // Run as fast as possible
+    String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+    logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
+    logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+}
+
+    // logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the "Understanding Data Flow" page
+    logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+
     RobotMap.init();
     Swerve.zeroPitch();
     Swerve.zeroRoll();
     RobotMap.arm.resetEncoders();
     SmartDashboard.putData("Field", RobotMap.Field2d);
     RobotMap.intakeMotor.setNeutralMode(NeutralMode.Brake);
+
+    logger.start();
   }
 
   /**

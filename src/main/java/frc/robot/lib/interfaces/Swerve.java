@@ -7,6 +7,7 @@ package frc.robot.lib.interfaces;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.littletonrobotics.junction.Logger;
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;

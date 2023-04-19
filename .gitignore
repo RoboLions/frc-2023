@@ -110,6 +110,10 @@ Temporary Items
 !.vscode/launch.json
 !.vscode/extensions.json
 
+#VersionFile
+src/main/java/frc/robot/BuildConstants.java
+
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
