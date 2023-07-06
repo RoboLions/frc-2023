@@ -23,6 +23,11 @@ public class TeleopState extends State {
         new TrapezoidProfile.Constraints(1, 1);
 
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+
+    private final TrapezoidProfile.Constraints m_Constraints1 =
+        new TrapezoidProfile.Constraints(1, 1);
+
+    private TrapezoidProfile.State m_setpoint1 = new TrapezoidProfile.State();
     
     double translationValScalar;
 
@@ -82,7 +87,23 @@ public class TeleopState extends State {
 
         translationVal = m_setpoint.position;
 
+
+
+
+        TrapezoidProfile.State m_goal1 = new TrapezoidProfile.State(strafeVal, 0.0);
+        // Create a motion profile with the given maximum velocity and maximum
+        // acceleration constraints for the next setpoint, the desired goal, and the
+        // current setpoint.
+        var profile1 = new TrapezoidProfile(m_Constraints1, m_goal1, m_setpoint1);
+
+        // Retrieve the profiled setpoint for the next timestep. This setpoint moves
+        // toward the goal while obeying the constraints.
+        m_setpoint1 = profile1.calculate(0.02);
+
+        strafeVal = m_setpoint1.position;
+
         SmartDashboard.putNumber("translationVal", translationVal);
+        SmartDashboard.putNumber("strafeVal", strafeVal);
         // if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
         //     translationVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.TRANSLATION_VAL), Constants.STICK_DEADBAND);
         //     strafeVal = MathUtil.applyDeadband(-RobotMap.driverController.getRawAxis(Constants.DriverControls.STRAFE_VAL), Constants.STICK_DEADBAND);
@@ -149,12 +170,12 @@ public class TeleopState extends State {
             strafeVal = strafeFilter.calculate(strafeVal);
         }
 
-        RobotMap.swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(translationValScalar), 
-            rotationVal,
-            true, 
-            false
-        );
+        // RobotMap.swerve.drive(
+        //     new Translation2d(translationVal, strafeVal).times(translationValScalar), 
+        //     rotationVal,
+        //     true, 
+        //     false
+        // );
     }
 
     @Override
