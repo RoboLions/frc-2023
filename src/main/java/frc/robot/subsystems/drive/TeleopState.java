@@ -145,11 +145,11 @@ public class TeleopState extends State {
 
         if (RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.groundPickupState) {
             translationValScalar = 2.0;
-            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.6;
+            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.65;
         } else if (RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.scoreHighState || 
                    RobotMap.armStateMachine.getCurrentState() == ArmStateMachine.scoreMidState) {
             translationValScalar = 2.0;
-            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.3;
+            rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY * 0.35;
         } else {
             translationValScalar = Constants.SWERVE.MAX_SPEED;
             rotationVal = rotationVal * Constants.SWERVE.MAX_ANGULAR_VELOCITY;
@@ -170,12 +170,12 @@ public class TeleopState extends State {
             strafeVal = strafeFilter.calculate(strafeVal);
         }
 
-        // RobotMap.swerve.drive(
-        //     new Translation2d(translationVal, strafeVal).times(translationValScalar), 
-        //     rotationVal,
-        //     true, 
-        //     false
-        // );
+        RobotMap.swerve.drive(
+            new Translation2d(translationVal, strafeVal).times(translationValScalar), 
+            rotationVal,
+            true, 
+            false
+        );
     }
 
     @Override
