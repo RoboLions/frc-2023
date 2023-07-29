@@ -6,6 +6,13 @@ package frc.robot;
 
 import java.util.Optional;
 
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -15,13 +22,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.lib.auto.AutoModeBase;
-import frc.robot.lib.auto.AutoModeExecutor;
-import frc.robot.lib.auto.AutoModeSelector;
+
 import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.LED;
 import frc.robot.lib.interfaces.Swerve;
-import frc.robot.lib.interfaces.SwerveModule;
+import frc.robot.lib.interfaces.SwerveModuleFalcon500;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
@@ -31,11 +36,11 @@ import frc.robot.subsystems.drive.DrivetrainStateMachine;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot{
 
   // auto instances
-	private AutoModeExecutor autoModeExecutor;
-	private AutoModeSelector autoModeSelector = new AutoModeSelector();
+	// private AutoModeExecutor autoModeExecutor;
+	// private AutoModeSelector autoModeSelector = new AutoModeSelector();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -43,6 +48,55 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Logger logger = Logger.getInstance();
+
+    // Record metadata
+    logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+    logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    switch (BuildConstants.DIRTY) {
+      case 0:
+        logger.recordMetadata("GitDirty", "All changes committed");
+        break;
+      case 1:
+        logger.recordMetadata("GitDirty", "Uncomitted changes");
+        break;
+      default:
+        logger.recordMetadata("GitDirty", "Unknown");
+        break;
+    }
+
+    // Set up data receivers & replay source
+    switch (Constants.currentMode) {
+      //Advantage Kit example code
+      case REAL:
+        logger.addDataReceiver(new WPILOGWriter("C:\\WPILOG"));
+        logger.addDataReceiver(new NT4Publisher());
+        break;
+
+      // Running a physics simulator, log to local folder
+      case SIM:
+        logger.addDataReceiver(new WPILOGWriter("C:\\WPILOG"));
+        logger.addDataReceiver(new NT4Publisher());
+        break;
+
+      // Replaying a log, set up replay source
+      case REPLAY:
+        setUseTiming(false); // Run as fast as possible
+        String logPath = LogFileUtil.findReplayLog();
+        logger.setReplaySource(new WPILOGReader(logPath));
+        logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        break;
+    }
+
+    // See http://bit.ly/3YIzFZ6 for more information on timestamps in AdvantageKit.
+    // Logger.getInstance().disableDeterministicTimestamps()
+
+    // Start AdvantageKit logger
+    logger.start();
+    
     RobotMap.init();
     Swerve.zeroPitch();
     Swerve.zeroRoll();
@@ -123,12 +177,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
-    if (autoMode.isPresent()) {
-      RobotMap.swerve.resetOdometry(autoMode.get().getStartingPose());
-    }
+  //   Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
+  //   if (autoMode.isPresent()) {
+  //     RobotMap.swerve.resetOdometry(autoMode.get().getStartingPose());
+  //   }
 
-		autoModeExecutor.start();
+	// 	autoModeExecutor.start();
   }
 
   /** This function is called periodically during autonomous. */
@@ -147,9 +201,9 @@ public class Robot extends TimedRobot {
     RobotMap.leftElbowMotor.setNeutralMode(NeutralMode.Brake);
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Brake);
 
-    if (autoModeExecutor != null) {
-      autoModeExecutor.stop();
-    }
+    // if (autoModeExecutor != null) {
+    //   autoModeExecutor.stop();
+    // }
 
   }
 
@@ -182,9 +236,9 @@ public class Robot extends TimedRobot {
     //   Swerve.mSwerveMods[2].mDriveMotor.getSelectedSensorVelocity() + "," + 
     //   Swerve.mSwerveMods[3].mDriveMotor.getSelectedSensorVelocity()
     // );
-    if (autoModeExecutor != null) {
-      autoModeExecutor.stop();
-    }
+    // if (autoModeExecutor != null) {
+    //   autoModeExecutor.stop();
+    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -197,24 +251,24 @@ public class Robot extends TimedRobot {
     RobotMap.rightElbowMotor.setNeutralMode(NeutralMode.Coast);
     RobotMap.intakeMotor.setNeutralMode(NeutralMode.Coast);
     
-    if (autoModeExecutor != null) {
-      autoModeExecutor.stop();
-    }
+  //   if (autoModeExecutor != null) {
+  //     autoModeExecutor.stop();
+  //   }
 
-    // Reset all auto mode state.
-    autoModeSelector.reset();
-    autoModeSelector.updateModeCreator();
-    autoModeExecutor = new AutoModeExecutor();
-  }
+  //   // Reset all auto mode state.
+  //   autoModeSelector.reset();
+  //   autoModeSelector.updateModeCreator();
+  //   autoModeExecutor = new AutoModeExecutor();
+  // }
 
-  @Override
-  public void disabledPeriodic() {
-    autoModeSelector.updateModeCreator();
-    Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
-    if (autoMode.isPresent() && autoMode.get() != autoModeExecutor.getAutoMode()) {
-      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
-      autoModeExecutor.setAutoMode(autoMode.get());
-    }
+  // @Override
+  // public void disabledPeriodic() {
+  //   autoModeSelector.updateModeCreator();
+  //   Optional<AutoModeBase> autoMode = autoModeSelector.getAutoMode();
+  //   if (autoMode.isPresent() && autoMode.get() != autoModeExecutor.getAutoMode()) {
+  //     System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+  //     autoModeExecutor.setAutoMode(autoMode.get());
+  //   }
   }
 
   @Override

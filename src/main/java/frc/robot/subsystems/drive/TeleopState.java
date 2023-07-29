@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.lib.interfaces.Swerve;
-import frc.robot.lib.interfaces.SwerveModule;
+import frc.robot.lib.interfaces.SwerveModuleFalcon500;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 import frc.robot.subsystems.arm.ArmStateMachine;

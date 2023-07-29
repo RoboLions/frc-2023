@@ -7,8 +7,6 @@ package frc.robot.lib.interfaces;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.photonvision.PhotonCamera;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -29,13 +27,17 @@ import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotMap;
 import frc.robot.LimelightHelpers.LimelightResults;
+import frc.robot.lib.math.Conversions;
 
 /** Class with methods that get used in states of DrivetrainStateMachine */
 public class Swerve {
 
     public static SwerveDrivePoseEstimator swerveOdometry;
+    
     public static SwerveModule[] mSwerveMods;
 
+    public static GyroIO gyro;
+    private final static GyroIOInputsAutoLogged GyroInputs = new GyroIOInputsAutoLogged();
     //public static PhotonCamera camera;
 
     private double previousPipelineTimestamp = 0;
@@ -59,7 +61,11 @@ public class Swerve {
     public static boolean rightShift = false;
     public static boolean bButton = false;
 
-    public Swerve() {
+    public Swerve(GyroIO gyro,
+    SwerveModuleIO flModuleIO,
+    SwerveModuleIO frModuleIO,
+    SwerveModuleIO blModuleIO,
+    SwerveModuleIO brModuleIO) {
         
         try {
             aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
@@ -68,11 +74,12 @@ public class Swerve {
             aprilTagFieldLayout = null;
         }
 
-        mSwerveMods = new SwerveModule[] {
-            new SwerveModule(0, Constants.SWERVE.Mod0.constants),
-            new SwerveModule(1, Constants.SWERVE.Mod1.constants),
-            new SwerveModule(2, Constants.SWERVE.Mod2.constants),
-            new SwerveModule(3, Constants.SWERVE.Mod3.constants)
+        this.gyro = gyro;
+        mSwerveMods = new SwerveModule[]{
+            new SwerveModule(flModuleIO, 0),
+            new SwerveModule(frModuleIO, 1),
+            new SwerveModule(blModuleIO, 2),
+            new SwerveModule(brModuleIO, 3),
         };
 
         swerveOdometry = new SwerveDrivePoseEstimator(
@@ -86,6 +93,12 @@ public class Swerve {
     }
 
     public static void periodic() {
+
+        for(SwerveModule mod : mSwerveMods){
+            mod.period();
+        }
+        gyro.updateInputs(GyroInputs);
+
         boolean leftShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON);
         leftShift = !leftShiftPrev && leftShiftCurr;
         leftShiftPrev = leftShiftCurr;
@@ -173,7 +186,7 @@ public class Swerve {
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SWERVE.MAX_SPEED);
 
         for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+            mod.io.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop, mod.getState());
         }
     }    
 
@@ -182,7 +195,7 @@ public class Swerve {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.SWERVE.MAX_SPEED);
         
         for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(desiredStates[mod.moduleNumber], false);
+            mod.io.setDesiredState(desiredStates[mod.moduleNumber], false, mod.getState());
         }
     }
     
@@ -322,7 +335,8 @@ public class Swerve {
 
     public void resetModulesToAbsolute(){
         for(SwerveModule mod : mSwerveMods){
-            mod.resetToAbsolute();
+            double absolutePosition = Conversions.degreesToFalcon(mod.getCanCoder().getDegrees() - mod.angleOffset.getDegrees(), Constants.SWERVE.ANGLE_GEAR_RATIO);
+            mod.io.resetToAbsolute(absolutePosition);
         }
     }
     

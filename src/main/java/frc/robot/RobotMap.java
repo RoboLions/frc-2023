@@ -7,8 +7,12 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
+import frc.robot.lib.interfaces.GyroIO;
+import frc.robot.lib.interfaces.GyroPigeon2;
 import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.SwerveModuleFalcon500;
+import frc.robot.lib.interfaces.SwerveModuleIO;
 import frc.robot.lib.interfaces.LED;
 import frc.robot.subsystems.LED.LEDStateMachine;
 import frc.robot.subsystems.arm.ArmStateMachine;
@@ -61,8 +65,26 @@ public class RobotMap {
         rightElbowMotor.configFactoryDefault();
         intakeMotor.configFactoryDefault();
         
-        swerve = new Swerve();
-        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
+        switch(Constants.currentMode){
+            case REAL:
+                swerve = new Swerve(
+                new GyroPigeon2(Constants.CAN_IDS.PIDGEON),
+                new SwerveModuleFalcon500(Constants.SWERVE.Mod0.constants),
+                new SwerveModuleFalcon500(Constants.SWERVE.Mod1.constants),
+                new SwerveModuleFalcon500(Constants.SWERVE.Mod2.constants),
+                new SwerveModuleFalcon500(Constants.SWERVE.Mod3.constants));
+                break;
+            case REPLAY:
+            swerve = new Swerve(
+                new GyroIO(){},
+                new SwerveModuleIO(){},
+                new SwerveModuleIO(){},
+                new SwerveModuleIO(){},
+                new SwerveModuleIO(){});
+            default:
+                break;
+    
+    }        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
         * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info. */
         Timer.delay(1.0);
         swerve.resetModulesToAbsolute();
