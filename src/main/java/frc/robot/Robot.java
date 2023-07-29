@@ -122,7 +122,7 @@ public class Robot extends LoggedRobot{
 
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
-    Swerve.periodic();
+    RobotMap.swerve.periodic();
     LED.periodic();
 
     // see robot pose on Glass

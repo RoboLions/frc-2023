@@ -36,7 +36,7 @@ public class Swerve {
     
     public static SwerveModule[] mSwerveMods;
 
-    public static GyroIO gyro;
+    public GyroIO gyro;
     private final static GyroIOInputsAutoLogged GyroInputs = new GyroIOInputsAutoLogged();
     //public static PhotonCamera camera;
 
@@ -92,7 +92,7 @@ public class Swerve {
         // camera = new PhotonCamera("Arducam_OV9281_USB_Camera"); //HD_USB_Camera
     }
 
-    public static void periodic() {
+    public void periodic() {
 
         for(SwerveModule mod : mSwerveMods){
             mod.period();
