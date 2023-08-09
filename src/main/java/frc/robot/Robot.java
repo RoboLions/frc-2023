@@ -25,8 +25,7 @@ import edu.wpi.first.wpilibj.util.Color;
 
 import frc.robot.lib.interfaces.Intake;
 import frc.robot.lib.interfaces.LED;
-import frc.robot.lib.interfaces.Swerve;
-import frc.robot.lib.interfaces.SwerveModuleFalcon500;
+import frc.robot.lib.interfaces.Swerve.Swerve;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
 
@@ -123,6 +122,7 @@ public class Robot extends LoggedRobot{
     // update swerve pose estimator
     RobotMap.swerve.updatePoses();
     RobotMap.swerve.periodic();
+    RobotMap.elevator.periodic();
     LED.periodic();
 
     // see robot pose on Glass

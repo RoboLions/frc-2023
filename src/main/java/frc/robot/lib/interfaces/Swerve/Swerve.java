@@ -2,10 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.lib.interfaces;
+package frc.robot.lib.interfaces.Swerve;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -84,7 +86,7 @@ public class Swerve {
 
         swerveOdometry = new SwerveDrivePoseEstimator(
             Constants.SWERVE.SWERVE_KINEMATICS, 
-            RobotMap.gyro.getRotation2d(), 
+            Rotation2d.fromDegrees(GyroInputs.yaw), 
             getModulePositions(), 
             new Pose2d()
         );
@@ -93,11 +95,11 @@ public class Swerve {
     }
 
     public void periodic() {
-
         for(SwerveModule mod : mSwerveMods){
             mod.period();
         }
         gyro.updateInputs(GyroInputs);
+        Logger.getInstance().processInputs("GYRO", GyroInputs);
 
         boolean leftShiftCurr = RobotMap.driverController.getRawButton(Constants.DriverControls.SHIFT_LEFT_BUTTON);
         leftShift = !leftShiftPrev && leftShiftCurr;

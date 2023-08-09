@@ -1,4 +1,4 @@
-package frc.robot.lib.interfaces;
+package frc.robot.lib.interfaces.Swerve;
 
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import frc.robot.Constants;
-
+import frc.robot.lib.interfaces.CTREConfigs;
 import frc.robot.lib.math.Conversions;
 import frc.robot.lib.util.CTREModuleState;
 import frc.robot.lib.util.SwerveModuleConstants;
@@ -46,7 +46,8 @@ public class SwerveModuleFalcon500 implements SwerveModuleIO{
         /* Drive Motor Config */
         mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
         configDriveMotor();
-               
+        
+        lastAngle = Rotation2d.fromDegrees(Conversions.falconToDegrees(mAngleMotor.getSelectedSensorPosition(), Constants.SWERVE.ANGLE_GEAR_RATIO));
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop, SwerveModuleState state){

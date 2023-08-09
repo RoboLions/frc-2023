@@ -4,7 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.Swerve.Swerve;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 

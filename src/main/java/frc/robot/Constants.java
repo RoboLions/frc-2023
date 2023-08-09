@@ -32,7 +32,10 @@ public final class Constants {
         public static final int INTAKE_MOTOR = 55;
         public static final int CANdle = 34;
     }
-
+    public static final class Elevator{
+        public static final int elevatorNormalMotor = 0;
+        public static final int elevatorRerverseMotor = 0;
+    }
     public static final class PORTS {
         public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
     }

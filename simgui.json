@@ -1,0 +1,21 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Field": "Field2d"
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "AdvantageKit": {
+        "Elevator": {
+          "open": true
+        },
+        "Reverse Elevator": {
+          "open": true
+        },
+        "open": true
+      }
+    }
+  }
+}

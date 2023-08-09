@@ -7,13 +7,16 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.lib.interfaces.Arm;
-import frc.robot.lib.interfaces.GyroIO;
-import frc.robot.lib.interfaces.GyroPigeon2;
 import frc.robot.lib.interfaces.Intake;
-import frc.robot.lib.interfaces.Swerve;
-import frc.robot.lib.interfaces.SwerveModuleFalcon500;
-import frc.robot.lib.interfaces.SwerveModuleIO;
 import frc.robot.lib.interfaces.LED;
+import frc.robot.lib.interfaces.Elevator.Elevator;
+import frc.robot.lib.interfaces.Elevator.ElevatorFalcon500;
+import frc.robot.lib.interfaces.Elevator.ElevatorIO;
+import frc.robot.lib.interfaces.Swerve.GyroIO;
+import frc.robot.lib.interfaces.Swerve.GyroPigeon2;
+import frc.robot.lib.interfaces.Swerve.Swerve;
+import frc.robot.lib.interfaces.Swerve.SwerveModuleFalcon500;
+import frc.robot.lib.interfaces.Swerve.SwerveModuleIO;
 import frc.robot.subsystems.LED.LEDStateMachine;
 import frc.robot.subsystems.arm.ArmStateMachine;
 import frc.robot.subsystems.drive.DrivetrainStateMachine;
@@ -40,6 +43,7 @@ public class RobotMap {
     public static Field2d Field2d;
 
     /* Interface instances */
+    public static Elevator elevator;
     public static Swerve swerve; 
     public static Arm arm;
     public static Intake intake;
@@ -67,6 +71,11 @@ public class RobotMap {
         
         switch(Constants.currentMode){
             case REAL:
+                elevator = new Elevator(
+                    new ElevatorFalcon500(Constants.Elevator.elevatorNormalMotor),
+                    new ElevatorFalcon500(Constants.Elevator.elevatorRerverseMotor)
+                );
+
                 swerve = new Swerve(
                 new GyroPigeon2(Constants.CAN_IDS.PIDGEON),
                 new SwerveModuleFalcon500(Constants.SWERVE.Mod0.constants),
@@ -75,12 +84,17 @@ public class RobotMap {
                 new SwerveModuleFalcon500(Constants.SWERVE.Mod3.constants));
                 break;
             case REPLAY:
-            swerve = new Swerve(
-                new GyroIO(){},
-                new SwerveModuleIO(){},
-                new SwerveModuleIO(){},
-                new SwerveModuleIO(){},
-                new SwerveModuleIO(){});
+                elevator = new Elevator(
+                    new ElevatorIO(){}, 
+                    new ElevatorIO(){});
+                    
+                swerve = new Swerve(
+                    new GyroIO(){},
+                    new SwerveModuleIO(){},
+                    new SwerveModuleIO(){},
+                    new SwerveModuleIO(){},
+                    new SwerveModuleIO(){});
+                    break;
             default:
                 break;
     

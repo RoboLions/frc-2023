@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.lib.interfaces.Swerve;
+import frc.robot.lib.interfaces.Swerve.Swerve;
 import frc.robot.lib.statemachine.State;
 import frc.robot.lib.statemachine.Transition;
 

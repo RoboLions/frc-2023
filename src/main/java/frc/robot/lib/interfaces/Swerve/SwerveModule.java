@@ -2,7 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.lib.interfaces;
+package frc.robot.lib.interfaces.Swerve;
+
+import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -41,6 +43,7 @@ public class SwerveModule {
 
     public void period(){
         io.updateInputs(inputs);
+        Logger.getInstance().processInputs("SwerveMOD" + moduleNumber, inputs);
     }
     
     private Rotation2d getAngle(){
