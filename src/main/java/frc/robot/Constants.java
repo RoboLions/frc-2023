@@ -35,6 +35,15 @@ public final class Constants {
     public static final class Elevator{
         public static final int elevatorNormalMotor = 0;
         public static final int elevatorRerverseMotor = 0;
+
+        public static final int kP = 0;
+        public static final int kI = 0;
+        public static final int kD = 0;
+        public static final TrapezoidProfile.Constraints constraints = 
+        new TrapezoidProfile.Constraints(0.0, 0.0);
+    }
+    public static final class Wrist{
+        public static final int wristMotorID = 0;
     }
     public static final class PORTS {
         public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
@@ -441,7 +450,7 @@ public final class Constants {
          */
         public static final int INTAKE_AXIS = XboxController.Axis.kLeftTrigger.value;
     }
-    public static final Mode currentMode = Mode.REAL;
+    public static final Mode currentMode = Mode.SIM;
 
     public static enum Mode {
       /** Running on a real robot. */

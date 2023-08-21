@@ -12,6 +12,9 @@ public interface ElevatorIO {
     public static class ElevatorIOInputs{
         double elevatorSensorPosition;
         double elevatorSensorvelocity;
+        double elevetorPercentOutput;
     }
+    public default void setMotorPositionOutput(double position){}
+    public default void setMotorPercentOutput(double output){}
     public default void updateInputs(ElevatorIOInputs inputs){}
 }

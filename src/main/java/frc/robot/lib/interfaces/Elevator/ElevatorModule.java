@@ -8,13 +8,15 @@ import org.littletonrobotics.junction.Logger;
 
 /** Add your docs here. */
 public class ElevatorModule {
-    private final String motorName;
-    private final ElevatorIO io;
-    private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+    public final String motorName;
+    final ElevatorIO io;
+    public final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+
     public ElevatorModule(ElevatorIO io, String motorName){
         this.io = io;
         this.motorName = motorName;
     }
+
     public void periodic(){
         io.updateInputs(inputs);
         Logger.getInstance().processInputs(motorName + " Elevator", inputs);

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.io.File;
 import java.util.Optional;
 
 import org.littletonrobotics.junction.LogFileUtil;
@@ -17,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
@@ -71,13 +73,22 @@ public class Robot extends LoggedRobot{
     switch (Constants.currentMode) {
       //Advantage Kit example code
       case REAL:
-        logger.addDataReceiver(new WPILOGWriter("C:\\WPILOG"));
+        logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
         logger.addDataReceiver(new NT4Publisher());
         break;
 
       // Running a physics simulator, log to local folder
       case SIM:
-        logger.addDataReceiver(new WPILOGWriter("C:\\WPILOG"));
+
+      File f1 = new File(Filesystem.getDeployDirectory() + "/Sim");  
+      //Creating a folder using mkdir() method  
+      boolean bool = f1.mkdir();  
+      if(bool){  
+         System.out.println("Folder is created successfully");  
+      }else{  
+         System.out.println("Error Found!");  
+      }  
+        logger.addDataReceiver(new WPILOGWriter(Filesystem.getDeployDirectory() + "/Sim"));
         logger.addDataReceiver(new NT4Publisher());
         break;
 
